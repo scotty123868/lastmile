@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0A0A0B;
+  --color-ink-secondary: #52525B;
+  --color-ink-tertiary: #A1A1AA;
+  --color-ink-faint: #D4D4D8;
+  --color-surface: #FAFAFA;
+  --color-surface-raised: #FFFFFF;
+  --color-surface-sunken: #F4F4F5;
+  --color-border: #E4E4E7;
+  --color-border-subtle: #F4F4F5;
+  --color-blue: #2563EB;
+  --color-blue-muted: #EFF6FF;
+  --color-green: #16A34A;
+  --color-green-muted: #F0FDF4;
+  --color-amber: #D97706;
+  --color-amber-muted: #FFFBEB;
+  --color-red: #DC2626;
+  --color-red-muted: #FEF2F2;
+  --color-nav-bg: #09090B;
+  --color-nav-surface: #18181B;
+  --color-nav-border: #27272A;
+  --color-nav-text: #71717A;
+  --color-nav-text-active: #FAFAFA;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'SF Mono', 'Berkeley Mono', 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  line-height: 1.5;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'salt';
+}
+
+#root { min-height: 100vh; isolation: isolate; }
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.025em;
+}
+
+::selection { background: rgba(37, 99, 235, 0.12); color: inherit; }
+
+:focus-visible {
+  outline: 1.5px solid var(--color-blue);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); border-radius: 100px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.18); }
+* { scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.08) transparent; }
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.animate-pulse-live { animation: pulse-live 2s ease-in-out infinite; }
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-in { animation: slide-in 0.3s ease-out forwards; }
