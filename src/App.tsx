@@ -12,6 +12,7 @@ import Impact from './pages/Impact';
 import DataIntelligence from './pages/DataIntelligence';
 import Assistant from './pages/Assistant';
 import Analytics from './pages/Analytics';
+import Assessment from './pages/Assessment';
 import { useCompany } from './data/CompanyContext';
 
 const routeTitles: Record<string, string> = {
@@ -24,6 +25,7 @@ const routeTitles: Record<string, string> = {
   '/data-intelligence': 'Data Intelligence',
   '/assistant': 'AI Assistant',
   '/analytics': 'Analytics',
+  '/assessment': 'Assessment',
 };
 
 function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
@@ -80,6 +82,7 @@ function AnimatedRoutes() {
           <Route path="/data-intelligence" element={<DataIntelligence />} />
           <Route path="/assistant" element={<Assistant />} />
           <Route path="/analytics" element={<Analytics />} />
+          <Route path="/assessment" element={<Assessment />} />
           <Route path="*" element={<Navigate to="/workflows" replace />} />
         </Routes>
       </motion.div>

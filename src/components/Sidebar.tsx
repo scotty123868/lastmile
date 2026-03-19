@@ -13,11 +13,13 @@ import {
   X,
   MessageSquare,
   BarChart3,
+  ClipboardCheck,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
 
 const navItems = [
   { to: '/analytics', icon: BarChart3, label: 'Analytics' },
+  { to: '/assessment', icon: ClipboardCheck, label: 'Assessment' },
   { to: '/workflows', icon: Activity, label: 'Live Workflows' },
   { to: '/verification', icon: ShieldCheck, label: 'Verification Ledger' },
   { to: '/context', icon: Database, label: 'Context Pipeline' },
