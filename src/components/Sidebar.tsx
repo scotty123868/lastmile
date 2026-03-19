@@ -7,19 +7,25 @@ import {
   Users,
   Plug,
   TrendingUp,
+  Layers,
   ChevronDown,
   Zap,
   X,
+  MessageSquare,
+  BarChart3,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
 
 const navItems = [
+  { to: '/analytics', icon: BarChart3, label: 'Analytics' },
   { to: '/workflows', icon: Activity, label: 'Live Workflows' },
   { to: '/verification', icon: ShieldCheck, label: 'Verification Ledger' },
   { to: '/context', icon: Database, label: 'Context Pipeline' },
   { to: '/adoption', icon: Users, label: 'Adoption Pulse' },
   { to: '/integrations', icon: Plug, label: 'Integrations' },
   { to: '/impact', icon: TrendingUp, label: 'Impact' },
+  { to: '/data-intelligence', icon: Layers, label: 'Data Intelligence' },
+  { to: '/assistant', icon: MessageSquare, label: 'AI Assistant' },
 ];
 
 const pillarColors: Record<string, string> = {

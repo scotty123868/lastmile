@@ -9,6 +9,9 @@ import ContextPipeline from './pages/ContextPipeline';
 import AdoptionPulse from './pages/AdoptionPulse';
 import Integrations from './pages/Integrations';
 import Impact from './pages/Impact';
+import DataIntelligence from './pages/DataIntelligence';
+import Assistant from './pages/Assistant';
+import Analytics from './pages/Analytics';
 import { useCompany } from './data/CompanyContext';
 
 const routeTitles: Record<string, string> = {
@@ -18,6 +21,9 @@ const routeTitles: Record<string, string> = {
   '/adoption': 'Adoption Pulse',
   '/integrations': 'Integrations',
   '/impact': 'Impact',
+  '/data-intelligence': 'Data Intelligence',
+  '/assistant': 'AI Assistant',
+  '/analytics': 'Analytics',
 };
 
 function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
@@ -71,6 +77,9 @@ function AnimatedRoutes() {
           <Route path="/adoption" element={<AdoptionPulse />} />
           <Route path="/integrations" element={<Integrations />} />
           <Route path="/impact" element={<Impact />} />
+          <Route path="/data-intelligence" element={<DataIntelligence />} />
+          <Route path="/assistant" element={<Assistant />} />
+          <Route path="/analytics" element={<Analytics />} />
           <Route path="*" element={<Navigate to="/workflows" replace />} />
         </Routes>
       </motion.div>

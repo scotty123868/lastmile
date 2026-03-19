@@ -1,0 +1,647 @@
+import { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  BarChart3,
+  TrendingUp,
+  Workflow,
+  DollarSign,
+  Gauge,
+  AlertTriangle,
+  ChevronRight,
+  ToggleLeft,
+  ToggleRight,
+  Sparkles,
+  Cpu,
+  Trash2,
+  Table2,
+} from 'lucide-react';
+import {
+  RadialBarChart,
+  RadialBar,
+  AreaChart,
+  Area,
+  ResponsiveContainer,
+} from 'recharts';
+import { useCompany } from '../data/CompanyContext';
+
+/* ── Types ───────────────────────────────────────────────── */
+
+interface ReadinessData {
+  score: number;
+  label: string;
+}
+
+interface KPIData {
+  savings: number;
+  scoreBefore: number;
+  scoreAfter: number;
+  workflows: number;
+  workflowsReady: number;
+  waste: number;
+}
+
+interface TimelineStop {
+  savings: number;
+  score: number;
+  workflows: number;
+  waste: number;
+}
+
+interface Opportunity {
+  priority: number;
+  name: string;
+  savings: number;
+  status: 'Automated' | 'In Progress' | 'Identified';
+}
+
+interface InactionData {
+  year1: number;
+  year2: number;
+  year3: number;
+  total: number;
+}
+
+interface CompanyAnalyticsData {
+  readiness: ReadinessData;
+  kpis: KPIData;
+  timeline: [TimelineStop, TimelineStop, TimelineStop];
+  opportunities: Opportunity[];
+  inaction: InactionData;
+}
+
+/* ── Company-specific data ───────────────────────────────── */
+
+const analyticsData: Record<string, CompanyAnalyticsData> = {
+  meridian: {
+    readiness: { score: 34, label: 'Critical \u2014 requires foundational investment' },
+    kpis: { savings: 4200000, scoreBefore: 34, scoreAfter: 87, workflows: 47, workflowsReady: 12, waste: 800000 },
+    timeline: [
+      { savings: 0, score: 34, workflows: 0, waste: 800000 },
+      { savings: 2100000, score: 61, workflows: 28, waste: 400000 },
+      { savings: 4200000, score: 87, workflows: 47, waste: 120000 },
+    ],
+    opportunities: [
+      { priority: 1, name: 'Field Service Report Automation', savings: 920000, status: 'In Progress' },
+      { priority: 2, name: 'Invoice Matching & Reconciliation', savings: 840000, status: 'Identified' },
+      { priority: 3, name: 'Equipment Tracking Digitization', savings: 680000, status: 'Identified' },
+      { priority: 4, name: 'Compliance Reporting Automation', savings: 520000, status: 'Automated' },
+      { priority: 5, name: 'Vendor Management Optimization', savings: 440000, status: 'Identified' },
+    ],
+    inaction: { year1: 800000, year2: 960000, year3: 1150000, total: 2910000 },
+  },
+  oakwood: {
+    readiness: { score: 41, label: 'Below Average \u2014 significant gaps in key areas' },
+    kpis: { savings: 3800000, scoreBefore: 41, scoreAfter: 78, workflows: 38, workflowsReady: 9, waste: 620000 },
+    timeline: [
+      { savings: 0, score: 41, workflows: 0, waste: 620000 },
+      { savings: 1800000, score: 58, workflows: 18, waste: 340000 },
+      { savings: 3800000, score: 78, workflows: 38, waste: 95000 },
+    ],
+    opportunities: [
+      { priority: 1, name: 'Claims Intake Automation', savings: 860000, status: 'In Progress' },
+      { priority: 2, name: 'Fraud Detection Enhancement', savings: 740000, status: 'Automated' },
+      { priority: 3, name: 'Policy Renewal Processing', savings: 620000, status: 'Identified' },
+      { priority: 4, name: 'Adjuster Routing Optimization', savings: 480000, status: 'In Progress' },
+      { priority: 5, name: 'Compliance Audit Automation', savings: 380000, status: 'Identified' },
+    ],
+    inaction: { year1: 620000, year2: 745000, year3: 895000, total: 2260000 },
+  },
+  pinnacle: {
+    readiness: { score: 72, label: 'Good \u2014 targeted improvements needed' },
+    kpis: { savings: 1100000, scoreBefore: 72, scoreAfter: 94, workflows: 24, workflowsReady: 18, waste: 180000 },
+    timeline: [
+      { savings: 0, score: 72, workflows: 0, waste: 180000 },
+      { savings: 600000, score: 84, workflows: 14, waste: 80000 },
+      { savings: 1100000, score: 94, workflows: 24, waste: 25000 },
+    ],
+    opportunities: [
+      { priority: 1, name: 'Clinical Notes Summarization', savings: 310000, status: 'Automated' },
+      { priority: 2, name: 'Prior Authorization Processing', savings: 260000, status: 'Automated' },
+      { priority: 3, name: 'Scheduling Optimization', savings: 220000, status: 'In Progress' },
+      { priority: 4, name: 'Billing Code Verification', savings: 180000, status: 'In Progress' },
+      { priority: 5, name: 'Prescription Verification', savings: 140000, status: 'Identified' },
+    ],
+    inaction: { year1: 180000, year2: 215000, year3: 260000, total: 655000 },
+  },
+  atlas: {
+    readiness: { score: 28, label: 'Critical \u2014 legacy systems limit AI readiness' },
+    kpis: { savings: 5600000, scoreBefore: 28, scoreAfter: 82, workflows: 62, workflowsReady: 15, waste: 1200000 },
+    timeline: [
+      { savings: 0, score: 28, workflows: 0, waste: 1200000 },
+      { savings: 2800000, score: 54, workflows: 32, waste: 580000 },
+      { savings: 5600000, score: 82, workflows: 62, waste: 140000 },
+    ],
+    opportunities: [
+      { priority: 1, name: 'Predictive Maintenance Scheduling', savings: 1340000, status: 'In Progress' },
+      { priority: 2, name: 'Quality Inspection Automation', savings: 1080000, status: 'Identified' },
+      { priority: 3, name: 'Inventory Optimization System', savings: 920000, status: 'Identified' },
+      { priority: 4, name: 'Procurement Cycle Automation', savings: 780000, status: 'Automated' },
+      { priority: 5, name: 'Safety Compliance Monitoring', savings: 640000, status: 'In Progress' },
+    ],
+    inaction: { year1: 1200000, year2: 1440000, year3: 1730000, total: 4370000 },
+  },
+};
+
+/* ── Helpers ──────────────────────────────────────────────── */
+
+function formatDollars(n: number): string {
+  const abs = Math.abs(n);
+  if (abs >= 1000000) return `$${(abs / 1000000).toFixed(1)}M`;
+  if (abs >= 1000) return `$${(abs / 1000).toFixed(0)}K`;
+  return `$${abs.toLocaleString()}`;
+}
+
+function lerp(a: number, b: number, t: number): number {
+  return a + (b - a) * t;
+}
+
+function interpolateTimeline(stops: [TimelineStop, TimelineStop, TimelineStop], month: number): TimelineStop {
+  const t = month / 12;
+  if (t <= 0.5) {
+    const segT = t / 0.5;
+    return {
+      savings: lerp(stops[0].savings, stops[1].savings, segT),
+      score: lerp(stops[0].score, stops[1].score, segT),
+      workflows: lerp(stops[0].workflows, stops[1].workflows, segT),
+      waste: lerp(stops[0].waste, stops[1].waste, segT),
+    };
+  }
+  const segT = (t - 0.5) / 0.5;
+  return {
+    savings: lerp(stops[1].savings, stops[2].savings, segT),
+    score: lerp(stops[1].score, stops[2].score, segT),
+    workflows: lerp(stops[1].workflows, stops[2].workflows, segT),
+    waste: lerp(stops[1].waste, stops[2].waste, segT),
+  };
+}
+
+function generateSparklineData(start: number, end: number, points: number = 8): { v: number }[] {
+  const data: { v: number }[] = [];
+  for (let i = 0; i < points; i++) {
+    const t = i / (points - 1);
+    const base = start + (end - start) * t;
+    const noise = (Math.sin(i * 2.3) * 0.08 + Math.cos(i * 1.7) * 0.05) * Math.abs(end - start);
+    data.push({ v: base + noise });
+  }
+  return data;
+}
+
+function scoreColor(score: number): string {
+  if (score >= 70) return '#16A34A';
+  if (score >= 50) return '#D97706';
+  return '#DC2626';
+}
+
+function scoreBg(score: number): string {
+  if (score >= 70) return 'bg-green-muted';
+  if (score >= 50) return 'bg-amber-muted';
+  return 'bg-red-muted';
+}
+
+const statusStyles: Record<string, { bg: string; text: string }> = {
+  Automated: { bg: 'bg-green-muted', text: 'text-green' },
+  'In Progress': { bg: 'bg-amber-muted', text: 'text-amber' },
+  Identified: { bg: 'bg-surface-sunken', text: 'text-ink-tertiary' },
+};
+
+/* ── Sparkline component ─────────────────────────────────── */
+
+function Sparkline({ data, color, width = 100, height = 36 }: { data: { v: number }[]; color: string; width?: number; height?: number }) {
+  return (
+    <ResponsiveContainer width={width} height={height}>
+      <AreaChart data={data} margin={{ top: 4, right: 0, bottom: 0, left: 0 }}>
+        <defs>
+          <linearGradient id={`spark-${color.replace('#', '')}`} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={color} stopOpacity={0.3} />
+            <stop offset="100%" stopColor={color} stopOpacity={0.02} />
+          </linearGradient>
+        </defs>
+        <Area
+          type="monotone"
+          dataKey="v"
+          stroke={color}
+          strokeWidth={1.5}
+          fill={`url(#spark-${color.replace('#', '')})`}
+          dot={false}
+          isAnimationActive={false}
+        />
+      </AreaChart>
+    </ResponsiveContainer>
+  );
+}
+
+/* ── Main ────────────────────────────────────────────────── */
+
+export default function Analytics() {
+  const { company } = useCompany();
+  const data = analyticsData[company.id] || analyticsData.meridian;
+
+  const [timelineMonth, setTimelineMonth] = useState(12);
+  const [showInaction, setShowInaction] = useState(false);
+
+  const timelineValues = useMemo(
+    () => interpolateTimeline(data.timeline, timelineMonth),
+    [data.timeline, timelineMonth],
+  );
+
+  const savingsSparkline = useMemo(
+    () => generateSparklineData(0, data.kpis.savings),
+    [data.kpis.savings],
+  );
+  const scoreSparkline = useMemo(
+    () => generateSparklineData(data.kpis.scoreBefore, data.kpis.scoreAfter),
+    [data.kpis.scoreBefore, data.kpis.scoreAfter],
+  );
+  const workflowSparkline = useMemo(
+    () => generateSparklineData(0, data.kpis.workflows),
+    [data.kpis.workflows],
+  );
+  const wasteSparkline = useMemo(
+    () => generateSparklineData(data.kpis.waste, data.kpis.waste * 0.15),
+    [data.kpis.waste],
+  );
+
+  const radialData = [
+    { name: 'score', value: data.readiness.score, fill: scoreColor(data.readiness.score) },
+  ];
+
+  return (
+    <div className="max-w-[960px] mx-auto px-4 lg:px-8 py-6 lg:py-8">
+      {/* Page header */}
+      <div className="mb-8">
+        <h1 className="text-[22px] font-semibold text-ink tracking-tight">Analytics</h1>
+        <p className="text-[13px] text-ink-tertiary mt-1">
+          AI readiness and transformation analytics for {company.shortName}
+        </p>
+      </div>
+
+      {/* ── AI Readiness Score ──────────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="mb-8 bg-surface-raised border border-border rounded-xl px-6 py-6"
+      >
+        <div className="flex items-center gap-2 mb-4">
+          <Gauge className="w-4 h-4 text-ink-tertiary" strokeWidth={1.7} />
+          <h2 className="text-[14px] font-semibold text-ink">AI Readiness Score</h2>
+        </div>
+        <div className="flex flex-col sm:flex-row items-center gap-6">
+          {/* Radial gauge */}
+          <div className="relative w-[160px] h-[160px] flex-shrink-0">
+            <ResponsiveContainer width="100%" height="100%">
+              <RadialBarChart
+                cx="50%"
+                cy="50%"
+                innerRadius="72%"
+                outerRadius="100%"
+                startAngle={225}
+                endAngle={-45}
+                data={radialData}
+                barSize={12}
+              >
+                <RadialBar
+                  dataKey="value"
+                  cornerRadius={6}
+                  background={{ fill: '#F4F4F5' }}
+                  isAnimationActive
+                  animationDuration={1200}
+                />
+              </RadialBarChart>
+            </ResponsiveContainer>
+            {/* Center label */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span className="text-[32px] font-semibold tabular-nums tracking-tight text-ink leading-none">
+                {data.readiness.score}
+              </span>
+              <span className="text-[10px] font-medium text-ink-tertiary uppercase tracking-wider mt-1">
+                / 100
+              </span>
+            </div>
+          </div>
+          {/* Label */}
+          <div className="flex-1 text-center sm:text-left">
+            <div
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider mb-2 ${scoreBg(data.readiness.score)}`}
+              style={{ color: scoreColor(data.readiness.score) }}
+            >
+              <Sparkles className="w-3 h-3" />
+              {data.readiness.score >= 70 ? 'Good' : data.readiness.score >= 50 ? 'Below Average' : 'Critical'}
+            </div>
+            <p className="text-[13px] text-ink-secondary leading-relaxed">
+              {data.readiness.label}
+            </p>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* ── KPI Sparkline Cards ─────────────────────────────── */}
+      <section className="mb-8">
+        <div className="flex items-center gap-2 mb-3">
+          <BarChart3 className="w-4 h-4 text-ink-tertiary" strokeWidth={1.7} />
+          <h2 className="text-[14px] font-semibold text-ink">Key Performance Indicators</h2>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
+          {/* Identified Savings */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="bg-surface-raised border border-border rounded-xl px-5 py-4"
+          >
+            <div className="flex items-start justify-between">
+              <div>
+                <div className="flex items-center gap-1.5 mb-1">
+                  <div className="p-1 rounded-md bg-green-muted">
+                    <DollarSign className="w-3.5 h-3.5 text-green" strokeWidth={1.7} />
+                  </div>
+                  <span className="text-[11px] font-medium text-ink-tertiary uppercase tracking-wider">Savings</span>
+                </div>
+                <div className="text-[22px] font-semibold text-ink tabular-nums tracking-tight leading-none mt-2">
+                  {formatDollars(data.kpis.savings)}
+                </div>
+                <div className="text-[11px] text-ink-faint mt-1">identified to date</div>
+              </div>
+              <Sparkline data={savingsSparkline} color="#16A34A" />
+            </div>
+          </motion.div>
+
+          {/* Tech Stack Score */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.16 }}
+            className="bg-surface-raised border border-border rounded-xl px-5 py-4"
+          >
+            <div className="flex items-start justify-between">
+              <div>
+                <div className="flex items-center gap-1.5 mb-1">
+                  <div className="p-1 rounded-md bg-blue-muted">
+                    <Cpu className="w-3.5 h-3.5 text-blue" strokeWidth={1.7} />
+                  </div>
+                  <span className="text-[11px] font-medium text-ink-tertiary uppercase tracking-wider">Tech Stack</span>
+                </div>
+                <div className="text-[22px] font-semibold text-ink tabular-nums tracking-tight leading-none mt-2">
+                  <span className="text-ink-tertiary text-[16px]">{data.kpis.scoreBefore}</span>
+                  <ChevronRight className="inline w-4 h-4 text-ink-faint mx-0.5 -mt-0.5" />
+                  <span>{data.kpis.scoreAfter}</span>
+                </div>
+                <div className="text-[11px] text-ink-faint mt-1">readiness score</div>
+              </div>
+              <Sparkline data={scoreSparkline} color="#2563EB" />
+            </div>
+          </motion.div>
+
+          {/* Workflows Analyzed */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.22 }}
+            className="bg-surface-raised border border-border rounded-xl px-5 py-4"
+          >
+            <div className="flex items-start justify-between">
+              <div>
+                <div className="flex items-center gap-1.5 mb-1">
+                  <div className="p-1 rounded-md bg-green-muted">
+                    <Workflow className="w-3.5 h-3.5 text-green" strokeWidth={1.7} />
+                  </div>
+                  <span className="text-[11px] font-medium text-ink-tertiary uppercase tracking-wider">Workflows</span>
+                </div>
+                <div className="text-[22px] font-semibold text-ink tabular-nums tracking-tight leading-none mt-2">
+                  {data.kpis.workflows}
+                </div>
+                <div className="text-[11px] text-ink-faint mt-1">
+                  <span className="text-green font-medium">{data.kpis.workflowsReady} ready</span> for automation
+                </div>
+              </div>
+              <Sparkline data={workflowSparkline} color="#16A34A" />
+            </div>
+          </motion.div>
+
+          {/* License Waste */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.28 }}
+            className="bg-surface-raised border border-border rounded-xl px-5 py-4"
+          >
+            <div className="flex items-start justify-between">
+              <div>
+                <div className="flex items-center gap-1.5 mb-1">
+                  <div className="p-1 rounded-md bg-red-muted">
+                    <Trash2 className="w-3.5 h-3.5 text-red" strokeWidth={1.7} />
+                  </div>
+                  <span className="text-[11px] font-medium text-ink-tertiary uppercase tracking-wider">License Waste</span>
+                </div>
+                <div className="text-[22px] font-semibold text-red tabular-nums tracking-tight leading-none mt-2">
+                  {formatDollars(data.kpis.waste)}
+                </div>
+                <div className="text-[11px] text-ink-faint mt-1">annual waste identified</div>
+              </div>
+              <Sparkline data={wasteSparkline} color="#DC2626" />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── Transformation Timeline ────────────────────────── */}
+      <section className="mb-8">
+        <div className="flex items-center gap-2 mb-3">
+          <TrendingUp className="w-4 h-4 text-ink-tertiary" strokeWidth={1.7} />
+          <h2 className="text-[14px] font-semibold text-ink">Transformation Timeline</h2>
+        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="bg-surface-raised border border-border rounded-xl p-5"
+        >
+          {/* Slider */}
+          <div className="mb-5">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[11px] font-medium text-ink-tertiary uppercase tracking-wider">Today</span>
+              <span className="text-[11px] font-medium text-ink-tertiary uppercase tracking-wider">Month 6</span>
+              <span className="text-[11px] font-medium text-ink-tertiary uppercase tracking-wider">Month 12</span>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={12}
+              step={0.5}
+              value={timelineMonth}
+              onChange={(e) => setTimelineMonth(parseFloat(e.target.value))}
+              className="w-full h-1.5 rounded-full appearance-none bg-surface-sunken cursor-pointer
+                [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4
+                [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-blue [&::-webkit-slider-thumb]:border-2
+                [&::-webkit-slider-thumb]:border-surface-raised [&::-webkit-slider-thumb]:shadow-sm
+                [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full
+                [&::-moz-range-thumb]:bg-blue [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-surface-raised"
+            />
+            <div className="text-center mt-1">
+              <span className="text-[12px] font-semibold text-blue tabular-nums">
+                Month {timelineMonth % 1 === 0 ? timelineMonth : timelineMonth.toFixed(1)}
+              </span>
+            </div>
+          </div>
+
+          {/* Interpolated values */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="bg-surface-sunken rounded-lg px-3 py-3 text-center">
+              <div className="text-[18px] font-semibold text-green tabular-nums tracking-tight">
+                {formatDollars(timelineValues.savings)}
+              </div>
+              <div className="text-[10px] font-medium text-ink-tertiary uppercase tracking-wider mt-0.5">Savings</div>
+            </div>
+            <div className="bg-surface-sunken rounded-lg px-3 py-3 text-center">
+              <div className="text-[18px] font-semibold text-blue tabular-nums tracking-tight">
+                {Math.round(timelineValues.score)}
+              </div>
+              <div className="text-[10px] font-medium text-ink-tertiary uppercase tracking-wider mt-0.5">Tech Score</div>
+            </div>
+            <div className="bg-surface-sunken rounded-lg px-3 py-3 text-center">
+              <div className="text-[18px] font-semibold text-ink tabular-nums tracking-tight">
+                {Math.round(timelineValues.workflows)}
+              </div>
+              <div className="text-[10px] font-medium text-ink-tertiary uppercase tracking-wider mt-0.5">Workflows</div>
+            </div>
+            <div className="bg-surface-sunken rounded-lg px-3 py-3 text-center">
+              <div className="text-[18px] font-semibold text-red tabular-nums tracking-tight">
+                {formatDollars(timelineValues.waste)}
+              </div>
+              <div className="text-[10px] font-medium text-ink-tertiary uppercase tracking-wider mt-0.5">Waste</div>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ── Top Opportunities Table ────────────────────────── */}
+      <section className="mb-8">
+        <div className="flex items-center gap-2 mb-3">
+          <Table2 className="w-4 h-4 text-ink-tertiary" strokeWidth={1.7} />
+          <h2 className="text-[14px] font-semibold text-ink">Top Opportunities</h2>
+        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="bg-surface-raised border border-border rounded-xl overflow-hidden"
+        >
+          {/* Table header */}
+          <div className="grid grid-cols-[40px_1fr_100px_100px] sm:grid-cols-[48px_1fr_120px_120px] px-5 py-2.5 border-b border-border-subtle bg-surface-sunken">
+            <span className="text-[10px] font-semibold text-ink-tertiary uppercase tracking-wider">#</span>
+            <span className="text-[10px] font-semibold text-ink-tertiary uppercase tracking-wider">Opportunity</span>
+            <span className="text-[10px] font-semibold text-ink-tertiary uppercase tracking-wider text-right">Est. Savings</span>
+            <span className="text-[10px] font-semibold text-ink-tertiary uppercase tracking-wider text-right">Status</span>
+          </div>
+          {/* Table rows */}
+          {data.opportunities.map((opp, i) => {
+            const style = statusStyles[opp.status];
+            return (
+              <motion.div
+                key={opp.name}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.25 + i * 0.05 }}
+                className={`grid grid-cols-[40px_1fr_100px_100px] sm:grid-cols-[48px_1fr_120px_120px] px-5 py-3 items-center ${
+                  i < data.opportunities.length - 1 ? 'border-b border-border-subtle' : ''
+                }`}
+              >
+                <span className="text-[12px] font-semibold text-ink-tertiary tabular-nums">{opp.priority}</span>
+                <span className="text-[13px] font-medium text-ink truncate pr-2">{opp.name}</span>
+                <span className="text-[13px] font-semibold text-ink tabular-nums text-right">
+                  {formatDollars(opp.savings)}
+                </span>
+                <div className="flex justify-end">
+                  <span
+                    className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider ${style.bg} ${style.text}`}
+                  >
+                    {opp.status}
+                  </span>
+                </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+      </section>
+
+      {/* ── Cost of Inaction Toggle ────────────────────────── */}
+      <section>
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <button
+            onClick={() => setShowInaction(!showInaction)}
+            className="flex items-center gap-2 mb-3 group cursor-pointer"
+          >
+            {showInaction ? (
+              <ToggleRight className="w-5 h-5 text-red" strokeWidth={1.7} />
+            ) : (
+              <ToggleLeft className="w-5 h-5 text-ink-tertiary" strokeWidth={1.7} />
+            )}
+            <AlertTriangle className="w-4 h-4 text-ink-tertiary" strokeWidth={1.7} />
+            <h2 className="text-[14px] font-semibold text-ink group-hover:text-ink-secondary transition-colors">
+              Cost of Inaction
+            </h2>
+            <span className="text-[11px] text-ink-faint ml-1">
+              {showInaction ? 'Hide' : 'Show'} 3-year projection
+            </span>
+          </button>
+
+          <AnimatePresence>
+            {showInaction && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                className="overflow-hidden"
+              >
+                <div className="bg-red-muted border border-red/15 rounded-xl px-6 py-5">
+                  <div className="flex items-center gap-2 mb-4">
+                    <AlertTriangle className="w-4 h-4 text-red" strokeWidth={1.7} />
+                    <span className="text-[13px] font-semibold text-red">
+                      Projected wasted spend without action
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                    <div className="bg-surface-raised/60 rounded-lg px-4 py-3 text-center">
+                      <div className="text-[10px] font-semibold text-ink-tertiary uppercase tracking-wider mb-1">Year 1</div>
+                      <div className="text-[20px] font-semibold text-red tabular-nums tracking-tight">
+                        {formatDollars(data.inaction.year1)}
+                      </div>
+                    </div>
+                    <div className="bg-surface-raised/60 rounded-lg px-4 py-3 text-center">
+                      <div className="text-[10px] font-semibold text-ink-tertiary uppercase tracking-wider mb-1">Year 2</div>
+                      <div className="text-[20px] font-semibold text-red tabular-nums tracking-tight">
+                        {formatDollars(data.inaction.year2)}
+                      </div>
+                    </div>
+                    <div className="bg-surface-raised/60 rounded-lg px-4 py-3 text-center">
+                      <div className="text-[10px] font-semibold text-ink-tertiary uppercase tracking-wider mb-1">Year 3</div>
+                      <div className="text-[20px] font-semibold text-red tabular-nums tracking-tight">
+                        {formatDollars(data.inaction.year3)}
+                      </div>
+                    </div>
+                    <div className="bg-surface-raised rounded-lg px-4 py-3 text-center border border-red/10">
+                      <div className="text-[10px] font-semibold text-red uppercase tracking-wider mb-1">3-Year Total</div>
+                      <div className="text-[24px] font-semibold text-red tabular-nums tracking-tight">
+                        {formatDollars(data.inaction.total)}
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-red/70 mt-3 leading-relaxed">
+                    Without AI transformation, {company.shortName} risks accumulating {formatDollars(data.inaction.total)} in
+                    preventable costs from license waste, manual process overhead, and missed automation opportunities over the
+                    next three years.
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      </section>
+    </div>
+  );
+}
