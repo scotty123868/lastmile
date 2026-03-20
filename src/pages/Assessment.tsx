@@ -2,21 +2,8 @@ import { motion } from 'framer-motion';
 import {
   Cpu,
   DollarSign,
-  TrendingUp,
-  Clock,
   ChevronRight,
 } from 'lucide-react';
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ReferenceLine,
-  ResponsiveContainer,
-} from 'recharts';
 import { useCompany } from '../data/CompanyContext';
 
 /* ── Types ───────────────────────────────────────────────── */
@@ -36,40 +23,12 @@ interface LicenseEntry {
   action: string;
 }
 
-interface TimelineMonth {
-  month: string;
-  costs: number;
-  savings: number;
-  net: number;
-}
-
-interface PaybackData {
-  paybackMonths: number;
-  year1ROI: number;
-  year2Projected: string;
-}
-
 interface CompanyAssessmentData {
   techStack: TechTool[];
   licenses: LicenseEntry[];
-  timeline: TimelineMonth[];
-  breakEvenMonth: number;
-  breakEvenLabel: string;
-  payback: PaybackData;
 }
 
 /* ── Company-specific data ───────────────────────────────── */
-
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-function buildTimeline(costs: number[], savings: number[]): TimelineMonth[] {
-  return months.map((m, i) => ({
-    month: m,
-    costs: costs[i],
-    savings: savings[i],
-    net: savings[i] - costs[i],
-  }));
-}
 
 const assessmentData: Record<string, CompanyAssessmentData> = {
   meridian: {
@@ -87,13 +46,6 @@ const assessmentData: Record<string, CompanyAssessmentData> = {
       { vendor: 'SAP Business One', total: 85, active: 71, waste: 148000, action: 'Consolidate 2 unused OpCo instances' },
       { vendor: 'Microsoft 365 E5', total: 450, active: 390, waste: 117000, action: 'Downgrade 60 to E3 tier' },
     ],
-    timeline: buildTimeline(
-      [580, 520, 380, 280, 180, 120, 80, 60, 45, 35, 30, 25],
-      [0, 40, 120, 240, 380, 520, 580, 620, 640, 660, 670, 680],
-    ),
-    breakEvenMonth: 5,
-    breakEvenLabel: 'May',
-    payback: { paybackMonths: 4.2, year1ROI: 150, year2Projected: '$6.1M' },
   },
   oakwood: {
     techStack: [
@@ -110,13 +62,6 @@ const assessmentData: Record<string, CompanyAssessmentData> = {
       { vendor: 'Salesforce', total: 200, active: 142, waste: 108000, action: 'Remove inactive agent accounts' },
       { vendor: 'Legacy AS/400 terminals', total: 60, active: 28, waste: 67000, action: 'Decommission unused terminals' },
     ],
-    timeline: buildTimeline(
-      [640, 580, 440, 320, 200, 140, 95, 70, 50, 40, 35, 30],
-      [0, 30, 100, 200, 340, 480, 560, 600, 630, 650, 660, 670],
-    ),
-    breakEvenMonth: 6,
-    breakEvenLabel: 'Jun',
-    payback: { paybackMonths: 5.1, year1ROI: 128, year2Projected: '$5.4M' },
   },
   pinnacle: {
     techStack: [
@@ -133,13 +78,6 @@ const assessmentData: Record<string, CompanyAssessmentData> = {
       { vendor: 'Power BI Pro', total: 35, active: 18, waste: 27000, action: 'Switch to shared capacity model' },
       { vendor: 'Zoom Healthcare', total: 80, active: 65, waste: 20000, action: 'Downgrade to basic for non-clinical' },
     ],
-    timeline: buildTimeline(
-      [280, 240, 180, 130, 80, 50, 35, 25, 20, 15, 12, 10],
-      [0, 20, 60, 120, 180, 220, 250, 270, 280, 285, 290, 295],
-    ),
-    breakEvenMonth: 4,
-    breakEvenLabel: 'Apr',
-    payback: { paybackMonths: 3.1, year1ROI: 185, year2Projected: '$1.8M' },
   },
   atlas: {
     techStack: [
@@ -156,13 +94,6 @@ const assessmentData: Record<string, CompanyAssessmentData> = {
       { vendor: 'Oracle SCM', total: 150, active: 108, waste: 210000, action: 'Migrate 3 plants to unified instance' },
       { vendor: 'Aveva', total: 90, active: 52, waste: 170000, action: 'Retire legacy plant modules' },
     ],
-    timeline: buildTimeline(
-      [720, 650, 500, 380, 250, 170, 110, 80, 60, 45, 38, 32],
-      [0, 50, 140, 280, 440, 620, 720, 780, 820, 850, 870, 880],
-    ),
-    breakEvenMonth: 5,
-    breakEvenLabel: 'May',
-    payback: { paybackMonths: 4.8, year1ROI: 142, year2Projected: '$7.2M' },
   },
   northbridge: {
     techStack: [
@@ -179,13 +110,6 @@ const assessmentData: Record<string, CompanyAssessmentData> = {
       { vendor: 'Palantir Foundry', total: 340, active: 180, waste: 840000, action: 'Migrate 8 OpCos to shared analytics layer' },
       { vendor: 'Salesforce Enterprise', total: 4200, active: 3100, waste: 2200000, action: 'Downgrade 1,100 to Platform licenses' },
     ],
-    timeline: buildTimeline(
-      [3200, 2800, 2100, 1600, 1000, 680, 440, 320, 240, 180, 140, 110],
-      [0, 200, 800, 1800, 3200, 5400, 7200, 9400, 11800, 14200, 16800, 18600],
-    ),
-    breakEvenMonth: 5,
-    breakEvenLabel: 'May',
-    payback: { paybackMonths: 5.4, year1ROI: 122, year2Projected: '$42M' },
   },
   estonia: {
     techStack: [
@@ -202,13 +126,6 @@ const assessmentData: Record<string, CompanyAssessmentData> = {
       { vendor: 'Microsoft 365 E5', total: 12000, active: 8400, waste: 540000, action: 'Downgrade non-ministry staff to E3' },
       { vendor: 'Custom Legacy Systems', total: 42, active: 18, waste: 380000, action: 'Decommission post-X-Road migration' },
     ],
-    timeline: buildTimeline(
-      [2400, 2100, 1600, 1200, 780, 520, 340, 240, 180, 140, 110, 90],
-      [0, 180, 640, 1400, 2600, 4200, 5800, 7400, 9200, 11400, 14000, 16200],
-    ),
-    breakEvenMonth: 5,
-    breakEvenLabel: 'May',
-    payback: { paybackMonths: 4.6, year1ROI: 138, year2Projected: '$28M' },
   },
 };
 
@@ -260,28 +177,6 @@ function categoryBadgeColor(category: string): string {
   return map[category] || 'bg-surface-sunken text-ink-tertiary';
 }
 
-/* ── Custom Tooltip ──────────────────────────────────────── */
-
-function CustomTooltip({ active, payload, label }: any) {
-  if (!active || !payload?.length) return null;
-  return (
-    <div className="bg-surface-raised border border-border rounded-lg shadow-lg px-4 py-3">
-      <div className="text-[12px] font-semibold text-ink mb-2">{label}</div>
-      {payload.map((entry: any) => (
-        <div key={entry.dataKey} className="flex items-center justify-between gap-4 text-[11px]">
-          <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: entry.color }} />
-            <span className="text-ink-secondary">{entry.name}</span>
-          </div>
-          <span className="font-mono font-semibold tabular-nums text-ink">
-            {entry.value < 0 ? '-' : ''}${Math.abs(entry.value)}k
-          </span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 /* ── Main ────────────────────────────────────────────────── */
 
 export default function Assessment() {
@@ -297,7 +192,7 @@ export default function Assessment() {
       <div className="mb-8">
         <h1 className="text-[22px] font-semibold text-ink tracking-tight">Assessment</h1>
         <p className="text-[13px] text-ink-tertiary mt-1">
-          Diagnostic assessment and implementation roadmap for {company.shortName}
+          Tech stack diagnostic and license waste analysis for {company.shortName}
         </p>
       </div>
 
@@ -428,177 +323,6 @@ export default function Assessment() {
         </div>
       </section>
 
-      {/* ── Section 3: Implementation Cost Curve ───────────── */}
-      <section className="mb-8">
-        <div className="flex items-center gap-2 mb-3">
-          <TrendingUp className="w-4 h-4 text-ink-tertiary" strokeWidth={1.7} />
-          <h2 className="text-[14px] font-semibold text-ink">Implementation Timeline & Cost Curve</h2>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
-          className="bg-surface-raised border border-border rounded-xl p-5"
-        >
-          <div className="h-[320px] sm:h-[360px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={data.timeline} margin={{ top: 10, right: 10, bottom: 0, left: 0 }}>
-                <defs>
-                  <linearGradient id="gradCosts" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#DC2626" stopOpacity={0.2} />
-                    <stop offset="100%" stopColor="#DC2626" stopOpacity={0.02} />
-                  </linearGradient>
-                  <linearGradient id="gradSavings" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#16A34A" stopOpacity={0.2} />
-                    <stop offset="100%" stopColor="#16A34A" stopOpacity={0.02} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#F4F4F5" vertical={false} />
-                <XAxis
-                  dataKey="month"
-                  tick={{ fontSize: 11, fill: '#A1A1AA' }}
-                  tickLine={false}
-                  axisLine={{ stroke: '#E4E4E7' }}
-                />
-                <YAxis
-                  tick={{ fontSize: 11, fill: '#A1A1AA' }}
-                  tickLine={false}
-                  axisLine={false}
-                  tickFormatter={(v: number) => `$${Math.abs(v)}k`}
-                  width={54}
-                />
-                <Tooltip content={<CustomTooltip />} />
-                <Legend
-                  verticalAlign="bottom"
-                  height={36}
-                  iconType="circle"
-                  iconSize={8}
-                  wrapperStyle={{ fontSize: 11, color: '#52525B' }}
-                />
-                <ReferenceLine
-                  x={data.breakEvenLabel}
-                  stroke="#2563EB"
-                  strokeDasharray="4 4"
-                  strokeWidth={1.5}
-                  label={{
-                    value: 'Break-even',
-                    position: 'top',
-                    fill: '#2563EB',
-                    fontSize: 11,
-                    fontWeight: 600,
-                  }}
-                />
-                <Area
-                  type="monotone"
-                  dataKey="costs"
-                  name="Implementation Costs"
-                  stroke="#DC2626"
-                  strokeWidth={2}
-                  fill="url(#gradCosts)"
-                  dot={false}
-                  activeDot={{ r: 4, strokeWidth: 2 }}
-                />
-                <Area
-                  type="monotone"
-                  dataKey="savings"
-                  name="Cumulative Savings"
-                  stroke="#16A34A"
-                  strokeWidth={2}
-                  fill="url(#gradSavings)"
-                  dot={false}
-                  activeDot={{ r: 4, strokeWidth: 2 }}
-                />
-                <Area
-                  type="monotone"
-                  dataKey="net"
-                  name="Net Value"
-                  stroke="#2563EB"
-                  strokeWidth={2}
-                  strokeDasharray="8 4"
-                  fill="none"
-                  dot={false}
-                  activeDot={{ r: 4, strokeWidth: 2 }}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* ── Section 4: Payback Analysis ────────────────────── */}
-      <section>
-        <div className="flex items-center gap-2 mb-3">
-          <Clock className="w-4 h-4 text-ink-tertiary" strokeWidth={1.7} />
-          <h2 className="text-[14px] font-semibold text-ink">Payback Analysis</h2>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="bg-blue-muted rounded-xl p-5"
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {/* Payback Period */}
-            <motion.div
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.25 }}
-              className="bg-surface-raised border border-border rounded-xl px-5 py-5 text-center"
-            >
-              <div className="flex items-center justify-center mb-2">
-                <div className="p-1.5 rounded-lg bg-blue-muted">
-                  <Clock className="w-4 h-4 text-blue" strokeWidth={1.7} />
-                </div>
-              </div>
-              <div className="text-[11px] font-semibold text-ink-tertiary uppercase tracking-wider mb-1">Payback Period</div>
-              <div className="text-[28px] font-semibold tabular-nums tracking-tight text-blue leading-none">
-                {data.payback.paybackMonths}
-              </div>
-              <div className="text-[11px] text-ink-faint mt-1">months to break even</div>
-            </motion.div>
-
-            {/* Year 1 ROI */}
-            <motion.div
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="bg-surface-raised border border-border rounded-xl px-5 py-5 text-center"
-            >
-              <div className="flex items-center justify-center mb-2">
-                <div className="p-1.5 rounded-lg bg-green-muted">
-                  <TrendingUp className="w-4 h-4 text-green" strokeWidth={1.7} />
-                </div>
-              </div>
-              <div className="text-[11px] font-semibold text-ink-tertiary uppercase tracking-wider mb-1">Year 1 ROI</div>
-              <div className="text-[28px] font-semibold tabular-nums tracking-tight text-green leading-none">
-                {data.payback.year1ROI}%
-              </div>
-              <div className="text-[11px] text-ink-faint mt-1">return on investment</div>
-            </motion.div>
-
-            {/* Year 2 Projected */}
-            <motion.div
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35 }}
-              className="bg-surface-raised border border-border rounded-xl px-5 py-5 text-center"
-            >
-              <div className="flex items-center justify-center mb-2">
-                <div className="p-1.5 rounded-lg bg-green-muted">
-                  <DollarSign className="w-4 h-4 text-green" strokeWidth={1.7} />
-                </div>
-              </div>
-              <div className="text-[11px] font-semibold text-ink-tertiary uppercase tracking-wider mb-1">Year 2 Projected</div>
-              <div className="text-[28px] font-semibold tabular-nums tracking-tight text-green leading-none">
-                {data.payback.year2Projected}
-              </div>
-              <div className="text-[11px] text-ink-faint mt-1">cumulative savings</div>
-            </motion.div>
-          </div>
-        </motion.div>
-      </section>
     </div>
   );
 }

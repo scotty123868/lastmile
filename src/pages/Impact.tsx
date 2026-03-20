@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   DollarSign,
   ShieldCheck,
@@ -8,6 +9,10 @@ import {
   Clock,
   Target,
   CheckCircle2,
+  ChevronDown,
+  ArrowUpRight,
+  ArrowDownRight,
+  Minus,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
 
@@ -38,6 +43,34 @@ interface CompanyImpactData {
   categories: ImpactCategory[];
   waterfall: WaterfallBar[];
   metrics: KeyMetric[];
+}
+
+/* ── Adoption types ──────────────────────────────────────── */
+
+interface TeamRow {
+  name: string;
+  active: number;
+  total: number;
+  adoption: number;
+  trend: string;
+  trendDir: 'up' | 'down' | 'flat';
+  status: 'strong' | 'growing' | 'at-risk' | 'stalled';
+}
+
+interface CycleMetric {
+  label: string;
+  before: string;
+  after: string;
+  improvement: string;
+}
+
+interface CompanyAdoptionData {
+  overallRate: number;
+  overallTrend: string;
+  overallTrendDir: 'up' | 'down' | 'flat';
+  teamLabel: string;
+  teams: TeamRow[];
+  cycles: CycleMetric[];
 }
 
 /* ── Company-specific data ───────────────────────────────── */
@@ -177,6 +210,113 @@ const impactData: Record<string, CompanyImpactData> = {
   },
 };
 
+/* ── Adoption data ───────────────────────────────────────── */
+
+const adoptionData: Record<string, CompanyAdoptionData> = {
+  meridian: {
+    overallRate: 68, overallTrend: '+8% vs last month', overallTrendDir: 'up', teamLabel: 'Department',
+    teams: [
+      { name: 'Northeast Field Ops', active: 42, total: 48, adoption: 88, trend: '\u2191 12%', trendDir: 'up', status: 'strong' },
+      { name: 'Southeast Field Ops', active: 31, total: 44, adoption: 70, trend: '\u2191 6%', trendDir: 'up', status: 'growing' },
+      { name: 'Central Warehouse', active: 18, total: 22, adoption: 82, trend: '\u2191 3%', trendDir: 'up', status: 'strong' },
+      { name: 'AP / Finance', active: 8, total: 12, adoption: 67, trend: '\u2191 15%', trendDir: 'up', status: 'growing' },
+      { name: 'Southwest Field Ops', active: 14, total: 32, adoption: 44, trend: '\u2193 2%', trendDir: 'down', status: 'at-risk' },
+      { name: 'Fleet Management', active: 6, total: 14, adoption: 43, trend: '\u2014 0%', trendDir: 'flat', status: 'stalled' },
+    ],
+    cycles: [
+      { label: 'Field report submission', before: '4.2 hrs', after: '1.1 hrs', improvement: '74%' },
+      { label: 'Invoice reconciliation', before: '3.5 days', after: '0.8 days', improvement: '77%' },
+      { label: 'Equipment inspection', before: '2.8 hrs', after: '0.9 hrs', improvement: '68%' },
+      { label: 'Compliance documentation', before: '6.0 hrs', after: '2.1 hrs', improvement: '65%' },
+    ],
+  },
+  oakwood: {
+    overallRate: 54, overallTrend: '+11% vs last month', overallTrendDir: 'up', teamLabel: 'Team',
+    teams: [
+      { name: 'Auto Claims \u2014 East', active: 22, total: 28, adoption: 79, trend: '\u2191 14%', trendDir: 'up', status: 'strong' },
+      { name: 'Property Claims', active: 18, total: 24, adoption: 75, trend: '\u2191 9%', trendDir: 'up', status: 'growing' },
+      { name: 'Commercial Lines UW', active: 12, total: 20, adoption: 60, trend: '\u2191 5%', trendDir: 'up', status: 'growing' },
+      { name: 'Auto Claims \u2014 West', active: 8, total: 22, adoption: 36, trend: '\u2191 2%', trendDir: 'up', status: 'at-risk' },
+      { name: 'Legacy Policy Team', active: 4, total: 18, adoption: 22, trend: '\u2193 1%', trendDir: 'down', status: 'stalled' },
+      { name: 'SIU Investigators', active: 3, total: 8, adoption: 38, trend: '\u2014 0%', trendDir: 'flat', status: 'at-risk' },
+    ],
+    cycles: [
+      { label: 'FNOL to first contact', before: '8.2 hrs', after: '2.4 hrs', improvement: '71%' },
+      { label: 'Claims adjudication', before: '14 days', after: '4.8 days', improvement: '66%' },
+      { label: 'Policy migration (per batch)', before: '3 weeks', after: '4 days', improvement: '81%' },
+      { label: 'Renewal risk assessment', before: '2.5 hrs', after: '0.6 hrs', improvement: '76%' },
+    ],
+  },
+  pinnacle: {
+    overallRate: 72, overallTrend: '+5% vs last month', overallTrendDir: 'up', teamLabel: 'Provider / Team',
+    teams: [
+      { name: 'Dr. R. Patel \u2014 Internal Med', active: 4, total: 4, adoption: 100, trend: '\u2191 0%', trendDir: 'flat', status: 'strong' },
+      { name: 'Dr. S. Kim \u2014 Orthopedics', active: 3, total: 4, adoption: 75, trend: '\u2191 8%', trendDir: 'up', status: 'strong' },
+      { name: 'Nursing Staff', active: 28, total: 34, adoption: 82, trend: '\u2191 4%', trendDir: 'up', status: 'strong' },
+      { name: 'Front Desk / Scheduling', active: 12, total: 14, adoption: 86, trend: '\u2191 6%', trendDir: 'up', status: 'strong' },
+      { name: 'Billing & Coding', active: 6, total: 10, adoption: 60, trend: '\u2191 10%', trendDir: 'up', status: 'growing' },
+      { name: 'Dr. M. Torres \u2014 Family Med', active: 1, total: 3, adoption: 33, trend: '\u2193 5%', trendDir: 'down', status: 'at-risk' },
+    ],
+    cycles: [
+      { label: 'Clinical note completion', before: '18 min', after: '4 min', improvement: '78%' },
+      { label: 'Prior auth submission', before: '45 min', after: '8 min', improvement: '82%' },
+      { label: 'Patient scheduling', before: '12 min', after: '3 min', improvement: '75%' },
+      { label: 'Insurance verification', before: '22 min', after: '2 min', improvement: '91%' },
+    ],
+  },
+  atlas: {
+    overallRate: 61, overallTrend: '+7% vs last month', overallTrendDir: 'up', teamLabel: 'Facility / Team',
+    teams: [
+      { name: 'Akron \u2014 CNC Floor', active: 42, total: 56, adoption: 75, trend: '\u2191 9%', trendDir: 'up', status: 'strong' },
+      { name: 'Akron \u2014 Quality Lab', active: 8, total: 10, adoption: 80, trend: '\u2191 4%', trendDir: 'up', status: 'strong' },
+      { name: 'Detroit \u2014 Assembly', active: 34, total: 48, adoption: 71, trend: '\u2191 8%', trendDir: 'up', status: 'growing' },
+      { name: 'Detroit \u2014 Procurement', active: 6, total: 8, adoption: 75, trend: '\u2191 12%', trendDir: 'up', status: 'strong' },
+      { name: 'Guadalajara \u2014 Floor', active: 18, total: 42, adoption: 43, trend: '\u2191 3%', trendDir: 'up', status: 'at-risk' },
+      { name: 'Charlotte \u2014 Finishing', active: 22, total: 30, adoption: 73, trend: '\u2191 6%', trendDir: 'up', status: 'growing' },
+    ],
+    cycles: [
+      { label: 'Maintenance ticket creation', before: '35 min', after: '8 min', improvement: '77%' },
+      { label: 'Purchase order cycle', before: '4.2 days', after: '1.1 days', improvement: '74%' },
+      { label: 'Quality inspection report', before: '2.5 hrs', after: '0.6 hrs', improvement: '76%' },
+      { label: 'Cross-plant inventory lookup', before: '1.8 hrs', after: '12 min', improvement: '89%' },
+    ],
+  },
+  northbridge: {
+    overallRate: 71, overallTrend: '+6% vs last month', overallTrendDir: 'up', teamLabel: 'Operating Company / Division',
+    teams: [
+      { name: 'Aerospace Ops', active: 2800, total: 3200, adoption: 88, trend: '\u2191 8%', trendDir: 'up', status: 'strong' },
+      { name: 'Energy Trading Floor', active: 1400, total: 1600, adoption: 88, trend: '\u2191 5%', trendDir: 'up', status: 'strong' },
+      { name: 'Financial Services Risk', active: 1800, total: 2000, adoption: 90, trend: '\u2191 4%', trendDir: 'up', status: 'strong' },
+      { name: 'Health Sciences R&D', active: 2100, total: 2800, adoption: 75, trend: '\u2191 9%', trendDir: 'up', status: 'growing' },
+      { name: 'Corporate IT', active: 480, total: 520, adoption: 92, trend: '\u2191 3%', trendDir: 'up', status: 'strong' },
+      { name: 'Shared Services', active: 1200, total: 2000, adoption: 60, trend: '\u2191 7%', trendDir: 'up', status: 'growing' },
+    ],
+    cycles: [
+      { label: 'Procurement cycle (cross-OpCo)', before: '3 weeks', after: '2 days', improvement: '90%' },
+      { label: 'Maintenance work order creation', before: '45 min', after: '8 min', improvement: '82%' },
+      { label: 'Financial close (consolidated)', before: '12 days', after: '3 days', improvement: '75%' },
+      { label: 'Supplier onboarding', before: '4 weeks', after: '5 days', improvement: '82%' },
+    ],
+  },
+  estonia: {
+    overallRate: 84, overallTrend: '+4% vs last month', overallTrendDir: 'up', teamLabel: 'Agency / Board',
+    teams: [
+      { name: 'Tax & Revenue Board (EMTA)', active: 4200, total: 4400, adoption: 95, trend: '\u2191 3%', trendDir: 'up', status: 'strong' },
+      { name: 'Social Insurance Board (SKA)', active: 2400, total: 2800, adoption: 86, trend: '\u2191 5%', trendDir: 'up', status: 'strong' },
+      { name: 'Health Insurance Fund (EHIF)', active: 1800, total: 2200, adoption: 82, trend: '\u2191 6%', trendDir: 'up', status: 'strong' },
+      { name: 'Digital Services (RIA)', active: 680, total: 700, adoption: 97, trend: '\u2191 1%', trendDir: 'up', status: 'strong' },
+      { name: 'Treasury', active: 420, total: 480, adoption: 88, trend: '\u2191 4%', trendDir: 'up', status: 'strong' },
+      { name: 'Procurement Agency', active: 280, total: 400, adoption: 70, trend: '\u2191 8%', trendDir: 'up', status: 'growing' },
+    ],
+    cycles: [
+      { label: 'Tax return processing', before: '14 days', after: '48 hours', improvement: '86%' },
+      { label: 'Benefit eligibility determination', before: '10 days', after: '24 hours', improvement: '90%' },
+      { label: 'Healthcare record integration', before: '3 weeks', after: '2 days', improvement: '90%' },
+      { label: 'Cross-ministry data request', before: '5 days', after: '4 hours', improvement: '97%' },
+    ],
+  },
+};
+
 /* ── Helpers ──────────────────────────────────────────────── */
 
 function formatDollars(n: number): string {
@@ -200,21 +340,71 @@ function MetricIcon({ label }: { label: string }) {
   return <CheckCircle2 className="w-4 h-4 text-ink-tertiary" strokeWidth={1.7} />;
 }
 
+const adoptionStatusConfig = {
+  strong: { label: 'Strong', color: 'text-green', bg: 'bg-green-muted' },
+  growing: { label: 'Growing', color: 'text-blue', bg: 'bg-blue-muted' },
+  'at-risk': { label: 'At Risk', color: 'text-amber', bg: 'bg-amber-muted' },
+  stalled: { label: 'Stalled', color: 'text-red', bg: 'bg-red-muted' },
+};
+
+function TrendIcon({ dir }: { dir: 'up' | 'down' | 'flat' }) {
+  if (dir === 'up') return <ArrowUpRight className="w-3 h-3 text-green" strokeWidth={2} />;
+  if (dir === 'down') return <ArrowDownRight className="w-3 h-3 text-red" strokeWidth={2} />;
+  return <Minus className="w-3 h-3 text-ink-faint" strokeWidth={2} />;
+}
+
+/* ── Collapsible Section ─────────────────────────────────── */
+
+function CollapsibleSection({ title, icon: Icon, defaultOpen = true, children }: { title: string; icon: React.ElementType; defaultOpen?: boolean; children: React.ReactNode }) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <section className="mt-8">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-2 mb-3 cursor-pointer group w-full text-left"
+      >
+        <Icon className="w-4 h-4 text-ink-tertiary" strokeWidth={1.7} />
+        <h2 className="text-[14px] font-semibold text-ink">{title}</h2>
+        <ChevronDown className={`w-4 h-4 text-ink-tertiary transition-transform duration-200 ${open ? 'rotate-180' : ''}`} strokeWidth={2} />
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden"
+          >
+            {children}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}
+
 /* ── Main ────────────────────────────────────────────────── */
 
 export default function Impact() {
   const { company } = useCompany();
   const data = impactData[company.id] || impactData.meridian;
+  const adoption = adoptionData[company.id] || adoptionData.meridian;
 
-  // For waterfall: compute cumulative positions for CSS bars
   const grossSavings = data.categories.filter((c) => c.type === 'saving').reduce((s, c) => s + c.amount, 0);
+
+  const strongCount = adoption.teams.filter((t) => t.status === 'strong').length;
+  const atRiskCount = adoption.teams.filter((t) => t.status === 'at-risk' || t.status === 'stalled').length;
+  const totalUsers = adoption.teams.reduce((s, t) => s + t.active, 0);
+  const totalHeadcount = adoption.teams.reduce((s, t) => s + t.total, 0);
 
   return (
     <div className="max-w-[960px] mx-auto px-4 lg:px-8 py-6 lg:py-8">
       {/* Page header */}
       <div className="mb-8">
         <h1 className="text-[22px] font-semibold text-ink tracking-tight">Impact</h1>
-        <p className="text-[13px] text-ink-tertiary mt-1">ROI and business impact for {company.shortName}</p>
+        <p className="text-[13px] text-ink-tertiary mt-1">ROI, business impact, and adoption for {company.shortName}</p>
       </div>
 
       {/* Hero number */}
@@ -340,6 +530,113 @@ export default function Impact() {
           ))}
         </div>
       </section>
+
+      {/* ── Adoption Section (collapsible) ─────────────────── */}
+      <CollapsibleSection title="Adoption" icon={Users} defaultOpen={true}>
+        {/* Summary stats */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+          <div className="px-4 py-3 rounded-xl bg-surface-raised border border-border">
+            <div className="text-[11px] font-medium text-ink-tertiary uppercase tracking-wider">Overall Adoption</div>
+            <div className="flex items-baseline gap-2 mt-0.5">
+              <span className="text-[28px] font-semibold text-ink tabular-nums tracking-tight">{adoption.overallRate}%</span>
+              <span className="flex items-center gap-0.5">
+                <TrendIcon dir={adoption.overallTrendDir} />
+                <span className="text-[11px] text-ink-tertiary">{adoption.overallTrend}</span>
+              </span>
+            </div>
+          </div>
+          <div className="px-4 py-3 rounded-xl bg-surface-raised border border-border">
+            <div className="text-[11px] font-medium text-ink-tertiary uppercase tracking-wider">Active Users</div>
+            <div className="text-[24px] font-semibold text-ink tabular-nums tracking-tight mt-0.5">
+              {totalUsers}<span className="text-[14px] text-ink-tertiary font-normal"> / {totalHeadcount}</span>
+            </div>
+          </div>
+          <div className="px-4 py-3 rounded-xl bg-surface-raised border border-border">
+            <div className="text-[11px] font-medium text-ink-tertiary uppercase tracking-wider">Strong Teams</div>
+            <div className="text-[24px] font-semibold text-green tabular-nums tracking-tight mt-0.5">{strongCount}</div>
+          </div>
+          <div className="px-4 py-3 rounded-xl bg-surface-raised border border-border">
+            <div className="text-[11px] font-medium text-ink-tertiary uppercase tracking-wider">At Risk</div>
+            <div className="text-[24px] font-semibold tabular-nums tracking-tight mt-0.5" style={{ color: atRiskCount > 0 ? '#DC2626' : undefined }}>{atRiskCount}</div>
+          </div>
+        </div>
+
+        {/* Department adoption table */}
+        <div className="mb-6">
+          <div className="flex items-center gap-2 mb-3">
+            <Users className="w-4 h-4 text-ink-tertiary" strokeWidth={1.7} />
+            <span className="text-[13px] font-semibold text-ink">Adoption by {adoption.teamLabel}</span>
+          </div>
+          <div className="bg-surface-raised border border-border rounded-xl overflow-hidden">
+            <div className="hidden sm:grid grid-cols-[1fr_100px_80px_80px_80px] gap-3 px-5 py-2.5 border-b border-border-subtle">
+              <span className="text-[10px] font-semibold text-ink-tertiary uppercase tracking-wider">{adoption.teamLabel}</span>
+              <span className="text-[10px] font-semibold text-ink-tertiary uppercase tracking-wider text-right">Users</span>
+              <span className="text-[10px] font-semibold text-ink-tertiary uppercase tracking-wider text-right">Adoption</span>
+              <span className="text-[10px] font-semibold text-ink-tertiary uppercase tracking-wider text-right">Trend</span>
+              <span className="text-[10px] font-semibold text-ink-tertiary uppercase tracking-wider text-right">Status</span>
+            </div>
+            {adoption.teams.map((team, i) => {
+              const sc = adoptionStatusConfig[team.status];
+              return (
+                <motion.div
+                  key={team.name}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: i * 0.04 }}
+                  className="grid grid-cols-1 sm:grid-cols-[1fr_100px_80px_80px_80px] gap-1 sm:gap-3 px-5 py-3 border-b border-border-subtle last:border-0 hover:bg-surface-sunken/40 transition-colors items-center"
+                >
+                  <div><span className="text-[13px] font-medium text-ink">{team.name}</span></div>
+                  <div className="text-right"><span className="text-[12px] tabular-nums text-ink-secondary">{team.active} / {team.total}</span></div>
+                  <div className="text-right">
+                    <div className="inline-flex items-center gap-1.5">
+                      <div className="w-12 h-1.5 rounded-full bg-surface-sunken overflow-hidden hidden sm:block">
+                        <div className={`h-full rounded-full ${team.adoption >= 70 ? 'bg-green' : team.adoption >= 50 ? 'bg-blue' : 'bg-amber'}`} style={{ width: `${team.adoption}%` }} />
+                      </div>
+                      <span className="text-[12px] tabular-nums font-medium text-ink">{team.adoption}%</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <span className="inline-flex items-center gap-1">
+                      <TrendIcon dir={team.trendDir} />
+                      <span className="text-[11px] tabular-nums text-ink-tertiary">{team.trend}</span>
+                    </span>
+                  </div>
+                  <div className="text-right">
+                    <span className={`inline-flex text-[10px] font-semibold px-1.5 py-0.5 rounded ${sc.color} ${sc.bg}`}>{sc.label}</span>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Cycle time improvements */}
+        <div>
+          <div className="flex items-center gap-2 mb-3">
+            <Clock className="w-4 h-4 text-ink-tertiary" strokeWidth={1.7} />
+            <span className="text-[13px] font-semibold text-ink">Cycle Time Improvements</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {adoption.cycles.map((cycle, i) => (
+              <motion.div
+                key={cycle.label}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 + i * 0.06 }}
+                className="bg-surface-raised border border-border rounded-xl px-5 py-3.5"
+              >
+                <div className="text-[12px] text-ink-secondary mb-2">{cycle.label}</div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[14px] tabular-nums text-ink-tertiary line-through">{cycle.before}</span>
+                  <TrendingUp className="w-3.5 h-3.5 text-green" strokeWidth={2} />
+                  <span className="text-[14px] tabular-nums text-green font-semibold">{cycle.after}</span>
+                  <span className="ml-auto text-[11px] font-semibold text-green bg-green-muted px-1.5 py-0.5 rounded tabular-nums">-{cycle.improvement}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </CollapsibleSection>
     </div>
   );
 }

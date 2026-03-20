@@ -8,18 +8,26 @@ import {
   Gauge,
   AlertTriangle,
   ChevronRight,
+  ChevronDown,
   ToggleLeft,
   ToggleRight,
   Sparkles,
   Cpu,
   Trash2,
   Table2,
+  Clock,
 } from 'lucide-react';
 import {
   RadialBarChart,
   RadialBar,
   AreaChart,
   Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ReferenceLine,
   ResponsiveContainer,
 } from 'recharts';
 import { useCompany } from '../data/CompanyContext';
@@ -67,6 +75,28 @@ interface CompanyAnalyticsData {
   timeline: [TimelineStop, TimelineStop, TimelineStop];
   opportunities: Opportunity[];
   inaction: InactionData;
+}
+
+/* ── Cost curve types ────────────────────────────────────── */
+
+interface CostCurveMonth {
+  month: string;
+  costs: number;
+  savings: number;
+  net: number;
+}
+
+interface PaybackData {
+  paybackMonths: number;
+  year1ROI: number;
+  year2Projected: string;
+}
+
+interface CostCurveData {
+  timeline: CostCurveMonth[];
+  breakEvenMonth: number;
+  breakEvenLabel: string;
+  payback: PaybackData;
 }
 
 /* ── Company-specific data ───────────────────────────────── */
@@ -176,6 +206,70 @@ const analyticsData: Record<string, CompanyAnalyticsData> = {
   },
 };
 
+/* ── Cost curve data (from Assessment) ───────────────────── */
+
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+function buildTimeline(costs: number[], savings: number[]): CostCurveMonth[] {
+  return months.map((m, i) => ({
+    month: m,
+    costs: costs[i],
+    savings: savings[i],
+    net: savings[i] - costs[i],
+  }));
+}
+
+const costCurveData: Record<string, CostCurveData> = {
+  meridian: {
+    timeline: buildTimeline(
+      [580, 520, 380, 280, 180, 120, 80, 60, 45, 35, 30, 25],
+      [0, 40, 120, 240, 380, 520, 580, 620, 640, 660, 670, 680],
+    ),
+    breakEvenMonth: 5, breakEvenLabel: 'May',
+    payback: { paybackMonths: 4.2, year1ROI: 150, year2Projected: '$6.1M' },
+  },
+  oakwood: {
+    timeline: buildTimeline(
+      [640, 580, 440, 320, 200, 140, 95, 70, 50, 40, 35, 30],
+      [0, 30, 100, 200, 340, 480, 560, 600, 630, 650, 660, 670],
+    ),
+    breakEvenMonth: 6, breakEvenLabel: 'Jun',
+    payback: { paybackMonths: 5.1, year1ROI: 128, year2Projected: '$5.4M' },
+  },
+  pinnacle: {
+    timeline: buildTimeline(
+      [280, 240, 180, 130, 80, 50, 35, 25, 20, 15, 12, 10],
+      [0, 20, 60, 120, 180, 220, 250, 270, 280, 285, 290, 295],
+    ),
+    breakEvenMonth: 4, breakEvenLabel: 'Apr',
+    payback: { paybackMonths: 3.1, year1ROI: 185, year2Projected: '$1.8M' },
+  },
+  atlas: {
+    timeline: buildTimeline(
+      [720, 650, 500, 380, 250, 170, 110, 80, 60, 45, 38, 32],
+      [0, 50, 140, 280, 440, 620, 720, 780, 820, 850, 870, 880],
+    ),
+    breakEvenMonth: 5, breakEvenLabel: 'May',
+    payback: { paybackMonths: 4.8, year1ROI: 142, year2Projected: '$7.2M' },
+  },
+  northbridge: {
+    timeline: buildTimeline(
+      [3200, 2800, 2100, 1600, 1000, 680, 440, 320, 240, 180, 140, 110],
+      [0, 200, 800, 1800, 3200, 5400, 7200, 9400, 11800, 14200, 16800, 18600],
+    ),
+    breakEvenMonth: 5, breakEvenLabel: 'May',
+    payback: { paybackMonths: 5.4, year1ROI: 122, year2Projected: '$42M' },
+  },
+  estonia: {
+    timeline: buildTimeline(
+      [2400, 2100, 1600, 1200, 780, 520, 340, 240, 180, 140, 110, 90],
+      [0, 180, 640, 1400, 2600, 4200, 5800, 7400, 9200, 11400, 14000, 16200],
+    ),
+    breakEvenMonth: 5, breakEvenLabel: 'May',
+    payback: { paybackMonths: 4.6, year1ROI: 138, year2Projected: '$28M' },
+  },
+};
+
 /* ── Helpers ──────────────────────────────────────────────── */
 
 function formatDollars(n: number): string {
@@ -238,6 +332,38 @@ const statusStyles: Record<string, { bg: string; text: string }> = {
   Identified: { bg: 'bg-surface-sunken', text: 'text-ink-tertiary' },
 };
 
+/* ── Collapsible Section ─────────────────────────────────── */
+
+function CollapsibleSection({ title, icon: Icon, defaultOpen = true, children }: { title: string; icon: React.ElementType; defaultOpen?: boolean; children: React.ReactNode }) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <section className="mb-8">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-2 mb-3 cursor-pointer group w-full text-left"
+      >
+        <Icon className="w-4 h-4 text-ink-tertiary" strokeWidth={1.7} />
+        <h2 className="text-[14px] font-semibold text-ink">{title}</h2>
+        <ChevronDown className={`w-4 h-4 text-ink-tertiary transition-transform duration-200 ${open ? 'rotate-180' : ''}`} strokeWidth={2} />
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden"
+          >
+            {children}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}
+
 /* ── Sparkline component ─────────────────────────────────── */
 
 function Sparkline({ data, color, width = 100, height = 36 }: { data: { v: number }[]; color: string; width?: number; height?: number }) {
@@ -264,11 +390,34 @@ function Sparkline({ data, color, width = 100, height = 36 }: { data: { v: numbe
   );
 }
 
+/* ── Custom Tooltip (cost curve) ─────────────────────────── */
+
+function CostCurveTooltip({ active, payload, label }: any) {
+  if (!active || !payload?.length) return null;
+  return (
+    <div className="bg-surface-raised border border-border rounded-lg shadow-lg px-4 py-3">
+      <div className="text-[12px] font-semibold text-ink mb-2">{label}</div>
+      {payload.map((entry: any) => (
+        <div key={entry.dataKey} className="flex items-center justify-between gap-4 text-[11px]">
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: entry.color }} />
+            <span className="text-ink-secondary">{entry.name}</span>
+          </div>
+          <span className="font-mono font-semibold tabular-nums text-ink">
+            {entry.value < 0 ? '-' : ''}${Math.abs(entry.value)}k
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 /* ── Main ────────────────────────────────────────────────── */
 
 export default function Analytics() {
   const { company } = useCompany();
   const data = analyticsData[company.id] || analyticsData.meridian;
+  const curve = costCurveData[company.id] || costCurveData.meridian;
 
   const [timelineMonth, setTimelineMonth] = useState(12);
   const [showInaction, setShowInaction] = useState(false);
@@ -303,9 +452,9 @@ export default function Analytics() {
     <div className="max-w-[960px] mx-auto px-4 lg:px-8 py-6 lg:py-8">
       {/* Page header */}
       <div className="mb-8">
-        <h1 className="text-[22px] font-semibold text-ink tracking-tight">Analytics</h1>
+        <h1 className="text-[22px] font-semibold text-ink tracking-tight">Overview</h1>
         <p className="text-[13px] text-ink-tertiary mt-1">
-          AI readiness and transformation analytics for {company.shortName}
+          AI readiness and transformation overview for {company.shortName}
         </p>
       </div>
 
@@ -477,6 +626,146 @@ export default function Analytics() {
           </motion.div>
         </div>
       </section>
+
+      {/* ── Implementation Cost Curve (promoted from Assessment) ── */}
+      <CollapsibleSection title="Implementation Cost Curve" icon={TrendingUp}>
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="bg-surface-raised border border-border rounded-xl p-5"
+        >
+          <div className="h-[320px] sm:h-[360px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={curve.timeline} margin={{ top: 10, right: 10, bottom: 0, left: 0 }}>
+                <defs>
+                  <linearGradient id="gradCostsOverview" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#DC2626" stopOpacity={0.2} />
+                    <stop offset="100%" stopColor="#DC2626" stopOpacity={0.02} />
+                  </linearGradient>
+                  <linearGradient id="gradSavingsOverview" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#16A34A" stopOpacity={0.2} />
+                    <stop offset="100%" stopColor="#16A34A" stopOpacity={0.02} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="#F4F4F5" vertical={false} />
+                <XAxis
+                  dataKey="month"
+                  tick={{ fontSize: 11, fill: '#A1A1AA' }}
+                  tickLine={false}
+                  axisLine={{ stroke: '#E4E4E7' }}
+                />
+                <YAxis
+                  tick={{ fontSize: 11, fill: '#A1A1AA' }}
+                  tickLine={false}
+                  axisLine={false}
+                  tickFormatter={(v: number) => `$${Math.abs(v)}k`}
+                  width={54}
+                />
+                <Tooltip content={<CostCurveTooltip />} />
+                <Legend
+                  verticalAlign="bottom"
+                  height={36}
+                  iconType="circle"
+                  iconSize={8}
+                  wrapperStyle={{ fontSize: 11, color: '#52525B' }}
+                />
+                <ReferenceLine
+                  x={curve.breakEvenLabel}
+                  stroke="#2563EB"
+                  strokeDasharray="4 4"
+                  strokeWidth={1.5}
+                  label={{
+                    value: 'Break-even',
+                    position: 'top',
+                    fill: '#2563EB',
+                    fontSize: 11,
+                    fontWeight: 600,
+                  }}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="costs"
+                  name="Implementation Costs"
+                  stroke="#DC2626"
+                  strokeWidth={2}
+                  fill="url(#gradCostsOverview)"
+                  dot={false}
+                  activeDot={{ r: 4, strokeWidth: 2 }}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="savings"
+                  name="Cumulative Savings"
+                  stroke="#16A34A"
+                  strokeWidth={2}
+                  fill="url(#gradSavingsOverview)"
+                  dot={false}
+                  activeDot={{ r: 4, strokeWidth: 2 }}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="net"
+                  name="Net Value"
+                  stroke="#2563EB"
+                  strokeWidth={2}
+                  strokeDasharray="8 4"
+                  fill="none"
+                  dot={false}
+                  activeDot={{ r: 4, strokeWidth: 2 }}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </motion.div>
+
+        {/* Payback Analysis cards */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="bg-blue-muted rounded-xl p-5 mt-4"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="bg-surface-raised border border-border rounded-xl px-5 py-5 text-center">
+              <div className="flex items-center justify-center mb-2">
+                <div className="p-1.5 rounded-lg bg-blue-muted">
+                  <Clock className="w-4 h-4 text-blue" strokeWidth={1.7} />
+                </div>
+              </div>
+              <div className="text-[11px] font-semibold text-ink-tertiary uppercase tracking-wider mb-1">Payback Period</div>
+              <div className="text-[28px] font-semibold tabular-nums tracking-tight text-blue leading-none">
+                {curve.payback.paybackMonths}
+              </div>
+              <div className="text-[11px] text-ink-faint mt-1">months to break even</div>
+            </div>
+            <div className="bg-surface-raised border border-border rounded-xl px-5 py-5 text-center">
+              <div className="flex items-center justify-center mb-2">
+                <div className="p-1.5 rounded-lg bg-green-muted">
+                  <TrendingUp className="w-4 h-4 text-green" strokeWidth={1.7} />
+                </div>
+              </div>
+              <div className="text-[11px] font-semibold text-ink-tertiary uppercase tracking-wider mb-1">Year 1 ROI</div>
+              <div className="text-[28px] font-semibold tabular-nums tracking-tight text-green leading-none">
+                {curve.payback.year1ROI}%
+              </div>
+              <div className="text-[11px] text-ink-faint mt-1">return on investment</div>
+            </div>
+            <div className="bg-surface-raised border border-border rounded-xl px-5 py-5 text-center">
+              <div className="flex items-center justify-center mb-2">
+                <div className="p-1.5 rounded-lg bg-green-muted">
+                  <DollarSign className="w-4 h-4 text-green" strokeWidth={1.7} />
+                </div>
+              </div>
+              <div className="text-[11px] font-semibold text-ink-tertiary uppercase tracking-wider mb-1">Year 2 Projected</div>
+              <div className="text-[28px] font-semibold tabular-nums tracking-tight text-green leading-none">
+                {curve.payback.year2Projected}
+              </div>
+              <div className="text-[11px] text-ink-faint mt-1">cumulative savings</div>
+            </div>
+          </div>
+        </motion.div>
+      </CollapsibleSection>
 
       {/* ── Transformation Timeline ────────────────────────── */}
       <section className="mb-8">

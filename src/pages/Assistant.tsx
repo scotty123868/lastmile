@@ -507,7 +507,7 @@ export default function Assistant() {
             <MessageSquare className="w-4 h-4 text-blue" strokeWidth={1.7} />
           </div>
           <div>
-            <h1 className="text-[22px] font-semibold text-ink tracking-tight leading-none">AI Assistant</h1>
+            <h1 className="text-[22px] font-semibold text-ink tracking-tight leading-none">Intelligence</h1>
             <p className="text-[13px] text-ink-tertiary mt-0.5">
               Conversational insights for {company.shortName}
             </p>

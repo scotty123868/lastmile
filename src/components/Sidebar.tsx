@@ -2,12 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import {
   Activity,
-  ShieldCheck,
-  Database,
-  Users,
-  Plug,
   TrendingUp,
-  Layers,
   ChevronDown,
   Zap,
   X,
@@ -21,16 +16,11 @@ import {
 import { useCompany } from '../data/CompanyContext';
 
 const navItems = [
-  { to: '/analytics', icon: BarChart3, label: 'Analytics' },
+  { to: '/', icon: BarChart3, label: 'Overview' },
+  { to: '/operations', icon: Activity, label: 'Operations' },
   { to: '/assessment', icon: ClipboardCheck, label: 'Assessment' },
-  { to: '/workflows', icon: Activity, label: 'Live Workflows' },
-  { to: '/verification', icon: ShieldCheck, label: 'Verification Ledger' },
-  { to: '/context', icon: Database, label: 'Context Pipeline' },
-  { to: '/adoption', icon: Users, label: 'Adoption Pulse' },
-  { to: '/integrations', icon: Plug, label: 'Integrations' },
   { to: '/impact', icon: TrendingUp, label: 'Impact' },
-  { to: '/data-intelligence', icon: Layers, label: 'Data Intelligence' },
-  { to: '/assistant', icon: MessageSquare, label: 'AI Assistant' },
+  { to: '/intelligence', icon: MessageSquare, label: 'Intelligence' },
 ];
 
 const pillarColors: Record<string, string> = {
@@ -51,8 +41,9 @@ function NavItem({ to, icon: Icon, label }: { to: string; icon: React.ElementTyp
   return (
     <NavLink
       to={to}
+      end={to === '/'}
       className={({ isActive }) =>
-        `group relative flex items-center gap-3 px-3 py-2 rounded-md transition-colors duration-150 ${
+        `group relative flex items-center gap-3 px-3 py-2.5 rounded-md transition-colors duration-150 ${
           isActive
             ? 'text-nav-text-active bg-white/[0.06]'
             : 'text-nav-text hover:text-nav-text-active hover:bg-white/[0.03]'
@@ -211,11 +202,8 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
         )}
       </div>
 
-      {/* Divider */}
-      <div className="mx-4 my-2 h-px bg-nav-border" />
-
       {/* Navigation */}
-      <nav className="flex-1 flex flex-col gap-0.5 px-3 overflow-y-auto">
+      <nav className="flex-1 flex flex-col gap-0.5 px-3 mt-2 overflow-y-auto">
         {navItems.map((item) => (
           <NavItem key={item.to} {...item} />
         ))}

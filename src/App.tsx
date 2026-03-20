@@ -18,22 +18,26 @@ import { SimulationProvider } from './data/SimulationEngine';
 import EventToast from './components/EventToast';
 
 const routeTitles: Record<string, string> = {
-  '/workflows': 'Live Workflows',
-  '/verification': 'Verification Ledger',
-  '/context': 'Context Pipeline',
-  '/adoption': 'Adoption Pulse',
-  '/integrations': 'Integrations',
-  '/impact': 'Impact',
-  '/data-intelligence': 'Data Intelligence',
-  '/assistant': 'AI Assistant',
-  '/analytics': 'Analytics',
+  '/': 'Overview',
+  '/operations': 'Operations',
   '/assessment': 'Assessment',
+  '/impact': 'Impact',
+  '/intelligence': 'Intelligence',
+  '/verification': 'Verification Ledger',
+  // Legacy routes (redirected, but just in case)
+  '/workflows': 'Operations',
+  '/analytics': 'Overview',
+  '/assistant': 'Intelligence',
+  '/context': 'Operations',
+  '/adoption': 'Impact',
+  '/integrations': 'Overview',
+  '/data-intelligence': 'Intelligence',
 };
 
 function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
   const location = useLocation();
   const { company } = useCompany();
-  const pageTitle = routeTitles[location.pathname] || 'Live Workflows';
+  const pageTitle = routeTitles[location.pathname] || 'Overview';
 
   return (
     <header className="sticky top-0 z-10 bg-surface/80 backdrop-blur-xl border-b border-border">
@@ -47,7 +51,7 @@ function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
           </button>
           <div className="flex items-center gap-2">
             <span className="text-[13px] font-medium text-ink">{pageTitle}</span>
-            <span className="text-ink-faint">·</span>
+            <span className="text-ink-faint">&middot;</span>
             <span className="text-[12px] text-ink-tertiary">{company.shortName}</span>
           </div>
         </div>
@@ -75,17 +79,27 @@ function AnimatedRoutes() {
         className="h-full"
       >
         <Routes location={location}>
-          <Route path="/workflows" element={<LiveWorkflows />} />
+          {/* Primary routes */}
+          <Route path="/" element={<Analytics />} />
+          <Route path="/operations" element={<LiveWorkflows />} />
+          <Route path="/assessment" element={<Assessment />} />
+          <Route path="/impact" element={<Impact />} />
+          <Route path="/intelligence" element={<Assistant />} />
           <Route path="/verification" element={<VerificationLedger />} />
+
+          {/* Legacy routes still accessible (not in nav) */}
           <Route path="/context" element={<ContextPipeline />} />
           <Route path="/adoption" element={<AdoptionPulse />} />
           <Route path="/integrations" element={<Integrations />} />
-          <Route path="/impact" element={<Impact />} />
           <Route path="/data-intelligence" element={<DataIntelligence />} />
-          <Route path="/assistant" element={<Assistant />} />
-          <Route path="/analytics" element={<Analytics />} />
-          <Route path="/assessment" element={<Assessment />} />
-          <Route path="*" element={<Navigate to="/workflows" replace />} />
+
+          {/* Redirects for old routes */}
+          <Route path="/analytics" element={<Navigate to="/" replace />} />
+          <Route path="/workflows" element={<Navigate to="/operations" replace />} />
+          <Route path="/assistant" element={<Navigate to="/intelligence" replace />} />
+
+          {/* Default */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </motion.div>
     </AnimatePresence>
