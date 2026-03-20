@@ -13,7 +13,6 @@ import {
   ArrowUpRight,
   ArrowDownRight,
   Minus,
-  Building2,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
 
