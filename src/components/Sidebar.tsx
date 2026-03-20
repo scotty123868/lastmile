@@ -14,6 +14,9 @@ import {
   MessageSquare,
   BarChart3,
   ClipboardCheck,
+  Building2,
+  Landmark,
+  Check,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
 
@@ -35,14 +38,13 @@ const pillarColors: Record<string, string> = {
   readiness: 'bg-amber/10 text-amber',
   adoption: 'bg-green/10 text-green',
   full: 'bg-ink-faint/20 text-ink-tertiary',
-  'Enterprise OS': 'bg-blue/10 text-blue',
-  'Gov AI Platform': 'bg-green/10 text-green',
 };
 
-const categoryLabels: Record<string, string> = {
-  company: 'Companies',
-  conglomerate: 'Conglomerate',
-  sovereign: 'Sovereign',
+/* Conglomerate and sovereign get unique accent treatments */
+const categoryMeta: Record<string, { label: string; icon: React.ElementType; accent: string }> = {
+  company: { label: 'Companies', icon: Building2, accent: '' },
+  conglomerate: { label: 'Conglomerate', icon: Building2, accent: 'bg-purple-500/12 text-purple-400' },
+  sovereign: { label: 'Sovereign', icon: Landmark, accent: 'bg-emerald-500/12 text-emerald-400' },
 };
 
 function NavItem({ to, icon: Icon, label }: { to: string; icon: React.ElementType; label: string }) {
@@ -84,6 +86,20 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
     return () => document.removeEventListener('mousedown', handleClick);
   }, [open]);
 
+  /* Initials badge style — conglomerate/sovereign get unique tints */
+  const initialsBg = (cat: string) => {
+    if (cat === 'conglomerate') return 'bg-purple-500/20';
+    if (cat === 'sovereign') return 'bg-emerald-500/20';
+    return 'bg-white/[0.08]';
+  };
+  const initialsText = (cat: string) => {
+    if (cat === 'conglomerate') return 'text-purple-300';
+    if (cat === 'sovereign') return 'text-emerald-300';
+    return 'text-nav-text-active';
+  };
+
+  const categories = ['company', 'conglomerate', 'sovereign'] as const;
+
   return (
     <aside className="relative w-[232px] min-w-[232px] h-screen flex flex-col bg-nav-bg">
       {/* Close button — mobile only */}
@@ -118,14 +134,14 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
           onClick={() => setOpen(!open)}
           className="w-full flex items-center gap-2 px-2.5 py-2 rounded-md bg-nav-surface border border-nav-border hover:border-white/10 transition-colors cursor-pointer"
         >
-          <div className="w-5 h-5 rounded bg-white/[0.08] flex items-center justify-center flex-shrink-0">
-            <span className="text-[9px] font-bold text-nav-text-active">{company.initials}</span>
+          <div className={`w-5 h-5 rounded flex items-center justify-center flex-shrink-0 ${initialsBg(company.category)}`}>
+            <span className={`text-[9px] font-bold ${initialsText(company.category)}`}>{company.initials}</span>
           </div>
           <div className="flex-1 min-w-0 text-left">
             <span className="text-[12px] font-medium text-nav-text-active truncate block leading-tight">
               {company.shortName}
             </span>
-            <span className={`text-[10px] font-medium px-1 py-0.5 rounded ${pillarColors[company.pillar]}`}>
+            <span className={`text-[10px] font-medium px-1 py-0.5 rounded ${pillarColors[company.pillar] || 'bg-ink-faint/20 text-ink-tertiary'}`}>
               {company.pillarLabel}
             </span>
           </div>
@@ -137,35 +153,57 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
 
         {open && (
           <div className="absolute left-3 right-3 top-full mt-1 bg-nav-surface rounded-lg border border-nav-border shadow-2xl z-50 overflow-hidden max-h-[70vh] overflow-y-auto">
-            {(['company', 'conglomerate', 'sovereign'] as const).map((cat) => {
+            {categories.map((cat, catIdx) => {
               const group = companies.filter((c) => c.category === cat);
               if (group.length === 0) return null;
+              const meta = categoryMeta[cat];
+              const CatIcon = meta.icon;
+
               return (
                 <div key={cat}>
-                  <div className="text-[9px] font-bold text-nav-text/40 uppercase tracking-[0.12em] px-3 pt-3 pb-1">
-                    {categoryLabels[cat]}
+                  {/* Category divider (not before first group) */}
+                  {catIdx > 0 && <div className="mx-2.5 my-1 h-px bg-white/[0.06]" />}
+
+                  {/* Category header */}
+                  <div className="flex items-center gap-1.5 px-3 pt-2.5 pb-1">
+                    {cat !== 'company' && <CatIcon className="w-3 h-3 text-white/20" strokeWidth={1.5} />}
+                    <span className="text-[9px] font-bold text-white/25 uppercase tracking-[0.12em]">
+                      {meta.label}
+                    </span>
                   </div>
-                  {group.map((c) => (
-                    <button
-                      key={c.id}
-                      type="button"
-                      onClick={() => { setCompanyId(c.id); setOpen(false); }}
-                      className={`w-full flex items-center gap-2.5 px-3 py-2.5 text-left transition-colors hover:bg-white/[0.06] ${
-                        c.id === company.id ? 'bg-white/[0.04]' : ''
-                      }`}
-                    >
-                      <div className="w-5 h-5 rounded bg-white/[0.08] flex items-center justify-center flex-shrink-0">
-                        <span className="text-[9px] font-bold text-nav-text-active">{c.initials}</span>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <span className="text-[12px] font-medium text-white/90 truncate block">{c.shortName}</span>
-                        <span className="text-[10px] text-nav-text truncate block">{c.industry} · {c.revenue}</span>
-                      </div>
-                      <span className={`text-[9px] font-medium px-1.5 py-0.5 rounded ${pillarColors[c.pillarLabel] || pillarColors[c.pillar]}`}>
-                        {c.pillarLabel}
-                      </span>
-                    </button>
-                  ))}
+
+                  {group.map((c) => {
+                    const isSelected = c.id === company.id;
+                    return (
+                      <button
+                        key={c.id}
+                        type="button"
+                        onClick={() => { setCompanyId(c.id); setOpen(false); }}
+                        className={`w-full flex items-center gap-2.5 px-3 py-2 text-left transition-colors hover:bg-white/[0.06] ${
+                          isSelected ? 'bg-white/[0.04]' : ''
+                        }`}
+                      >
+                        <div className={`w-5 h-5 rounded flex items-center justify-center flex-shrink-0 ${initialsBg(c.category)}`}>
+                          <span className={`text-[9px] font-bold ${initialsText(c.category)}`}>{c.initials}</span>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <span className="text-[12px] font-medium text-white/90 truncate block">{c.shortName}</span>
+                          <span className="text-[10px] text-nav-text truncate block">{c.industry} · {c.revenue}</span>
+                        </div>
+                        {isSelected ? (
+                          <Check className="w-3 h-3 text-blue flex-shrink-0" strokeWidth={2.5} />
+                        ) : (
+                          <span className={`text-[9px] font-medium px-1.5 py-0.5 rounded whitespace-nowrap ${
+                            cat === 'conglomerate' ? 'bg-purple-500/10 text-purple-400' :
+                            cat === 'sovereign' ? 'bg-emerald-500/10 text-emerald-400' :
+                            pillarColors[c.pillar] || 'bg-ink-faint/20 text-ink-tertiary'
+                          }`}>
+                            {c.pillarLabel}
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
               );
             })}
