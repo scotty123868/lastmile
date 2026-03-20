@@ -35,6 +35,14 @@ const pillarColors: Record<string, string> = {
   readiness: 'bg-amber/10 text-amber',
   adoption: 'bg-green/10 text-green',
   full: 'bg-ink-faint/20 text-ink-tertiary',
+  'Enterprise OS': 'bg-blue/10 text-blue',
+  'Gov AI Platform': 'bg-green/10 text-green',
+};
+
+const categoryLabels: Record<string, string> = {
+  company: 'Companies',
+  conglomerate: 'Conglomerate',
+  sovereign: 'Sovereign',
 };
 
 function NavItem({ to, icon: Icon, label }: { to: string; icon: React.ElementType; label: string }) {
@@ -128,28 +136,39 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
         </button>
 
         {open && (
-          <div className="absolute left-3 right-3 top-full mt-1 bg-nav-surface rounded-lg border border-nav-border shadow-2xl z-50 overflow-hidden">
-            {companies.map((c) => (
-              <button
-                key={c.id}
-                type="button"
-                onClick={() => { setCompanyId(c.id); setOpen(false); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2.5 text-left transition-colors hover:bg-white/[0.06] ${
-                  c.id === company.id ? 'bg-white/[0.04]' : ''
-                }`}
-              >
-                <div className="w-5 h-5 rounded bg-white/[0.08] flex items-center justify-center flex-shrink-0">
-                  <span className="text-[9px] font-bold text-nav-text-active">{c.initials}</span>
+          <div className="absolute left-3 right-3 top-full mt-1 bg-nav-surface rounded-lg border border-nav-border shadow-2xl z-50 overflow-hidden max-h-[70vh] overflow-y-auto">
+            {(['company', 'conglomerate', 'sovereign'] as const).map((cat) => {
+              const group = companies.filter((c) => c.category === cat);
+              if (group.length === 0) return null;
+              return (
+                <div key={cat}>
+                  <div className="text-[9px] font-bold text-nav-text/40 uppercase tracking-[0.12em] px-3 pt-3 pb-1">
+                    {categoryLabels[cat]}
+                  </div>
+                  {group.map((c) => (
+                    <button
+                      key={c.id}
+                      type="button"
+                      onClick={() => { setCompanyId(c.id); setOpen(false); }}
+                      className={`w-full flex items-center gap-2.5 px-3 py-2.5 text-left transition-colors hover:bg-white/[0.06] ${
+                        c.id === company.id ? 'bg-white/[0.04]' : ''
+                      }`}
+                    >
+                      <div className="w-5 h-5 rounded bg-white/[0.08] flex items-center justify-center flex-shrink-0">
+                        <span className="text-[9px] font-bold text-nav-text-active">{c.initials}</span>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <span className="text-[12px] font-medium text-white/90 truncate block">{c.shortName}</span>
+                        <span className="text-[10px] text-nav-text truncate block">{c.industry} · {c.revenue}</span>
+                      </div>
+                      <span className={`text-[9px] font-medium px-1.5 py-0.5 rounded ${pillarColors[c.pillarLabel] || pillarColors[c.pillar]}`}>
+                        {c.pillarLabel}
+                      </span>
+                    </button>
+                  ))}
                 </div>
-                <div className="flex-1 min-w-0">
-                  <span className="text-[12px] font-medium text-white/90 truncate block">{c.shortName}</span>
-                  <span className="text-[10px] text-nav-text truncate block">{c.industry} · {c.revenue}</span>
-                </div>
-                <span className={`text-[9px] font-medium px-1.5 py-0.5 rounded ${pillarColors[c.pillar]}`}>
-                  {c.pillarLabel}
-                </span>
-              </button>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

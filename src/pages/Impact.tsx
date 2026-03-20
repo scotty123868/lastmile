@@ -131,6 +131,50 @@ const impactData: Record<string, CompanyImpactData> = {
       { label: 'Exception Resolution', value: '0.6 hrs', subtext: 'down from 2.5 hrs' },
     ],
   },
+  northbridge: {
+    totalAnnualImpact: 18200000,
+    categories: [
+      { label: 'Verification Catches', amount: 6400000, description: 'Cross-OpCo compliance corrections, procurement accuracy, and duplicate detection across 12 operating companies', icon: 'shield', type: 'saving' },
+      { label: 'Process Automation', amount: 8200000, description: 'Supply chain optimization, financial close automation, and predictive maintenance across industrial fleet', icon: 'zap', type: 'saving' },
+      { label: 'Adoption Uplift', amount: 5600000, description: 'Workforce efficiency gains across 42,000 employees spanning aerospace, energy, financial, and health sciences divisions', icon: 'users', type: 'saving' },
+      { label: 'Implementation Cost', amount: -2000000, description: 'Enterprise platform license, multi-OpCo integration, change management, and global rollout', icon: 'cost', type: 'cost' },
+    ],
+    waterfall: [
+      { label: 'Verification', value: 6400000, type: 'positive' },
+      { label: 'Automation', value: 8200000, type: 'positive' },
+      { label: 'Adoption', value: 5600000, type: 'positive' },
+      { label: 'Costs', value: -2000000, type: 'negative' },
+      { label: 'Net Impact', value: 18200000, type: 'total' },
+    ],
+    metrics: [
+      { label: 'Payback Period', value: '5.0 mo' },
+      { label: 'Year 1 ROI', value: '134%' },
+      { label: 'Verified Accuracy', value: '96.8%' },
+      { label: 'Exception Resolution', value: '2.2 hrs', subtext: 'down from 8.4 hrs' },
+    ],
+  },
+  estonia: {
+    totalAnnualImpact: 14800000,
+    categories: [
+      { label: 'Verification Catches', amount: 4200000, description: 'Tax compliance accuracy corrections, benefit eligibility verification, and cross-ministry data validation', icon: 'shield', type: 'saving' },
+      { label: 'Process Automation', amount: 6800000, description: 'Citizen services automation, inter-ministry data flows, and healthcare records integration via X-Road', icon: 'zap', type: 'saving' },
+      { label: 'Adoption Uplift', amount: 5200000, description: 'Civil servant productivity gains across 8 ministries and agencies, leveraging existing digital infrastructure', icon: 'users', type: 'saving' },
+      { label: 'Implementation Cost', amount: -1400000, description: 'Gov AI platform license, X-Road AI layer, ministry onboarding, and training programs', icon: 'cost', type: 'cost' },
+    ],
+    waterfall: [
+      { label: 'Verification', value: 4200000, type: 'positive' },
+      { label: 'Automation', value: 6800000, type: 'positive' },
+      { label: 'Adoption', value: 5200000, type: 'positive' },
+      { label: 'Costs', value: -1400000, type: 'negative' },
+      { label: 'Net Impact', value: 14800000, type: 'total' },
+    ],
+    metrics: [
+      { label: 'Payback Period', value: '4.2 mo' },
+      { label: 'Year 1 ROI', value: '152%' },
+      { label: 'Verified Accuracy', value: '97.8%' },
+      { label: 'Exception Resolution', value: '1.4 hrs', subtext: 'down from 6.8 hrs' },
+    ],
+  },
 };
 
 /* ── Helpers ──────────────────────────────────────────────── */

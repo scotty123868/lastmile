@@ -153,6 +153,56 @@ const pipelineData: Record<string, CompanyPipelineData> = {
       { id: 'cp4', name: 'Production Planning', description: 'Machine capacity + order backlog + material availability + shift schedules + tooling inventory', sources: 6, fields: 18000, freshness: 'Real-time', status: 'ready', lastUpdated: '4 min ago', usedBy: ['Production Scheduling', 'Capacity Planning'] },
     ],
   },
+  northbridge: {
+    stages: [
+      { label: 'Ingestion', count: 48200, status: 'active' },
+      { label: 'Normalization', count: 46100, status: 'active' },
+      { label: 'Entity Resolution', count: 44800, status: 'active' },
+      { label: 'Context Packing', count: 24, status: 'active' },
+    ],
+    stats: { ingested: 48200, normalized: 46100, packed: 24, failed: 142 },
+    documents: [
+      { id: 'd1', name: 'SAP_MasterData_12OpCos.api', type: 'api', origin: 'SAP S/4HANA Cloud — All Instances', size: '—', status: 'ready', fields: 142000, confidence: 98 },
+      { id: 'd2', name: 'IoT_SensorStream_6Plants.stream', type: 'api', origin: 'Siemens Xcelerator Gateway', size: '—', status: 'ready', fields: 84000, confidence: 99 },
+      { id: 'd3', name: 'Supplier_Contracts_2026.pdf', type: 'pdf', origin: 'SharePoint — Corporate Procurement', size: '248 MB', status: 'processing', fields: 4200, confidence: 92 },
+      { id: 'd4', name: 'Consolidated_Financials_Q4.xlsx', type: 'spreadsheet', origin: 'Workday Financial Mgmt', size: '34 MB', status: 'ready', fields: 48000, confidence: 97 },
+      { id: 'd5', name: 'CrossOpCo_Inventory_Daily.csv', type: 'csv', origin: 'SAP Inventory Module — All Plants', size: '82 MB', status: 'ready', fields: 24800, confidence: 96 },
+      { id: 'd6', name: 'Palantir_Analytics_Export.api', type: 'api', origin: 'Palantir Foundry', size: '—', status: 'ready', fields: 62000, confidence: 98 },
+      { id: 'd7', name: 'Workforce_Data_Global.api', type: 'api', origin: 'Workday HCM', size: '—', status: 'ready', fields: 42000, confidence: 99 },
+      { id: 'd8', name: 'ServiceNow_Tickets_AllOpCos.api', type: 'api', origin: 'ServiceNow REST API', size: '—', status: 'ready', fields: 18400, confidence: 97 },
+    ],
+    contextPacks: [
+      { id: 'cp1', name: 'Cross-OpCo Procurement', description: 'Unified supplier master + PO history + price benchmarks + volume discounts + contract terms across 12 OpCos', sources: 8, fields: 84000, freshness: 'Hourly', status: 'ready', lastUpdated: '12 min ago', usedBy: ['Cross-OpCo Procurement Consolidation'] },
+      { id: 'cp2', name: 'Predictive Maintenance', description: 'IoT sensor baselines + maintenance history + OEM specs + part lifecycle + operator logs across 6 plants', sources: 6, fields: 124000, freshness: 'Real-time', status: 'ready', lastUpdated: '1 min ago', usedBy: ['Predictive Maintenance — Industrial Fleet'] },
+      { id: 'cp3', name: 'Financial Consolidation', description: 'Chart of accounts + intercompany agreements + FX rates + elimination rules + audit standards', sources: 5, fields: 48000, freshness: 'Daily', status: 'building', lastUpdated: '8 min ago', usedBy: ['Financial Close Automation'] },
+      { id: 'cp4', name: 'Workforce Analytics', description: 'Employee master + skills matrix + utilization rates + training records + attrition data across 42K employees', sources: 4, fields: 42000, freshness: 'Daily', status: 'ready', lastUpdated: '4 hrs ago', usedBy: ['Workforce Optimization', 'Adoption Tracking'] },
+    ],
+  },
+  estonia: {
+    stages: [
+      { label: 'Ingestion', count: 84200, status: 'active' },
+      { label: 'Normalization', count: 82400, status: 'active' },
+      { label: 'Entity Resolution', count: 80100, status: 'active' },
+      { label: 'Context Packing', count: 18, status: 'active' },
+    ],
+    stats: { ingested: 84200, normalized: 82400, packed: 18, failed: 28 },
+    documents: [
+      { id: 'd1', name: 'XRoad_DataFeed_AllMinistries.api', type: 'api', origin: 'X-Road 7.0 Security Server', size: '—', status: 'ready', fields: 248000, confidence: 99 },
+      { id: 'd2', name: 'EMTA_TaxFilings_2026Q1.api', type: 'api', origin: 'Tax & Revenue Board (EMTA)', size: '—', status: 'ready', fields: 142000, confidence: 98 },
+      { id: 'd3', name: 'TEHIK_HealthRecords_Batch.api', type: 'api', origin: 'TEHIK — Health Information System', size: '—', status: 'ready', fields: 84000, confidence: 97 },
+      { id: 'd4', name: 'Population_Registry_Feed.api', type: 'api', origin: 'Population Registry (RR)', size: '—', status: 'ready', fields: 62000, confidence: 99 },
+      { id: 'd5', name: 'eResidency_Applications.csv', type: 'csv', origin: 'e-Residency Program Portal', size: '24 MB', status: 'ready', fields: 18400, confidence: 96 },
+      { id: 'd6', name: 'Budget_Documents_2026.pdf', type: 'pdf', origin: 'Ministry of Finance', size: '142 MB', status: 'processing', fields: 4800, confidence: 94 },
+      { id: 'd7', name: 'Social_Insurance_Records.api', type: 'api', origin: 'Social Insurance Board (SKA)', size: '—', status: 'ready', fields: 94000, confidence: 98 },
+      { id: 'd8', name: 'Employment_Board_Data.api', type: 'api', origin: 'Estonian Unemployment Insurance Fund', size: '—', status: 'ready', fields: 28000, confidence: 97 },
+    ],
+    contextPacks: [
+      { id: 'cp1', name: 'Citizen Services', description: 'Population registry + benefit history + employment status + family data + residence permits via X-Road', sources: 6, fields: 148000, freshness: 'Real-time', status: 'ready', lastUpdated: '2 min ago', usedBy: ['Citizen Benefits Eligibility Engine'] },
+      { id: 'cp2', name: 'Tax Intelligence', description: 'Income declarations + employer reports + property transactions + bank interest + VAT returns', sources: 5, fields: 142000, freshness: 'Daily', status: 'ready', lastUpdated: '1 hr ago', usedBy: ['Tax Return Auto-Assessment'] },
+      { id: 'cp3', name: 'Healthcare', description: 'Patient records + prescriptions + lab results + provider directory + insurance coverage via TEHIK', sources: 4, fields: 84000, freshness: 'Real-time', status: 'ready', lastUpdated: '5 min ago', usedBy: ['Healthcare Records Integration'] },
+      { id: 'cp4', name: 'Cross-Ministry Analytics', description: 'Budget execution + procurement data + performance indicators + policy impact metrics across all ministries', sources: 8, fields: 62000, freshness: 'Weekly', status: 'building', lastUpdated: '2 days ago', usedBy: ['Cross-Ministry Data Platform', 'Policy Impact Analysis'] },
+    ],
+  },
 };
 
 /* ── Components ──────────────────────────────────────────── */

@@ -486,12 +486,248 @@ export const atlasWorkflows: LiveWorkflow[] = [
   },
 ];
 
+// ─── NORTHBRIDGE: Enterprise OS ──────────────────────────
+
+export const northbridgeWorkflows: LiveWorkflow[] = [
+  {
+    id: 'northbridge-001',
+    name: 'Cross-OpCo Procurement Consolidation',
+    department: 'Corporate Procurement — 12 Operating Companies',
+    status: 'running',
+    startedAt: '5 min ago',
+    savings: 4800000,
+    cycleTime: { before: '3 weeks', after: '2 days' },
+    steps: [
+      {
+        id: 's1', label: 'Ingest Supplier Master Data', detail: 'Pulled supplier records from 12 OpCo SAP instances — 8,400 unique vendor entries',
+        status: 'completed', duration: '14s', agent: 'Data Pipeline',
+      },
+      {
+        id: 's2', label: 'Deduplicate Supplier Entities', detail: 'Fuzzy matching + DUNS lookup — 8,400 entries resolved to 5,200 unique suppliers. 1,840 duplicates flagged.',
+        status: 'completed', duration: '28s', agent: 'Entity Resolution',
+        confidence: 94,
+      },
+      {
+        id: 's3', label: 'Price Harmonization Analysis', detail: 'Cross-OpCo price comparison for shared suppliers. 340 items with >15% price variance detected.',
+        status: 'completed', duration: '18s', agent: 'Analytics Agent',
+      },
+      {
+        id: 's4', label: 'Verify Procurement Duplicates', detail: 'Northbridge Aerospace and Northbridge Energy ordering same titanium alloy from same supplier at 22% price variance.',
+        status: 'verification', duration: '—', agent: 'Verification Queue',
+        confidence: 96,
+        check: {
+          original: 'Separate POs to Titanium Metals Corp — Aerospace: $142/kg, Energy: $174/kg',
+          corrected: 'Consolidated PO at negotiated volume price $138/kg — $340K annual savings',
+          flag: 'Cross-OpCo duplicate — price variance 22%',
+        },
+      },
+      {
+        id: 's5', label: 'Generate Consolidated PO Routing Rules', detail: 'Pending verification clearance — unified purchasing rules across 12 OpCos',
+        status: 'pending', agent: 'Workflow Orchestrator',
+      },
+      {
+        id: 's6', label: 'Push to SAP S/4HANA', detail: 'Awaiting upstream completion — update procurement master across all instances',
+        status: 'pending', agent: 'Integration Agent',
+      },
+    ],
+  },
+  {
+    id: 'northbridge-002',
+    name: 'Predictive Maintenance — Industrial Fleet',
+    department: 'Operations — 6 Manufacturing Plants',
+    status: 'running',
+    startedAt: '3 min ago',
+    savings: 3600000,
+    cycleTime: { before: 'Reactive (avg 6hr downtime)', after: 'Predictive (20 min pre-alert)' },
+    steps: [
+      {
+        id: 's1', label: 'Ingest IoT Sensor Streams', detail: 'Siemens Xcelerator feed — 2,400 machines across 6 plants, vibration + thermal + pressure at 5Hz',
+        status: 'completed', duration: 'continuous', agent: 'Data Pipeline',
+      },
+      {
+        id: 's2', label: 'Normalize Cross-Plant Telemetry', detail: 'Unified sensor schema across Siemens, ABB, and Honeywell controllers — 14.2M data points/day',
+        status: 'completed', duration: '4.2s', agent: 'Context Assembler',
+      },
+      {
+        id: 's3', label: 'Run Fleet Anomaly Detection', detail: 'ML models scanning all 2,400 machines. 18 anomalies detected — 3 critical, 7 warning, 8 informational.',
+        status: 'completed', duration: '12s', agent: 'Predictive Model',
+        confidence: 91,
+      },
+      {
+        id: 's4', label: 'Verify Critical Alerts', detail: 'Plant 3 turbine bearing — vibration 3.1σ above baseline. Cross-referencing OEM specs and maintenance history.',
+        status: 'active', duration: '—', agent: 'Verification Queue',
+        confidence: 93,
+        check: {
+          original: 'Turbine T3-047: Normal operating range',
+          corrected: 'Bearing vibration 3.1σ above baseline — replacement recommended within 72 hours',
+          flag: 'Critical — exceeds OEM safety threshold',
+        },
+      },
+      {
+        id: 's5', label: 'Generate Maintenance Work Orders', detail: 'Pending verification — batch work orders for 3 critical and 7 warning assets',
+        status: 'pending', agent: 'Workflow Orchestrator',
+      },
+    ],
+  },
+  {
+    id: 'northbridge-003',
+    name: 'Financial Close Automation',
+    department: 'Finance — Group Consolidation',
+    status: 'verified',
+    startedAt: '22 min ago',
+    savings: 3200000,
+    cycleTime: { before: '12 business days', after: '3 business days' },
+    steps: [
+      {
+        id: 's1', label: 'Ingest Trial Balances', detail: 'Pulled GL data from 12 OpCo SAP instances — 48,000 journal entries for month-end close',
+        status: 'completed', duration: '8s', agent: 'Data Pipeline',
+      },
+      {
+        id: 's2', label: 'Intercompany Elimination', detail: 'Identified and eliminated 2,840 intercompany transactions totaling $142M — 99.4% auto-matched',
+        status: 'completed', duration: '34s', agent: 'Reconciliation Agent',
+        confidence: 97,
+        check: {
+          original: 'Intercompany loan: Aerospace → Energy $4.2M — classified as revenue',
+          corrected: 'Reclassified as intercompany loan — eliminated in consolidation per IFRS 10',
+          flag: 'Misclassification — intercompany elimination error',
+        },
+      },
+      {
+        id: 's3', label: 'Currency Translation', detail: 'Translated 4 foreign currency entities (EUR, GBP, JPY, CAD) to USD — rates sourced from Reuters feed',
+        status: 'completed', duration: '2.1s', agent: 'Analytics Agent',
+      },
+      {
+        id: 's4', label: 'Consolidation & Reporting', detail: 'Generated consolidated P&L, balance sheet, and cash flow. Variance analysis vs prior period complete.',
+        status: 'completed', duration: '18s', agent: 'Document Generator',
+      },
+      {
+        id: 's5', label: 'Audit Trail & Sign-off', detail: 'Full decision trace recorded: 2,840 eliminations, 16 corrections, 0 unresolved. CFO sign-off obtained.',
+        status: 'completed', duration: '0.4s', agent: 'Audit Logger',
+      },
+    ],
+  },
+];
+
+// ─── ESTONIA: Gov AI Platform ───────────────────────────
+
+export const estoniaWorkflows: LiveWorkflow[] = [
+  {
+    id: 'estonia-001',
+    name: 'Tax Return Auto-Assessment',
+    department: 'Tax & Revenue Board (EMTA)',
+    status: 'running',
+    startedAt: '4 min ago',
+    savings: 4200000,
+    cycleTime: { before: '14 days', after: '48 hours' },
+    steps: [
+      {
+        id: 's1', label: 'Receive e-Filing Submissions', detail: 'Batch of 12,400 personal income tax returns via e-MTA portal — XML/JSON format',
+        status: 'completed', duration: '2.4s', agent: 'Intake Gateway',
+      },
+      {
+        id: 's2', label: 'Cross-Reference X-Road Data', detail: 'Queried employer wage reports, bank interest statements, and property registry via X-Road — 48,000 data points',
+        status: 'completed', duration: '8.2s', agent: 'X-Road Data Agent',
+        confidence: 98,
+      },
+      {
+        id: 's3', label: 'Validate Deduction Claims', detail: 'AI analysis of claimed deductions against eligibility rules. 847 returns flagged for review — mortgage interest, education, charity.',
+        status: 'completed', duration: '14s', agent: 'Validation Engine',
+      },
+      {
+        id: 's4', label: 'Auto-Assess Standard Returns', detail: '11,553 returns auto-assessed with no flags. Processing refund calculations for qualifying returns.',
+        status: 'active', duration: '—', agent: 'Assessment Engine',
+        confidence: 96,
+      },
+      {
+        id: 's5', label: 'Flag Complex Cases for Review', detail: 'Pending — 847 returns requiring manual review by tax officers',
+        status: 'pending', agent: 'Escalation Handler',
+      },
+      {
+        id: 's6', label: 'Issue Assessment Notices', detail: 'Awaiting assessment completion — notices via e-MTA portal and Smart-ID notifications',
+        status: 'pending', agent: 'Communication Agent',
+      },
+    ],
+  },
+  {
+    id: 'estonia-002',
+    name: 'Citizen Benefits Eligibility Engine',
+    department: 'Social Insurance Board (SKA)',
+    status: 'running',
+    startedAt: '7 min ago',
+    savings: 3800000,
+    cycleTime: { before: '10 days', after: '24 hours' },
+    steps: [
+      {
+        id: 's1', label: 'Receive Benefit Applications', detail: 'Daily batch: 2,140 applications — family benefits, disability, unemployment, parental leave',
+        status: 'completed', duration: '1.2s', agent: 'Intake Gateway',
+      },
+      {
+        id: 's2', label: 'Cross-Ministry Data Stitching', detail: 'X-Road queries to Tax Board (income), Population Registry (family), Health Insurance Fund (medical), Employment Board (status)',
+        status: 'completed', duration: '12s', agent: 'X-Road Data Agent',
+        confidence: 97,
+      },
+      {
+        id: 's3', label: 'Eligibility Determination', detail: '1,840 applications auto-determined eligible. 180 flagged for income discrepancy, 120 for missing documentation.',
+        status: 'completed', duration: '8.4s', agent: 'Rules Engine',
+      },
+      {
+        id: 's4', label: 'Verify Income Discrepancies', detail: 'Cross-checking Tax Board reported income vs Social Insurance registered income for 180 flagged applications.',
+        status: 'active', duration: '—', agent: 'Verification Queue',
+        confidence: 89,
+        check: {
+          original: 'Applicant #EE-2026-44821: Income €28,000 (Social Insurance) — eligible for family benefit',
+          corrected: 'Tax Board reports income €42,000 — exceeds eligibility threshold. Benefit suspended pending investigation.',
+          flag: 'Income mismatch — X-Road cross-reference conflict',
+        },
+      },
+      {
+        id: 's5', label: 'Issue Benefit Determinations', detail: 'Pending verification — approved applications to payment system, flagged to case officers',
+        status: 'pending', agent: 'Communication Agent',
+      },
+    ],
+  },
+  {
+    id: 'estonia-003',
+    name: 'Healthcare Records Integration',
+    department: 'Health & Welfare Information Systems (TEHIK)',
+    status: 'verified',
+    startedAt: '18 min ago',
+    savings: 3400000,
+    cycleTime: { before: '3 weeks', after: '2 days' },
+    steps: [
+      {
+        id: 's1', label: 'Ingest Provider Health Records', detail: 'HL7 FHIR feeds from 42 healthcare providers — 84,000 patient records, lab results, prescriptions',
+        status: 'completed', duration: '24s', agent: 'Data Pipeline',
+      },
+      {
+        id: 's2', label: 'Normalize Medical Terminology', detail: 'Mapped provider-specific codes to ICD-10-EE and ATC classification. 99.2% auto-mapped, 0.8% flagged.',
+        status: 'completed', duration: '42s', agent: 'Schema Mapper',
+        confidence: 95,
+      },
+      {
+        id: 's3', label: 'Resolve Patient Identities', detail: 'Cross-referenced via personal ID code (isikukood). 84,000 records matched to 62,400 unique patients.',
+        status: 'completed', duration: '18s', agent: 'Entity Resolution',
+      },
+      {
+        id: 's4', label: 'Build Longitudinal Records', detail: 'Assembled unified patient timelines combining GP visits, specialist consultations, hospital stays, and prescriptions.',
+        status: 'completed', duration: '34s', agent: 'Context Assembler',
+      },
+      {
+        id: 's5', label: 'Quality Validation & Publish', detail: 'All records validated. Published to National Health Information System. 0 data quality issues remaining.',
+        status: 'completed', duration: '4.2s', agent: 'Integration Agent',
+      },
+    ],
+  },
+];
+
 export function getWorkflowsForCompany(companyId: string): LiveWorkflow[] {
   switch (companyId) {
     case 'meridian': return meridianWorkflows;
     case 'oakwood': return oakwoodWorkflows;
     case 'pinnacle': return pinnacleWorkflows;
     case 'atlas': return atlasWorkflows;
+    case 'northbridge': return northbridgeWorkflows;
+    case 'estonia': return estoniaWorkflows;
     default: return meridianWorkflows;
   }
 }

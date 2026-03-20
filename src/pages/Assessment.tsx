@@ -164,6 +164,52 @@ const assessmentData: Record<string, CompanyAssessmentData> = {
     breakEvenLabel: 'May',
     payback: { paybackMonths: 4.8, year1ROI: 142, year2Projected: '$7.2M' },
   },
+  northbridge: {
+    techStack: [
+      { name: 'SAP S/4HANA Cloud', category: 'ERP', current: 6, target: 9 },
+      { name: 'Workday', category: 'HR/Finance', current: 7, target: 9 },
+      { name: 'Palantir Foundry', category: 'Analytics', current: 5, target: 9 },
+      { name: 'Salesforce', category: 'CRM', current: 6, target: 8 },
+      { name: 'Siemens Xcelerator', category: 'Industrial IoT', current: 4, target: 9 },
+      { name: 'ServiceNow', category: 'IT/Ops', current: 7, target: 9 },
+    ],
+    licenses: [
+      { vendor: 'SAP S/4HANA', total: 2400, active: 1680, waste: 3800000, action: 'Harmonize 12 OpCo instances to unified tenant' },
+      { vendor: 'Workday', total: 1800, active: 1420, waste: 1400000, action: 'Consolidate legacy HRIS systems' },
+      { vendor: 'Palantir Foundry', total: 340, active: 180, waste: 840000, action: 'Migrate 8 OpCos to shared analytics layer' },
+      { vendor: 'Salesforce Enterprise', total: 4200, active: 3100, waste: 2200000, action: 'Downgrade 1,100 to Platform licenses' },
+    ],
+    timeline: buildTimeline(
+      [3200, 2800, 2100, 1600, 1000, 680, 440, 320, 240, 180, 140, 110],
+      [0, 200, 800, 1800, 3200, 5400, 7200, 9400, 11800, 14200, 16800, 18600],
+    ),
+    breakEvenMonth: 5,
+    breakEvenLabel: 'May',
+    payback: { paybackMonths: 5.4, year1ROI: 122, year2Projected: '$42M' },
+  },
+  estonia: {
+    techStack: [
+      { name: 'X-Road', category: 'Data Exchange', current: 8, target: 10 },
+      { name: 'RIHA', category: 'Info System Registry', current: 7, target: 9 },
+      { name: 'eID / Smart-ID', category: 'Identity', current: 9, target: 10 },
+      { name: 'TEHIK', category: 'Health IT', current: 6, target: 9 },
+      { name: 'SAP', category: 'Financial Mgmt', current: 5, target: 8 },
+      { name: 'Custom Legacy', category: 'Social Services', current: 3, target: 8 },
+    ],
+    licenses: [
+      { vendor: 'SAP Financial Suite', total: 840, active: 520, waste: 1200000, action: 'Migrate 4 ministries to shared instance' },
+      { vendor: 'Oracle Database', total: 280, active: 140, waste: 680000, action: 'Consolidate to PostgreSQL + X-Road' },
+      { vendor: 'Microsoft 365 E5', total: 12000, active: 8400, waste: 540000, action: 'Downgrade non-ministry staff to E3' },
+      { vendor: 'Custom Legacy Systems', total: 42, active: 18, waste: 380000, action: 'Decommission post-X-Road migration' },
+    ],
+    timeline: buildTimeline(
+      [2400, 2100, 1600, 1200, 780, 520, 340, 240, 180, 140, 110, 90],
+      [0, 180, 640, 1400, 2600, 4200, 5800, 7400, 9200, 11400, 14000, 16200],
+    ),
+    breakEvenMonth: 5,
+    breakEvenLabel: 'May',
+    payback: { paybackMonths: 4.6, year1ROI: 138, year2Projected: '$28M' },
+  },
 };
 
 /* ── Helpers ──────────────────────────────────────────────── */
@@ -201,6 +247,15 @@ function categoryBadgeColor(category: string): string {
     IoT: 'bg-blue-muted text-blue',
     'Supply Chain': 'bg-amber-muted text-amber',
     'Plant Ops': 'bg-red-muted text-red',
+    'HR/Finance': 'bg-surface-sunken text-ink-tertiary',
+    'Industrial IoT': 'bg-blue-muted text-blue',
+    'IT/Ops': 'bg-amber-muted text-amber',
+    'Data Exchange': 'bg-green-muted text-green',
+    'Info System Registry': 'bg-blue-muted text-blue',
+    Identity: 'bg-green-muted text-green',
+    'Health IT': 'bg-red-muted text-red',
+    'Financial Mgmt': 'bg-amber-muted text-amber',
+    'Social Services': 'bg-red-muted text-red',
   };
   return map[category] || 'bg-surface-sunken text-ink-tertiary';
 }

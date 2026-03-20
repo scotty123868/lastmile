@@ -13,6 +13,8 @@ export interface Company {
   pillar: 'verification' | 'readiness' | 'adoption' | 'full';
   pillarLabel: string;
   tagline: string;
+  category: 'company' | 'conglomerate' | 'sovereign';
+  subEntities?: string[];
 }
 
 export const companies: Company[] = [
@@ -28,6 +30,7 @@ export const companies: Company[] = [
     pillar: 'verification',
     pillarLabel: 'Verification Ops',
     tagline: 'AI output verification across 4 operating companies',
+    category: 'company',
   },
   {
     id: 'oakwood',
@@ -41,6 +44,7 @@ export const companies: Company[] = [
     pillar: 'readiness',
     pillarLabel: 'Readiness Ops',
     tagline: 'Context stitching across legacy claims systems',
+    category: 'company',
   },
   {
     id: 'pinnacle',
@@ -54,6 +58,7 @@ export const companies: Company[] = [
     pillar: 'adoption',
     pillarLabel: 'Adoption Ops',
     tagline: 'Behavioral execution across clinical and admin staff',
+    category: 'company',
   },
   {
     id: 'atlas',
@@ -67,6 +72,37 @@ export const companies: Company[] = [
     pillar: 'full',
     pillarLabel: 'Full Operating System',
     tagline: 'All three pillars running as one machine',
+    category: 'company',
+  },
+  {
+    id: 'northbridge',
+    name: 'Northbridge Industries Group',
+    shortName: 'Northbridge Industries',
+    industry: 'Diversified Industrial',
+    revenue: '$18.2B',
+    employees: 42000,
+    opCos: 12,
+    initials: 'NI',
+    pillar: 'full',
+    pillarLabel: 'Enterprise OS',
+    tagline: 'Full AI operating system across 12 operating companies',
+    category: 'conglomerate',
+    subEntities: ['Northbridge Aerospace', 'Northbridge Energy', 'Northbridge Financial', 'Northbridge Health Sciences'],
+  },
+  {
+    id: 'estonia',
+    name: 'Republic of Estonia — Digital Government',
+    shortName: 'Republic of Estonia',
+    industry: 'Digital Government',
+    revenue: '\u20AC12.4B budget',
+    employees: 28500,
+    opCos: 8,
+    initials: 'EE',
+    pillar: 'full',
+    pillarLabel: 'Gov AI Platform',
+    tagline: 'AI-native governance across 8 ministries and agencies',
+    category: 'sovereign',
+    subEntities: ['Ministry of Finance', 'Ministry of Social Affairs', 'Ministry of Economic Affairs', 'Information System Authority (RIA)'],
   },
 ];
 

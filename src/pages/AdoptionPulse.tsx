@@ -155,6 +155,57 @@ const adoptionData: Record<string, CompanyAdoptionData> = {
       { label: 'Cross-plant inventory lookup', before: '1.8 hrs', after: '12 min', improvement: '89%' },
     ],
   },
+  northbridge: {
+    overallRate: 71,
+    overallTrend: '+6% vs last month',
+    overallTrendDir: 'up',
+    teamLabel: 'Operating Company / Division',
+    teams: [
+      { name: 'Aerospace Ops', active: 2800, total: 3200, adoption: 88, trend: '\u2191 8%', trendDir: 'up', status: 'strong' },
+      { name: 'Energy Trading Floor', active: 1400, total: 1600, adoption: 88, trend: '\u2191 5%', trendDir: 'up', status: 'strong' },
+      { name: 'Financial Services Risk', active: 1800, total: 2000, adoption: 90, trend: '\u2191 4%', trendDir: 'up', status: 'strong' },
+      { name: 'Health Sciences R&D', active: 2100, total: 2800, adoption: 75, trend: '\u2191 9%', trendDir: 'up', status: 'growing' },
+      { name: 'Corporate IT', active: 480, total: 520, adoption: 92, trend: '\u2191 3%', trendDir: 'up', status: 'strong' },
+      { name: 'Shared Services', active: 1200, total: 2000, adoption: 60, trend: '\u2191 7%', trendDir: 'up', status: 'growing' },
+    ],
+    nudges: [
+      { id: 'n1', name: 'Cross-OpCo AI Champions Program', target: 'All operating companies', type: 'training', status: 'active', impact: '48 champions trained across 12 OpCos' },
+      { id: 'n2', name: 'Shared Services Onboarding Sprint', target: 'Shared Services', type: 'training', status: 'active', impact: '340 staff in current cohort' },
+      { id: 'n3', name: 'OpCo Adoption Leaderboard', target: 'All OpCos', type: 'peer-comparison', status: 'active', impact: 'Health Sciences +9% after seeing Aerospace data' },
+      { id: 'n4', name: 'Executive Dashboard Digest', target: 'C-suite and OpCo presidents', type: 'reminder', status: 'active', impact: 'Weekly adoption metrics to 14 executives' },
+    ],
+    cycles: [
+      { label: 'Procurement cycle (cross-OpCo)', before: '3 weeks', after: '2 days', improvement: '90%' },
+      { label: 'Maintenance work order creation', before: '45 min', after: '8 min', improvement: '82%' },
+      { label: 'Financial close (consolidated)', before: '12 days', after: '3 days', improvement: '75%' },
+      { label: 'Supplier onboarding', before: '4 weeks', after: '5 days', improvement: '82%' },
+    ],
+  },
+  estonia: {
+    overallRate: 84,
+    overallTrend: '+4% vs last month',
+    overallTrendDir: 'up',
+    teamLabel: 'Agency / Board',
+    teams: [
+      { name: 'Tax & Revenue Board (EMTA)', active: 4200, total: 4400, adoption: 95, trend: '\u2191 3%', trendDir: 'up', status: 'strong' },
+      { name: 'Social Insurance Board (SKA)', active: 2400, total: 2800, adoption: 86, trend: '\u2191 5%', trendDir: 'up', status: 'strong' },
+      { name: 'Health Insurance Fund (EHIF)', active: 1800, total: 2200, adoption: 82, trend: '\u2191 6%', trendDir: 'up', status: 'strong' },
+      { name: 'Digital Services (RIA)', active: 680, total: 700, adoption: 97, trend: '\u2191 1%', trendDir: 'up', status: 'strong' },
+      { name: 'Treasury', active: 420, total: 480, adoption: 88, trend: '\u2191 4%', trendDir: 'up', status: 'strong' },
+      { name: 'Procurement Agency', active: 280, total: 400, adoption: 70, trend: '\u2191 8%', trendDir: 'up', status: 'growing' },
+    ],
+    nudges: [
+      { id: 'n1', name: 'AI Governance Training', target: 'All agencies', type: 'training', status: 'active', impact: '1,200 civil servants completed certification' },
+      { id: 'n2', name: 'Procurement Digitization Sprint', target: 'Procurement Agency', type: 'training', status: 'active', impact: '28 staff in current cohort' },
+      { id: 'n3', name: 'Ministry Adoption Dashboard', target: 'All ministries', type: 'peer-comparison', status: 'active', impact: 'Procurement +8% after benchmarking' },
+    ],
+    cycles: [
+      { label: 'Tax return processing', before: '14 days', after: '48 hours', improvement: '86%' },
+      { label: 'Benefit eligibility determination', before: '10 days', after: '24 hours', improvement: '90%' },
+      { label: 'Healthcare record integration', before: '3 weeks', after: '2 days', improvement: '90%' },
+      { label: 'Cross-ministry data request', before: '5 days', after: '4 hours', improvement: '97%' },
+    ],
+  },
 };
 
 /* ── Helpers ──────────────────────────────────────────────── */

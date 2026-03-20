@@ -231,6 +231,107 @@ const chatData: Record<string, CompanyChat> = {
       'Generate manufacturing AI plan',
     ],
   },
+  northbridge: {
+    messages: [
+      {
+        role: 'user',
+        content: [{ text: 'Where are the biggest cross-OpCo procurement savings?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the **cross-OpCo procurement consolidation analysis** across Northbridge's 12 operating companies:" },
+          {
+            table: {
+              headers: ['Category', 'OpCos Involved', 'Current Spend', 'Duplicate Suppliers', 'Consolidation Savings'],
+              rows: [
+                ['Titanium alloys', 'Aerospace, Energy', '$18.4M', '3 suppliers (same product)', '$2.1M'],
+                ['Industrial bearings', 'All manufacturing OpCos', '$8.2M', '7 suppliers', '$1.4M'],
+                ['IT infrastructure', '12 OpCos', '$24.8M', '14 separate contracts', '$3.8M'],
+                ['Professional services', '8 OpCos', '$12.6M', '22 overlapping firms', '$1.8M'],
+                ['Lab consumables', 'Health Sciences, Aerospace', '$4.2M', '4 suppliers', '$680K'],
+              ],
+            },
+          },
+          { text: 'The **total addressable procurement savings is $9.8M annually**. IT infrastructure consolidation has the fastest payback because all 12 OpCos are already on overlapping Microsoft and SAP contracts that can be consolidated into enterprise agreements. The titanium alloy opportunity is particularly striking \u2014 Aerospace and Energy are buying the same Ti-6Al-4V alloy from the same supplier at a **22% price variance**.' },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'What about financial consolidation opportunities?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "I've analyzed Northbridge's **financial consolidation landscape** across all 12 operating companies:" },
+          {
+            list: [
+              '**ERP fragmentation is the #1 blocker** \u2014 You have 8 SAP S/4HANA instances, 3 SAP ECC instances, and 1 Oracle EBS. No harmonized chart of accounts exists, which means monthly close takes **12 business days** and requires 840 manual journal entries for intercompany eliminations.',
+              '**Intercompany transaction volume is massive** \u2014 Last quarter alone, there were **$428M in intercompany transactions** across 12 entities. Currently, 14% of elimination entries require manual adjustment due to classification mismatches between OpCo GL systems.',
+              '**Currency translation adds complexity** \u2014 4 foreign-currency entities (Japan, UK, Germany, Canada) require month-end translation. Current process uses mid-month rates manually updated in spreadsheets, introducing an estimated **$1.2M in translation variance** per quarter.',
+            ],
+          },
+          { text: 'Implementing **SAP Central Finance** as a consolidation layer would reduce close time to **3 business days**, automate 96% of intercompany eliminations, and eliminate the manual FX rate process entirely. Projected savings: **$3.2M annually** in finance labor plus **$4.8M in faster decision-making** from real-time consolidated visibility.' },
+        ],
+      },
+    ],
+    suggestions: [
+      'Show cross-OpCo duplicates',
+      'Analyze maintenance fleet ROI',
+      'Compare OpCo AI readiness',
+      'Generate board transformation report',
+    ],
+  },
+  estonia: {
+    messages: [
+      {
+        role: 'user',
+        content: [{ text: 'How can AI improve citizen services through X-Road?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's how **AI-enhanced X-Road** can transform citizen services across Estonia's digital government:" },
+          {
+            table: {
+              headers: ['Service Area', 'Current Process', 'AI-Enhanced Process', 'Processing Time', 'Annual Impact'],
+              rows: [
+                ['Tax assessment', 'Semi-automated with manual review', 'AI auto-assessment with anomaly flagging', '14 days \u2192 48 hrs', '\u20AC4.2M'],
+                ['Benefits eligibility', 'Manual cross-ministry checks', 'Real-time X-Road data stitching + AI rules', '10 days \u2192 24 hrs', '\u20AC3.8M'],
+                ['Healthcare records', 'Batch integration, provider-specific', 'Real-time HL7 FHIR with AI normalization', '3 weeks \u2192 2 days', '\u20AC3.4M'],
+                ['Procurement compliance', 'Manual threshold checking', 'AI-driven contract analysis + threshold alerts', '5 days \u2192 4 hrs', '\u20AC2.1M'],
+              ],
+            },
+          },
+          { text: "The **total projected savings is \u20AC13.5M annually** across these four areas. Estonia's existing X-Road infrastructure gives you a massive advantage \u2014 the data exchange backbone is already in place. The key investment is adding an **AI inference layer** on top of X-Road that can process cross-ministry queries and apply ML models in real-time while maintaining Estonia's privacy-by-design principles." },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'What is the current state of tax compliance automation?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the **tax compliance automation assessment** for the Tax & Revenue Board (EMTA):" },
+          {
+            list: [
+              '**Pre-filled returns are 92% complete** \u2014 Estonia already leads globally in pre-filled tax returns via X-Road integration with employers, banks, and registries. The remaining 8% requires manual input for foreign income, crypto assets, and non-standard deductions.',
+              '**AI auto-assessment handles 93% of standard returns** \u2014 Returns with only employment income, bank interest, and standard deductions are fully auto-assessed. The 7% requiring manual review are primarily cases with investment income, property transactions, or cross-border income.',
+              "**Cross-reference accuracy is 97.8%** \u2014 X-Road data stitching catches income discrepancies between Tax Board and Social Insurance Board records. Last quarter, AI flagged **\u20AC2.4M in potential underreporting** that manual processes would have missed. However, 12% of flags were false positives due to timing differences in employer reporting.",
+            ],
+          },
+          { text: "The primary opportunity is in **reducing false positive rates** from 12% to under 3% using improved ML models trained on historical resolution data. This would save EMTA tax officers an estimated **4,200 hours annually** in unnecessary case reviews and improve citizen experience by reducing incorrect audit notices." },
+        ],
+      },
+    ],
+    suggestions: [
+      'Show X-Road AI integration plan',
+      'Analyze ministry adoption rates',
+      'Compare to EU digital benchmarks',
+      'Generate digital government roadmap',
+    ],
+  },
 };
 
 /* ── Helpers ──────────────────────────────────────────────── */

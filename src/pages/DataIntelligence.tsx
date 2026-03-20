@@ -319,6 +319,132 @@ const dataIntelData: Record<string, CompanyDataIntel> = {
     },
     roi: { investment: 580000, annualReturn: 4600000, multiplier: '7.9x' },
   },
+  northbridge: {
+    statusCards: [
+      { label: 'Systems Mapped', value: '84', color: 'blue', icon: Server },
+      { label: 'Active Connections', value: '62', color: 'green', icon: Activity },
+      { label: 'Missing Connections', value: '38', color: 'red', icon: Lock },
+      { label: 'Annual Impact', value: '$18.2M', color: 'amber', icon: AlertTriangle },
+    ],
+    gaps: [
+      {
+        name: 'Cross-OpCo Data Unification',
+        severity: 'Critical',
+        sources: ['SAP Instance 1-12', 'Workday', 'Palantir Foundry'],
+        gapLine: '12 separate SAP instances with no unified data layer — 340TB across systems with major cross-OpCo visibility gaps',
+        blockedCapabilities: [
+          'Real-time consolidated reporting across all 12 operating companies',
+          'Cross-OpCo procurement intelligence and volume leverage',
+          'Enterprise-wide workforce analytics and skills matching',
+          'Unified customer 360 across overlapping OpCo client bases',
+        ],
+        recommendedSolution: 'Deploy a Palantir Foundry enterprise ontology layer connecting all 12 SAP instances with real-time data federation and a unified semantic model.',
+        annualImpact: 6400000,
+      },
+      {
+        name: 'Industrial IoT Data Lake',
+        severity: 'Critical',
+        sources: ['Siemens Xcelerator', 'ABB Controllers', 'Honeywell DCS', 'Custom PLCs'],
+        gapLine: 'IoT sensor data from 6 plants collected by 4 different control systems with no unified analytics layer',
+        blockedCapabilities: [
+          'Cross-plant predictive maintenance model training',
+          'Fleet-wide equipment health scoring and benchmarking',
+          'Energy optimization across manufacturing operations',
+          'Real-time production quality correlation with sensor data',
+        ],
+        recommendedSolution: 'Build an industrial data lake on Snowflake ingesting all sensor streams via Siemens Xcelerator, with ML feature store for cross-plant model training.',
+        annualImpact: 4800000,
+      },
+      {
+        name: 'ERP Fragmentation',
+        severity: 'High',
+        sources: ['SAP S/4HANA (8)', 'SAP ECC (3)', 'Oracle EBS (1)'],
+        gapLine: 'Mixed ERP landscape with 12 instances across 3 platforms — no harmonized chart of accounts or master data',
+        blockedCapabilities: [
+          'Automated intercompany elimination and financial consolidation',
+          'Cross-OpCo inventory visibility and transfer optimization',
+          'Unified procurement and supplier management',
+        ],
+        recommendedSolution: 'Implement SAP Central Finance as a consolidation layer with harmonized chart of accounts, enabling real-time financial visibility without full ERP migration.',
+        annualImpact: 3800000,
+      },
+      {
+        name: 'Workforce Data Silos',
+        severity: 'High',
+        sources: ['Workday (Corporate)', 'Legacy HRIS (4 OpCos)', 'Manual Systems (3 OpCos)'],
+        gapLine: 'Only corporate and 5 OpCos on Workday — remaining operate on legacy or manual HR systems',
+        blockedCapabilities: [
+          'Enterprise-wide talent mobility and skills matching',
+          'Cross-OpCo resource allocation for projects',
+          'Unified compensation benchmarking and equity analysis',
+        ],
+        recommendedSolution: 'Accelerate Workday rollout to remaining 7 OpCos with integration hub for legacy system data during transition period.',
+        annualImpact: 3200000,
+      },
+    ],
+    architecture: {
+      sourceSystems: ['SAP (x12)', 'Workday', 'Palantir', 'Siemens', 'Salesforce', 'ServiceNow'],
+      platformName: 'Snowflake + Palantir Foundry',
+      capabilities: ['Cross-OpCo intelligence', 'Predictive maintenance', 'Financial consolidation'],
+    },
+    roi: { investment: 2400000, annualReturn: 18200000, multiplier: '7.6x' },
+  },
+  estonia: {
+    statusCards: [
+      { label: 'Systems Mapped', value: '42', color: 'blue', icon: Server },
+      { label: 'Active Connections', value: '38', color: 'green', icon: Activity },
+      { label: 'Missing Connections', value: '8', color: 'red', icon: Lock },
+      { label: 'Annual Impact', value: '$14.8M', color: 'amber', icon: AlertTriangle },
+    ],
+    gaps: [
+      {
+        name: 'AI-Ready Data Layer on X-Road',
+        severity: 'Critical',
+        sources: ['X-Road 7.0', 'Ministry Databases', 'Agency Systems'],
+        gapLine: 'X-Road provides excellent interoperability for transactional queries but lacks an AI/ML-ready analytical layer — ~28TB across ministries',
+        blockedCapabilities: [
+          'Cross-ministry predictive analytics and policy modeling',
+          'AI-driven citizen service personalization',
+          'Real-time fraud detection across tax and benefits systems',
+          'Population-level health trend analysis and resource allocation',
+        ],
+        recommendedSolution: 'Build an AI Data Commons layer on top of X-Road with anonymized, aggregated datasets for ML model training while maintaining X-Road privacy guarantees.',
+        annualImpact: 5200000,
+      },
+      {
+        name: 'Legacy System Modernization',
+        severity: 'High',
+        sources: ['Custom Legacy (Social Services)', 'Oracle DB (3 agencies)', 'Manual Systems'],
+        gapLine: 'Several agencies still operate custom legacy systems that predate X-Road integration standards',
+        blockedCapabilities: [
+          'Full automation of social services eligibility determination',
+          'Real-time data exchange between all government agencies',
+          'Unified case management across social welfare programs',
+        ],
+        recommendedSolution: 'Accelerate legacy decommission with X-Road adapter layer for immediate connectivity, followed by phased migration to modern microservices architecture.',
+        annualImpact: 3800000,
+      },
+      {
+        name: 'Healthcare AI Readiness',
+        severity: 'High',
+        sources: ['TEHIK', 'Hospital Information Systems', 'GP Practice Software'],
+        gapLine: 'Health data well-structured but AI readiness varies significantly across 42 healthcare providers',
+        blockedCapabilities: [
+          'AI-assisted clinical decision support across all providers',
+          'Population health predictive modeling',
+          'Automated drug interaction and prescription safety checks',
+        ],
+        recommendedSolution: 'Extend TEHIK with AI inference endpoints and standardize HL7 FHIR R4 across all providers for consistent AI model deployment.',
+        annualImpact: 3400000,
+      },
+    ],
+    architecture: {
+      sourceSystems: ['X-Road', 'TEHIK', 'EMTA', 'SKA', 'Population Registry', 'eID'],
+      platformName: 'X-Road AI Commons',
+      capabilities: ['Cross-ministry AI', 'Citizen service automation', 'Privacy-preserving analytics'],
+    },
+    roi: { investment: 1800000, annualReturn: 14800000, multiplier: '8.2x' },
+  },
 };
 
 /* ── Sub-components ──────────────────────────────────────── */

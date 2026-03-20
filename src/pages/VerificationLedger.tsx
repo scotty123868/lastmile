@@ -158,12 +158,100 @@ const atlasLedger: LedgerEntry[] = [
   },
 ];
 
+const northbridgeLedger: LedgerEntry[] = [
+  {
+    id: 'VL-2026-1842', timestamp: '2 min ago', workflow: 'Cross-OpCo Procurement Consolidation',
+    agent: 'Entity Resolution', type: 'correction',
+    original: 'Supplier "TitaniumMetals Corp" — new vendor entry for Northbridge Energy',
+    corrected: 'Matched to existing vendor #VS-8841 "Titanium Metals Corporation" — active across 3 OpCos',
+    rationale: 'Duplicate vendor entry prevented. Name variation and different OpCo purchasing systems masked existing supplier relationship.',
+    verifier: 'Auto-verified', standard: 'Vendor dedup protocol — DUNS match', confidence: 99,
+  },
+  {
+    id: 'VL-2026-1843', timestamp: '8 min ago', workflow: 'Predictive Maintenance — Industrial Fleet',
+    agent: 'Predictive Model', type: 'flag',
+    original: 'Plant 3 turbine T3-047: Normal operating range',
+    corrected: 'Bearing vibration 3.1σ above baseline — replacement recommended within 72 hours',
+    rationale: 'Vibration signature matched to known degradation pattern. OEM threshold is 2.0σ; current reading significantly exceeds limit.',
+    verifier: 'K. Yamamoto', standard: 'ISO 10816-3 — Vibration Severity', confidence: 93,
+  },
+  {
+    id: 'VL-2026-1844', timestamp: '14 min ago', workflow: 'Financial Close Automation',
+    agent: 'Reconciliation Agent', type: 'correction',
+    original: 'Intercompany loan: Aerospace → Energy $4.2M — classified as revenue',
+    corrected: 'Reclassified as intercompany loan — eliminated in consolidation per IFRS 10',
+    rationale: 'AI initially classified the transfer as operating revenue. Intercompany loan agreement on file requires elimination treatment under IFRS 10.',
+    verifier: 'R. Fitzgerald', standard: 'IFRS 10 — Consolidated Financial Statements', confidence: 97,
+  },
+  {
+    id: 'VL-2026-1845', timestamp: '22 min ago', workflow: 'Cross-OpCo Procurement Consolidation',
+    agent: 'Analytics Agent', type: 'flag',
+    original: 'Separate POs to Titanium Metals Corp — Aerospace: $142/kg, Energy: $174/kg',
+    corrected: 'Cross-OpCo duplicate purchase order detected — same supplier, same parts, different OpCos paying different prices',
+    rationale: 'Northbridge Aerospace and Northbridge Energy both ordering same Ti-6Al-4V alloy from Titanium Metals Corp at 22% price variance. Consolidated PO would save $340K annually.',
+    verifier: 'P. Morrison', standard: 'Procurement Policy §3.1 — volume consolidation', confidence: 96,
+  },
+  {
+    id: 'VL-2026-1846', timestamp: '35 min ago', workflow: 'Predictive Maintenance — Industrial Fleet',
+    agent: 'Validation Engine', type: 'escalation',
+    original: 'Compressor C2-018: Scheduled maintenance in 30 days',
+    corrected: 'Thermal anomaly detected — oil temperature 14°C above normal. Escalated to immediate inspection.',
+    rationale: 'Scheduled maintenance window is too far out given thermal signature. Risk of compressor seizure if oil degradation continues at current rate.',
+    verifier: 'T. Nakamura', standard: 'OEM Spec — thermal operating limits', confidence: 91,
+  },
+  {
+    id: 'VL-2026-1847', timestamp: '48 min ago', workflow: 'Financial Close Automation',
+    agent: 'Analytics Agent', type: 'correction',
+    original: 'FX translation rate for Northbridge Japan: 148.2 JPY/USD',
+    corrected: 'Rate corrected to 149.8 JPY/USD — month-end closing rate per Reuters feed',
+    rationale: 'AI used mid-month spot rate instead of month-end closing rate required by IAS 21 for balance sheet translation.',
+    verifier: 'Auto-verified', standard: 'IAS 21 — Effects of Changes in Foreign Exchange Rates', confidence: 98,
+  },
+];
+
+const estoniaLedger: LedgerEntry[] = [
+  {
+    id: 'VL-2026-2201', timestamp: '3 min ago', workflow: 'Tax Return Auto-Assessment',
+    agent: 'Validation Engine', type: 'correction',
+    original: 'Return #EE-2026-88421: Mortgage interest deduction €4,200 — approved',
+    corrected: 'Deduction reduced to €2,800 — property registry shows apartment sold in August, 8 months eligible not 12',
+    rationale: 'X-Road cross-reference with Property Registry showed ownership transfer in August 2025. Mortgage interest deduction prorated to 8/12 months.',
+    verifier: 'Auto-verified', standard: 'Income Tax Act §25 — housing loan interest', confidence: 97,
+  },
+  {
+    id: 'VL-2026-2202', timestamp: '7 min ago', workflow: 'Citizen Benefits Eligibility Engine',
+    agent: 'Rules Engine', type: 'flag',
+    original: 'Applicant #EE-2026-44821: Income €28,000 (Social Insurance) — eligible for family benefit',
+    corrected: 'Income mismatch — Tax Board reports €42,000 vs Social Insurance €28,000. Benefit suspended pending investigation.',
+    rationale: 'X-Road cross-referencing revealed tax-reported income of €42,000 conflicts with Social Insurance Board registered income of €28,000. Potential benefit overpayment of €8,400.',
+    verifier: 'M. Kask', standard: 'Social Welfare Act §22 — income verification', confidence: 89,
+  },
+  {
+    id: 'VL-2026-2203', timestamp: '18 min ago', workflow: 'Healthcare Records Integration',
+    agent: 'Schema Mapper', type: 'correction',
+    original: 'Diagnosis code: J06.9 mapped to "Upper respiratory infection, unspecified"',
+    corrected: 'Mapped to ICD-10-EE code J06.9 with Estonian clinical modifier — acute presentation requiring follow-up',
+    rationale: 'Standard ICD-10 mapping was correct but missed Estonian clinical modifier required by TEHIK for longitudinal record linking.',
+    verifier: 'Auto-verified', standard: 'TEHIK Data Quality Standard §4.2', confidence: 95,
+  },
+  {
+    id: 'VL-2026-2204', timestamp: '32 min ago', workflow: 'Cross-Ministry Data Platform',
+    agent: 'Analytics Agent', type: 'escalation',
+    original: 'Procurement contract #GOV-2026-1142: Standard processing',
+    corrected: 'Flagged — contract value €2.4M exceeds single-source threshold. Public procurement tender required.',
+    rationale: 'Contract value exceeds €1M threshold for direct procurement under Public Procurement Act. Requires open tender per EU Directive 2014/24.',
+    verifier: 'A. Tamm', standard: 'Public Procurement Act §15 — threshold values', confidence: 94,
+  },
+];
+
 function getLedgerForCompany(id: string): LedgerEntry[] {
   switch (id) {
     case 'meridian': return meridianLedger;
     case 'oakwood': return oakwoodLedger;
     case 'pinnacle': return pinnacleLedger;
     case 'atlas': return atlasLedger;
+    case 'northbridge': return northbridgeLedger;
+    case 'estonia': return estoniaLedger;
     default: return meridianLedger;
   }
 }

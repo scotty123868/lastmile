@@ -83,6 +83,36 @@ const integrationData: Record<string, CompanyIntegrationData> = {
       { id: 'i6', name: 'Jira', category: 'Project Management', status: 'syncing', lastSync: 'Syncing now', recordsSynced: 8400 },
     ],
   },
+  northbridge: {
+    totalConnected: 7,
+    dataPointsPerDay: '14.2M',
+    uptime: 99.7,
+    integrations: [
+      { id: 'i1', name: 'SAP S/4HANA Cloud', category: 'ERP (12 instances)', status: 'connected', lastSync: '2 min ago', recordsSynced: 4200000 },
+      { id: 'i2', name: 'Workday', category: 'HR & Finance', status: 'connected', lastSync: '8 min ago', recordsSynced: 842000 },
+      { id: 'i3', name: 'Palantir Foundry', category: 'Analytics Platform', status: 'connected', lastSync: '1 min ago', recordsSynced: 2400000 },
+      { id: 'i4', name: 'Salesforce', category: 'CRM', status: 'syncing', lastSync: 'Syncing now', recordsSynced: 480000 },
+      { id: 'i5', name: 'Siemens Xcelerator', category: 'Industrial IoT', status: 'connected', lastSync: '< 1 min ago', recordsSynced: 8400000 },
+      { id: 'i6', name: 'ServiceNow', category: 'IT Service Management', status: 'connected', lastSync: '4 min ago', recordsSynced: 148000 },
+      { id: 'i7', name: 'Snowflake', category: 'Data Warehouse', status: 'connected', lastSync: '12 min ago', recordsSynced: 24800000 },
+      { id: 'i8', name: 'Azure Active Directory', category: 'Identity & Access', status: 'syncing', lastSync: 'Syncing now', recordsSynced: 42000 },
+    ],
+  },
+  estonia: {
+    totalConnected: 8,
+    dataPointsPerDay: '4.8M',
+    uptime: 99.9,
+    integrations: [
+      { id: 'i1', name: 'X-Road 7.0', category: 'National Data Exchange', status: 'connected', lastSync: '< 1 min ago', recordsSynced: 12400000 },
+      { id: 'i2', name: 'RIHA', category: 'Info System Registry', status: 'connected', lastSync: '14 min ago', recordsSynced: 248000 },
+      { id: 'i3', name: 'eID / Smart-ID', category: 'Digital Identity', status: 'connected', lastSync: '1 min ago', recordsSynced: 1420000 },
+      { id: 'i4', name: 'TEHIK', category: 'Health Information System', status: 'connected', lastSync: '3 min ago', recordsSynced: 842000 },
+      { id: 'i5', name: 'SAP', category: 'Financial Management', status: 'connected', lastSync: '22 min ago', recordsSynced: 148000 },
+      { id: 'i6', name: 'e-Residency Platform', category: 'Digital Residency', status: 'connected', lastSync: '8 min ago', recordsSynced: 84000 },
+      { id: 'i7', name: 'EMTA (Tax Board)', category: 'Tax Administration', status: 'connected', lastSync: '2 min ago', recordsSynced: 2400000 },
+      { id: 'i8', name: 'Population Registry', category: 'Civil Registry', status: 'connected', lastSync: '6 min ago', recordsSynced: 1840000 },
+    ],
+  },
 };
 
 /* ── Helpers ──────────────────────────────────────────────── */

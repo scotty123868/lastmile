@@ -140,6 +140,40 @@ const analyticsData: Record<string, CompanyAnalyticsData> = {
     ],
     inaction: { year1: 1200000, year2: 1440000, year3: 1730000, total: 4370000 },
   },
+  northbridge: {
+    readiness: { score: 52, label: 'Moderate \u2014 strong pockets but inconsistent across OpCos' },
+    kpis: { savings: 24800000, scoreBefore: 52, scoreAfter: 88, workflows: 184, workflowsReady: 48, waste: 4200000 },
+    timeline: [
+      { savings: 0, score: 52, workflows: 0, waste: 4200000 },
+      { savings: 12400000, score: 70, workflows: 92, waste: 2100000 },
+      { savings: 24800000, score: 88, workflows: 184, waste: 480000 },
+    ],
+    opportunities: [
+      { priority: 1, name: 'Supply Chain Optimization', savings: 5200000, status: 'In Progress' },
+      { priority: 2, name: 'Cross-OpCo Procurement', savings: 4800000, status: 'Identified' },
+      { priority: 3, name: 'Predictive Maintenance Fleet', savings: 3600000, status: 'Automated' },
+      { priority: 4, name: 'Financial Close Automation', savings: 3200000, status: 'In Progress' },
+      { priority: 5, name: 'Clinical Trial Data Pipeline', savings: 2400000, status: 'Identified' },
+    ],
+    inaction: { year1: 4200000, year2: 5000000, year3: 6000000, total: 15200000 },
+  },
+  estonia: {
+    readiness: { score: 72, label: 'Good \u2014 strong digital foundation, AI integration needed' },
+    kpis: { savings: 18600000, scoreBefore: 72, scoreAfter: 94, workflows: 126, workflowsReady: 62, waste: 2800000 },
+    timeline: [
+      { savings: 0, score: 72, workflows: 0, waste: 2800000 },
+      { savings: 9300000, score: 83, workflows: 63, waste: 1400000 },
+      { savings: 18600000, score: 94, workflows: 126, waste: 320000 },
+    ],
+    opportunities: [
+      { priority: 1, name: 'Tax Compliance Automation', savings: 4200000, status: 'Automated' },
+      { priority: 2, name: 'Citizen Services AI', savings: 3800000, status: 'In Progress' },
+      { priority: 3, name: 'Healthcare Records Integration', savings: 3400000, status: 'In Progress' },
+      { priority: 4, name: 'Cross-Ministry Data Platform', savings: 2800000, status: 'Identified' },
+      { priority: 5, name: 'Procurement Optimization', savings: 2100000, status: 'Identified' },
+    ],
+    inaction: { year1: 2800000, year2: 3400000, year3: 4100000, total: 10300000 },
+  },
 };
 
 /* ── Helpers ──────────────────────────────────────────────── */
