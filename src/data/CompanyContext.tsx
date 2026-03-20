@@ -9,6 +9,7 @@ export interface Company {
   employees: number;
   opCos: number;
   initials: string;
+  currency: string;
   /** Which UpSkiller pillar this company demo showcases */
   pillar: 'verification' | 'readiness' | 'adoption' | 'full';
   pillarLabel: string;
@@ -27,6 +28,7 @@ export const companies: Company[] = [
     employees: 1850,
     opCos: 4,
     initials: 'MI',
+    currency: '$',
     pillar: 'verification',
     pillarLabel: 'Verification Ops',
     tagline: 'AI output verification across 4 operating companies',
@@ -41,6 +43,7 @@ export const companies: Company[] = [
     employees: 800,
     opCos: 1,
     initials: 'OI',
+    currency: '$',
     pillar: 'readiness',
     pillarLabel: 'Readiness Ops',
     tagline: 'Context stitching across legacy claims systems',
@@ -55,6 +58,7 @@ export const companies: Company[] = [
     employees: 420,
     opCos: 1,
     initials: 'PH',
+    currency: '$',
     pillar: 'adoption',
     pillarLabel: 'Adoption Ops',
     tagline: 'Behavioral execution across clinical and admin staff',
@@ -69,6 +73,7 @@ export const companies: Company[] = [
     employees: 2100,
     opCos: 4,
     initials: 'AM',
+    currency: '$',
     pillar: 'full',
     pillarLabel: 'Full Operating System',
     tagline: 'All three pillars running as one machine',
@@ -83,6 +88,7 @@ export const companies: Company[] = [
     employees: 42000,
     opCos: 12,
     initials: 'NI',
+    currency: '$',
     pillar: 'full',
     pillarLabel: 'Enterprise OS',
     tagline: 'Full AI operating system across 12 operating companies',
@@ -98,6 +104,7 @@ export const companies: Company[] = [
     employees: 28500,
     opCos: 8,
     initials: 'EE',
+    currency: '\u20AC',
     pillar: 'full',
     pillarLabel: 'Gov AI Platform',
     tagline: 'AI-native governance across 8 ministries and agencies',

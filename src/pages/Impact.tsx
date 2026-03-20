@@ -320,11 +320,11 @@ const adoptionData: Record<string, CompanyAdoptionData> = {
 
 /* ── Helpers ──────────────────────────────────────────────── */
 
-function formatDollars(n: number): string {
+function formatDollars(n: number, symbol: string = '$'): string {
   const abs = Math.abs(n);
-  if (abs >= 1000000) return `$${(abs / 1000000).toFixed(1)}M`;
-  if (abs >= 1000) return `$${(abs / 1000).toFixed(0)}K`;
-  return `$${abs.toLocaleString()}`;
+  if (abs >= 1000000) return `${symbol}${(abs / 1000000).toFixed(1)}M`;
+  if (abs >= 1000) return `${symbol}${(abs / 1000).toFixed(0)}K`;
+  return `${symbol}${abs.toLocaleString()}`;
 }
 
 const categoryIcons = {
@@ -417,7 +417,7 @@ export default function Impact() {
       >
         <div className="text-[11px] font-semibold text-ink-tertiary uppercase tracking-wider mb-1">Total Annual Impact</div>
         <div className="text-[42px] font-semibold text-ink tabular-nums tracking-tight leading-none">
-          {formatDollars(data.totalAnnualImpact)}
+          {formatDollars(data.totalAnnualImpact, company.currency)}
         </div>
         <div className="text-[13px] text-ink-tertiary mt-2">net projected savings per year</div>
       </motion.div>
@@ -448,7 +448,7 @@ export default function Impact() {
                     <div className="flex items-baseline justify-between gap-2">
                       <span className="text-[13px] font-semibold text-ink">{cat.label}</span>
                       <span className={`text-[16px] font-semibold tabular-nums tracking-tight ${isCost ? 'text-red' : 'text-green'}`}>
-                        {isCost ? '-' : '+'}{formatDollars(cat.amount)}
+                        {isCost ? '-' : '+'}{formatDollars(cat.amount, company.currency)}
                       </span>
                     </div>
                     <p className="text-[12px] text-ink-tertiary mt-1 leading-relaxed">{cat.description}</p>
@@ -486,7 +486,7 @@ export default function Impact() {
                     <span className={`text-[12px] font-semibold tabular-nums ${
                       bar.type === 'negative' ? 'text-red' : bar.type === 'total' ? 'text-blue' : 'text-green'
                     }`}>
-                      {bar.value < 0 ? '-' : ''}{formatDollars(bar.value)}
+                      {bar.value < 0 ? '-' : ''}{formatDollars(bar.value, company.currency)}
                     </span>
                   </div>
                   <div className="w-full h-2 rounded-full bg-surface-sunken overflow-hidden">

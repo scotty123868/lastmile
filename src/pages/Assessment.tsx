@@ -129,13 +129,135 @@ const assessmentData: Record<string, CompanyAssessmentData> = {
   },
 };
 
+/* ── Integration & Remediation types ─────────────────── */
+
+interface IntegrationPair {
+  from: string;
+  to: string;
+  status: 'connected' | 'partial' | 'siloed';
+  dataFlow: string;
+}
+
+interface RemediationStep {
+  priority: number;
+  action: string;
+  category: 'integration' | 'migration' | 'optimization' | 'training';
+  effort: 'Low' | 'Medium' | 'High';
+  timeline: string;
+  impact: string;
+}
+
+interface ExtendedAssessmentData {
+  integrations: IntegrationPair[];
+  remediation: RemediationStep[];
+}
+
+const extendedData: Record<string, ExtendedAssessmentData> = {
+  meridian: {
+    integrations: [
+      { from: 'SAP Business One', to: 'Salesforce', status: 'partial', dataFlow: 'Manual CSV export weekly' },
+      { from: 'ServiceTitan', to: 'SAP Business One', status: 'siloed', dataFlow: 'No integration — rekeyed manually' },
+      { from: 'Tableau', to: 'SAP Business One', status: 'connected', dataFlow: 'ODBC direct connection' },
+      { from: 'ADP', to: 'SAP Business One', status: 'partial', dataFlow: 'Monthly batch file upload' },
+      { from: 'Salesforce', to: 'ServiceTitan', status: 'siloed', dataFlow: 'Phone/email handoff only' },
+    ],
+    remediation: [
+      { priority: 1, action: 'Deploy data lake to unify field ops and financial data', category: 'integration', effort: 'High', timeline: '3-4 months', impact: '$920K savings unlock' },
+      { priority: 2, action: 'Integrate ServiceTitan ↔ SAP via API middleware', category: 'integration', effort: 'Medium', timeline: '6-8 weeks', impact: 'Eliminate manual rekeying' },
+      { priority: 3, action: 'Downgrade 95 unused Salesforce CRM seats', category: 'optimization', effort: 'Low', timeline: '2 weeks', impact: '$340K annual savings' },
+      { priority: 4, action: 'Migrate Tableau viewers to Power BI embedded', category: 'migration', effort: 'Medium', timeline: '2-3 months', impact: '$195K annual savings' },
+      { priority: 5, action: 'AI readiness training for field operations teams', category: 'training', effort: 'Low', timeline: '4 weeks', impact: 'Adoption uplift 20-30%' },
+    ],
+  },
+  oakwood: {
+    integrations: [
+      { from: 'Guidewire', to: 'AS/400', status: 'partial', dataFlow: 'Nightly batch ETL — 18hr lag' },
+      { from: 'Salesforce', to: 'Guidewire', status: 'connected', dataFlow: 'API integration (limited fields)' },
+      { from: 'SAS Analytics', to: 'Guidewire', status: 'partial', dataFlow: 'Weekly data extract' },
+      { from: 'Availity', to: 'Custom Portal', status: 'siloed', dataFlow: 'Manual lookup required' },
+      { from: 'AS/400', to: 'SAS Analytics', status: 'siloed', dataFlow: 'Ad-hoc queries by IT only' },
+    ],
+    remediation: [
+      { priority: 1, action: 'Replace AS/400 batch ETL with real-time event streaming', category: 'migration', effort: 'High', timeline: '4-5 months', impact: 'Eliminate 18hr data lag' },
+      { priority: 2, action: 'Unify Guidewire + portal into single claims workspace', category: 'integration', effort: 'High', timeline: '3-4 months', impact: '$860K claims automation' },
+      { priority: 3, action: 'Migrate SAS seats to Power BI with Guidewire connector', category: 'migration', effort: 'Medium', timeline: '6-8 weeks', impact: '$185K annual savings' },
+      { priority: 4, action: 'Consolidate Guidewire test environments', category: 'optimization', effort: 'Low', timeline: '3 weeks', impact: '$260K annual savings' },
+      { priority: 5, action: 'Claims adjuster AI workflow training program', category: 'training', effort: 'Low', timeline: '4 weeks', impact: 'Adoption uplift 25-35%' },
+    ],
+  },
+  pinnacle: {
+    integrations: [
+      { from: 'Epic EHR', to: 'Athenahealth', status: 'connected', dataFlow: 'HL7 FHIR integration' },
+      { from: 'Epic EHR', to: 'Surescripts', status: 'connected', dataFlow: 'Real-time e-prescribing' },
+      { from: 'Custom Scheduling', to: 'Epic EHR', status: 'partial', dataFlow: 'Hourly sync — occasional conflicts' },
+      { from: 'Power BI', to: 'Epic EHR', status: 'partial', dataFlow: 'Daily data warehouse refresh' },
+      { from: 'Workday', to: 'Custom Scheduling', status: 'siloed', dataFlow: 'Staff roster emailed weekly' },
+    ],
+    remediation: [
+      { priority: 1, action: 'Replace custom scheduling with Epic Cadence module', category: 'migration', effort: 'Medium', timeline: '2-3 months', impact: 'Eliminate sync conflicts' },
+      { priority: 2, action: 'Connect Workday → Epic for real-time staff rostering', category: 'integration', effort: 'Medium', timeline: '6 weeks', impact: '$220K scheduling savings' },
+      { priority: 3, action: 'Audit and remove unused Epic add-on modules', category: 'optimization', effort: 'Low', timeline: '2 weeks', impact: '$85K annual savings' },
+      { priority: 4, action: 'Upgrade Power BI to real-time Epic streaming', category: 'integration', effort: 'Low', timeline: '3 weeks', impact: 'Same-day clinical insights' },
+      { priority: 5, action: 'Provider AI adoption coaching program', category: 'training', effort: 'Low', timeline: '3 weeks', impact: 'Adoption uplift 15-25%' },
+    ],
+  },
+  atlas: {
+    integrations: [
+      { from: 'SAP S/4HANA', to: 'Siemens MindSphere', status: 'partial', dataFlow: 'Batch upload every 4 hours' },
+      { from: 'Oracle SCM', to: 'SAP S/4HANA', status: 'partial', dataFlow: 'Daily reconciliation file' },
+      { from: 'Aveva', to: 'Siemens MindSphere', status: 'siloed', dataFlow: 'Separate plant-level systems' },
+      { from: 'Power BI', to: 'SAP S/4HANA', status: 'connected', dataFlow: 'Direct OData connection' },
+      { from: 'SAP SuccessFactors', to: 'SAP S/4HANA', status: 'connected', dataFlow: 'Native SAP integration' },
+    ],
+    remediation: [
+      { priority: 1, action: 'Deploy IoT gateway for real-time MindSphere ↔ SAP streaming', category: 'integration', effort: 'High', timeline: '3-4 months', impact: '$1.34M maintenance savings' },
+      { priority: 2, action: 'Migrate 3 plants to unified Oracle SCM instance', category: 'migration', effort: 'High', timeline: '4-5 months', impact: '$210K + procurement visibility' },
+      { priority: 3, action: 'Consolidate Aveva into MindSphere unified plant ops', category: 'migration', effort: 'Medium', timeline: '2-3 months', impact: '$170K + cross-plant analytics' },
+      { priority: 4, action: 'Harmonize SAP user roles across 4 plants', category: 'optimization', effort: 'Medium', timeline: '6 weeks', impact: '$480K license savings' },
+      { priority: 5, action: 'Floor worker AI tools training program', category: 'training', effort: 'Low', timeline: '4 weeks', impact: 'Adoption uplift 20-30%' },
+    ],
+  },
+  northbridge: {
+    integrations: [
+      { from: 'SAP S/4HANA', to: 'Workday', status: 'partial', dataFlow: '8 of 12 OpCos integrated — 4 on legacy HRIS' },
+      { from: 'Palantir Foundry', to: 'SAP S/4HANA', status: 'connected', dataFlow: 'API ingestion from 9 OpCos' },
+      { from: 'Salesforce', to: 'ServiceNow', status: 'partial', dataFlow: '6 OpCos connected — 6 manual handoff' },
+      { from: 'Siemens Xcelerator', to: 'Palantir Foundry', status: 'partial', dataFlow: 'Industrial OpCos only — 4 of 12' },
+      { from: 'ServiceNow', to: 'SAP S/4HANA', status: 'connected', dataFlow: 'Enterprise ITSM integration' },
+    ],
+    remediation: [
+      { priority: 1, action: 'Harmonize all 12 OpCos onto unified SAP S/4HANA tenant', category: 'migration', effort: 'High', timeline: '6-8 months', impact: '$3.8M license + ops savings' },
+      { priority: 2, action: 'Extend Palantir Foundry ingestion to remaining 3 OpCos', category: 'integration', effort: 'Medium', timeline: '2-3 months', impact: 'Full cross-OpCo analytics' },
+      { priority: 3, action: 'Consolidate 4 legacy HRIS systems into Workday', category: 'migration', effort: 'High', timeline: '4-5 months', impact: '$1.4M annual savings' },
+      { priority: 4, action: 'Downgrade 1,100 Salesforce seats to Platform licenses', category: 'optimization', effort: 'Low', timeline: '3 weeks', impact: '$2.2M annual savings' },
+      { priority: 5, action: 'Enterprise-wide AI change management program', category: 'training', effort: 'Medium', timeline: '3 months', impact: 'Adoption uplift across 42K employees' },
+    ],
+  },
+  estonia: {
+    integrations: [
+      { from: 'X-Road', to: 'RIHA', status: 'connected', dataFlow: 'Real-time registry queries' },
+      { from: 'X-Road', to: 'TEHIK', status: 'connected', dataFlow: 'Health data exchange via X-Road v7' },
+      { from: 'SAP', to: 'X-Road', status: 'partial', dataFlow: '4 of 8 ministries connected' },
+      { from: 'Custom Legacy', to: 'X-Road', status: 'siloed', dataFlow: 'Social services still paper-based in 3 regions' },
+      { from: 'eID / Smart-ID', to: 'TEHIK', status: 'connected', dataFlow: 'Digital identity verification layer' },
+    ],
+    remediation: [
+      { priority: 1, action: 'Migrate remaining 4 ministries to SAP via X-Road', category: 'integration', effort: 'High', timeline: '5-6 months', impact: '€1.2M savings + full fiscal visibility' },
+      { priority: 2, action: 'Decommission legacy social services systems', category: 'migration', effort: 'High', timeline: '4-5 months', impact: '€380K + digitize 3 regions' },
+      { priority: 3, action: 'Consolidate Oracle databases to PostgreSQL + X-Road', category: 'migration', effort: 'Medium', timeline: '3-4 months', impact: '€680K annual savings' },
+      { priority: 4, action: 'Downgrade non-ministry M365 E5 to E3', category: 'optimization', effort: 'Low', timeline: '2 weeks', impact: '€540K annual savings' },
+      { priority: 5, action: 'Civil servant AI literacy program across 8 agencies', category: 'training', effort: 'Medium', timeline: '3 months', impact: 'Adoption uplift across 28.5K staff' },
+    ],
+  },
+};
+
 /* ── Helpers ──────────────────────────────────────────────── */
 
-function formatDollars(n: number): string {
+function formatDollars(n: number, symbol: string = '$'): string {
   const abs = Math.abs(n);
-  if (abs >= 1000000) return `$${(abs / 1000000).toFixed(1)}M`;
-  if (abs >= 1000) return `$${(abs / 1000).toFixed(0)}K`;
-  return `$${abs.toLocaleString()}`;
+  if (abs >= 1000000) return `${symbol}${(abs / 1000000).toFixed(1)}M`;
+  if (abs >= 1000) return `${symbol}${(abs / 1000).toFixed(0)}K`;
+  return `${symbol}${abs.toLocaleString()}`;
 }
 
 function scoreColor(score: number): { text: string; bg: string; bar: string } {
@@ -185,6 +307,7 @@ export default function Assessment() {
 
   const avgReadiness = Math.round(data.techStack.reduce((s, t) => s + t.current, 0) / data.techStack.length * 10) / 10;
   const totalWaste = data.licenses.reduce((s, l) => s + l.waste, 0);
+  const ext = extendedData[company.id] || extendedData.meridian;
 
   return (
     <div className="max-w-[960px] mx-auto px-4 lg:px-8 py-6 lg:py-8">
@@ -211,7 +334,7 @@ export default function Assessment() {
           <div className="text-[11px] text-ink-tertiary mt-0.5">Total Licenses</div>
         </div>
         <div className="bg-surface-raised border border-border rounded-xl px-4 py-3 text-center">
-          <div className="text-[20px] font-semibold tabular-nums text-red">{formatDollars(totalWaste)}</div>
+          <div className="text-[20px] font-semibold tabular-nums text-red">{formatDollars(totalWaste, company.currency)}</div>
           <div className="text-[11px] text-ink-tertiary mt-0.5">Annual Waste</div>
         </div>
       </div>
@@ -288,7 +411,7 @@ export default function Assessment() {
           <div className="flex items-center gap-1.5">
             <span className="text-[11px] text-ink-tertiary uppercase tracking-wider font-medium">Total Waste</span>
             <span className="text-[16px] font-semibold tabular-nums tracking-tight text-red">
-              {formatDollars(totalWaste)}
+              {formatDollars(totalWaste, company.currency)}
             </span>
             <span className="text-[11px] text-ink-faint">/ yr</span>
           </div>
@@ -308,7 +431,7 @@ export default function Assessment() {
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[13px] font-semibold text-ink">{lic.vendor}</span>
                   <span className="text-[14px] font-semibold font-mono tabular-nums text-red">
-                    -{formatDollars(lic.waste)}
+                    -{formatDollars(lic.waste, company.currency)}
                   </span>
                 </div>
 
@@ -337,6 +460,85 @@ export default function Assessment() {
                 </div>
 
                 <p className="text-[11px] text-ink-tertiary italic mt-1.5">{lic.action}</p>
+              </motion.div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ── Section 3: Integration Readiness ─────────────── */}
+      <section className="mb-8">
+        <div className="flex items-center gap-2 mb-3">
+          <ChevronRight className="w-4 h-4 text-ink-tertiary" strokeWidth={1.7} />
+          <h2 className="text-[14px] font-semibold text-ink">System Integration Map</h2>
+        </div>
+        <div className="space-y-2">
+          {ext.integrations.map((pair, i) => {
+            const statusColor = pair.status === 'connected' ? 'bg-green-muted text-green' : pair.status === 'partial' ? 'bg-amber-muted text-amber' : 'bg-red-muted text-red';
+            return (
+              <motion.div
+                key={`${pair.from}-${pair.to}`}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.08 + i * 0.04 }}
+                className="bg-surface-raised border border-border rounded-xl px-5 py-3.5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4"
+              >
+                <div className="flex items-center gap-2 min-w-0 flex-1">
+                  <span className="text-[12px] font-semibold text-ink truncate">{pair.from}</span>
+                  <ChevronRight className="w-3 h-3 text-ink-faint flex-shrink-0" />
+                  <span className="text-[12px] font-semibold text-ink truncate">{pair.to}</span>
+                </div>
+                <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full flex-shrink-0 ${statusColor}`}>
+                  {pair.status}
+                </span>
+                <span className="text-[11px] text-ink-tertiary italic flex-shrink-0 sm:text-right">{pair.dataFlow}</span>
+              </motion.div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ── Section 4: Remediation Roadmap ───────────────── */}
+      <section className="mb-8">
+        <div className="flex items-center gap-2 mb-3">
+          <ChevronRight className="w-4 h-4 text-ink-tertiary" strokeWidth={1.7} />
+          <h2 className="text-[14px] font-semibold text-ink">Remediation Roadmap</h2>
+        </div>
+        <div className="space-y-2">
+          {ext.remediation.map((step, i) => {
+            const catColor: Record<string, string> = {
+              integration: 'bg-blue-muted text-blue',
+              migration: 'bg-amber-muted text-amber',
+              optimization: 'bg-green-muted text-green',
+              training: 'bg-surface-sunken text-ink-tertiary',
+            };
+            const effortColor = step.effort === 'Low' ? 'text-green' : step.effort === 'Medium' ? 'text-amber' : 'text-red';
+            return (
+              <motion.div
+                key={step.priority}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.08 + i * 0.04 }}
+                className="bg-surface-raised border border-border rounded-xl px-5 py-4"
+              >
+                <div className="flex items-start gap-3">
+                  <span className="w-6 h-6 rounded-full bg-blue-muted text-blue text-[12px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+                    {step.priority}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[13px] font-semibold text-ink mb-1">{step.action}</div>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${catColor[step.category] || 'bg-surface-sunken text-ink-tertiary'}`}>
+                        {step.category}
+                      </span>
+                      <span className="text-[11px] text-ink-tertiary">
+                        Effort: <span className={`font-semibold ${effortColor}`}>{step.effort}</span>
+                      </span>
+                      <span className="text-[11px] text-ink-tertiary">Timeline: <span className="font-semibold text-ink-secondary">{step.timeline}</span></span>
+                      <span className="text-[11px] text-ink-tertiary">Impact: <span className="font-semibold text-green">{step.impact}</span></span>
+                    </div>
+                  </div>
+                </div>
               </motion.div>
             );
           })}

@@ -275,11 +275,11 @@ const costCurveData: Record<string, CostCurveData> = {
 
 /* ── Helpers ──────────────────────────────────────────────── */
 
-function formatDollars(n: number): string {
+function formatDollars(n: number, symbol: string = '$'): string {
   const abs = Math.abs(n);
-  if (abs >= 1000000) return `$${(abs / 1000000).toFixed(1)}M`;
-  if (abs >= 1000) return `$${(abs / 1000).toFixed(0)}K`;
-  return `$${abs.toLocaleString()}`;
+  if (abs >= 1000000) return `${symbol}${(abs / 1000000).toFixed(1)}M`;
+  if (abs >= 1000) return `${symbol}${(abs / 1000).toFixed(0)}K`;
+  return `${symbol}${abs.toLocaleString()}`;
 }
 
 function lerp(a: number, b: number, t: number): number {
@@ -617,7 +617,7 @@ export default function Analytics() {
                   <span className="text-[11px] font-medium text-ink-tertiary uppercase tracking-wider">Savings</span>
                 </div>
                 <div className="text-[22px] font-semibold text-ink tabular-nums tracking-tight leading-none mt-2">
-                  {formatDollars(data.kpis.savings)}
+                  {formatDollars(data.kpis.savings, company.currency)}
                 </div>
                 <div className="text-[11px] text-ink-faint mt-1">identified to date</div>
               </div>
@@ -693,7 +693,7 @@ export default function Analytics() {
                   <span className="text-[11px] font-medium text-ink-tertiary uppercase tracking-wider">License Waste</span>
                 </div>
                 <div className="text-[22px] font-semibold text-red tabular-nums tracking-tight leading-none mt-2">
-                  {formatDollars(data.kpis.waste)}
+                  {formatDollars(data.kpis.waste, company.currency)}
                 </div>
                 <div className="text-[11px] text-ink-faint mt-1">annual waste identified</div>
               </div>
@@ -887,7 +887,7 @@ export default function Analytics() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div className="bg-surface-sunken rounded-lg px-3 py-3 text-center">
               <div className="text-[18px] font-semibold text-green tabular-nums tracking-tight">
-                {formatDollars(timelineValues.savings)}
+                {formatDollars(timelineValues.savings, company.currency)}
               </div>
               <div className="text-[10px] font-medium text-ink-tertiary uppercase tracking-wider mt-0.5">Savings</div>
             </div>
@@ -905,7 +905,7 @@ export default function Analytics() {
             </div>
             <div className="bg-surface-sunken rounded-lg px-3 py-3 text-center">
               <div className="text-[18px] font-semibold text-red tabular-nums tracking-tight">
-                {formatDollars(timelineValues.waste)}
+                {formatDollars(timelineValues.waste, company.currency)}
               </div>
               <div className="text-[10px] font-medium text-ink-tertiary uppercase tracking-wider mt-0.5">Waste</div>
             </div>
@@ -948,7 +948,7 @@ export default function Analytics() {
                 <span className="text-[12px] font-semibold text-ink-tertiary tabular-nums">{opp.priority}</span>
                 <span className="text-[13px] font-medium text-ink truncate pr-2">{opp.name}</span>
                 <span className="text-[13px] font-semibold text-ink tabular-nums text-right">
-                  {formatDollars(opp.savings)}
+                  {formatDollars(opp.savings, company.currency)}
                 </span>
                 <div className="flex justify-end">
                   <span
@@ -1008,30 +1008,30 @@ export default function Analytics() {
                     <div className="bg-surface-raised/60 rounded-lg px-4 py-3 text-center">
                       <div className="text-[10px] font-semibold text-ink-tertiary uppercase tracking-wider mb-1">Year 1</div>
                       <div className="text-[20px] font-semibold text-red tabular-nums tracking-tight">
-                        {formatDollars(data.inaction.year1)}
+                        {formatDollars(data.inaction.year1, company.currency)}
                       </div>
                     </div>
                     <div className="bg-surface-raised/60 rounded-lg px-4 py-3 text-center">
                       <div className="text-[10px] font-semibold text-ink-tertiary uppercase tracking-wider mb-1">Year 2</div>
                       <div className="text-[20px] font-semibold text-red tabular-nums tracking-tight">
-                        {formatDollars(data.inaction.year2)}
+                        {formatDollars(data.inaction.year2, company.currency)}
                       </div>
                     </div>
                     <div className="bg-surface-raised/60 rounded-lg px-4 py-3 text-center">
                       <div className="text-[10px] font-semibold text-ink-tertiary uppercase tracking-wider mb-1">Year 3</div>
                       <div className="text-[20px] font-semibold text-red tabular-nums tracking-tight">
-                        {formatDollars(data.inaction.year3)}
+                        {formatDollars(data.inaction.year3, company.currency)}
                       </div>
                     </div>
                     <div className="bg-surface-raised rounded-lg px-4 py-3 text-center border border-red/10">
                       <div className="text-[10px] font-semibold text-red uppercase tracking-wider mb-1">3-Year Total</div>
                       <div className="text-[24px] font-semibold text-red tabular-nums tracking-tight">
-                        {formatDollars(data.inaction.total)}
+                        {formatDollars(data.inaction.total, company.currency)}
                       </div>
                     </div>
                   </div>
                   <p className="text-[11px] text-red/70 mt-3 leading-relaxed">
-                    Without AI transformation, {company.shortName} risks accumulating {formatDollars(data.inaction.total)} in
+                    Without AI transformation, {company.shortName} risks accumulating {formatDollars(data.inaction.total, company.currency)} in
                     preventable costs from license waste, manual process overhead, and missed automation opportunities over the
                     next three years.
                   </p>
