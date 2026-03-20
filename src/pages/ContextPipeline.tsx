@@ -115,7 +115,7 @@ const pipelineData: Record<string, CompanyPipelineData> = {
     ],
     stats: { ingested: 2140, normalized: 2080, packed: 6, failed: 12 },
     documents: [
-      { id: 'd1', name: 'Encounter_Audio_PH-8847.wav', type: 'pdf', origin: 'Ambient Recording Device', size: '24 MB', status: 'ready', fields: 1, confidence: 99 },
+      { id: 'd1', name: 'Encounter_Audio_PH-8847.wav', type: 'scan', origin: 'Ambient Recording Device', size: '24 MB', status: 'ready', fields: 1, confidence: 99 },
       { id: 'd2', name: 'EHR_PatientChart_8847.api', type: 'api', origin: 'Epic EHR API', size: '—', status: 'ready', fields: 142, confidence: 99 },
       { id: 'd3', name: 'Aetna_PA_Requirements.pdf', type: 'pdf', origin: 'Payer Portal Download', size: '8.4 MB', status: 'ready', fields: 2400, confidence: 96 },
       { id: 'd4', name: 'PT_Notes_12Sessions.pdf', type: 'pdf', origin: 'Referring Provider Fax', size: '1.2 MB', status: 'processing', fields: 48, confidence: 88 },

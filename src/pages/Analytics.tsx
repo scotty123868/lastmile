@@ -91,11 +91,11 @@ const analyticsData: Record<string, CompanyAnalyticsData> = {
   },
   oakwood: {
     readiness: { score: 41, label: 'Below Average \u2014 significant gaps in key areas' },
-    kpis: { savings: 3800000, scoreBefore: 41, scoreAfter: 78, workflows: 38, workflowsReady: 9, waste: 620000 },
+    kpis: { savings: 4800000, scoreBefore: 41, scoreAfter: 78, workflows: 38, workflowsReady: 9, waste: 620000 },
     timeline: [
       { savings: 0, score: 41, workflows: 0, waste: 620000 },
-      { savings: 1800000, score: 58, workflows: 18, waste: 340000 },
-      { savings: 3800000, score: 78, workflows: 38, waste: 95000 },
+      { savings: 2400000, score: 58, workflows: 18, waste: 340000 },
+      { savings: 4800000, score: 78, workflows: 38, waste: 95000 },
     ],
     opportunities: [
       { priority: 1, name: 'Claims Intake Automation', savings: 860000, status: 'In Progress' },
@@ -108,11 +108,11 @@ const analyticsData: Record<string, CompanyAnalyticsData> = {
   },
   pinnacle: {
     readiness: { score: 72, label: 'Good \u2014 targeted improvements needed' },
-    kpis: { savings: 1100000, scoreBefore: 72, scoreAfter: 94, workflows: 24, workflowsReady: 18, waste: 180000 },
+    kpis: { savings: 1600000, scoreBefore: 72, scoreAfter: 94, workflows: 24, workflowsReady: 18, waste: 180000 },
     timeline: [
       { savings: 0, score: 72, workflows: 0, waste: 180000 },
-      { savings: 600000, score: 84, workflows: 14, waste: 80000 },
-      { savings: 1100000, score: 94, workflows: 24, waste: 25000 },
+      { savings: 800000, score: 84, workflows: 14, waste: 80000 },
+      { savings: 1600000, score: 94, workflows: 24, waste: 25000 },
     ],
     opportunities: [
       { priority: 1, name: 'Clinical Notes Summarization', savings: 310000, status: 'Automated' },

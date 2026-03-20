@@ -59,8 +59,8 @@ const impactData: Record<string, CompanyImpactData> = {
       { label: 'Net Impact', value: 2800000, type: 'total' },
     ],
     metrics: [
-      { label: 'Payback Period', value: '3.2 mo' },
-      { label: 'Year 1 ROI', value: '1,067%' },
+      { label: 'Payback Period', value: '4.2 mo' },
+      { label: 'Year 1 ROI', value: '165%' },
       { label: 'Verified Accuracy', value: '97.4%' },
       { label: 'Exception Resolution', value: '1.8 hrs', subtext: 'down from 6.2 hrs' },
     ],
@@ -81,8 +81,8 @@ const impactData: Record<string, CompanyImpactData> = {
       { label: 'Net Impact', value: 4200000, type: 'total' },
     ],
     metrics: [
-      { label: 'Payback Period', value: '2.8 mo' },
-      { label: 'Year 1 ROI', value: '950%' },
+      { label: 'Payback Period', value: '4.8 mo' },
+      { label: 'Year 1 ROI', value: '142%' },
       { label: 'Verified Accuracy', value: '96.8%' },
       { label: 'Exception Resolution', value: '2.4 hrs', subtext: 'down from 14 hrs' },
     ],
@@ -103,8 +103,8 @@ const impactData: Record<string, CompanyImpactData> = {
       { label: 'Net Impact', value: 1400000, type: 'total' },
     ],
     metrics: [
-      { label: 'Payback Period', value: '2.4 mo' },
-      { label: 'Year 1 ROI', value: '900%' },
+      { label: 'Payback Period', value: '2.8 mo' },
+      { label: 'Year 1 ROI', value: '208%' },
       { label: 'Verified Accuracy', value: '98.1%' },
       { label: 'Exception Resolution', value: '4 min', subtext: 'down from 22 min' },
     ],
@@ -125,8 +125,8 @@ const impactData: Record<string, CompanyImpactData> = {
       { label: 'Net Impact', value: 5100000, type: 'total' },
     ],
     metrics: [
-      { label: 'Payback Period', value: '2.1 mo' },
-      { label: 'Year 1 ROI', value: '920%' },
+      { label: 'Payback Period', value: '4.4 mo' },
+      { label: 'Year 1 ROI', value: '162%' },
       { label: 'Verified Accuracy', value: '97.2%' },
       { label: 'Exception Resolution', value: '0.6 hrs', subtext: 'down from 2.5 hrs' },
     ],
