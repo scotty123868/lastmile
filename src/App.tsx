@@ -14,6 +14,8 @@ import Assistant from './pages/Assistant';
 import Analytics from './pages/Analytics';
 import Assessment from './pages/Assessment';
 import { useCompany } from './data/CompanyContext';
+import { SimulationProvider } from './data/SimulationEngine';
+import EventToast from './components/EventToast';
 
 const routeTitles: Record<string, string> = {
   '/workflows': 'Live Workflows',
@@ -98,45 +100,49 @@ export default function App() {
   useEffect(() => { setSidebarOpen(false); }, [location.pathname]);
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      {/* Desktop sidebar */}
-      <div className="hidden lg:flex">
-        <Sidebar />
-      </div>
-
-      {/* Mobile sidebar overlay */}
-      <AnimatePresence>
-        {sidebarOpen && (
-          <>
-            <motion.div
-              key="backdrop"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm lg:hidden"
-              onClick={closeSidebar}
-            />
-            <motion.div
-              key="panel"
-              initial={{ x: -232 }}
-              animate={{ x: 0 }}
-              exit={{ x: -232 }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed inset-y-0 left-0 z-50 lg:hidden"
-            >
-              <Sidebar onClose={closeSidebar} />
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-
-      {/* Main content */}
-      <main className="flex-1 flex flex-col overflow-hidden bg-surface">
-        <TopBar onMenuClick={() => setSidebarOpen(true)} />
-        <div className="flex-1 overflow-y-auto">
-          <AnimatedRoutes />
+    <SimulationProvider>
+      <div className="flex h-screen overflow-hidden">
+        {/* Desktop sidebar */}
+        <div className="hidden lg:flex">
+          <Sidebar />
         </div>
-      </main>
-    </div>
+
+        {/* Mobile sidebar overlay */}
+        <AnimatePresence>
+          {sidebarOpen && (
+            <>
+              <motion.div
+                key="backdrop"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm lg:hidden"
+                onClick={closeSidebar}
+              />
+              <motion.div
+                key="panel"
+                initial={{ x: -232 }}
+                animate={{ x: 0 }}
+                exit={{ x: -232 }}
+                transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+                className="fixed inset-y-0 left-0 z-50 lg:hidden"
+              >
+                <Sidebar onClose={closeSidebar} />
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+
+        {/* Main content */}
+        <main className="flex-1 flex flex-col overflow-hidden bg-surface">
+          <TopBar onMenuClick={() => setSidebarOpen(true)} />
+          <div className="flex-1 overflow-y-auto">
+            <AnimatedRoutes />
+          </div>
+        </main>
+
+        <EventToast />
+      </div>
+    </SimulationProvider>
   );
 }

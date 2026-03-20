@@ -11,7 +11,8 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
-import { getWorkflowsForCompany, type LiveWorkflow, type WorkflowStep } from '../data/workflows';
+import { type LiveWorkflow, type WorkflowStep } from '../data/workflows';
+import { useSimulation } from '../data/SimulationEngine';
 
 const statusConfig = {
   running: { label: 'Running', color: 'bg-blue', textColor: 'text-blue', bgColor: 'bg-blue-muted' },
@@ -195,7 +196,8 @@ function WorkflowCard({ workflow }: { workflow: LiveWorkflow }) {
 
 export default function LiveWorkflows() {
   const { company } = useCompany();
-  const workflows = getWorkflowsForCompany(company.id);
+  const { liveWorkflows } = useSimulation();
+  const workflows = liveWorkflows;
 
   const running = workflows.filter((w) => w.status === 'running').length;
   const verified = workflows.filter((w) => w.status === 'verified').length;

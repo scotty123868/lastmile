@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, ShieldAlert, CheckCircle2, Clock } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
+import VerificationModal from '../components/VerificationModal';
 
 interface LedgerEntry {
   id: string;
@@ -174,7 +175,7 @@ const typeConfig = {
   flag: { icon: ShieldAlert, label: 'Flag', color: 'text-red', bg: 'bg-red-muted' },
 };
 
-function LedgerRow({ entry, index }: { entry: LedgerEntry; index: number }) {
+function LedgerRow({ entry, index, onSelect }: { entry: LedgerEntry; index: number; onSelect: (entry: LedgerEntry) => void }) {
   const [expanded, setExpanded] = useState(false);
   const tc = typeConfig[entry.type];
   const Icon = tc.icon;
@@ -255,6 +256,18 @@ function LedgerRow({ entry, index }: { entry: LedgerEntry; index: number }) {
                   </div>
                 </div>
               </div>
+              <div className="mt-3 flex justify-end">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSelect(entry);
+                  }}
+                  className="px-3 py-1 rounded-md text-[11px] font-medium bg-blue-muted text-blue hover:bg-blue/10 transition-colors cursor-pointer"
+                >
+                  View full verification &rarr;
+                </button>
+              </div>
             </div>
           </motion.div>
         )}
@@ -267,6 +280,7 @@ export default function VerificationLedger() {
   const { company } = useCompany();
   const entries = getLedgerForCompany(company.id);
   const [filter, setFilter] = useState<string>('all');
+  const [selectedEntry, setSelectedEntry] = useState<LedgerEntry | null>(null);
 
   const filtered = filter === 'all' ? entries : entries.filter((e) => e.type === filter);
   const counts = {
@@ -305,9 +319,13 @@ export default function VerificationLedger() {
       {/* Ledger table */}
       <div className="bg-surface-raised border border-border rounded-xl overflow-hidden">
         {filtered.map((entry, i) => (
-          <LedgerRow key={entry.id} entry={entry} index={i} />
+          <LedgerRow key={entry.id} entry={entry} index={i} onSelect={setSelectedEntry} />
         ))}
       </div>
+
+      {selectedEntry && (
+        <VerificationModal entry={selectedEntry} onClose={() => setSelectedEntry(null)} />
+      )}
     </div>
   );
 }
