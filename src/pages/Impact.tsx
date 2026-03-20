@@ -13,6 +13,7 @@ import {
   ArrowUpRight,
   ArrowDownRight,
   Minus,
+  Building2,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
 
@@ -404,7 +405,7 @@ export default function Impact() {
       {/* Page header */}
       <div className="mb-8">
         <h1 className="text-[22px] font-semibold text-ink tracking-tight">Impact</h1>
-        <p className="text-[13px] text-ink-tertiary mt-1">ROI, business impact, and adoption for {company.shortName}</p>
+        <p className="text-[13px] text-ink-tertiary mt-1">Realized value and ROI — {company.employees.toLocaleString()} employees, {company.revenue} revenue</p>
       </div>
 
       {/* Hero number */}

@@ -463,7 +463,7 @@ export default function LiveWorkflows() {
       {/* Page header */}
       <div className="mb-8">
         <h1 className="text-[22px] font-semibold text-ink tracking-tight">Operations</h1>
-        <p className="text-[13px] text-ink-tertiary mt-1">{company.tagline}</p>
+        <p className="text-[13px] text-ink-tertiary mt-1">Live AI workflow execution — {company.employees.toLocaleString()} employees across {company.industry}</p>
       </div>
 
       {/* Stats row */}

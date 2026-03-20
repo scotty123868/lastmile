@@ -192,8 +192,28 @@ export default function Assessment() {
       <div className="mb-8">
         <h1 className="text-[22px] font-semibold text-ink tracking-tight">Assessment</h1>
         <p className="text-[13px] text-ink-tertiary mt-1">
-          Tech stack diagnostic and license waste analysis for {company.shortName}
+          Tech stack diagnostic and license waste analysis — {company.employees.toLocaleString()} employees across {company.opCos} {company.category === 'sovereign' ? 'agencies' : company.opCos > 1 ? 'operating companies' : 'entity'}
         </p>
+      </div>
+
+      {/* ── Summary Stats ────────────────────────────────── */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+        <div className="bg-surface-raised border border-border rounded-xl px-4 py-3 text-center">
+          <div className="text-[20px] font-semibold tabular-nums text-ink">{data.techStack.length}</div>
+          <div className="text-[11px] text-ink-tertiary mt-0.5">Systems Assessed</div>
+        </div>
+        <div className="bg-surface-raised border border-border rounded-xl px-4 py-3 text-center">
+          <div className={`text-[20px] font-semibold tabular-nums ${avgReadiness >= 7 ? 'text-green' : avgReadiness >= 4 ? 'text-amber' : 'text-red'}`}>{avgReadiness}</div>
+          <div className="text-[11px] text-ink-tertiary mt-0.5">Avg Readiness</div>
+        </div>
+        <div className="bg-surface-raised border border-border rounded-xl px-4 py-3 text-center">
+          <div className="text-[20px] font-semibold tabular-nums text-ink">{data.licenses.reduce((s, l) => s + l.total, 0).toLocaleString()}</div>
+          <div className="text-[11px] text-ink-tertiary mt-0.5">Total Licenses</div>
+        </div>
+        <div className="bg-surface-raised border border-border rounded-xl px-4 py-3 text-center">
+          <div className="text-[20px] font-semibold tabular-nums text-red">{formatDollars(totalWaste)}</div>
+          <div className="text-[11px] text-ink-tertiary mt-0.5">Annual Waste</div>
+        </div>
       </div>
 
       {/* ── Section 1: Tech Stack Readiness ────────────────── */}

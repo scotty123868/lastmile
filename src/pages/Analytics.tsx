@@ -16,6 +16,9 @@ import {
   Trash2,
   Table2,
   Clock,
+  Users,
+  Building2,
+  Briefcase,
 } from 'lucide-react';
 import {
   RadialBarChart,
@@ -457,6 +460,79 @@ export default function Analytics() {
           AI readiness and transformation overview for {company.shortName}
         </p>
       </div>
+
+      {/* ── Company Profile ────────────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="mb-8 bg-surface-raised border border-border rounded-xl px-6 py-5"
+      >
+        <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+          <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
+            company.category === 'conglomerate' ? 'bg-purple-500/15' :
+            company.category === 'sovereign' ? 'bg-emerald-500/15' :
+            'bg-blue-muted'
+          }`}>
+            <span className={`text-[14px] font-bold ${
+              company.category === 'conglomerate' ? 'text-purple-400' :
+              company.category === 'sovereign' ? 'text-emerald-400' :
+              'text-blue'
+            }`}>{company.initials}</span>
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-1">
+              <h2 className="text-[15px] font-semibold text-ink truncate">{company.name}</h2>
+              <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full flex-shrink-0 ${
+                company.category === 'conglomerate' ? 'bg-purple-500/10 text-purple-400' :
+                company.category === 'sovereign' ? 'bg-emerald-500/10 text-emerald-400' :
+                'bg-blue-muted text-blue'
+              }`}>
+                {company.category === 'sovereign' ? 'Sovereign' : company.category === 'conglomerate' ? 'Conglomerate' : 'Enterprise'}
+              </span>
+            </div>
+            <p className="text-[12px] text-ink-tertiary mb-3">{company.tagline}</p>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+              <div className="flex items-center gap-1.5">
+                <Briefcase className="w-3.5 h-3.5 text-ink-faint" strokeWidth={1.5} />
+                <span className="text-[12px] text-ink-secondary">{company.industry}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <DollarSign className="w-3.5 h-3.5 text-ink-faint" strokeWidth={1.5} />
+                <span className="text-[12px] text-ink-secondary">{company.revenue}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Users className="w-3.5 h-3.5 text-ink-faint" strokeWidth={1.5} />
+                <span className="text-[12px] text-ink-secondary">{company.employees.toLocaleString()} employees</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Building2 className="w-3.5 h-3.5 text-ink-faint" strokeWidth={1.5} />
+                <span className="text-[12px] text-ink-secondary">{company.opCos} {company.category === 'sovereign' ? 'agencies' : company.category === 'conglomerate' ? 'operating companies' : company.opCos > 1 ? 'operating companies' : 'entity'}</span>
+              </div>
+            </div>
+            {company.subEntities && company.subEntities.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mt-3">
+                {company.subEntities.map((entity) => (
+                  <span
+                    key={entity}
+                    className={`text-[10px] font-medium px-2 py-0.5 rounded-md ${
+                      company.category === 'conglomerate' ? 'bg-purple-500/8 text-purple-400/80' :
+                      'bg-emerald-500/8 text-emerald-400/80'
+                    }`}
+                  >
+                    {entity}
+                  </span>
+                ))}
+                {company.subEntities.length < company.opCos && (
+                  <span className="text-[10px] text-ink-faint px-2 py-0.5">
+                    +{company.opCos - company.subEntities.length} more
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </motion.div>
 
       {/* ── AI Readiness Score ──────────────────────────────── */}
       <motion.div
