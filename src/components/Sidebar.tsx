@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Activity,
   TrendingUp,
@@ -132,6 +132,11 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
             <span className="text-[12px] font-medium text-nav-text-active truncate block leading-tight">
               {company.shortName}
             </span>
+            {company.parentId && (
+              <span className="text-[9px] text-nav-text truncate block leading-tight">
+                {companies.find((p) => p.id === company.parentId)?.shortName}
+              </span>
+            )}
             <span className={`text-[10px] font-medium px-1 py-0.5 rounded ${pillarColors[company.pillar] || 'bg-ink-faint/20 text-ink-tertiary'}`}>
               {company.pillarLabel}
             </span>
@@ -145,7 +150,7 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
         {open && (
           <div className="absolute left-3 right-3 top-full mt-1 bg-nav-surface rounded-lg border border-nav-border shadow-2xl z-50 overflow-hidden max-h-[70vh] overflow-y-auto">
             {categories.map((cat, catIdx) => {
-              const group = companies.filter((c) => c.category === cat);
+              const group = companies.filter((c) => c.category === cat && !c.parentId);
               if (group.length === 0) return null;
               const meta = categoryMeta[cat];
               const CatIcon = meta.icon;
@@ -166,8 +171,8 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
                   {group.map((c) => {
                     const isSelected = c.id === company.id;
                     return (
+                      <React.Fragment key={c.id}>
                       <button
-                        key={c.id}
                         type="button"
                         onClick={() => { setCompanyId(c.id); setOpen(false); }}
                         className={`w-full flex items-center gap-2.5 px-3 py-2 text-left transition-colors hover:bg-white/[0.06] ${
@@ -193,6 +198,35 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
                           </span>
                         )}
                       </button>
+                      {/* Sub-entities nested under parent */}
+                      {companies.filter((sub) => sub.parentId === c.id).length > 0 && (
+                        <div className="ml-3 border-l border-white/[0.06]">
+                          {companies.filter((sub) => sub.parentId === c.id).map((sub) => {
+                            const isSubSelected = sub.id === company.id;
+                            return (
+                              <button
+                                key={sub.id}
+                                type="button"
+                                onClick={() => { setCompanyId(sub.id); setOpen(false); }}
+                                className={`w-full flex items-center gap-2 px-3 py-1.5 text-left transition-colors hover:bg-white/[0.06] ${
+                                  isSubSelected ? 'bg-white/[0.04]' : ''
+                                }`}
+                              >
+                                <div className={`w-4 h-4 rounded flex items-center justify-center flex-shrink-0 ${initialsBg(sub.category)}`}>
+                                  <span className={`text-[8px] font-bold ${initialsText(sub.category)}`}>{sub.initials}</span>
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <span className="text-[11px] font-medium text-white/80 truncate block">{sub.shortName}</span>
+                                </div>
+                                {isSubSelected && (
+                                  <Check className="w-3 h-3 text-blue flex-shrink-0" strokeWidth={2.5} />
+                                )}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                      </React.Fragment>
                     );
                   })}
                 </div>

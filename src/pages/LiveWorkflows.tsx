@@ -166,6 +166,142 @@ const pipelineData: Record<string, PipelineData> = {
       { id: 'd6', name: 'Budget_Documents_2026.pdf', type: 'pdf', origin: 'Ministry of Finance', size: '142 MB', status: 'processing', fields: 4800, confidence: 94 },
     ],
   },
+  'nb-aerospace': {
+    stages: [
+      { label: 'Ingestion', count: 6420, status: 'active' },
+      { label: 'Normalization', count: 6180, status: 'active' },
+      { label: 'Entity Resolution', count: 6040, status: 'active' },
+      { label: 'Context Packing', count: 8, status: 'active' },
+    ],
+    stats: { ingested: 6420, normalized: 6180, packed: 8, failed: 18 },
+    documents: [
+      { id: 'd1', name: 'FlightTest_Report_FT-2026-0441.pdf', type: 'pdf', origin: 'Flight Test Engineering', size: '18.4 MB', status: 'ready', fields: 248, confidence: 97 },
+      { id: 'd2', name: 'Supplier_Cert_AS9100_Pratt.pdf', type: 'pdf', origin: 'Supplier Quality Portal', size: '2.1 MB', status: 'ready', fields: 84, confidence: 98 },
+      { id: 'd3', name: 'MRO_MaintenanceLog_Tail-N842.csv', type: 'csv', origin: 'AMOS MRO System Export', size: '8.4 MB', status: 'ready', fields: 4200, confidence: 96 },
+      { id: 'd4', name: 'Airworthiness_Directive_AD-2026-04.pdf', type: 'pdf', origin: 'FAA Airworthiness Database', size: '1.4 MB', status: 'processing', fields: 42, confidence: 94 },
+      { id: 'd5', name: 'Engine_Telemetry_GE9X_Stream.api', type: 'api', origin: 'GE Digital Twin Platform', size: '—', status: 'ready', fields: 24800, confidence: 99 },
+      { id: 'd6', name: 'NDI_Inspection_Results_Wing.scan', type: 'scan', origin: 'Ultrasonic NDI Scanner — Hangar 4', size: '4.8 MB', status: 'processing', fields: 128, confidence: 91 },
+    ],
+  },
+  'nb-energy': {
+    stages: [
+      { label: 'Ingestion', count: 14200, status: 'active' },
+      { label: 'Normalization', count: 13800, status: 'active' },
+      { label: 'Entity Resolution', count: 13400, status: 'active' },
+      { label: 'Context Packing', count: 6, status: 'active' },
+    ],
+    stats: { ingested: 14200, normalized: 13800, packed: 6, failed: 32 },
+    documents: [
+      { id: 'd1', name: 'SCADA_Readings_Pipeline_NE-7.api', type: 'api', origin: 'SCADA Gateway — Northeast Corridor', size: '—', status: 'ready', fields: 48000, confidence: 99 },
+      { id: 'd2', name: 'Pipeline_Inspection_ILI-2026-03.pdf', type: 'pdf', origin: 'In-Line Inspection Vendor', size: '42 MB', status: 'processing', fields: 840, confidence: 93 },
+      { id: 'd3', name: 'Grid_Monitoring_ERCOT_Feed.api', type: 'api', origin: 'ERCOT Grid Operations', size: '—', status: 'ready', fields: 84000, confidence: 98 },
+      { id: 'd4', name: 'Wellhead_Pressure_Daily.csv', type: 'csv', origin: 'Field SCADA — Permian Basin', size: '24 MB', status: 'ready', fields: 12400, confidence: 97 },
+      { id: 'd5', name: 'EPA_Compliance_Report_Q1.pdf', type: 'pdf', origin: 'Environmental Compliance System', size: '8.2 MB', status: 'ready', fields: 420, confidence: 96 },
+      { id: 'd6', name: 'Transformer_Health_Index.xlsx', type: 'spreadsheet', origin: 'Asset Health Monitoring Platform', size: '14 MB', status: 'ready', fields: 6200, confidence: 95 },
+    ],
+  },
+  'nb-financial': {
+    stages: [
+      { label: 'Ingestion', count: 18400, status: 'active' },
+      { label: 'Normalization', count: 17900, status: 'active' },
+      { label: 'Entity Resolution', count: 17200, status: 'active' },
+      { label: 'Context Packing', count: 10, status: 'active' },
+    ],
+    stats: { ingested: 18400, normalized: 17900, packed: 10, failed: 42 },
+    documents: [
+      { id: 'd1', name: 'TradeConfirm_FX_Batch_0321.pdf', type: 'pdf', origin: 'Bloomberg TOMS', size: '4.2 MB', status: 'ready', fields: 2400, confidence: 98 },
+      { id: 'd2', name: 'SEC_Filing_10K_2025.pdf', type: 'pdf', origin: 'EDGAR Filing System', size: '28 MB', status: 'ready', fields: 4800, confidence: 97 },
+      { id: 'd3', name: 'AML_SuspiciousActivity_Q1.csv', type: 'csv', origin: 'AML Monitoring Platform', size: '12 MB', status: 'processing', fields: 8400, confidence: 94 },
+      { id: 'd4', name: 'OCC_RegExam_Response.pdf', type: 'pdf', origin: 'Regulatory Affairs Portal', size: '14 MB', status: 'ready', fields: 1200, confidence: 96 },
+      { id: 'd5', name: 'RiskCalc_CreditModel_Feed.api', type: 'api', origin: 'Moody\'s Analytics RiskCalc', size: '—', status: 'ready', fields: 24000, confidence: 99 },
+      { id: 'd6', name: 'KYC_EntityScreening_Batch.api', type: 'api', origin: 'Refinitiv World-Check', size: '—', status: 'ready', fields: 14200, confidence: 98 },
+    ],
+  },
+  'nb-health': {
+    stages: [
+      { label: 'Ingestion', count: 8400, status: 'active' },
+      { label: 'Normalization', count: 8120, status: 'active' },
+      { label: 'Entity Resolution', count: 7840, status: 'active' },
+      { label: 'Context Packing', count: 5, status: 'active' },
+    ],
+    stats: { ingested: 8400, normalized: 8120, packed: 5, failed: 24 },
+    documents: [
+      { id: 'd1', name: 'ClinicalTrial_Phase3_NB-4412.csv', type: 'csv', origin: 'Medidata Rave EDC', size: '42 MB', status: 'ready', fields: 24800, confidence: 98 },
+      { id: 'd2', name: 'BatchRecord_API_Lot-2026-0847.pdf', type: 'pdf', origin: 'MES — Dublin Manufacturing', size: '8.4 MB', status: 'processing', fields: 420, confidence: 95 },
+      { id: 'd3', name: 'FDA_510k_Submission_Draft.pdf', type: 'pdf', origin: 'Regulatory Affairs — FDA Team', size: '124 MB', status: 'ready', fields: 2400, confidence: 96 },
+      { id: 'd4', name: 'Adverse_Event_Reports_Q1.api', type: 'api', origin: 'FDA FAERS Database', size: '—', status: 'ready', fields: 14200, confidence: 97 },
+      { id: 'd5', name: 'QC_LabResults_Stability.xlsx', type: 'spreadsheet', origin: 'LIMS — Quality Control Lab', size: '18 MB', status: 'ready', fields: 8400, confidence: 99 },
+      { id: 'd6', name: 'GMP_Audit_Findings_2026.pdf', type: 'pdf', origin: 'Quality Assurance Portal', size: '4.2 MB', status: 'ready', fields: 148, confidence: 94 },
+    ],
+  },
+  'ee-finance': {
+    stages: [
+      { label: 'Ingestion', count: 24800, status: 'active' },
+      { label: 'Normalization', count: 24200, status: 'active' },
+      { label: 'Entity Resolution', count: 23600, status: 'active' },
+      { label: 'Context Packing', count: 6, status: 'active' },
+    ],
+    stats: { ingested: 24800, normalized: 24200, packed: 6, failed: 14 },
+    documents: [
+      { id: 'd1', name: 'EMTA_TaxReturns_Individual_Q1.api', type: 'api', origin: 'Tax & Revenue Board (EMTA)', size: '—', status: 'ready', fields: 84000, confidence: 99 },
+      { id: 'd2', name: 'State_Budget_Execution_2026.pdf', type: 'pdf', origin: 'Ministry of Finance Portal', size: '48 MB', status: 'ready', fields: 4200, confidence: 96 },
+      { id: 'd3', name: 'Fiscal_Audit_StateEntities.pdf', type: 'pdf', origin: 'National Audit Office (Riigikontroll)', size: '84 MB', status: 'processing', fields: 2400, confidence: 94 },
+      { id: 'd4', name: 'VAT_Declarations_Monthly.csv', type: 'csv', origin: 'EMTA e-Services', size: '28 MB', status: 'ready', fields: 42000, confidence: 98 },
+      { id: 'd5', name: 'Customs_Revenue_Feed.api', type: 'api', origin: 'Tax & Customs Board', size: '—', status: 'ready', fields: 24800, confidence: 97 },
+      { id: 'd6', name: 'Municipal_Budget_Reports.xlsx', type: 'spreadsheet', origin: 'Local Government Financial Portal', size: '18 MB', status: 'ready', fields: 8400, confidence: 95 },
+    ],
+  },
+  'ee-social': {
+    stages: [
+      { label: 'Ingestion', count: 18200, status: 'active' },
+      { label: 'Normalization', count: 17800, status: 'active' },
+      { label: 'Entity Resolution', count: 17200, status: 'active' },
+      { label: 'Context Packing', count: 4, status: 'active' },
+    ],
+    stats: { ingested: 18200, normalized: 17800, packed: 4, failed: 22 },
+    documents: [
+      { id: 'd1', name: 'BenefitApplications_Family_Q1.api', type: 'api', origin: 'Social Insurance Board (SKA)', size: '—', status: 'ready', fields: 48000, confidence: 98 },
+      { id: 'd2', name: 'TEHIK_HealthRecords_PatientBatch.api', type: 'api', origin: 'TEHIK — Health Information System', size: '—', status: 'ready', fields: 62000, confidence: 97 },
+      { id: 'd3', name: 'CaseFile_ChildWelfare_2026.pdf', type: 'pdf', origin: 'Child Protection Registry', size: '12 MB', status: 'processing', fields: 840, confidence: 92 },
+      { id: 'd4', name: 'Disability_Assessments_Q1.csv', type: 'csv', origin: 'Social Insurance Board (SKA)', size: '8.4 MB', status: 'ready', fields: 14200, confidence: 96 },
+      { id: 'd5', name: 'Pension_Eligibility_Feed.api', type: 'api', origin: 'Pension Registry', size: '—', status: 'ready', fields: 24800, confidence: 99 },
+      { id: 'd6', name: 'Unemployment_Claims_Weekly.csv', type: 'csv', origin: 'Unemployment Insurance Fund (KELA)', size: '4.2 MB', status: 'ready', fields: 8400, confidence: 97 },
+    ],
+  },
+  'ee-economic': {
+    stages: [
+      { label: 'Ingestion', count: 12400, status: 'active' },
+      { label: 'Normalization', count: 12100, status: 'active' },
+      { label: 'Entity Resolution', count: 11800, status: 'active' },
+      { label: 'Context Packing', count: 5, status: 'active' },
+    ],
+    stats: { ingested: 12400, normalized: 12100, packed: 5, failed: 18 },
+    documents: [
+      { id: 'd1', name: 'TradePermits_Export_Q1.api', type: 'api', origin: 'Ministry of Economic Affairs', size: '—', status: 'ready', fields: 24000, confidence: 98 },
+      { id: 'd2', name: 'BusinessRegistry_NewEntities.api', type: 'api', origin: 'Centre of Registers (RIK)', size: '—', status: 'ready', fields: 42000, confidence: 99 },
+      { id: 'd3', name: 'eResidency_Applications_March.csv', type: 'csv', origin: 'e-Residency Program Portal', size: '14 MB', status: 'ready', fields: 8400, confidence: 96 },
+      { id: 'd4', name: 'EU_Structural_Funds_Report.pdf', type: 'pdf', origin: 'State Shared Service Centre', size: '24 MB', status: 'processing', fields: 1200, confidence: 93 },
+      { id: 'd5', name: 'Foreign_Investment_Filings.pdf', type: 'pdf', origin: 'Enterprise Estonia (EAS)', size: '8.4 MB', status: 'ready', fields: 420, confidence: 95 },
+      { id: 'd6', name: 'Startup_Visa_Applications.xlsx', type: 'spreadsheet', origin: 'Startup Estonia Portal', size: '4.8 MB', status: 'ready', fields: 2400, confidence: 97 },
+    ],
+  },
+  'ee-ria': {
+    stages: [
+      { label: 'Ingestion', count: 28400, status: 'active' },
+      { label: 'Normalization', count: 27800, status: 'active' },
+      { label: 'Entity Resolution', count: 27200, status: 'active' },
+      { label: 'Context Packing', count: 7, status: 'active' },
+    ],
+    stats: { ingested: 28400, normalized: 27800, packed: 7, failed: 8 },
+    documents: [
+      { id: 'd1', name: 'SecurityIncident_CERT-EE_Q1.csv', type: 'csv', origin: 'CERT-EE Incident Tracker', size: '4.2 MB', status: 'ready', fields: 2400, confidence: 97 },
+      { id: 'd2', name: 'XRoad_Traffic_Analytics_Daily.api', type: 'api', origin: 'X-Road Monitoring — RIA', size: '—', status: 'ready', fields: 142000, confidence: 99 },
+      { id: 'd3', name: 'VulnScan_GovInfra_March.csv', type: 'csv', origin: 'RIA Vulnerability Scanner', size: '18 MB', status: 'processing', fields: 8400, confidence: 94 },
+      { id: 'd4', name: 'DDoS_Mitigation_Log_Q1.api', type: 'api', origin: 'RIA Cyber Defence Centre', size: '—', status: 'ready', fields: 48000, confidence: 98 },
+      { id: 'd5', name: 'eID_Auth_AuditTrail.api', type: 'api', origin: 'SK ID Solutions — eID Platform', size: '—', status: 'ready', fields: 84000, confidence: 99 },
+      { id: 'd6', name: 'Penetration_Test_Report_Gov.pdf', type: 'pdf', origin: 'RIA Red Team — Classified', size: '24 MB', status: 'ready', fields: 248, confidence: 96 },
+    ],
+  },
 };
 
 /* ── Verification Ledger mini data ───────────────────────── */
@@ -208,6 +344,46 @@ const miniLedgerData: Record<string, MiniLedgerEntry[]> = {
     { id: 'VL-2026-2201', workflow: 'Tax Return Auto-Assessment', type: 'correction', timestamp: '3 min ago', corrected: 'Deduction reduced to \u20ac2,800 \u2014 property registry shows apartment sold in August, 8 months eligible not 12' },
     { id: 'VL-2026-2202', workflow: 'Citizen Benefits Eligibility Engine', type: 'flag', timestamp: '7 min ago', corrected: 'Income mismatch \u2014 Tax Board reports \u20ac42,000 vs Social Insurance \u20ac28,000. Benefit suspended pending investigation.' },
     { id: 'VL-2026-2203', workflow: 'Healthcare Records Integration', type: 'correction', timestamp: '18 min ago', corrected: 'Mapped to ICD-10-EE code J06.9 with Estonian clinical modifier' },
+  ],
+  'nb-aerospace': [
+    { id: 'VL-2026-2301', workflow: 'Flight Test Data Verification', type: 'correction', timestamp: '4 min ago', corrected: 'Flutter onset speed corrected to Mach 0.82 — original telemetry had sensor calibration offset' },
+    { id: 'VL-2026-2302', workflow: 'Supplier Certification Tracking', type: 'flag', timestamp: '12 min ago', corrected: 'AS9100D cert for supplier #SP-4412 expires in 14 days — renewal not yet filed with Nadcap' },
+    { id: 'VL-2026-2303', workflow: 'Maintenance Log Reconciliation', type: 'escalation', timestamp: '22 min ago', corrected: 'Discrepancy: logbook shows engine wash at 2,400 hrs but AMOS records 2,200 hrs — requires QA review' },
+  ],
+  'nb-energy': [
+    { id: 'VL-2026-2401', workflow: 'SCADA Anomaly Detection', type: 'flag', timestamp: '2 min ago', corrected: 'Pipeline pressure drop 18 PSI in 4 hours — exceeds PHMSA threshold. Leak detection protocol initiated.' },
+    { id: 'VL-2026-2402', workflow: 'Pipeline Inspection Compliance', type: 'correction', timestamp: '9 min ago', corrected: 'Wall thickness reading corrected from 0.28" to 0.31" — ILI tool recalibration applied per ASME B31.8' },
+    { id: 'VL-2026-2403', workflow: 'Grid Load Forecasting', type: 'escalation', timestamp: '16 min ago', corrected: 'ERCOT demand forecast revised up 8% — extreme heat advisory for West Texas through Friday' },
+  ],
+  'nb-financial': [
+    { id: 'VL-2026-2501', workflow: 'Trade Confirmation Matching', type: 'correction', timestamp: '1 min ago', corrected: 'FX trade #TC-88421: settlement date corrected to T+2 (March 23) per CLS standard' },
+    { id: 'VL-2026-2502', workflow: 'Regulatory Filing Validation', type: 'flag', timestamp: '8 min ago', corrected: 'SEC 10-K footnote 14: lease obligation understated by $4.2M — ASC 842 remeasurement required' },
+    { id: 'VL-2026-2503', workflow: 'AML Transaction Screening', type: 'escalation', timestamp: '19 min ago', corrected: 'SAR filed — structuring pattern detected: 12 deposits of $9,800-$9,950 across 3 accounts in 48 hours' },
+  ],
+  'nb-health': [
+    { id: 'VL-2026-2601', workflow: 'Clinical Trial Data Validation', type: 'correction', timestamp: '5 min ago', corrected: 'Patient #4412 BMI recalculated: 28.4 (not 24.8) — height entered in cm, not inches. Protocol deviation filed.' },
+    { id: 'VL-2026-2602', workflow: 'Batch Record Review', type: 'flag', timestamp: '11 min ago', corrected: 'Lot 2026-0847: pH drift from 6.8 to 7.4 during hold time — exceeds validated range of 6.5-7.2' },
+    { id: 'VL-2026-2603', workflow: 'FDA Submission Assembly', type: 'escalation', timestamp: '24 min ago', corrected: 'Module 2.7 clinical summary missing 3-month interim analysis — PDUFA date June 15, submission at risk' },
+  ],
+  'ee-finance': [
+    { id: 'VL-2026-2701', workflow: 'Tax Return Auto-Assessment', type: 'correction', timestamp: '3 min ago', corrected: 'Self-employed income reclassified: €14,200 from Platform A not reported — cross-referenced with EMTA data' },
+    { id: 'VL-2026-2702', workflow: 'Budget Execution Monitoring', type: 'flag', timestamp: '10 min ago', corrected: 'Ministry of Education Q1 spending at 34% of annual budget — 9% above projected trajectory' },
+    { id: 'VL-2026-2703', workflow: 'Fiscal Audit Trail Verification', type: 'escalation', timestamp: '20 min ago', corrected: 'State enterprise dividend payment €2.4M recorded twice — duplicate entry in Treasury settlement system' },
+  ],
+  'ee-social': [
+    { id: 'VL-2026-2801', workflow: 'Benefits Eligibility Processing', type: 'correction', timestamp: '2 min ago', corrected: 'Family benefit recalculated: 3rd child born Feb 2026, household now qualifies for large family supplement €420/month' },
+    { id: 'VL-2026-2802', workflow: 'Health Records Cross-Linking', type: 'flag', timestamp: '8 min ago', corrected: 'Prescription conflict: patient prescribed warfarin and aspirin concurrently — interaction alert sent to GP' },
+    { id: 'VL-2026-2803', workflow: 'Case File Assessment', type: 'escalation', timestamp: '15 min ago', corrected: 'Child welfare case #CW-2026-441: school absence threshold exceeded (18 days) — mandatory review triggered' },
+  ],
+  'ee-economic': [
+    { id: 'VL-2026-2901', workflow: 'Trade Permit Processing', type: 'correction', timestamp: '4 min ago', corrected: 'Export permit #EP-8842: HS code corrected from 8471.30 to 8471.41 — dual-use screening re-triggered' },
+    { id: 'VL-2026-2902', workflow: 'Business Registration Validation', type: 'flag', timestamp: '12 min ago', corrected: 'New OÜ registration: beneficial owner matches PEP list — enhanced due diligence required per EU AMLD6' },
+    { id: 'VL-2026-2903', workflow: 'e-Residency Application Review', type: 'escalation', timestamp: '18 min ago', corrected: 'Applicant #eR-28441: address verification failed — registered address is a virtual office, policy requires physical presence confirmation' },
+  ],
+  'ee-ria': [
+    { id: 'VL-2026-3001', workflow: 'Security Incident Triage', type: 'flag', timestamp: '1 min ago', corrected: 'CERT-EE alert: phishing campaign targeting gov.ee domains — 142 emails blocked, 3 clicked through, accounts locked' },
+    { id: 'VL-2026-3002', workflow: 'X-Road Traffic Analysis', type: 'correction', timestamp: '6 min ago', corrected: 'Anomalous query volume from consumer "EMTA-prod-3": 48,000 queries/hr vs baseline 12,000 — legitimate batch job confirmed' },
+    { id: 'VL-2026-3003', workflow: 'Vulnerability Assessment', type: 'escalation', timestamp: '14 min ago', corrected: 'CVE-2026-1847 (CVSS 9.1) affects 4 government web servers — critical patch deployment escalated to 24-hour SLA' },
   ],
 };
 

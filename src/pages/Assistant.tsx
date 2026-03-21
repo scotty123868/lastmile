@@ -462,6 +462,606 @@ const chatData: Record<string, CompanyChat> = {
       'Generate digital government roadmap',
     ],
   },
+  'nb-aerospace': {
+    messages: [
+      {
+        role: 'user',
+        content: [{ text: 'What are the key opportunities for Northbridge Aerospace?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here are the **key AI-driven opportunities** for Northbridge Aerospace, ranked by projected annual impact across certification, compliance, and maintenance operations:" },
+          {
+            table: {
+              headers: ['Opportunity', 'Current State', 'AI-Enhanced State', 'Annual Savings', 'Confidence'],
+              rows: [
+                ['Flight certification automation', '14-month manual review cycle', 'AI-assisted doc generation + gap analysis', '$3.2M', 'High'],
+                ['AS9100 compliance monitoring', 'Quarterly manual audits', 'Continuous AI-driven compliance scanning', '$1.8M', 'High'],
+                ['Supplier quality scoring', 'Spreadsheet-based vendor reviews', 'Real-time ML quality prediction', '$2.4M', 'Medium'],
+                ['Predictive maintenance for aircraft', 'Scheduled interval-based maintenance', 'Condition-based with sensor fusion AI', '$4.1M', 'High'],
+                ['Parts traceability automation', 'Manual serialization tracking', 'AI-powered digital thread', '$1.2M', 'Medium'],
+              ],
+            },
+          },
+          { text: 'The **total addressable savings is $12.7M annually**. Predictive maintenance for the aircraft fleet represents the single largest opportunity given the current fleet of 340 active airframes. Flight certification automation has the fastest payback at **4.8 months** because the existing documentation backlog is creating $3.2M in delayed revenue from aircraft awaiting certification clearance.' },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'Can you go deeper on AS9100 compliance monitoring?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's a detailed breakdown of **AS9100 compliance automation** opportunities across Northbridge Aerospace's operations:" },
+          {
+            list: [
+              "**Automated nonconformance detection** \u2014 AI scans production records, inspection logs, and supplier data in real-time against AS9100 Rev D requirements. Currently, nonconformances are caught an average of **18 days after occurrence**. AI monitoring reduces this to **under 4 hours**, preventing cascading quality escapes that cost an average of **$420K per incident**.",
+              "**Document control automation** \u2014 AS9100 requires rigorous document version control across 2,400+ controlled documents. Your current system relies on manual review cycles that consume **320 hours per month**. AI-powered document lifecycle management can reduce this to **45 hours per month** while improving version accuracy from 94% to 99.7%.",
+              "**Risk-based audit scheduling** \u2014 Instead of fixed quarterly audits, AI analyzes process performance data to dynamically schedule audits where risk is highest. This shifts from **blanket coverage to targeted assurance**, reducing total audit hours by 40% while catching **2.3x more findings** in high-risk areas.",
+              "**Supplier flow-down verification** \u2014 AS9100 requires quality requirements to flow down to sub-tier suppliers. AI automatically verifies that purchase orders, contracts, and supplier quality agreements contain required flow-down clauses. Currently, **8% of POs are missing required flow-downs**, creating audit liability.",
+            ],
+          },
+          { text: 'Addressing **nonconformance detection first** delivers the highest ROI because each quality escape that reaches a customer triggers an average **$420K in containment costs** plus potential AS9100 certification risk. Last year, 3 late-detected nonconformances resulted in **$1.26M in total remediation costs**.' },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'What does the implementation plan look like for the predictive maintenance system?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the **phased implementation plan** for deploying predictive maintenance across Northbridge Aerospace's fleet of 340 airframes. The plan accounts for FAA regulatory requirements and existing MRO workflows:" },
+          {
+            table: {
+              headers: ['Phase', 'Timeline', 'Scope', 'Key Milestone', 'Investment'],
+              rows: [
+                ['1. Data Foundation', 'Weeks 1\u20136', 'Sensor data pipeline + historical maintenance ingestion', 'Unified fleet health data lake live', '$680K'],
+                ['2. Model Development', 'Weeks 7\u201314', 'Failure prediction models for top 5 component families', 'First predictive alerts validated against actuals', '$1.2M'],
+                ['3. MRO Integration', 'Weeks 15\u201322', 'Work order automation + parts pre-positioning', 'Predictive work orders flowing to MRO systems', '$850K'],
+                ['4. Fleet-Wide Rollout', 'Weeks 23\u201330', 'All 340 airframes on predictive monitoring', 'Full fleet condition-based maintenance live', '$920K'],
+              ],
+            },
+          },
+          { text: "The **critical path runs through Phase 1** \u2014 the sensor data pipeline must ingest data from 6 different avionics bus architectures (ARINC 429, ARINC 664, MIL-STD-1553B, CAN bus, discrete sensors, and ACARS downlink). Currently, only 38% of the fleet transmits health data to ground systems in real-time; the remaining 62% relies on post-flight data downloads. Closing this gap is essential before ML models can generate reliable predictions." },
+          { text: "I recommend starting Phase 2 model development with the **APU and landing gear component families** \u2014 these account for 44% of unscheduled maintenance events and have the richest historical failure data (18,000+ maintenance records over 5 years). The FAA's AC 43-218 advisory circular provides a clear pathway for predictive maintenance programs, but you'll need to submit a **revised maintenance program** to your FSDO for approval before transitioning any airframe from interval-based to condition-based maintenance. Budget **6\u20138 weeks** for FSDO review. Total program investment of **$3.65M** yields projected savings of **$4.1M annually**, achieving payback in **10.7 months**." },
+        ],
+      },
+    ],
+    suggestions: [
+      'Show fleet health dashboard',
+      'Analyze AS9100 audit gaps',
+      'Compare supplier quality scores',
+      'Generate certification timeline',
+    ],
+  },
+  'nb-energy': {
+    messages: [
+      {
+        role: 'user',
+        content: [{ text: 'What are the key opportunities for Northbridge Energy?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here are the **top AI opportunities** for Northbridge Energy across grid operations, pipeline management, and renewable integration:" },
+          {
+            table: {
+              headers: ['Opportunity', 'Current State', 'AI-Enhanced State', 'Annual Savings', 'Risk Reduction'],
+              rows: [
+                ['Grid optimization', 'Manual load balancing with SCADA alerts', 'AI-driven demand forecasting + auto-balancing', '$5.8M', '34% fewer outages'],
+                ['SCADA modernization', 'Legacy HMI with manual alarm triage', 'ML-powered alarm prioritization + anomaly detection', '$2.4M', '52% faster response'],
+                ['Pipeline integrity management', 'Calendar-based inline inspections', 'AI-predicted corrosion + risk-prioritized inspection', '$3.6M', '28% fewer incidents'],
+                ['Renewable integration', 'Manual curtailment decisions', 'AI forecasting for wind/solar + battery dispatch', '$4.2M', '18% more renewable capture'],
+                ['Regulatory compliance automation', 'Manual NERC/FERC reporting', 'Automated evidence collection + report generation', '$1.1M', '90% fewer late filings'],
+              ],
+            },
+          },
+          { text: 'The **total addressable savings is $17.1M annually**. Grid optimization is the highest-impact opportunity because Northbridge Energy currently operates 14 substations with manual load balancing, resulting in **an average of 847 minutes of unplanned downtime per year** \u2014 well above the industry benchmark of 520 minutes. AI-driven demand forecasting alone could reduce this by 34%, translating to **$5.8M in avoided outage costs and deferred capital expenditure**.' },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'Tell me more about the SCADA modernization opportunity.' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's a detailed analysis of **SCADA modernization** opportunities for Northbridge Energy's control center operations:" },
+          {
+            list: [
+              "**Alarm rationalization via ML** \u2014 Your current SCADA system generates an average of **4,200 alarms per day** across 14 substations, but operators report that 68% are nuisance alarms or redundant cascades. ML-based alarm clustering and suppression can reduce actionable alarms to **under 800 per day**, allowing operators to focus on genuine threats. Industry data shows this alone reduces operator response time by **52%**.",
+              "**Predictive equipment health scoring** \u2014 By feeding transformer oil analysis data, load history, and ambient temperature into gradient-boosted models, the system can predict transformer failures **6\u20138 weeks in advance** vs. the current 2\u20133 day warning window from DGA monitors. This shifts maintenance from reactive to predictive for your **$420M transformer fleet**.",
+              "**Automated switching sequence validation** \u2014 Currently, operators manually verify switching orders against one-line diagrams. AI-assisted validation can check proposed switching sequences against real-time system topology in **under 3 seconds**, eliminating the human verification step that averages **12 minutes per sequence** and has produced **4 mis-switching events** in the past 18 months.",
+              "**Cybersecurity anomaly detection** \u2014 NERC CIP-005 requires monitoring of electronic security perimeters. AI behavioral analysis of SCADA network traffic can identify anomalous patterns **47x faster** than signature-based IDS systems, reducing mean detection time from **18 hours to 23 minutes** for sophisticated threats.",
+            ],
+          },
+          { text: 'I recommend starting with **alarm rationalization** because it delivers immediate operator relief and requires no changes to field equipment \u2014 it operates entirely on existing SCADA historian data. The 4 mis-switching events from the past 18 months cost an estimated **$1.8M in equipment damage and regulatory penalties**, making switching validation the highest-risk item to address.' },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'How would we implement the grid optimization system across all substations?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the **grid optimization implementation roadmap** for deploying AI-driven load management across Northbridge Energy's 14 substations:" },
+          {
+            table: {
+              headers: ['Phase', 'Timeline', 'Scope', 'Key Milestone', 'Investment'],
+              rows: [
+                ['1. Data Integration', 'Weeks 1\u20136', 'SCADA historian + AMI + weather data pipeline', 'Unified grid data platform operational', '$420K'],
+                ['2. Demand Forecasting', 'Weeks 7\u201312', 'ML demand models for all 14 substations', 'Day-ahead forecasting accuracy >94%', '$680K'],
+                ['3. Auto-Balancing Pilot', 'Weeks 13\u201320', '3 substations with AI-assisted load switching', 'First autonomous load transfers executed', '$1.1M'],
+                ['4. Full Grid Rollout', 'Weeks 21\u201328', 'All 14 substations on AI optimization', 'Grid-wide autonomous optimization live', '$850K'],
+              ],
+            },
+          },
+          { text: "The **critical dependency is Phase 1 data integration** \u2014 your 14 substations currently use 3 different SCADA platforms (GE iFIX at 6 sites, Schneider ClearSCADA at 5 sites, and Siemens WinCC at 3 sites). The AI optimization layer needs a unified data model across all three, which requires deploying an **OPC-UA aggregation server** at each substation to normalize telemetry into a common schema." },
+          { text: "For Phase 3, I recommend piloting at the **Westfield, Riverside, and Industrial Park substations** \u2014 they represent your three highest-load facilities and are already on the GE iFIX platform, simplifying initial integration. The pilot substations alone account for **42% of total grid throughput**, so the demand forecasting models trained there will transfer well to the remaining 11 sites. NERC requires that any automated load management system maintain **N-1 contingency compliance** at all times, so the AI system must include hard constraints that prevent any optimization action that would violate reliability standards. Total program investment of **$3.05M** yields projected annual savings of **$5.8M** \u2014 a **6.3-month payback period**." },
+        ],
+      },
+    ],
+    suggestions: [
+      'Show grid reliability metrics',
+      'Analyze pipeline inspection ROI',
+      'Compare renewable integration options',
+      'Generate NERC compliance report',
+    ],
+  },
+  'nb-financial': {
+    messages: [
+      {
+        role: 'user',
+        content: [{ text: 'What are the key opportunities for Northbridge Financial?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here are the **top AI opportunities** for Northbridge Financial across compliance, risk, and trading operations:" },
+          {
+            table: {
+              headers: ['Opportunity', 'Current State', 'AI-Enhanced State', 'Annual Savings', 'Efficiency Gain'],
+              rows: [
+                ['AML/KYC automation', 'Manual case review, 72-hr avg turnaround', 'AI triage + auto-decisioning for low-risk', '$4.8M', '65% faster onboarding'],
+                ['Regulatory reporting', 'Manual data aggregation across 8 systems', 'Automated data lineage + report generation', '$2.2M', '80% less manual effort'],
+                ['Risk modeling enhancement', 'Monthly batch model runs', 'Real-time streaming risk with ML overlays', '$6.4M', '12x faster recalculation'],
+                ['Trading desk efficiency', 'Manual pre-trade compliance checks', 'AI-powered real-time compliance screening', '$3.1M', '94% auto-cleared trades'],
+                ['Client reporting automation', 'Manual quarterly report assembly', 'AI-generated narrative + data visualization', '$1.5M', '70% time reduction'],
+              ],
+            },
+          },
+          { text: 'The **total addressable savings is $18.0M annually**. Risk modeling enhancement has the largest single impact at **$6.4M** because the current monthly batch cycle means risk exposures are calculated on stale data for 20+ business days per month. Moving to real-time streaming risk with ML overlays would have flagged **$42M in excess concentration risk** that went undetected for 3 weeks during last quarter\'s market volatility event.' },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'Can you dive deeper into the AML/KYC automation opportunity?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the detailed breakdown of **AML/KYC automation** opportunities at Northbridge Financial:" },
+          {
+            list: [
+              "**AI-powered transaction monitoring** \u2014 Your current rules-based AML system generates **12,400 alerts per month** with a false positive rate of 94%. ML models trained on 5 years of SAR filing data can reduce false positives to **under 35%** while maintaining a 99.2% detection rate for true suspicious activity. This eliminates **$3.2M in wasted analyst time** reviewing non-productive alerts.",
+              "**Automated KYC document extraction** \u2014 New client onboarding currently requires manual review of an average of **28 documents per entity** (articles of incorporation, beneficial ownership declarations, sanctions screening results). NLP-powered document extraction can auto-populate 85% of KYC fields, reducing onboarding time from **72 hours to 8 hours** for standard-risk clients.",
+              "**Dynamic risk scoring** \u2014 Instead of static risk tiers reviewed annually, ML models continuously update client risk scores based on transaction patterns, adverse media, and network analysis. This approach detected **14 high-risk clients** in a backtest that the static model missed entirely, representing **$28M in potential regulatory exposure**.",
+              "**Automated SAR narrative generation** \u2014 When suspicious activity is confirmed, analysts spend an average of **4.2 hours drafting SAR narratives**. AI-generated draft narratives with auto-populated transaction timelines and entity relationship maps reduce this to **45 minutes per filing**, with analyst review for accuracy.",
+            ],
+          },
+          { text: 'The **highest-priority item is transaction monitoring** \u2014 the 94% false positive rate is not only consuming analyst capacity but creating \"alert fatigue\" that increases the risk of missing genuine suspicious activity. FinCEN\'s recent enforcement actions show a clear trend toward penalizing institutions with **demonstrably inefficient AML programs**, making this both a cost savings and a regulatory risk reduction initiative.' },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'What would the implementation plan look like for the full AML/KYC transformation?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the **phased implementation plan** for transforming Northbridge Financial's AML/KYC operations with AI, designed to maintain regulatory compliance throughout the transition:" },
+          {
+            table: {
+              headers: ['Phase', 'Timeline', 'Scope', 'Key Milestone', 'Investment'],
+              rows: [
+                ['1. Data & Model Foundation', 'Months 1\u20133', 'Historical SAR data ingestion + ML model training', 'Transaction monitoring model validated at 99.2% detection', '$1.4M'],
+                ['2. Shadow Mode Deployment', 'Months 3\u20135', 'AI runs parallel to existing rules engine', 'AI matches or exceeds rules engine on all test scenarios', '$680K'],
+                ['3. Phased Cutover', 'Months 5\u20138', 'AI primary for low/medium risk; rules for high-risk', 'Alert volume reduced by 60% with no detection loss', '$920K'],
+                ['4. Full Automation', 'Months 8\u201311', 'AI primary across all risk tiers + auto-SAR drafting', 'End-to-end AML/KYC automation live', '$1.1M'],
+              ],
+            },
+          },
+          { text: "The **shadow mode in Phase 2 is non-negotiable** from a regulatory perspective. OCC and FinCEN examiners expect documented evidence that any new AML model has been validated against the existing system before it takes over decisioning. During shadow mode, every AI decision is compared against the rules engine output, and any discrepancies are reviewed by senior analysts. This creates the **model validation documentation** that your next BSA/AML exam will require." },
+          { text: "I recommend engaging your **primary regulator early** \u2014 ideally before Phase 2 begins. OCC has signaled increasing openness to ML-based AML systems, but they want to see robust model governance: documented training data, bias testing, ongoing monitoring, and human-in-the-loop for high-risk decisions. The total investment of **$4.1M over 11 months** yields projected annual savings of **$4.8M** in direct costs, with an additional **$6.4M in risk-adjusted value** from improved detection rates and reduced regulatory exposure. That puts the fully-loaded payback at **5.3 months** when you factor in regulatory risk reduction." },
+        ],
+      },
+    ],
+    suggestions: [
+      'Show AML alert analytics',
+      'Analyze trading desk latency',
+      'Compare risk model accuracy',
+      'Generate regulatory readiness report',
+    ],
+  },
+  'nb-health': {
+    messages: [
+      {
+        role: 'user',
+        content: [{ text: 'What are the key opportunities for Northbridge Health Sciences?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here are the **top AI opportunities** for Northbridge Health Sciences across clinical trials, regulatory compliance, and manufacturing operations:" },
+          {
+            table: {
+              headers: ['Opportunity', 'Current State', 'AI-Enhanced State', 'Annual Savings', 'Time Acceleration'],
+              rows: [
+                ['Clinical trial acceleration', '18-month avg enrollment cycle', 'AI site selection + patient matching', '$8.2M', '35% faster enrollment'],
+                ['FDA compliance automation', 'Manual 21 CFR Part 11 evidence collection', 'Continuous compliance monitoring + auto-documentation', '$3.4M', '60% less audit prep'],
+                ['Batch record review', '48-hr manual review per batch', 'AI-assisted deviation detection + auto-review', '$4.6M', '82% faster release'],
+                ['Pharmacovigilance', 'Manual ICSR processing, 8-day avg turnaround', 'NLP-powered adverse event extraction + auto-triage', '$5.1M', '70% faster case processing'],
+                ['Lab data integrity', 'Manual ALCOA+ compliance checks', 'AI-driven data integrity monitoring', '$1.8M', '95% real-time coverage'],
+              ],
+            },
+          },
+          { text: 'The **total addressable savings is $23.1M annually**. Clinical trial acceleration has the highest strategic value because every month of enrollment delay costs an estimated **$2.3M in deferred revenue** for a typical Phase III trial. Northbridge currently has 6 active Phase III trials \u2014 a 35% enrollment acceleration would compress the portfolio timeline by an average of **6.3 months**, unlocking **$86.9M in accelerated market access** across the pipeline.' },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'Can you elaborate on the batch record review automation?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the detailed breakdown of **batch record review automation** for Northbridge Health Sciences' manufacturing operations:" },
+          {
+            list: [
+              "**AI-powered deviation detection** \u2014 Current batch records average **340 pages per batch** across 4 manufacturing sites. Quality reviewers manually check each page for out-of-spec results, missing signatures, and documentation gaps. AI scanning can flag deviations in **under 12 minutes** vs. the current **48-hour manual review**, catching 99.4% of true deviations while reducing false flags by 62%.",
+              "**Automated right-first-time analysis** \u2014 ML models trained on 3 years of batch history can predict which process parameters are most likely to cause deviations before the batch is complete. Your current right-first-time rate is **87%** \u2014 predictive intervention during manufacturing can push this to **94%**, avoiding an estimated **$2.8M in rework and batch failures** annually.",
+              "**Electronic batch record integration** \u2014 2 of your 4 manufacturing sites still use paper batch records that are scanned to PDF for review. OCR + NLP extraction can digitize these records with 99.7% accuracy, but the real opportunity is migrating to a fully electronic batch record (EBR) system that feeds AI review directly. This eliminates the **18-hour transcription delay** between batch completion and review initiation.",
+              "**Review-by-exception workflow** \u2014 FDA guidance supports risk-based batch review approaches. AI can classify batch records into three tiers: auto-release (no deviations, all parameters nominal), expedited review (minor flags requiring QA confirmation), and full review (significant deviations). Based on historical data, **64% of your batches would qualify for auto-release**, freeing QA reviewers to focus on the 8% that have genuine quality concerns.",
+            ],
+          },
+          { text: 'The **highest-impact starting point is AI-powered deviation detection** applied to your existing batch records. This requires no changes to manufacturing processes and delivers immediate value by reducing the **48-hour review bottleneck** that is currently the #1 cause of batch release delays. Last quarter, delayed batch releases resulted in **$1.4M in backorder costs** across 3 key products.' },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'What is the implementation roadmap for the pharmacovigilance AI system?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the **implementation roadmap** for deploying AI-powered pharmacovigilance across Northbridge Health Sciences' safety operations, fully compliant with FDA 21 CFR 314.80 and ICH E2B(R3) requirements:" },
+          {
+            table: {
+              headers: ['Phase', 'Timeline', 'Scope', 'Key Milestone', 'Investment'],
+              rows: [
+                ['1. NLP Model Training', 'Months 1\u20133', 'Train adverse event extraction models on 5 years of ICSRs', 'Model achieves >95% entity extraction accuracy', '$1.8M'],
+                ['2. Intake Automation', 'Months 3\u20135', 'Automated ICSR intake from all sources (MedWatch, calls, literature)', 'AI auto-triages 80% of incoming cases', '$1.2M'],
+                ['3. Signal Detection', 'Months 5\u20138', 'ML-powered disproportionality analysis + emerging signal detection', 'First AI-detected signal validated by safety team', '$2.1M'],
+                ['4. End-to-End Automation', 'Months 8\u201311', 'Auto-generated narratives + regulatory submission prep', 'Full case processing time under 48 hours', '$1.4M'],
+              ],
+            },
+          },
+          { text: "The **critical regulatory constraint is ICH E2B(R3) compliance** \u2014 every AI-processed ICSR must produce a valid E2B(R3) XML submission to FDA's FAERS database. The NLP models in Phase 1 must be trained to extract MedDRA-coded adverse events, suspect drugs, and patient demographics with the same accuracy as human case processors. Your current team processes **2,800 ICSRs per quarter** with an 8-day average turnaround; the AI system targets **48-hour turnaround** while maintaining the same coding accuracy." },
+          { text: "I recommend running Phase 2 with a **human-in-the-loop validation layer** for the first 6 months post-deployment \u2014 every AI-triaged case gets a senior safety scientist review before regulatory submission. This builds the validation dataset FDA will want to see during your next BIMO inspection and satisfies 21 CFR Part 11 requirements for electronic record reliability. The signal detection module in Phase 3 is the strategic game-changer: by analyzing adverse event patterns across your full portfolio in real-time rather than quarterly batch analysis, you can detect emerging safety signals **4\u20136 weeks earlier** than the current process. Total program investment of **$6.5M over 11 months** yields projected annual savings of **$5.1M** in direct costs plus an estimated **$12M in risk-adjusted value** from earlier signal detection and faster regulatory response. Payback period: **8.4 months** on direct savings alone." },
+        ],
+      },
+    ],
+    suggestions: [
+      'Show clinical trial pipeline',
+      'Analyze batch release metrics',
+      'Compare pharmacovigilance KPIs',
+      'Generate FDA readiness assessment',
+    ],
+  },
+  'ee-finance': {
+    messages: [
+      {
+        role: 'user',
+        content: [{ text: 'What are the key opportunities for the Ministry of Finance?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here are the **top AI opportunities** for Estonia's Ministry of Finance across tax administration, fiscal transparency, and EU compliance:" },
+          {
+            table: {
+              headers: ['Opportunity', 'Current State', 'AI-Enhanced State', 'Annual Savings', 'Citizen Impact'],
+              rows: [
+                ['Tax processing automation', '92% pre-filled returns, 8% manual', 'AI auto-completes 97% of returns', '\u20AC4.8M', '1.2M citizens faster refunds'],
+                ['Fiscal transparency dashboards', 'Quarterly PDF-based reporting', 'Real-time AI-powered fiscal analytics', '\u20AC1.6M', 'Live public budget tracking'],
+                ['Budget optimization', 'Historical trend-based allocation', 'ML-driven predictive budget modeling', '\u20AC8.2M', 'Better resource allocation'],
+                ['EU compliance automation', 'Manual ESA2010 reporting', 'Automated data mapping + validation', '\u20AC2.1M', 'Zero late submissions'],
+                ['Tax fraud detection', 'Rules-based VAT cross-checks', 'Graph neural network analysis', '\u20AC12.4M', 'Fairer tax burden'],
+              ],
+            },
+          },
+          { text: 'The **total addressable impact is \u20AC29.1M annually**. Tax fraud detection via graph neural networks represents the single largest opportunity \u2014 Estonia\'s current rules-based VAT cross-checking catches an estimated **68% of carousel fraud schemes**, but graph analysis of company relationships, transaction patterns, and beneficial ownership networks can push detection to **91%**. The additional \u20AC12.4M in recovered revenue would fund the entire AI transformation program **3.4x over**.' },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'Tell me more about the tax processing automation improvements.' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the detailed analysis of **tax processing automation** enhancements for EMTA (Tax & Customs Board):" },
+          {
+            list: [
+              "**Crypto and digital asset auto-classification** \u2014 The remaining 8% of returns requiring manual input are increasingly driven by cryptocurrency transactions, DeFi income, and NFT sales. AI models trained on blockchain transaction patterns can auto-classify **92% of crypto income events** and pre-fill the appropriate tax forms, reducing the manual input gap from 8% to under 3%. This affects an estimated **47,000 taxpayers** who reported crypto income last year.",
+              "**Intelligent refund risk scoring** \u2014 Currently, refund claims over \u20AC5,000 trigger a manual review that takes an average of **14 business days**. ML-based risk scoring can auto-approve low-risk refunds (estimated 78% of volume) within **48 hours** while routing high-risk claims for detailed review. This accelerates refunds for **184,000 taxpayers annually** while maintaining fraud detection effectiveness.",
+              "**Cross-border income reconciliation** \u2014 Estonia's e-Residency program and EU freedom of movement create complex cross-border income scenarios. AI-powered reconciliation between X-Road data, EU tax information exchange (DAC7), and Finnish/Latvian tax authority data can auto-resolve **85% of cross-border discrepancies** that currently require manual case officer review, saving **6,200 officer-hours annually**.",
+              "**Natural language tax guidance** \u2014 Deploy an AI assistant on the EMTA portal that answers taxpayer questions in Estonian, Russian, and English with **legally accurate, citation-backed guidance**. This would deflect an estimated **340,000 annual call center inquiries** (42% of current volume), saving \u20AC1.8M in contact center costs while providing 24/7 citizen support.",
+            ],
+          },
+          { text: 'The **highest-priority item is intelligent refund risk scoring** because it directly improves citizen experience while reducing manual workload. Estonia already leads the EU in tax automation \u2014 pushing the pre-fill rate from 92% to 97% would make Estonia the **first country globally** to achieve near-full automation of personal income tax processing.' },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'How would we implement the budget optimization AI system?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the **implementation plan** for deploying AI-driven budget optimization across Estonia's Ministry of Finance, integrated with the existing SAP-based state financial management system:" },
+          {
+            table: {
+              headers: ['Phase', 'Timeline', 'Scope', 'Key Milestone', 'Investment'],
+              rows: [
+                ['1. Data Integration', 'Months 1\u20133', 'Connect all ministry budget systems via X-Road to central data lake', 'Unified fiscal data platform with 10 years of history', '\u20AC680K'],
+                ['2. Predictive Models', 'Months 3\u20136', 'ML models for revenue forecasting + expenditure prediction', 'Revenue forecast accuracy improves from 94% to 98.5%', '\u20AC920K'],
+                ['3. Scenario Engine', 'Months 6\u20139', 'What-if simulation engine for budget allocation trade-offs', 'Ministers can model policy impacts in real-time', '\u20AC1.1M'],
+                ['4. Automated Reporting', 'Months 9\u201312', 'Auto-generated EU fiscal reports + public transparency dashboard', 'ESA2010 and Stability Programme reports auto-generated', '\u20AC540K'],
+              ],
+            },
+          },
+          { text: "The **data integration phase leverages Estonia's unique advantage** \u2014 X-Road already connects all government systems, so the data pipeline can be built using existing secure data exchange infrastructure rather than building new integrations from scratch. The key challenge is harmonizing budget classification schemas across 11 ministries that use slightly different coding structures within the SAP system." },
+          { text: "Phase 3 is the **strategic game-changer** for policymakers. Instead of relying on static spreadsheet models during budget negotiations, ministers could use the scenario engine to ask questions like 'What happens to education outcomes if we shift \u20AC50M from infrastructure to teacher salaries?' and get ML-backed projections within minutes. The model draws on **10 years of cross-ministry outcome data** to project second-order effects that traditional budgeting misses entirely. Total investment of **\u20AC3.24M over 12 months** is projected to identify **\u20AC8.2M in annual budget optimization opportunities** through better allocation \u2014 a **2.5x return** in the first year. I recommend starting the program in Q3 to align with the annual budget preparation cycle for the following fiscal year." },
+        ],
+      },
+    ],
+    suggestions: [
+      'Show tax automation metrics',
+      'Analyze VAT fraud patterns',
+      'Compare EU fiscal benchmarks',
+      'Generate budget optimization scenarios',
+    ],
+  },
+  'ee-social': {
+    messages: [
+      {
+        role: 'user',
+        content: [{ text: 'What are the key opportunities for the Ministry of Social Affairs?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here are the **top AI opportunities** for Estonia's Ministry of Social Affairs across benefits administration, health records, and social services:" },
+          {
+            table: {
+              headers: ['Opportunity', 'Current State', 'AI-Enhanced State', 'Annual Savings', 'Citizen Impact'],
+              rows: [
+                ['Benefits processing automation', 'Semi-automated with 5-day avg processing', 'AI auto-eligibility with real-time X-Road checks', '\u20AC3.6M', '420K beneficiaries faster payouts'],
+                ['Health records via TEHIK', 'Fragmented provider records, batch sync', 'Real-time AI-normalized HL7 FHIR integration', '\u20AC4.2M', 'Unified patient view for 1.3M citizens'],
+                ['Social services digitization', 'Paper-based case management in 79 municipalities', 'AI-powered case routing + outcome prediction', '\u20AC2.8M', '34% faster case resolution'],
+                ['Disability assessment automation', '12-week manual assessment cycle', 'AI-assisted functional assessment + evidence review', '\u20AC1.9M', '65% faster determination'],
+                ['Predictive social risk modeling', 'Reactive intervention after crisis', 'ML early warning for at-risk populations', '\u20AC5.4M', '28% fewer emergency interventions'],
+              ],
+            },
+          },
+          { text: 'The **total addressable impact is \u20AC17.9M annually**. Predictive social risk modeling has the highest societal value \u2014 by analyzing anonymized patterns across X-Road data (employment status changes, healthcare utilization, benefits claims), the system can identify individuals at risk of homelessness, long-term unemployment, or health deterioration **8\u201312 weeks before crisis points**, enabling proactive intervention that costs **\u20AC2,400 per case** vs. **\u20AC18,000 per emergency intervention**.' },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'Can you elaborate on the TEHIK health records integration?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the detailed analysis of **TEHIK health records AI integration** for Estonia's national health information system:" },
+          {
+            list: [
+              "**Real-time HL7 FHIR normalization** \u2014 TEHIK currently receives health data from 42 healthcare providers using a mix of HL7 v2, CDA, and proprietary formats. AI-powered FHIR transformation can normalize incoming records in **real-time** vs. the current **72-hour batch cycle**, ensuring that a patient visiting Tartu University Hospital can have their Tallinn GP records available immediately. This eliminates **an estimated 14,000 duplicate diagnostic tests annually** costing \u20AC2.8M.",
+              "**AI-powered clinical decision support** \u2014 With unified patient records, AI can provide real-time alerts to clinicians: drug interaction warnings, missed screening reminders, and chronic disease management recommendations. Estonian physicians currently miss **23% of guideline-recommended screenings** due to fragmented records. AI integration projects a reduction to **under 6%**, improving population health outcomes across all 1.3 million citizens.",
+              "**Automated e-Prescription optimization** \u2014 Estonia's e-Prescription system processes 8 million prescriptions annually. AI analysis of prescription patterns, patient histories, and pharmacogenomic data can flag potential adverse interactions **before dispensing**, reducing adverse drug events by an estimated **34%**. Current adverse drug event costs to the Estonian healthcare system: **\u20AC42M annually**.",
+              "**Population health analytics** \u2014 Aggregated, anonymized TEHIK data fed through ML models can identify emerging disease trends, predict flu season timing and severity, and optimize vaccine distribution. During the last flu season, vaccine distribution was misallocated across 4 counties, resulting in **\u20AC680K in wasted doses** and shortages in 2 high-need areas.",
+            ],
+          },
+          { text: 'I recommend prioritizing **HL7 FHIR normalization** first because it is the foundational enabler for all other health AI services. TEHIK already has the governance framework for health data exchange \u2014 the AI layer operates within existing consent and privacy rules established under Estonia\'s Health Services Organisation Act. The duplicate test elimination alone (\u20AC2.8M savings) would cover **the first 18 months of implementation costs**.' },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'What is the implementation plan for the benefits processing automation?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the **implementation plan** for deploying AI-powered benefits processing automation across Estonia's social protection system, integrated with X-Road and the Social Insurance Board (SKA):" },
+          {
+            table: {
+              headers: ['Phase', 'Timeline', 'Scope', 'Key Milestone', 'Investment'],
+              rows: [
+                ['1. Eligibility Engine', 'Months 1\u20133', 'AI rules engine connected to X-Road data sources (EMTA, EHIS, TT\u00D6R)', 'Real-time eligibility checks for 12 benefit types', '\u20AC520K'],
+                ['2. Auto-Processing Pilot', 'Months 3\u20135', 'Auto-approve low-complexity claims (family benefits, pensions)', 'Same-day processing for 65% of new claims', '\u20AC380K'],
+                ['3. Complex Case AI', 'Months 5\u20138', 'ML-assisted assessment for disability, unemployment, housing benefits', 'AI recommendation accuracy >92% vs. human decisions', '\u20AC740K'],
+                ['4. Proactive Benefits', 'Months 8\u201311', 'AI identifies eligible citizens not claiming benefits they qualify for', 'Proactive outreach to 28,000 under-claiming citizens', '\u20AC460K'],
+              ],
+            },
+          },
+          { text: "The **Phase 1 eligibility engine leverages X-Road's real-time data exchange** to replace batch-processed eligibility checks. Currently, when a citizen applies for unemployment benefits, SKA queries EMTA (tax records), T\u00F6\u00F6tukassa (employment history), and EHIS (health insurance status) via X-Road \u2014 but the queries run in a nightly batch, adding **3\u20135 days to processing time**. Real-time X-Road queries with AI-driven eligibility rules can return a determination in **under 4 hours** for straightforward cases." },
+          { text: "Phase 4 is particularly impactful from a social equity perspective. Analysis of X-Road data shows an estimated **28,000 Estonian residents** are likely eligible for benefits they are not claiming \u2014 primarily elderly citizens eligible for supplementary pension benefits and single parents qualifying for enhanced family support. AI proactive outreach through the eesti.ee portal and Riigi Teataja notifications could recover **\u20AC14M in unclaimed annual benefits** for vulnerable populations. Total implementation investment of **\u20AC2.1M over 11 months** yields projected annual savings of **\u20AC3.6M** in administrative costs plus **\u20AC14M in social impact** through proactive benefits delivery \u2014 representing one of the highest social-return-on-investment opportunities in Estonia's digital government portfolio." },
+        ],
+      },
+    ],
+    suggestions: [
+      'Show benefits processing metrics',
+      'Analyze TEHIK integration status',
+      'Compare social services digitization',
+      'Generate disability assessment roadmap',
+    ],
+  },
+  'ee-economic': {
+    messages: [
+      {
+        role: 'user',
+        content: [{ text: 'What are the key opportunities for the Ministry of Economic Affairs?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here are the **top AI opportunities** for Estonia's Ministry of Economic Affairs across e-Residency, trade facilitation, and business services:" },
+          {
+            table: {
+              headers: ['Opportunity', 'Current State', 'AI-Enhanced State', 'Annual Savings', 'Economic Impact'],
+              rows: [
+                ['e-Residency scaling', '108K e-residents, manual vetting backlog', 'AI risk scoring + auto-approval for low-risk applicants', '\u20AC2.8M', '3x faster onboarding'],
+                ['Trade facilitation', 'Manual customs declarations, 4-day avg clearance', 'AI-powered risk-based clearance + auto-classification', '\u20AC4.1M', '85% cleared in <4 hrs'],
+                ['Business registry modernization', 'Semi-automated registration, 1-day processing', 'AI instant validation + fraud detection', '\u20AC1.6M', '15-minute company formation'],
+                ['Export market intelligence', 'Manual trade analysis reports', 'AI-driven market opportunity scoring for Estonian SMEs', '\u20AC3.2M', '\u20AC180M in facilitated exports'],
+                ['Regulatory sandbox automation', 'Manual application review for innovation permits', 'AI-assessed sandbox eligibility + monitoring', '\u20AC920K', '60% faster approvals'],
+              ],
+            },
+          },
+          { text: 'The **total addressable impact is \u20AC12.6M in direct savings** plus an estimated **\u20AC180M in facilitated export growth**. e-Residency scaling is the flagship opportunity \u2014 the program currently has a **4-week application backlog** with 108,000 active e-residents contributing **\u20AC84M annually** to Estonia\'s economy. AI-powered vetting could process applications in **48 hours** instead of 30 days, potentially doubling the active e-resident base to 200,000+ within 2 years and generating an additional **\u20AC76M in annual economic contribution**.' },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'Can you go deeper on the e-Residency scaling opportunity?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the detailed analysis of **e-Residency scaling** through AI-powered processing:" },
+          {
+            list: [
+              "**AI risk scoring for applicant vetting** \u2014 Currently, every e-Residency application undergoes manual background checks across PEP databases, sanctions lists, and law enforcement registries. AI risk scoring can auto-approve **72% of applications** (those from low-risk jurisdictions with clean backgrounds) within **48 hours**, while flagging the remaining 28% for enhanced due diligence. This reduces the average processing time from **30 days to 3 days** across all applications.",
+              "**Automated document verification** \u2014 Applicants submit identity documents from **180+ countries** in dozens of formats. AI-powered document authentication can verify passport MRZ data, check for tampering artifacts, and cross-reference against INTERPOL stolen document databases in **under 90 seconds** per application, replacing a manual process that currently takes **45 minutes per application**.",
+              "**Predictive churn modeling** \u2014 32% of e-residents become inactive within 18 months. ML models analyzing business activity patterns, banking connections, and service usage can identify at-risk e-residents **6 weeks before churn** and trigger personalized re-engagement campaigns. Reducing churn by 40% would retain **\u20AC8.4M in annual economic contribution**.",
+              "**Smart service marketplace matching** \u2014 New e-residents often struggle to find service providers (accountants, banks, legal advisors). AI matching based on business type, jurisdiction, and service needs can connect e-residents with verified service providers within **24 hours of approval**, reducing the time-to-first-transaction from **42 days to 8 days**.",
+            ],
+          },
+          { text: 'The **highest-priority item is AI risk scoring** because the 4-week backlog is the #1 complaint from prospective e-residents and the primary bottleneck to program growth. Estonia\'s e-Residency team currently has **12 case officers** processing an average of **1,400 applications per month**. AI auto-approval would allow the same team to handle **4,000+ applications per month** without additional headcount, supporting the government\'s target of **200,000 active e-residents by 2028**.' },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'What does the implementation plan look like for the trade facilitation AI?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the **implementation plan** for deploying AI-powered trade facilitation across Estonia's customs and trade infrastructure, integrated with the EU Single Window and X-Road:" },
+          {
+            table: {
+              headers: ['Phase', 'Timeline', 'Scope', 'Key Milestone', 'Investment'],
+              rows: [
+                ['1. Data Unification', 'Months 1\u20133', 'Connect MTA customs, port systems, and EU TARIC database via X-Road', 'Unified trade data platform with 5 years of declarations', '\u20AC480K'],
+                ['2. Risk-Based Clearance', 'Months 3\u20136', 'ML models for shipment risk scoring + auto-clearance rules', '85% of low-risk shipments cleared in <4 hours', '\u20AC720K'],
+                ['3. Smart Classification', 'Months 6\u20139', 'AI-powered HS code classification + valuation verification', 'Auto-classification accuracy >96% across 8,000 HS codes', '\u20AC540K'],
+                ['4. EU Integration', 'Months 9\u201312', 'Connect to EU Import Control System 2 (ICS2) + AI pre-arrival processing', 'Full EU Single Window AI integration live', '\u20AC680K'],
+              ],
+            },
+          },
+          { text: "The **Phase 2 risk-based clearance model** is the core value driver. Estonia processes approximately **1.2 million customs declarations annually**, and the current rules-based system subjects 35% to manual inspection. ML analysis of historical declaration data, trader compliance history, and commodity risk profiles can identify the **85% of shipments that are genuinely low-risk** and clear them automatically, while concentrating inspection resources on the **15% with the highest risk scores**. This approach aligns with the EU's Authorised Economic Operator (AEO) framework and the World Customs Organization's SAFE Framework." },
+          { text: "Phase 4 integration with the **EU Import Control System 2 (ICS2)** is strategically critical \u2014 the EU is mandating pre-arrival safety and security data for all shipments entering the EU by 2025. Estonia's AI system can be an **early mover advantage**, processing pre-arrival data faster than other member states and making Estonian ports more attractive for trade routing. The total investment of **\u20AC2.42M over 12 months** yields projected annual savings of **\u20AC4.1M** in customs processing costs, with an additional estimated **\u20AC28M in economic value** from faster trade throughput making Estonia a more competitive trade gateway. I recommend aligning Phase 1 with the MTA's existing IT modernization roadmap to share infrastructure costs." },
+        ],
+      },
+    ],
+    suggestions: [
+      'Show e-Residency growth metrics',
+      'Analyze trade facilitation KPIs',
+      'Compare business registry benchmarks',
+      'Generate export intelligence report',
+    ],
+  },
+  'ee-ria': {
+    messages: [
+      {
+        role: 'user',
+        content: [{ text: 'What are the key opportunities for RIA?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here are the **top AI opportunities** for RIA (Information System Authority) across X-Road, cybersecurity, and national IT infrastructure:" },
+          {
+            table: {
+              headers: ['Opportunity', 'Current State', 'AI-Enhanced State', 'Annual Savings', 'Security Impact'],
+              rows: [
+                ['X-Road AI layer', '1.2B queries/yr, rules-based routing', 'AI-optimized routing + predictive scaling', '\u20AC3.8M', '99.99% uptime target'],
+                ['Cybersecurity automation', 'SOC with manual threat triage', 'AI-powered threat detection + auto-response', '\u20AC5.2M', '85% faster incident response'],
+                ['National IT infrastructure optimization', 'Static resource allocation across Riigipilv', 'AI-driven dynamic workload management', '\u20AC4.1M', '40% better resource utilization'],
+                ['Digital identity fraud detection', 'Rules-based eID anomaly checks', 'Behavioral biometric AI + device fingerprinting', '\u20AC2.4M', '94% fraud detection rate'],
+                ['Government cloud cost optimization', 'Manual capacity planning', 'ML-predicted demand + auto-scaling', '\u20AC1.8M', '35% infrastructure cost reduction'],
+              ],
+            },
+          },
+          { text: 'The **total addressable impact is \u20AC17.3M annually**. Cybersecurity automation is the highest-priority opportunity because Estonia faces an estimated **4,200 significant cyber incidents per month** targeting government infrastructure. The current SOC team of 28 analysts manually triages alerts with a **mean time to detect (MTTD) of 4.2 hours**. AI-powered threat detection can reduce MTTD to **under 12 minutes** while handling the alert volume that would otherwise require doubling the SOC team at a cost of **\u20AC3.4M in additional headcount**.' },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'Tell me more about the X-Road AI layer opportunity.' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the detailed analysis of the **X-Road AI layer** enhancement for Estonia's core digital infrastructure:" },
+          {
+            list: [
+              "**AI-optimized query routing** \u2014 X-Road currently processes **1.2 billion queries per year** across 900+ services using static routing rules. AI analysis of query patterns, service response times, and dependency chains can dynamically route queries to the fastest available service instance, reducing average response time from **340ms to under 120ms**. During peak periods (tax filing season, election registration), AI routing can prevent the **service degradation events** that affected 3 major services last year.",
+              "**Predictive auto-scaling** \u2014 X-Road security servers are provisioned with static capacity that is sized for peak load, resulting in **62% average over-provisioning**. ML models trained on 3 years of traffic patterns can predict demand surges **4\u20136 hours in advance** and auto-scale security server capacity, reducing infrastructure costs by **\u20AC1.4M annually** while improving reliability during genuine demand spikes.",
+              "**Service health prediction** \u2014 X-Road connects 900+ government services, and a failure in one service can cascade to dependent services. AI dependency mapping and health prediction can identify services **likely to fail within the next 4 hours** based on error rate trends, response time degradation, and resource utilization patterns. This enables preemptive failover before citizens experience any service disruption.",
+              "**Data quality monitoring** \u2014 AI can continuously validate the quality and consistency of data flowing through X-Road, flagging anomalies like sudden changes in record formats, unexpected null values, or statistical outliers that may indicate data corruption or unauthorized modifications. Currently, data quality issues are only detected when a consuming service fails, resulting in an average **14-hour detection delay**.",
+            ],
+          },
+          { text: 'The **highest-priority item is predictive auto-scaling** because it delivers immediate cost savings while improving reliability. X-Road is the backbone of Estonia\'s digital society \u2014 every eID authentication, every tax filing, every healthcare record access flows through this infrastructure. The **62% over-provisioning** represents \u20AC1.4M in wasted compute that AI can reclaim while actually improving uptime from 99.95% to the **99.99% target** set in the national digital strategy.' },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'What is the implementation roadmap for the cybersecurity automation platform?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the **implementation roadmap** for deploying AI-powered cybersecurity automation across RIA's national cyber defense operations, aligned with the EU NIS2 Directive requirements:" },
+          {
+            table: {
+              headers: ['Phase', 'Timeline', 'Scope', 'Key Milestone', 'Investment'],
+              rows: [
+                ['1. Threat Intelligence Integration', 'Months 1\u20133', 'Aggregate feeds from NATO CCDCOE, EU-CERT, and national sensors', 'Unified threat intelligence platform with AI correlation', '\u20AC1.2M'],
+                ['2. AI Detection Engine', 'Months 3\u20136', 'ML models for network anomaly detection + endpoint behavioral analysis', 'MTTD reduced from 4.2 hours to <15 minutes', '\u20AC1.8M'],
+                ['3. Automated Response', 'Months 6\u20139', 'SOAR playbooks with AI-driven containment actions', 'Auto-containment of 70% of common attack patterns', '\u20AC1.4M'],
+                ['4. Predictive Defense', 'Months 9\u201312', 'AI threat prediction + proactive vulnerability management', 'Predict and pre-patch 60% of exploited vulnerabilities', '\u20AC980K'],
+              ],
+            },
+          },
+          { text: "The **Phase 1 threat intelligence integration is the critical foundation** \u2014 Estonia's unique position hosting the **NATO Cooperative Cyber Defence Centre of Excellence (CCDCOE)** gives RIA access to threat intelligence that most national CERTs don't have. The AI correlation engine will fuse NATO threat feeds, EU-CERT alerts, RIA's own sensor network, and private sector threat sharing from Estonia's 400+ critical infrastructure operators into a single knowledge graph that identifies **coordinated attack campaigns** across multiple vectors." },
+          { text: "Phase 3 automated response requires careful calibration given the sensitivity of government systems. I recommend a **tiered automation model**: Tier 1 threats (known malware, brute force, credential stuffing) receive **fully automated containment** within 30 seconds. Tier 2 threats (novel attack patterns, lateral movement indicators) receive **AI-recommended actions** with SOC analyst confirmation. Tier 3 threats (nation-state APT indicators, zero-day exploitation) trigger **immediate escalation** to the senior incident response team with AI-generated context packages. This tiered approach ensures that the **4,200 monthly incidents** are handled proportionally \u2014 the 85% that are Tier 1 are automated away, freeing the SOC team to focus on the sophisticated threats that require human judgment. Total investment of **\u20AC5.38M over 12 months** yields projected annual savings of **\u20AC5.2M** in SOC operational costs plus an estimated **\u20AC18M in avoided breach impact** based on Estonia's historical incident cost data. Given the current geopolitical threat landscape, I recommend accelerating Phase 1 to begin immediately, running in parallel with Phase 2 procurement." },
+        ],
+      },
+    ],
+    suggestions: [
+      'Show X-Road performance metrics',
+      'Analyze cyber threat landscape',
+      'Compare Riigipilv utilization',
+      'Generate NIS2 compliance assessment',
+    ],
+  },
 };
 
 /* ── Helpers ──────────────────────────────────────────────── */

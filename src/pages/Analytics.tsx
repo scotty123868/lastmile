@@ -207,6 +207,142 @@ const analyticsData: Record<string, CompanyAnalyticsData> = {
     ],
     inaction: { year1: 2800000, year2: 3400000, year3: 4100000, total: 10300000 },
   },
+  'nb-aerospace': {
+    readiness: { score: 46, label: 'Below Average — legacy avionics systems limit integration' },
+    kpis: { savings: 6200000, scoreBefore: 46, scoreAfter: 85, workflows: 52, workflowsReady: 14, waste: 1050000 },
+    timeline: [
+      { savings: 0, score: 46, workflows: 0, waste: 1050000 },
+      { savings: 3100000, score: 66, workflows: 26, waste: 520000 },
+      { savings: 6200000, score: 85, workflows: 52, waste: 120000 },
+    ],
+    opportunities: [
+      { priority: 1, name: 'Flight Certification Document Automation', savings: 1480000, status: 'In Progress' },
+      { priority: 2, name: 'Supply Chain Traceability Platform', savings: 1260000, status: 'Identified' },
+      { priority: 3, name: 'Defense Manufacturing Quality Control', savings: 1040000, status: 'Identified' },
+      { priority: 4, name: 'Parts Lifecycle Tracking System', savings: 820000, status: 'Automated' },
+      { priority: 5, name: 'MRO Scheduling Optimization', savings: 600000, status: 'In Progress' },
+    ],
+    inaction: { year1: 1050000, year2: 1260000, year3: 1510000, total: 3820000 },
+  },
+  'nb-energy': {
+    readiness: { score: 38, label: 'Critical — SCADA legacy and OT/IT convergence gaps' },
+    kpis: { savings: 7400000, scoreBefore: 38, scoreAfter: 84, workflows: 58, workflowsReady: 12, waste: 1320000 },
+    timeline: [
+      { savings: 0, score: 38, workflows: 0, waste: 1320000 },
+      { savings: 3700000, score: 60, workflows: 29, waste: 660000 },
+      { savings: 7400000, score: 84, workflows: 58, waste: 150000 },
+    ],
+    opportunities: [
+      { priority: 1, name: 'SCADA Data Analytics Pipeline', savings: 1780000, status: 'In Progress' },
+      { priority: 2, name: 'Grid Load Forecasting Automation', savings: 1520000, status: 'Identified' },
+      { priority: 3, name: 'Pipeline Monitoring & Anomaly Detection', savings: 1280000, status: 'Identified' },
+      { priority: 4, name: 'Energy Trading Optimization', savings: 980000, status: 'Automated' },
+      { priority: 5, name: 'Regulatory Compliance Reporting', savings: 740000, status: 'In Progress' },
+    ],
+    inaction: { year1: 1320000, year2: 1580000, year3: 1900000, total: 4800000 },
+  },
+  'nb-financial': {
+    readiness: { score: 62, label: 'Moderate — solid data infrastructure, model governance needed' },
+    kpis: { savings: 5000000, scoreBefore: 62, scoreAfter: 91, workflows: 36, workflowsReady: 16, waste: 680000 },
+    timeline: [
+      { savings: 0, score: 62, workflows: 0, waste: 680000 },
+      { savings: 2500000, score: 76, workflows: 18, waste: 340000 },
+      { savings: 5000000, score: 91, workflows: 36, waste: 80000 },
+    ],
+    opportunities: [
+      { priority: 1, name: 'Risk Analytics Model Automation', savings: 1200000, status: 'Automated' },
+      { priority: 2, name: 'AML Transaction Monitoring', savings: 1040000, status: 'In Progress' },
+      { priority: 3, name: 'Regulatory Report Generation', savings: 880000, status: 'In Progress' },
+      { priority: 4, name: 'Credit Scoring Pipeline', savings: 720000, status: 'Identified' },
+      { priority: 5, name: 'KYC Document Processing', savings: 560000, status: 'Identified' },
+    ],
+    inaction: { year1: 680000, year2: 820000, year3: 980000, total: 2480000 },
+  },
+  'nb-health': {
+    readiness: { score: 55, label: 'Moderate — strong clinical data, interoperability challenges' },
+    kpis: { savings: 6200000, scoreBefore: 55, scoreAfter: 89, workflows: 44, workflowsReady: 14, waste: 960000 },
+    timeline: [
+      { savings: 0, score: 55, workflows: 0, waste: 960000 },
+      { savings: 3100000, score: 72, workflows: 22, waste: 480000 },
+      { savings: 6200000, score: 89, workflows: 44, waste: 110000 },
+    ],
+    opportunities: [
+      { priority: 1, name: 'Clinical Trial Data Pipeline', savings: 1480000, status: 'In Progress' },
+      { priority: 2, name: 'Pharma Manufacturing QA Automation', savings: 1260000, status: 'Identified' },
+      { priority: 3, name: 'Quality Control Lab Digitization', savings: 1040000, status: 'In Progress' },
+      { priority: 4, name: 'Adverse Event Reporting Automation', savings: 820000, status: 'Automated' },
+      { priority: 5, name: 'Drug Safety Signal Detection', savings: 600000, status: 'Identified' },
+    ],
+    inaction: { year1: 960000, year2: 1150000, year3: 1380000, total: 3490000 },
+  },
+  'ee-finance': {
+    readiness: { score: 74, label: 'Good — strong e-governance base, AI layer needed' },
+    kpis: { savings: 5200000, scoreBefore: 74, scoreAfter: 95, workflows: 34, workflowsReady: 18, waste: 720000 },
+    timeline: [
+      { savings: 0, score: 74, workflows: 0, waste: 720000 },
+      { savings: 2600000, score: 84, workflows: 17, waste: 360000 },
+      { savings: 5200000, score: 95, workflows: 34, waste: 80000 },
+    ],
+    opportunities: [
+      { priority: 1, name: 'Tax Compliance Automation', savings: 1240000, status: 'Automated' },
+      { priority: 2, name: 'Fiscal Reporting Intelligence', savings: 1080000, status: 'In Progress' },
+      { priority: 3, name: 'Budget Analytics & Forecasting', savings: 920000, status: 'In Progress' },
+      { priority: 4, name: 'VAT Fraud Detection', savings: 740000, status: 'Identified' },
+      { priority: 5, name: 'Treasury Management Optimization', savings: 580000, status: 'Identified' },
+    ],
+    inaction: { year1: 720000, year2: 860000, year3: 1040000, total: 2620000 },
+  },
+  'ee-social': {
+    readiness: { score: 68, label: 'Moderate — citizen-facing systems mature, back-office gaps' },
+    kpis: { savings: 6800000, scoreBefore: 68, scoreAfter: 93, workflows: 42, workflowsReady: 18, waste: 980000 },
+    timeline: [
+      { savings: 0, score: 68, workflows: 0, waste: 980000 },
+      { savings: 3400000, score: 80, workflows: 21, waste: 490000 },
+      { savings: 6800000, score: 93, workflows: 42, waste: 110000 },
+    ],
+    opportunities: [
+      { priority: 1, name: 'Benefits Processing Automation', savings: 1620000, status: 'In Progress' },
+      { priority: 2, name: 'Health Records Integration', savings: 1380000, status: 'Automated' },
+      { priority: 3, name: 'Case Management AI Triage', savings: 1160000, status: 'In Progress' },
+      { priority: 4, name: 'Pension Calculation Automation', savings: 940000, status: 'Identified' },
+      { priority: 5, name: 'Social Worker Scheduling Optimization', savings: 720000, status: 'Identified' },
+    ],
+    inaction: { year1: 980000, year2: 1180000, year3: 1410000, total: 3570000 },
+  },
+  'ee-economic': {
+    readiness: { score: 76, label: 'Good — e-Residency platform strong, trade systems need AI' },
+    kpis: { savings: 3400000, scoreBefore: 76, scoreAfter: 95, workflows: 26, workflowsReady: 14, waste: 460000 },
+    timeline: [
+      { savings: 0, score: 76, workflows: 0, waste: 460000 },
+      { savings: 1700000, score: 86, workflows: 13, waste: 230000 },
+      { savings: 3400000, score: 95, workflows: 26, waste: 50000 },
+    ],
+    opportunities: [
+      { priority: 1, name: 'Trade Processing Automation', savings: 820000, status: 'Automated' },
+      { priority: 2, name: 'e-Residency Application AI Review', savings: 700000, status: 'In Progress' },
+      { priority: 3, name: 'Business Registry Verification', savings: 580000, status: 'In Progress' },
+      { priority: 4, name: 'Export License Classification', savings: 460000, status: 'Identified' },
+      { priority: 5, name: 'FDI Analytics & Reporting', savings: 340000, status: 'Identified' },
+    ],
+    inaction: { year1: 460000, year2: 550000, year3: 660000, total: 1670000 },
+  },
+  'ee-ria': {
+    readiness: { score: 78, label: 'Good — advanced IT infrastructure, AI security integration needed' },
+    kpis: { savings: 3200000, scoreBefore: 78, scoreAfter: 96, workflows: 24, workflowsReady: 12, waste: 420000 },
+    timeline: [
+      { savings: 0, score: 78, workflows: 0, waste: 420000 },
+      { savings: 1600000, score: 87, workflows: 12, waste: 210000 },
+      { savings: 3200000, score: 96, workflows: 24, waste: 45000 },
+    ],
+    opportunities: [
+      { priority: 1, name: 'Cybersecurity Threat Detection AI', savings: 780000, status: 'Automated' },
+      { priority: 2, name: 'X-Road Service Monitoring', savings: 660000, status: 'In Progress' },
+      { priority: 3, name: 'IT Infrastructure Anomaly Detection', savings: 540000, status: 'In Progress' },
+      { priority: 4, name: 'Incident Response Automation', savings: 420000, status: 'Identified' },
+      { priority: 5, name: 'Government Cloud Optimization', savings: 320000, status: 'Identified' },
+    ],
+    inaction: { year1: 420000, year2: 500000, year3: 600000, total: 1520000 },
+  },
 };
 
 /* ── Cost curve data (from Assessment) ───────────────────── */
@@ -270,6 +406,70 @@ const costCurveData: Record<string, CostCurveData> = {
     ),
     breakEvenMonth: 5, breakEvenLabel: 'May',
     payback: { paybackMonths: 4.6, year1ROI: 138, year2Projected: '$28M' },
+  },
+  'nb-aerospace': {
+    timeline: buildTimeline(
+      [820, 740, 560, 420, 280, 180, 120, 90, 65, 50, 40, 35],
+      [0, 60, 180, 380, 580, 820, 1020, 1180, 1320, 1440, 1540, 1620],
+    ),
+    breakEvenMonth: 5, breakEvenLabel: 'May',
+    payback: { paybackMonths: 4.6, year1ROI: 140, year2Projected: '$8.4M' },
+  },
+  'nb-energy': {
+    timeline: buildTimeline(
+      [980, 880, 680, 520, 340, 220, 150, 110, 80, 60, 48, 40],
+      [0, 70, 220, 460, 720, 1020, 1280, 1480, 1660, 1820, 1940, 2040],
+    ),
+    breakEvenMonth: 5, breakEvenLabel: 'May',
+    payback: { paybackMonths: 5.0, year1ROI: 132, year2Projected: '$10.2M' },
+  },
+  'nb-financial': {
+    timeline: buildTimeline(
+      [620, 540, 400, 300, 200, 130, 85, 60, 45, 35, 28, 22],
+      [0, 50, 160, 340, 520, 700, 860, 980, 1080, 1160, 1220, 1280],
+    ),
+    breakEvenMonth: 4, breakEvenLabel: 'Apr',
+    payback: { paybackMonths: 3.8, year1ROI: 165, year2Projected: '$7.2M' },
+  },
+  'nb-health': {
+    timeline: buildTimeline(
+      [820, 740, 560, 420, 280, 180, 120, 90, 65, 50, 40, 35],
+      [0, 60, 180, 380, 580, 820, 1020, 1180, 1320, 1440, 1540, 1620],
+    ),
+    breakEvenMonth: 5, breakEvenLabel: 'May',
+    payback: { paybackMonths: 4.4, year1ROI: 145, year2Projected: '$8.6M' },
+  },
+  'ee-finance': {
+    timeline: buildTimeline(
+      [640, 560, 420, 310, 200, 130, 85, 60, 45, 35, 28, 22],
+      [0, 50, 160, 340, 540, 740, 920, 1060, 1180, 1280, 1360, 1420],
+    ),
+    breakEvenMonth: 4, breakEvenLabel: 'Apr',
+    payback: { paybackMonths: 3.6, year1ROI: 172, year2Projected: '€7.8M' },
+  },
+  'ee-social': {
+    timeline: buildTimeline(
+      [860, 760, 580, 440, 280, 180, 120, 85, 65, 50, 40, 32],
+      [0, 65, 200, 420, 660, 920, 1140, 1320, 1480, 1620, 1740, 1840],
+    ),
+    breakEvenMonth: 5, breakEvenLabel: 'May',
+    payback: { paybackMonths: 4.4, year1ROI: 148, year2Projected: '€10.4M' },
+  },
+  'ee-economic': {
+    timeline: buildTimeline(
+      [420, 360, 270, 200, 130, 85, 55, 40, 30, 24, 18, 15],
+      [0, 35, 110, 220, 360, 480, 600, 690, 760, 820, 870, 910],
+    ),
+    breakEvenMonth: 4, breakEvenLabel: 'Apr',
+    payback: { paybackMonths: 3.4, year1ROI: 180, year2Projected: '€5.2M' },
+  },
+  'ee-ria': {
+    timeline: buildTimeline(
+      [400, 340, 260, 190, 120, 80, 52, 38, 28, 22, 17, 14],
+      [0, 32, 100, 210, 340, 460, 570, 660, 730, 790, 840, 880],
+    ),
+    breakEvenMonth: 4, breakEvenLabel: 'Apr',
+    payback: { paybackMonths: 3.2, year1ROI: 188, year2Projected: '€4.8M' },
   },
 };
 
