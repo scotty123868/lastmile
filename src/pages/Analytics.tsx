@@ -618,7 +618,7 @@ function CostCurveTooltip({ active, payload, label }: any) {
 /* ── Main ────────────────────────────────────────────────── */
 
 export default function Analytics() {
-  const { company } = useCompany();
+  const { company, companies, setCompanyId } = useCompany();
   const data = analyticsData[company.id] || analyticsData.meridian;
   const curve = costCurveData[company.id] || costCurveData.meridian;
 
@@ -733,6 +733,81 @@ export default function Analytics() {
           </div>
         </div>
       </motion.div>
+
+      {/* ── Sub-Entity Breakdown (conglomerate/sovereign only) ── */}
+      {companies.filter(c => c.parentId === company.id).length > 0 && (
+        <section className="mb-8">
+          <div className="flex items-center gap-2 mb-3">
+            <Building2 className="w-4 h-4 text-ink-tertiary" strokeWidth={1.7} />
+            <h2 className="text-[14px] font-semibold text-ink">
+              {company.category === 'sovereign' ? 'Agencies' : 'Operating Companies'}
+            </h2>
+            <span className="text-[11px] text-ink-faint">
+              {companies.filter(c => c.parentId === company.id).length} of {company.opCos} shown
+            </span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {companies.filter(c => c.parentId === company.id).map((sub, i) => {
+              const subData = analyticsData[sub.id];
+              const subCurve = costCurveData[sub.id];
+              if (!subData || !subCurve) return null;
+              return (
+                <motion.button
+                  key={sub.id}
+                  type="button"
+                  onClick={() => setCompanyId(sub.id)}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.08 + i * 0.05 }}
+                  className="bg-surface-raised border border-border rounded-xl px-5 py-4 text-left hover:border-blue/30 hover:bg-blue/[0.02] transition-all cursor-pointer group"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-center gap-2.5">
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                        company.category === 'conglomerate' ? 'bg-purple-500/15' : 'bg-emerald-500/15'
+                      }`}>
+                        <span className={`text-[11px] font-bold ${
+                          company.category === 'conglomerate' ? 'text-purple-400' : 'text-emerald-400'
+                        }`}>{sub.initials}</span>
+                      </div>
+                      <div>
+                        <div className="text-[13px] font-semibold text-ink group-hover:text-blue transition-colors">{sub.shortName}</div>
+                        <div className="text-[11px] text-ink-tertiary">{sub.industry}</div>
+                      </div>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-ink-faint group-hover:text-blue transition-colors mt-1" />
+                  </div>
+                  <div className="grid grid-cols-3 gap-3">
+                    <div>
+                      <div className="text-[10px] text-ink-faint uppercase tracking-wider mb-0.5">Savings</div>
+                      <div className="text-[15px] font-semibold tabular-nums text-green">{formatDollars(subData.kpis.savings, sub.currency)}</div>
+                    </div>
+                    <div>
+                      <div className="text-[10px] text-ink-faint uppercase tracking-wider mb-0.5">Readiness</div>
+                      <div className="text-[15px] font-semibold tabular-nums text-ink">
+                        <span className="text-ink-tertiary text-[12px]">{subData.kpis.scoreBefore}</span>
+                        <ChevronRight className="inline w-3 h-3 text-ink-faint mx-0.5" />
+                        <span>{subData.kpis.scoreAfter}</span>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-[10px] text-ink-faint uppercase tracking-wider mb-0.5">Workflows</div>
+                      <div className="text-[15px] font-semibold tabular-nums text-ink">{subData.kpis.workflows}</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 mt-3 pt-3 border-t border-border">
+                    <span className="text-[11px] text-ink-tertiary">{sub.employees.toLocaleString()} employees</span>
+                    <span className="text-ink-faint">·</span>
+                    <span className="text-[11px] text-ink-tertiary">{sub.revenue}</span>
+                    <span className="text-ink-faint">·</span>
+                    <span className="text-[11px] text-ink-tertiary">ROI {subCurve.payback.year1ROI}%</span>
+                  </div>
+                </motion.button>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {/* ── AI Readiness Score ──────────────────────────────── */}
       <motion.div
