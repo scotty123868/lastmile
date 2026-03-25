@@ -185,12 +185,12 @@ const pipelineData: Record<string, PipelineData> = {
   },
   'nb-energy': {
     stages: [
-      { label: 'Ingestion', count: 14200, status: 'active' },
-      { label: 'Normalization', count: 13800, status: 'active' },
-      { label: 'Entity Resolution', count: 13400, status: 'active' },
+      { label: 'Ingestion', count: 14980, status: 'active' },
+      { label: 'Normalization', count: 14560, status: 'active' },
+      { label: 'Entity Resolution', count: 14160, status: 'active' },
       { label: 'Context Packing', count: 6, status: 'active' },
     ],
-    stats: { ingested: 14200, normalized: 13800, packed: 6, failed: 32 },
+    stats: { ingested: 14980, normalized: 14560, packed: 6, failed: 32 },
     documents: [
       { id: 'd1', name: 'SCADA_Readings_Pipeline_NE-7.api', type: 'api', origin: 'SCADA Gateway — Northeast Corridor', size: '—', status: 'ready', fields: 48000, confidence: 99 },
       { id: 'd2', name: 'Pipeline_Inspection_ILI-2026-03.pdf', type: 'pdf', origin: 'In-Line Inspection Vendor', size: '42 MB', status: 'processing', fields: 840, confidence: 93 },
@@ -207,7 +207,7 @@ const pipelineData: Record<string, PipelineData> = {
       { label: 'Entity Resolution', count: 17200, status: 'active' },
       { label: 'Context Packing', count: 10, status: 'active' },
     ],
-    stats: { ingested: 18400, normalized: 17900, packed: 10, failed: 42 },
+    stats: { ingested: 18400, normalized: 17900, packed: 10, failed: 68 },
     documents: [
       { id: 'd1', name: 'TradeConfirm_FX_Batch_0321.pdf', type: 'pdf', origin: 'Bloomberg TOMS', size: '4.2 MB', status: 'ready', fields: 2400, confidence: 98 },
       { id: 'd2', name: 'SEC_Filing_10K_2025.pdf', type: 'pdf', origin: 'EDGAR Filing System', size: '28 MB', status: 'ready', fields: 4800, confidence: 97 },
@@ -241,7 +241,7 @@ const pipelineData: Record<string, PipelineData> = {
       { label: 'Entity Resolution', count: 23600, status: 'active' },
       { label: 'Context Packing', count: 6, status: 'active' },
     ],
-    stats: { ingested: 24800, normalized: 24200, packed: 6, failed: 14 },
+    stats: { ingested: 24800, normalized: 24200, packed: 6, failed: 8 },
     documents: [
       { id: 'd1', name: 'EMTA_TaxReturns_Individual_Q1.api', type: 'api', origin: 'Tax & Revenue Board (EMTA)', size: '—', status: 'ready', fields: 84000, confidence: 99 },
       { id: 'd2', name: 'State_Budget_Execution_2026.pdf', type: 'pdf', origin: 'Ministry of Finance Portal', size: '48 MB', status: 'ready', fields: 4200, confidence: 96 },
@@ -258,7 +258,7 @@ const pipelineData: Record<string, PipelineData> = {
       { label: 'Entity Resolution', count: 17200, status: 'active' },
       { label: 'Context Packing', count: 4, status: 'active' },
     ],
-    stats: { ingested: 18200, normalized: 17800, packed: 4, failed: 22 },
+    stats: { ingested: 18200, normalized: 17800, packed: 4, failed: 10 },
     documents: [
       { id: 'd1', name: 'BenefitApplications_Family_Q1.api', type: 'api', origin: 'Social Insurance Board (SKA)', size: '—', status: 'ready', fields: 48000, confidence: 98 },
       { id: 'd2', name: 'TEHIK_HealthRecords_PatientBatch.api', type: 'api', origin: 'TEHIK — Health Information System', size: '—', status: 'ready', fields: 62000, confidence: 97 },
@@ -275,7 +275,7 @@ const pipelineData: Record<string, PipelineData> = {
       { label: 'Entity Resolution', count: 11800, status: 'active' },
       { label: 'Context Packing', count: 5, status: 'active' },
     ],
-    stats: { ingested: 12400, normalized: 12100, packed: 5, failed: 18 },
+    stats: { ingested: 12400, normalized: 12100, packed: 5, failed: 6 },
     documents: [
       { id: 'd1', name: 'TradePermits_Export_Q1.api', type: 'api', origin: 'Ministry of Economic Affairs', size: '—', status: 'ready', fields: 24000, confidence: 98 },
       { id: 'd2', name: 'BusinessRegistry_NewEntities.api', type: 'api', origin: 'Centre of Registers (RIK)', size: '—', status: 'ready', fields: 42000, confidence: 99 },
@@ -287,12 +287,12 @@ const pipelineData: Record<string, PipelineData> = {
   },
   'ee-ria': {
     stages: [
-      { label: 'Ingestion', count: 28400, status: 'active' },
-      { label: 'Normalization', count: 27800, status: 'active' },
-      { label: 'Entity Resolution', count: 27200, status: 'active' },
+      { label: 'Ingestion', count: 28800, status: 'active' },
+      { label: 'Normalization', count: 28200, status: 'active' },
+      { label: 'Entity Resolution', count: 27600, status: 'active' },
       { label: 'Context Packing', count: 7, status: 'active' },
     ],
-    stats: { ingested: 28400, normalized: 27800, packed: 7, failed: 8 },
+    stats: { ingested: 28800, normalized: 28200, packed: 7, failed: 4 },
     documents: [
       { id: 'd1', name: 'SecurityIncident_CERT-EE_Q1.csv', type: 'csv', origin: 'CERT-EE Incident Tracker', size: '4.2 MB', status: 'ready', fields: 2400, confidence: 97 },
       { id: 'd2', name: 'XRoad_Traffic_Analytics_Daily.api', type: 'api', origin: 'X-Road Monitoring — RIA', size: '—', status: 'ready', fields: 142000, confidence: 99 },

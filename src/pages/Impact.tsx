@@ -231,19 +231,19 @@ const impactData: Record<string, CompanyImpactData> = {
     ],
   },
   'nb-energy': {
-    totalAnnualImpact: 5600000,
+    totalAnnualImpact: 5800000,
     categories: [
       { label: 'Verification Catches', amount: 1960000, description: 'Grid compliance corrections, metering accuracy validation, and NERC audit preparation catches', icon: 'shield', type: 'saving' },
-      { label: 'Process Automation', amount: 2480000, description: 'Trading settlement, pipeline monitoring, and renewable asset performance reporting automated', icon: 'zap', type: 'saving' },
+      { label: 'Process Automation', amount: 2680000, description: 'Trading settlement, pipeline monitoring, and renewable asset performance reporting automated', icon: 'zap', type: 'saving' },
       { label: 'Adoption Uplift', amount: 1760000, description: 'Field and trading floor efficiency gains from real-time analytics adoption', icon: 'users', type: 'saving' },
       { label: 'Implementation Cost', amount: -600000, description: 'Platform license, SCADA integration, trading floor deployment, and operator training', icon: 'cost', type: 'cost' },
     ],
     waterfall: [
       { label: 'Verification', value: 1960000, type: 'positive' },
-      { label: 'Automation', value: 2480000, type: 'positive' },
+      { label: 'Automation', value: 2680000, type: 'positive' },
       { label: 'Adoption', value: 1760000, type: 'positive' },
       { label: 'Costs', value: -600000, type: 'negative' },
-      { label: 'Net Impact', value: 5600000, type: 'total' },
+      { label: 'Net Impact', value: 5800000, type: 'total' },
     ],
     metrics: [
       { label: 'Payback Period', value: '5.2 mo' },
@@ -253,19 +253,19 @@ const impactData: Record<string, CompanyImpactData> = {
     ],
   },
   'nb-financial': {
-    totalAnnualImpact: 3800000,
+    totalAnnualImpact: 3760000,
     categories: [
       { label: 'Verification Catches', amount: 1340000, description: 'Regulatory filing corrections, KYC/AML flag accuracy, and reconciliation error prevention', icon: 'shield', type: 'saving' },
       { label: 'Process Automation', amount: 1680000, description: 'Loan origination, credit risk scoring, and portfolio compliance reporting automated', icon: 'zap', type: 'saving' },
       { label: 'Adoption Uplift', amount: 1140000, description: 'Analyst and risk team productivity gains from AI-augmented decision workflows', icon: 'users', type: 'saving' },
-      { label: 'Implementation Cost', amount: -360000, description: 'Platform license, core banking integration, SOX-compliant deployment, and staff training', icon: 'cost', type: 'cost' },
+      { label: 'Implementation Cost', amount: -400000, description: 'Platform license, core banking integration, SOX-compliant deployment, and staff training', icon: 'cost', type: 'cost' },
     ],
     waterfall: [
       { label: 'Verification', value: 1340000, type: 'positive' },
       { label: 'Automation', value: 1680000, type: 'positive' },
       { label: 'Adoption', value: 1140000, type: 'positive' },
-      { label: 'Costs', value: -360000, type: 'negative' },
-      { label: 'Net Impact', value: 3800000, type: 'total' },
+      { label: 'Costs', value: -400000, type: 'negative' },
+      { label: 'Net Impact', value: 3760000, type: 'total' },
     ],
     metrics: [
       { label: 'Payback Period', value: '4.0 mo' },
@@ -275,19 +275,19 @@ const impactData: Record<string, CompanyImpactData> = {
     ],
   },
   'nb-health': {
-    totalAnnualImpact: 4000000,
+    totalAnnualImpact: 3840000,
     categories: [
       { label: 'Verification Catches', amount: 1420000, description: 'Clinical trial data validation, FDA submission accuracy, and adverse event reporting corrections', icon: 'shield', type: 'saving' },
       { label: 'Process Automation', amount: 1740000, description: 'Lab data pipeline, regulatory document assembly, and pharmacovigilance case processing automated', icon: 'zap', type: 'saving' },
-      { label: 'Adoption Uplift', amount: 1340000, description: 'Researcher and clinical ops team productivity from AI-assisted literature review and data analysis', icon: 'users', type: 'saving' },
+      { label: 'Adoption Uplift', amount: 1180000, description: 'Researcher and clinical ops team productivity from AI-assisted literature review and data analysis', icon: 'users', type: 'saving' },
       { label: 'Implementation Cost', amount: -500000, description: 'Platform license, LIMS integration, GxP-validated environment, and scientist training', icon: 'cost', type: 'cost' },
     ],
     waterfall: [
       { label: 'Verification', value: 1420000, type: 'positive' },
       { label: 'Automation', value: 1740000, type: 'positive' },
-      { label: 'Adoption', value: 1340000, type: 'positive' },
+      { label: 'Adoption', value: 1180000, type: 'positive' },
       { label: 'Costs', value: -500000, type: 'negative' },
-      { label: 'Net Impact', value: 4000000, type: 'total' },
+      { label: 'Net Impact', value: 3840000, type: 'total' },
     ],
     metrics: [
       { label: 'Payback Period', value: '5.4 mo' },
@@ -321,16 +321,16 @@ const impactData: Record<string, CompanyImpactData> = {
   'ee-social': {
     totalAnnualImpact: 5400000,
     categories: [
-      { label: 'Verification Catches', amount: 1620000, description: 'Benefit eligibility corrections, pension calculation validation, and disability assessment accuracy', icon: 'shield', type: 'saving' },
-      { label: 'Process Automation', amount: 2340000, description: 'Benefit applications, case management workflows, and citizen notification systems automated', icon: 'zap', type: 'saving' },
-      { label: 'Adoption Uplift', amount: 1840000, description: 'Case worker efficiency gains from AI-assisted eligibility determination and document review', icon: 'users', type: 'saving' },
-      { label: 'Implementation Cost', amount: -400000, description: 'Platform license, SKA system integration, and case worker training programs', icon: 'cost', type: 'cost' },
+      { label: 'Verification Catches', amount: 1380000, description: 'Benefit eligibility corrections, pension calculation validation, and disability assessment accuracy', icon: 'shield', type: 'saving' },
+      { label: 'Process Automation', amount: 2480000, description: 'Benefit applications, case management workflows, and citizen notification systems automated', icon: 'zap', type: 'saving' },
+      { label: 'Adoption Uplift', amount: 2240000, description: 'Case worker efficiency gains from AI-assisted eligibility determination and document review', icon: 'users', type: 'saving' },
+      { label: 'Implementation Cost', amount: -700000, description: 'Platform license, SKA system integration, and case worker training programs', icon: 'cost', type: 'cost' },
     ],
     waterfall: [
-      { label: 'Verification', value: 1620000, type: 'positive' },
-      { label: 'Automation', value: 2340000, type: 'positive' },
-      { label: 'Adoption', value: 1840000, type: 'positive' },
-      { label: 'Costs', value: -400000, type: 'negative' },
+      { label: 'Verification', value: 1380000, type: 'positive' },
+      { label: 'Automation', value: 2480000, type: 'positive' },
+      { label: 'Adoption', value: 2240000, type: 'positive' },
+      { label: 'Costs', value: -700000, type: 'negative' },
       { label: 'Net Impact', value: 5400000, type: 'total' },
     ],
     metrics: [

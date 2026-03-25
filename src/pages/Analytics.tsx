@@ -226,11 +226,11 @@ const analyticsData: Record<string, CompanyAnalyticsData> = {
   },
   'nb-energy': {
     readiness: { score: 38, label: 'Critical — SCADA legacy and OT/IT convergence gaps' },
-    kpis: { savings: 7400000, scoreBefore: 38, scoreAfter: 84, workflows: 58, workflowsReady: 12, waste: 1320000 },
+    kpis: { savings: 7400000, scoreBefore: 38, scoreAfter: 84, workflows: 52, workflowsReady: 12, waste: 1510000 },
     timeline: [
-      { savings: 0, score: 38, workflows: 0, waste: 1320000 },
-      { savings: 3700000, score: 60, workflows: 29, waste: 660000 },
-      { savings: 7400000, score: 84, workflows: 58, waste: 150000 },
+      { savings: 0, score: 38, workflows: 0, waste: 1510000 },
+      { savings: 3700000, score: 60, workflows: 26, waste: 755000 },
+      { savings: 7400000, score: 84, workflows: 52, waste: 150000 },
     ],
     opportunities: [
       { priority: 1, name: 'SCADA Data Analytics Pipeline', savings: 1780000, status: 'In Progress' },
@@ -239,11 +239,11 @@ const analyticsData: Record<string, CompanyAnalyticsData> = {
       { priority: 4, name: 'Energy Trading Optimization', savings: 980000, status: 'Automated' },
       { priority: 5, name: 'Regulatory Compliance Reporting', savings: 740000, status: 'In Progress' },
     ],
-    inaction: { year1: 1320000, year2: 1580000, year3: 1900000, total: 4800000 },
+    inaction: { year1: 1510000, year2: 1580000, year3: 1900000, total: 5410000 },
   },
   'nb-financial': {
     readiness: { score: 62, label: 'Moderate — solid data infrastructure, model governance needed' },
-    kpis: { savings: 5000000, scoreBefore: 62, scoreAfter: 91, workflows: 36, workflowsReady: 16, waste: 680000 },
+    kpis: { savings: 5000000, scoreBefore: 62, scoreAfter: 91, workflows: 36, workflowsReady: 12, waste: 680000 },
     timeline: [
       { savings: 0, score: 62, workflows: 0, waste: 680000 },
       { savings: 2500000, score: 76, workflows: 18, waste: 340000 },
@@ -260,10 +260,10 @@ const analyticsData: Record<string, CompanyAnalyticsData> = {
   },
   'nb-health': {
     readiness: { score: 55, label: 'Moderate — strong clinical data, interoperability challenges' },
-    kpis: { savings: 6200000, scoreBefore: 55, scoreAfter: 89, workflows: 44, workflowsReady: 14, waste: 960000 },
+    kpis: { savings: 6200000, scoreBefore: 55, scoreAfter: 89, workflows: 44, workflowsReady: 10, waste: 960000 },
     timeline: [
       { savings: 0, score: 55, workflows: 0, waste: 960000 },
-      { savings: 3100000, score: 72, workflows: 22, waste: 480000 },
+      { savings: 2900000, score: 72, workflows: 22, waste: 480000 },
       { savings: 6200000, score: 89, workflows: 44, waste: 110000 },
     ],
     opportunities: [
@@ -294,10 +294,10 @@ const analyticsData: Record<string, CompanyAnalyticsData> = {
   },
   'ee-social': {
     readiness: { score: 68, label: 'Moderate — citizen-facing systems mature, back-office gaps' },
-    kpis: { savings: 6800000, scoreBefore: 68, scoreAfter: 93, workflows: 42, workflowsReady: 18, waste: 980000 },
+    kpis: { savings: 6800000, scoreBefore: 68, scoreAfter: 93, workflows: 42, workflowsReady: 18, waste: 1200000 },
     timeline: [
-      { savings: 0, score: 68, workflows: 0, waste: 980000 },
-      { savings: 3400000, score: 80, workflows: 21, waste: 490000 },
+      { savings: 0, score: 68, workflows: 0, waste: 1200000 },
+      { savings: 3400000, score: 80, workflows: 21, waste: 600000 },
       { savings: 6800000, score: 93, workflows: 42, waste: 110000 },
     ],
     opportunities: [
@@ -307,7 +307,7 @@ const analyticsData: Record<string, CompanyAnalyticsData> = {
       { priority: 4, name: 'Pension Calculation Automation', savings: 940000, status: 'Identified' },
       { priority: 5, name: 'Social Worker Scheduling Optimization', savings: 720000, status: 'Identified' },
     ],
-    inaction: { year1: 980000, year2: 1180000, year3: 1410000, total: 3570000 },
+    inaction: { year1: 1200000, year2: 1180000, year3: 1410000, total: 4490000 },
   },
   'ee-economic': {
     readiness: { score: 76, label: 'Good — e-Residency platform strong, trade systems need AI' },
@@ -632,7 +632,7 @@ export default function Analytics() {
 
   const savingsSparkline = useMemo(
     () => generateSparklineData(0, data.kpis.savings),
-    [data.kpis.savings],
+    [data],
   );
   const scoreSparkline = useMemo(
     () => generateSparklineData(data.kpis.scoreBefore, data.kpis.scoreAfter),
