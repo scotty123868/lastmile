@@ -188,7 +188,7 @@ const analyticsData: Record<string, CompanyAnalyticsData> = {
       { priority: 4, name: 'Financial Close Automation', savings: 3200000, status: 'In Progress' },
       { priority: 5, name: 'Clinical Trial Data Pipeline', savings: 2400000, status: 'Identified' },
     ],
-    inaction: { year1: 4200000, year2: 5000000, year3: 6000000, total: 15200000 },
+    inaction: { year1: 4200000, year2: 4810000, year3: 5770000, total: 14780000 },
   },
   estonia: {
     readiness: { score: 72, label: 'Good \u2014 strong digital foundation, AI integration needed' },
@@ -205,7 +205,7 @@ const analyticsData: Record<string, CompanyAnalyticsData> = {
       { priority: 4, name: 'Cross-Ministry Data Platform', savings: 2800000, status: 'Identified' },
       { priority: 5, name: 'Procurement Optimization', savings: 2100000, status: 'Identified' },
     ],
-    inaction: { year1: 2800000, year2: 3400000, year3: 4100000, total: 10300000 },
+    inaction: { year1: 2800000, year2: 3090000, year3: 3710000, total: 9600000 },
   },
   'nb-aerospace': {
     readiness: { score: 46, label: 'Below Average — legacy avionics systems limit integration' },
@@ -239,7 +239,7 @@ const analyticsData: Record<string, CompanyAnalyticsData> = {
       { priority: 4, name: 'Energy Trading Optimization', savings: 980000, status: 'Automated' },
       { priority: 5, name: 'Regulatory Compliance Reporting', savings: 740000, status: 'In Progress' },
     ],
-    inaction: { year1: 1510000, year2: 1580000, year3: 1900000, total: 5410000 },
+    inaction: { year1: 1510000, year2: 1580000, year3: 1900000, total: 4990000 },
   },
   'nb-financial': {
     readiness: { score: 62, label: 'Moderate — solid data infrastructure, model governance needed' },
@@ -307,7 +307,7 @@ const analyticsData: Record<string, CompanyAnalyticsData> = {
       { priority: 4, name: 'Pension Calculation Automation', savings: 940000, status: 'Identified' },
       { priority: 5, name: 'Social Worker Scheduling Optimization', savings: 720000, status: 'Identified' },
     ],
-    inaction: { year1: 1200000, year2: 1180000, year3: 1410000, total: 4490000 },
+    inaction: { year1: 1200000, year2: 1180000, year3: 1410000, total: 3790000 },
   },
   'ee-economic': {
     readiness: { score: 76, label: 'Good — e-Residency platform strong, trade systems need AI' },
