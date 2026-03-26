@@ -12,11 +12,13 @@ import {
   Building2,
   Landmark,
   Check,
+  FileText,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
 
 const navItems = [
-  { to: '/', icon: BarChart3, label: 'Overview' },
+  { to: '/executive-briefing', icon: FileText, label: 'Executive Briefing' },
+  { to: '/overview', icon: BarChart3, label: 'Overview' },
   { to: '/operations', icon: Activity, label: 'Operations' },
   { to: '/assessment', icon: ClipboardCheck, label: 'Assessment' },
   { to: '/impact', icon: TrendingUp, label: 'Impact' },
@@ -41,7 +43,7 @@ function NavItem({ to, icon: Icon, label }: { to: string; icon: React.ElementTyp
   return (
     <NavLink
       to={to}
-      end={to === '/'}
+      end
       className={({ isActive }) =>
         `group relative flex items-center gap-3 px-3 py-2.5 rounded-md transition-colors duration-150 ${
           isActive

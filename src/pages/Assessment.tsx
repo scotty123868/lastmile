@@ -5,6 +5,7 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
+import PreliminaryBanner from '../components/PreliminaryBanner';
 
 /* ── Types ───────────────────────────────────────────────── */
 
@@ -603,6 +604,7 @@ export default function Assessment() {
 
   return (
     <div className="max-w-[960px] mx-auto px-4 lg:px-8 py-6 lg:py-8">
+      <PreliminaryBanner />
       {/* Page header */}
       <div className="mb-8">
         <h1 className="text-[22px] font-semibold text-ink tracking-tight">Assessment</h1>

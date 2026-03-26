@@ -13,12 +13,14 @@ import DataIntelligence from './pages/DataIntelligence';
 import Assistant from './pages/Assistant';
 import Analytics from './pages/Analytics';
 import Assessment from './pages/Assessment';
+import ExecutiveBriefing from './pages/ExecutiveBriefing';
 import { useCompany } from './data/CompanyContext';
 import { SimulationProvider } from './data/SimulationEngine';
 import EventToast from './components/EventToast';
 
 const routeTitles: Record<string, string> = {
-  '/': 'Overview',
+  '/overview': 'Overview',
+  '/executive-briefing': 'Executive Briefing',
   '/operations': 'Operations',
   '/assessment': 'Assessment',
   '/impact': 'Impact',
@@ -79,8 +81,12 @@ function AnimatedRoutes() {
         className="h-full"
       >
         <Routes location={location}>
+          {/* Executive Briefing — default landing page */}
+          <Route path="/" element={<Navigate to="/executive-briefing" replace />} />
+          <Route path="/executive-briefing" element={<ExecutiveBriefing />} />
+
           {/* Primary routes */}
-          <Route path="/" element={<Analytics />} />
+          <Route path="/overview" element={<Analytics />} />
           <Route path="/operations" element={<LiveWorkflows />} />
           <Route path="/assessment" element={<Assessment />} />
           <Route path="/impact" element={<Impact />} />
@@ -94,7 +100,7 @@ function AnimatedRoutes() {
           <Route path="/data-intelligence" element={<DataIntelligence />} />
 
           {/* Redirects for old routes */}
-          <Route path="/analytics" element={<Navigate to="/" replace />} />
+          <Route path="/analytics" element={<Navigate to="/overview" replace />} />
           <Route path="/workflows" element={<Navigate to="/operations" replace />} />
           <Route path="/assistant" element={<Navigate to="/intelligence" replace />} />
 
@@ -110,20 +116,23 @@ export default function App() {
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const closeSidebar = useCallback(() => setSidebarOpen(false), []);
+  const isFullBleed = location.pathname === '/executive-briefing';
 
   useEffect(() => { setSidebarOpen(false); }, [location.pathname]);
 
   return (
     <SimulationProvider>
       <div className="flex h-screen overflow-hidden">
-        {/* Desktop sidebar */}
-        <div className="hidden lg:flex">
-          <Sidebar />
-        </div>
+        {/* Desktop sidebar — hidden on full-bleed pages */}
+        {!isFullBleed && (
+          <div className="hidden lg:flex">
+            <Sidebar />
+          </div>
+        )}
 
-        {/* Mobile sidebar overlay */}
+        {/* Mobile sidebar overlay — hidden on full-bleed pages */}
         <AnimatePresence>
-          {sidebarOpen && (
+          {sidebarOpen && !isFullBleed && (
             <>
               <motion.div
                 key="backdrop"
@@ -148,8 +157,8 @@ export default function App() {
         </AnimatePresence>
 
         {/* Main content */}
-        <main className="flex-1 flex flex-col overflow-hidden bg-surface">
-          <TopBar onMenuClick={() => setSidebarOpen(true)} />
+        <main className={`flex-1 flex flex-col overflow-hidden ${isFullBleed ? 'bg-nav-bg' : 'bg-surface'}`}>
+          {!isFullBleed && <TopBar onMenuClick={() => setSidebarOpen(true)} />}
           <div className="flex-1 overflow-y-auto">
             <AnimatedRoutes />
           </div>

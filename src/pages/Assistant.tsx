@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Send, MessageSquare, Bot, User } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
+import PreliminaryBanner from '../components/PreliminaryBanner';
 
 /* ── Types ───────────────────────────────────────────────── */
 
@@ -1230,8 +1231,11 @@ export default function Assistant() {
 
   return (
     <div className="flex flex-col h-[calc(100vh-48px)] max-w-[960px] mx-auto">
+      <div className="px-4 lg:px-8 pt-4 flex-shrink-0">
+        <PreliminaryBanner />
+      </div>
       {/* Page header */}
-      <div className="px-4 lg:px-8 pt-6 pb-4 flex-shrink-0">
+      <div className="px-4 lg:px-8 pt-2 pb-4 flex-shrink-0">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-lg bg-blue-muted flex items-center justify-center">
             <MessageSquare className="w-4 h-4 text-blue" strokeWidth={1.7} />
