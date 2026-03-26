@@ -82,7 +82,7 @@ function AnimatedRoutes() {
       >
         <Routes location={location}>
           {/* Executive Briefing — default landing page */}
-          <Route path="/" element={<Navigate to="/executive-briefing" replace />} />
+          <Route path="/" element={<Navigate to="/overview" replace />} />
           <Route path="/executive-briefing" element={<ExecutiveBriefing />} />
 
           {/* Primary routes */}
@@ -116,7 +116,7 @@ export default function App() {
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const closeSidebar = useCallback(() => setSidebarOpen(false), []);
-  const isFullBleed = location.pathname === '/executive-briefing';
+  const isFullBleed = false; // Executive briefing now renders within app layout
 
   useEffect(() => { setSidebarOpen(false); }, [location.pathname]);
 

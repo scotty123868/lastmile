@@ -1,31 +1,18 @@
 import { useRef } from 'react';
-import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-
-/* ── Division data ──────────────────────────────────────── */
-
-const divisions = [
-  { name: 'Herzog Contracting Corp', shortName: 'Contracting', revenue: '$340M', impact: '$2.1M', topMetric: '22 workflows optimized', industry: 'Rail & Highway Construction' },
-  { name: 'Herzog Railroad Services', shortName: 'Railroad', revenue: '$120M', impact: '$820K', topMetric: '8 workflows optimized', industry: 'Railroad Maintenance' },
-  { name: 'Herzog Services', shortName: 'Services', revenue: '$65M', impact: '$680K', topMetric: '86% readiness score', industry: 'Ultrasonic Rail Testing' },
-  { name: 'Herzog Technologies', shortName: 'Technologies', revenue: '$95M', impact: '$740K', topMetric: '10 workflows optimized', industry: 'Signal & PTC Systems' },
-  { name: 'Herzog Transit Services', shortName: 'Transit', revenue: '$110M', impact: '$860K', topMetric: '10 workflows optimized', industry: 'Passenger Rail Ops' },
-  { name: 'Herzog Energy', shortName: 'Energy', revenue: '$45M', impact: '$360K', topMetric: '88% readiness score', industry: 'Energy Infrastructure' },
-  { name: 'Green Group LLC', shortName: 'Green Group', revenue: '$25M', impact: '$240K', topMetric: '2 workflows identified', industry: 'Environmental Services' },
-];
-
-/* ── Fade-in wrapper ────────────────────────────────────── */
+import { ArrowRight, Activity, Users, TrendingUp } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import PreliminaryBanner from '../components/PreliminaryBanner';
 
 function FadeIn({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-60px' });
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y: 24 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-      transition={{ duration: 0.6, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+      transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
       {children}
@@ -33,158 +20,105 @@ function FadeIn({ children, className = '', delay = 0 }: { children: React.React
   );
 }
 
-/* ── Page ────────────────────────────────────────────────── */
-
 export default function ExecutiveBriefing() {
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-nav-bg text-white">
+    <div className="space-y-8 pb-16">
+      <PreliminaryBanner />
 
-      {/* ── Hero ─────────────────────────────────────────── */}
-      <section className="flex flex-col items-center justify-center min-h-[70vh] px-6 text-center">
+      {/* Hero Finding */}
+      <div className="bg-nav-bg rounded-2xl px-10 py-14 text-white">
         <FadeIn>
-          <h1 className="text-5xl font-light text-white tracking-tight leading-tight">
-            Herzog Companies
+          <p className="text-xs uppercase tracking-[0.2em] text-ink/40 mb-3">Operations Intelligence Summary</p>
+          <h1 className="text-4xl font-light leading-tight text-ink">
+            <span className="text-[#22C55E] font-normal">$3.6M</span> in verified annual impact
+            <br />across Herzog Companies operations.
           </h1>
+          <p className="text-ink/50 mt-4 text-lg max-w-2xl">
+            62 workflows analyzed, 84% average adoption rate — here's what's already working
+            and where the biggest gains remain.
+          </p>
         </FadeIn>
+      </div>
+
+      {/* Three Key Metrics */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <FadeIn delay={0.05}>
+          <div className="bg-surface-card rounded-xl border border-border p-6 h-full">
+            <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-4">
+              <TrendingUp className="w-5 h-5 text-emerald-500" />
+            </div>
+            <p className="text-sm font-medium text-ink mb-1">Verified Impact</p>
+            <p className="text-3xl font-mono font-bold text-emerald-500">$3.6M</p>
+            <p className="text-sm text-ink/50 mt-2">Annual savings from AI-assisted operations across all divisions.</p>
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={0.1}>
+          <div className="bg-surface-card rounded-xl border border-border p-6 h-full">
+            <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4">
+              <Activity className="w-5 h-5 text-blue-500" />
+            </div>
+            <p className="text-sm font-medium text-ink mb-1">Workflows Automated</p>
+            <p className="text-3xl font-mono font-bold text-blue-500">62</p>
+            <p className="text-sm text-ink/50 mt-2">Track inspection, crew dispatch, equipment management, compliance reporting.</p>
+          </div>
+        </FadeIn>
+
         <FadeIn delay={0.15}>
-          <p className="text-2xl text-slate-400 mt-4 font-light">
-            Operations Intelligence Platform
-          </p>
+          <div className="bg-surface-card rounded-xl border border-border p-6 h-full">
+            <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4">
+              <Users className="w-5 h-5 text-purple-500" />
+            </div>
+            <p className="text-sm font-medium text-ink mb-1">Team Adoption</p>
+            <p className="text-3xl font-mono font-bold text-purple-500">84%</p>
+            <p className="text-sm text-ink/50 mt-2">Average adoption rate across active teams. Target: 95%+.</p>
+          </div>
         </FadeIn>
-        <FadeIn delay={0.3}>
-          <p className="text-sm text-slate-500 mt-6 font-mono tracking-wide">
-            $800M Revenue&ensp;&middot;&ensp;7 Divisions&ensp;&middot;&ensp;62 Workflows Analyzed
-          </p>
-        </FadeIn>
-      </section>
-
-      {/* ── Thin rule ────────────────────────────────────── */}
-      <div className="mx-auto w-full max-w-5xl px-6">
-        <div className="h-px bg-white/[0.06]" />
       </div>
 
-      {/* ── Operations Overview ──────────────────────────── */}
-      <section className="max-w-5xl mx-auto px-6 py-24">
-        <FadeIn>
-          <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 mb-16">
-            Operations Overview
-          </h2>
-        </FadeIn>
-
-        <div className="flex flex-col md:flex-row md:items-start gap-12 md:gap-0">
-          {/* Stat 1 */}
-          <FadeIn className="flex-1" delay={0.1}>
-            <p className="text-4xl md:text-5xl font-light font-mono text-white tracking-tight">$3.6M</p>
-            <p className="text-sm text-slate-400 mt-3 leading-relaxed max-w-[280px]">
-              Verified annual impact from AI-assisted operations
-            </p>
-          </FadeIn>
-
-          {/* Separator */}
-          <div className="hidden md:block w-px h-20 bg-white/[0.08] mx-8 mt-2" />
-
-          {/* Stat 2 */}
-          <FadeIn className="flex-1" delay={0.2}>
-            <p className="text-4xl md:text-5xl font-light font-mono text-white tracking-tight">62</p>
-            <p className="text-sm text-slate-400 mt-3 leading-relaxed max-w-[280px]">
-              Workflows analyzed across all divisions
-            </p>
-          </FadeIn>
-
-          {/* Separator */}
-          <div className="hidden md:block w-px h-20 bg-white/[0.08] mx-8 mt-2" />
-
-          {/* Stat 3 */}
-          <FadeIn className="flex-1" delay={0.3}>
-            <p className="text-4xl md:text-5xl font-light font-mono text-white tracking-tight">84%</p>
-            <p className="text-sm text-slate-400 mt-3 leading-relaxed max-w-[280px]">
-              Average adoption rate across active teams
-            </p>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* ── Thin rule ────────────────────────────────────── */}
-      <div className="mx-auto w-full max-w-5xl px-6">
-        <div className="h-px bg-white/[0.06]" />
-      </div>
-
-      {/* ── Division Impact ──────────────────────────────── */}
-      <section className="py-24">
-        <div className="max-w-5xl mx-auto px-6 mb-12">
-          <FadeIn>
-            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-              Division Impact
-            </h2>
-          </FadeIn>
-        </div>
-
-        {/* Horizontal scroll container */}
-        <div className="relative">
-          {/* Left fade */}
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 z-10 bg-gradient-to-r from-nav-bg to-transparent" />
-          {/* Right fade */}
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 z-10 bg-gradient-to-l from-nav-bg to-transparent" />
-
-          <div
-            ref={scrollRef}
-            className="flex gap-4 overflow-x-auto px-6 pb-4 snap-x snap-mandatory scrollbar-hide"
-            style={{ scrollPaddingLeft: '1.5rem' }}
-          >
-            {divisions.map((div, i) => (
-              <motion.div
-                key={div.name}
-                initial={{ opacity: 0, x: 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: '-20px' }}
-                transition={{ duration: 0.5, delay: i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="snap-start flex-shrink-0 w-[280px] rounded-lg border border-white/[0.06] bg-white/[0.02] p-6 flex flex-col gap-4"
-              >
-                <div>
-                  <p className="text-[13px] font-medium text-white">{div.shortName}</p>
-                  <p className="text-[11px] text-slate-500 mt-0.5">{div.industry}</p>
+      {/* Division Impact Quick View */}
+      <FadeIn delay={0.1}>
+        <div className="bg-surface-card rounded-xl border border-border p-8">
+          <div className="flex items-center justify-between mb-6">
+            <p className="text-xs uppercase tracking-[0.15em] text-ink/40">Impact by Division</p>
+            <button onClick={() => navigate('/impact')} className="text-xs text-blue-500 hover:text-blue-400 flex items-center gap-1 cursor-pointer">
+              View Details <ArrowRight className="w-3 h-3" />
+            </button>
+          </div>
+          <div className="space-y-3">
+            {[
+              { name: 'Herzog Contracting Corp', impact: '$1.2M', pct: 33 },
+              { name: 'Herzog Transit Services', impact: '$560K', pct: 16 },
+              { name: 'Herzog Technologies', impact: '$520K', pct: 14 },
+              { name: 'Herzog Railroad Services', impact: '$480K', pct: 13 },
+              { name: 'Other divisions', impact: '$840K', pct: 24 },
+            ].map((div) => (
+              <div key={div.name} className="flex items-center gap-4">
+                <span className="text-sm text-ink w-48 flex-shrink-0">{div.name}</span>
+                <div className="flex-1 bg-surface rounded-full h-2 overflow-hidden">
+                  <div className="bg-blue-500 h-full rounded-full transition-all" style={{ width: `${div.pct}%` }} />
                 </div>
-
-                <div className="h-px bg-white/[0.06]" />
-
-                <div>
-                  <p className="text-2xl font-light font-mono text-white tracking-tight">{div.impact}</p>
-                  <p className="text-[11px] text-slate-500 mt-1">Annual Impact</p>
-                </div>
-
-                <p className="text-[12px] text-slate-400">{div.topMetric}</p>
-
-                <p className="text-[11px] text-slate-600 mt-auto">{div.revenue} revenue</p>
-              </motion.div>
+                <span className="text-sm font-mono font-medium text-ink w-16 text-right">{div.impact}</span>
+              </div>
             ))}
           </div>
         </div>
-      </section>
+      </FadeIn>
 
-      {/* ── Thin rule ────────────────────────────────────── */}
-      <div className="mx-auto w-full max-w-5xl px-6">
-        <div className="h-px bg-white/[0.06]" />
-      </div>
-
-      {/* ── CTA ──────────────────────────────────────────── */}
-      <section className="flex flex-col items-center justify-center py-32 px-6 text-center">
-        <FadeIn>
-          <Link
-            to="/overview"
-            className="group inline-flex items-center gap-2 text-lg text-blue hover:text-blue/80 transition-colors"
-          >
-            View Operations Dashboard
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" strokeWidth={1.8} />
-          </Link>
-        </FadeIn>
-        <FadeIn delay={0.15}>
-          <p className="text-[12px] text-slate-600 mt-8 font-light">
-            Prepared exclusively for Herzog Companies&ensp;&middot;&ensp;March 2026
-          </p>
-        </FadeIn>
-      </section>
+      {/* CTA */}
+      <FadeIn delay={0.1}>
+        <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-8 text-white flex items-center justify-between">
+          <div>
+            <p className="text-lg font-medium">Explore the full operations dashboard</p>
+            <p className="text-blue-200 text-sm mt-1">Real-time workflows, adoption tracking, impact verification</p>
+          </div>
+          <button onClick={() => navigate('/overview')} className="bg-white text-blue-700 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors flex items-center gap-2 cursor-pointer flex-shrink-0">
+            Open Dashboard <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+      </FadeIn>
     </div>
   );
 }
