@@ -66,19 +66,19 @@ interface PipelineData {
 const pipelineData: Record<string, PipelineData> = {
   meridian: {
     stages: [
-      { label: 'Ingestion', count: 847, status: 'active' },
-      { label: 'Normalization', count: 812, status: 'active' },
-      { label: 'Entity Resolution', count: 798, status: 'active' },
-      { label: 'Context Packing', count: 14, status: 'active' },
+      { label: 'Ingestion', count: 4280, status: 'active' },
+      { label: 'Normalization', count: 4120, status: 'active' },
+      { label: 'Entity Resolution', count: 3980, status: 'active' },
+      { label: 'Context Packing', count: 18, status: 'active' },
     ],
-    stats: { ingested: 847, normalized: 812, packed: 14, failed: 3 },
+    stats: { ingested: 4280, normalized: 4120, packed: 18, failed: 12 },
     documents: [
-      { id: 'd1', name: 'Field_Inspection_NE-4412.pdf', type: 'pdf', origin: 'Field Tablet Upload', size: '2.4 MB', status: 'processing', fields: 42, confidence: 94 },
-      { id: 'd2', name: 'Grainger_Invoice_GR-88421.pdf', type: 'pdf', origin: 'AP Email Inbox', size: '180 KB', status: 'ready', fields: 18, confidence: 98 },
-      { id: 'd3', name: 'Fleet_Telematics_Q1.csv', type: 'csv', origin: 'Samsara API Export', size: '14.2 MB', status: 'ready', fields: 2847, confidence: 99 },
-      { id: 'd4', name: 'Equipment_Catalog_2026.xlsx', type: 'spreadsheet', origin: 'SharePoint \u2014 Operations', size: '8.7 MB', status: 'ready', fields: 1420, confidence: 97 },
-      { id: 'd5', name: 'NFPA_Compliance_Checklist.scan', type: 'scan', origin: 'Scanner \u2014 Hartford Office', size: '3.1 MB', status: 'processing', fields: 14, confidence: 87 },
-      { id: 'd6', name: 'ServiceTitan_WorkOrders.api', type: 'api', origin: 'ServiceTitan REST API', size: '\u2014', status: 'ready', fields: 4210, confidence: 99 },
+      { id: 'd1', name: 'TrackGeometry_NEC_Segment-47.csv', type: 'csv', origin: 'RailSentry LIDAR Export \u2014 Northeast Corridor', size: '48 MB', status: 'ready', fields: 14200, confidence: 99 },
+      { id: 'd2', name: 'GPS_Ballast_Fleet_Q1.api', type: 'api', origin: 'GPS Ballast Train Telemetry API', size: '\u2014', status: 'ready', fields: 8400, confidence: 98 },
+      { id: 'd3', name: 'FRA_Compliance_Inspection_2026-03.pdf', type: 'pdf', origin: 'FRA Track Safety Standards Portal', size: '4.8 MB', status: 'processing', fields: 86, confidence: 94 },
+      { id: 'd4', name: 'CrewDispatch_Midwest_Division.xlsx', type: 'spreadsheet', origin: 'HRSI Dispatch System Export', size: '12.4 MB', status: 'ready', fields: 3200, confidence: 97 },
+      { id: 'd5', name: 'PTC_Signal_Logs_HTI-0312.api', type: 'api', origin: 'Positive Train Control Signal System', size: '\u2014', status: 'ready', fields: 24800, confidence: 99 },
+      { id: 'd6', name: 'VideoTrackChart_Segment_NE-22.scan', type: 'scan', origin: 'HSI Video Track Chart System', size: '2.4 GB', status: 'processing', fields: 420, confidence: 91 },
     ],
   },
   oakwood: {
@@ -316,9 +316,9 @@ interface MiniLedgerEntry {
 
 const miniLedgerData: Record<string, MiniLedgerEntry[]> = {
   meridian: [
-    { id: 'VL-2026-0847', workflow: 'Field Service Report Processing', type: 'correction', timestamp: '3 min ago', corrected: 'Inspection interval: 6 months (NFPA 17A \u00a76.1.2 \u2014 commercial kitchen)' },
-    { id: 'VL-2026-0846', workflow: 'Invoice Reconciliation', type: 'escalation', timestamp: '14 min ago', corrected: 'PO price: $7,750.00 \u2014 $750 overcharge flagged' },
-    { id: 'VL-2026-0845', workflow: 'Equipment Utilization Analysis', type: 'approval', timestamp: '28 min ago', corrected: 'Vehicle NE-142: Utilization 38%, recommend reallocation to Southeast division' },
+    { id: 'VL-2026-0847', workflow: 'Track Geometry Analysis \u2014 NEC Segment 47', type: 'correction', timestamp: '3 min ago', corrected: 'MP 144.8: Cross-level 1.82\u2033 \u2014 reclassified Urgent per FRA 49 CFR \u00a7213.63' },
+    { id: 'VL-2026-0846', workflow: 'Crew Dispatch Optimization \u2014 Midwest', type: 'escalation', timestamp: '18 min ago', corrected: 'Crew #MW-34: Start shifted to 7:30 AM \u2014 FRA HOS 10-hour rest required (49 CFR \u00a7228)' },
+    { id: 'VL-2026-0845', workflow: 'Equipment Utilization Report \u2014 Q1', type: 'approval', timestamp: '32 min ago', corrected: 'GPS Ballast Train #BT-18: Utilization 34%, recommend redeployment to BNSF Southwest window' },
   ],
   oakwood: [
     { id: 'VL-2026-1204', workflow: 'Claims Intake Processing', type: 'correction', timestamp: '1 min ago', corrected: 'Vehicle: 2022 Honda Accord EX-L \u2014 VIN: 1HGCV2F34NA012847, Obsidian Blue Pearl' },

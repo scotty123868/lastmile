@@ -106,21 +106,21 @@ interface CostCurveData {
 
 const analyticsData: Record<string, CompanyAnalyticsData> = {
   meridian: {
-    readiness: { score: 34, label: 'Critical \u2014 requires foundational investment' },
-    kpis: { savings: 4200000, scoreBefore: 34, scoreAfter: 87, workflows: 47, workflowsReady: 12, waste: 800000 },
+    readiness: { score: 38, label: 'Critical \u2014 legacy railroad systems limit AI integration' },
+    kpis: { savings: 5800000, scoreBefore: 38, scoreAfter: 84, workflows: 62, workflowsReady: 16, waste: 2800000 },
     timeline: [
-      { savings: 0, score: 34, workflows: 0, waste: 800000 },
-      { savings: 2100000, score: 61, workflows: 28, waste: 400000 },
-      { savings: 4200000, score: 87, workflows: 47, waste: 120000 },
+      { savings: 0, score: 38, workflows: 0, waste: 2800000 },
+      { savings: 2900000, score: 62, workflows: 34, waste: 1400000 },
+      { savings: 5800000, score: 84, workflows: 62, waste: 320000 },
     ],
     opportunities: [
-      { priority: 1, name: 'Field Service Report Automation', savings: 920000, status: 'In Progress' },
-      { priority: 2, name: 'Invoice Matching & Reconciliation', savings: 840000, status: 'Identified' },
-      { priority: 3, name: 'Equipment Tracking Digitization', savings: 680000, status: 'Identified' },
-      { priority: 4, name: 'Compliance Reporting Automation', savings: 520000, status: 'Automated' },
-      { priority: 5, name: 'Vendor Management Optimization', savings: 440000, status: 'Identified' },
+      { priority: 1, name: 'Track Geometry Defect Detection — RailSentry + LIDAR', savings: 1380000, status: 'In Progress' },
+      { priority: 2, name: 'Crew Dispatch & Scheduling Optimization', savings: 1120000, status: 'Identified' },
+      { priority: 3, name: 'GPS Ballast Train Fleet Utilization', savings: 940000, status: 'In Progress' },
+      { priority: 4, name: 'FRA Safety Compliance Automation', savings: 780000, status: 'Automated' },
+      { priority: 5, name: 'Equipment Maintenance Cycle Prediction — TAM-4 / SpeedTrax', savings: 620000, status: 'Identified' },
     ],
-    inaction: { year1: 800000, year2: 960000, year3: 1150000, total: 2910000 },
+    inaction: { year1: 1200000, year2: 1440000, year3: 1730000, total: 4370000 },
   },
   oakwood: {
     readiness: { score: 41, label: 'Below Average \u2014 significant gaps in key areas' },
@@ -361,11 +361,11 @@ function buildTimeline(costs: number[], savings: number[]): CostCurveMonth[] {
 const costCurveData: Record<string, CostCurveData> = {
   meridian: {
     timeline: buildTimeline(
-      [580, 520, 380, 280, 180, 120, 80, 60, 45, 35, 30, 25],
-      [0, 40, 120, 240, 380, 520, 580, 620, 640, 660, 670, 680],
+      [820, 740, 560, 420, 260, 170, 110, 80, 60, 45, 38, 32],
+      [0, 50, 160, 320, 520, 740, 860, 940, 1000, 1040, 1070, 1090],
     ),
     breakEvenMonth: 5, breakEvenLabel: 'May',
-    payback: { paybackMonths: 4.2, year1ROI: 150, year2Projected: '$6.1M' },
+    payback: { paybackMonths: 4.6, year1ROI: 148, year2Projected: '$8.4M' },
   },
   oakwood: {
     timeline: buildTimeline(

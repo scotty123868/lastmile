@@ -33,25 +33,25 @@ const chatData: Record<string, CompanyChat> = {
     messages: [
       {
         role: 'user',
-        content: [{ text: 'Where are the biggest savings opportunities across our operating companies?' }],
+        content: [{ text: 'Where are the biggest savings opportunities across our divisions?' }],
       },
       {
         role: 'ai',
         content: [
-          { text: "Here are the **top 5 savings opportunities** identified across Meridian's four operating companies, ranked by projected annual impact:" },
+          { text: "Here are the **top 5 savings opportunities** identified across Herzog's seven divisions, ranked by projected annual impact:" },
           {
             table: {
-              headers: ['Opportunity', 'OpCo', 'Annual Savings', 'Department', 'Automation Level'],
+              headers: ['Opportunity', 'Division', 'Annual Savings', 'Department', 'Automation Level'],
               rows: [
-                ['Invoice reconciliation automation', 'MeridianFlow', '$420K', 'Finance', '87% automatable'],
-                ['Field report digitization', 'ClearPath Services', '$340K', 'Operations', '92% automatable'],
-                ['Vendor duplicate elimination', 'Meridian HQ', '$280K', 'Procurement', '78% automatable'],
-                ['Equipment tracking consolidation', 'SummitWorks', '$195K', 'Asset Mgmt', '65% automatable'],
-                ['Cross-OpCo compliance reporting', 'All entities', '$165K', 'Compliance', '71% automatable'],
+                ['Track defect detection automation (RailSentry + LIDAR)', 'HSI / HCC', '$1.38M', 'Rail Testing', '91% automatable'],
+                ['Crew dispatch & scheduling optimization', 'HRSI', '$1.12M', 'Operations', '86% automatable'],
+                ['GPS ballast train fleet utilization', 'HCC', '$940K', 'Construction', '78% automatable'],
+                ['FRA safety compliance reporting', 'All divisions', '$780K', 'Compliance', '82% automatable'],
+                ['Equipment maintenance cycle prediction (TAM-4 / SpeedTrax)', 'HTI / HCC', '$620K', 'Maintenance', '74% automatable'],
               ],
             },
           },
-          { text: 'The **total addressable savings** across these five initiatives is **$1.4M annually**. Invoice reconciliation at MeridianFlow is the highest-confidence opportunity given the volume of manual matching currently performed.' },
+          { text: 'The **total addressable savings** across these five initiatives is **$4.84M annually**. Track defect detection at HSI is the highest-confidence opportunity \u2014 RailSentry already captures the raw data, but manual analysis creates a 6.8-hour bottleneck per corridor segment. AI classification would reduce this to under 25 minutes.' },
         ],
       },
       {
@@ -61,46 +61,46 @@ const chatData: Record<string, CompanyChat> = {
       {
         role: 'ai',
         content: [
-          { text: "I've identified **3 critical data infrastructure gaps** that are limiting AI effectiveness across Meridian's portfolio:" },
+          { text: "I've identified **3 critical data infrastructure gaps** limiting AI effectiveness across Herzog's divisions:" },
           {
             list: [
-              "**No unified general ledger** \u2014 Each OpCo runs a separate GL (QuickBooks, Sage, NetSuite), making cross-entity reporting manual. This costs an estimated **18 hours per week** in reconciliation time and delays board reporting by 5\u20137 days.",
-              "**Disconnected field service systems** \u2014 ClearPath and SummitWorks use different dispatch platforms with no shared data layer. Technician utilization tracking is fragmented, hiding an estimated **$220K in scheduling inefficiency**.",
-              '**Manual equipment tracking** \u2014 Asset records exist in spreadsheets across 3 of 4 OpCos. No unified asset registry means duplicate purchases go undetected. Last quarter alone, **$47K in redundant equipment** was purchased across entities.',
+              "**No unified equipment registry** \u2014 Each division tracks assets independently (HCC in SAP, HRSI in custom Access databases, HSI in spreadsheets). There's no single source of truth for the 320+ heavy equipment units operating across 36 states. This hides an estimated **$940K in underutilized fleet capacity** and caused **12 redundant equipment leases** last year ($180K wasted).",
+              "**Disconnected dispatch systems** \u2014 HRSI's crew dispatch runs on a legacy custom system with no API layer. HTI's signal crews use a separate scheduling tool. When Class I railroads request emergency maintenance, coordinators spend **2.4 hours on average** manually checking crew availability, certifications, and HOS compliance across systems that don't talk to each other.",
+              "**Track inspection data silos** \u2014 RailSentry LIDAR data, Video Track Chart imagery, and TAM-4 surface measurements are stored in three separate systems with incompatible formats. Correlating defect data across these sources requires **manual GIS overlay work** that takes HSI engineers 4\u20136 hours per corridor segment \u2014 time that could be eliminated with a unified track intelligence platform.",
             ],
           },
-          { text: 'Addressing the GL unification first would unlock the most downstream value, enabling automated cross-OpCo reporting and vendor consolidation analysis.' },
+          { text: 'Addressing the **dispatch system unification** first would deliver the fastest ROI \u2014 it directly reduces the 2.4-hour crew mobilization bottleneck and enables predictive crew pre-positioning for Class I railroad maintenance windows.' },
         ],
       },
       {
         role: 'user',
-        content: [{ text: 'What would the implementation timeline look like for the field service automation?' }],
+        content: [{ text: 'What would the implementation timeline look like for the track defect detection automation?' }],
       },
       {
         role: 'ai',
         content: [
-          { text: "Here's a **realistic implementation timeline** for field service automation across ClearPath Services and SummitWorks. I've broken this into four phases based on dependency mapping and change management capacity:" },
+          { text: "Here's a **realistic implementation timeline** for AI-powered track defect detection across HSI and HCC. I've broken this into four phases based on data pipeline dependencies and FRA validation requirements:" },
           {
             table: {
               headers: ['Phase', 'Timeline', 'Scope', 'Key Milestone', 'Investment'],
               rows: [
-                ['1. Foundation', 'Weeks 1\u20134', 'Unified dispatch data model', 'Single technician database live', '$45K'],
-                ['2. Core Automation', 'Weeks 5\u201310', 'Auto-dispatch + route optimization', 'First AI-routed work orders', '$120K'],
-                ['3. Field Integration', 'Weeks 11\u201316', 'Mobile app + real-time tracking', 'Technicians on unified platform', '$95K'],
-                ['4. Optimization', 'Weeks 17\u201320', 'Predictive scheduling + cross-OpCo load balancing', 'Full automation live', '$60K'],
+                ['1. Data Unification', 'Weeks 1\u20134', 'LIDAR + Video Track Chart + TAM-4 data lake', 'Unified track intelligence feed live', '$65K'],
+                ['2. AI Classification', 'Weeks 5\u201310', 'ML defect detection on RailSentry data', 'First AI-classified geometry exceptions', '$180K'],
+                ['3. Compliance Integration', 'Weeks 11\u201316', 'FRA 49 CFR \u00a7213 auto-classification + work order generation', 'Automated FRA-compliant defect reports', '$120K'],
+                ['4. Predictive Analytics', 'Weeks 17\u201322', 'Degradation prediction + preventive maintenance scheduling', 'Full predictive track maintenance live', '$85K'],
               ],
             },
           },
-          { text: 'The critical path runs through **Phase 1** \u2014 without a unified technician database, the dispatch AI has no shared context between ClearPath and SummitWorks. Currently, 34 technicians are certified across both OpCos but are only dispatched within their home entity, creating **an estimated 22% utilization gap** on cross-trained skills.' },
-          { text: 'I recommend a **parallel workstream** approach: start Phase 1 data unification immediately while running a 2-week pilot of AI-assisted dispatch with ClearPath\'s Columbus team (their highest-volume region at 180 work orders/week). This gives you real performance data before the full rollout and builds internal champions. The total investment of **$320K** yields a projected **$340K annual savings** from field report digitization alone, with the dispatch optimization adding another **$195K** \u2014 putting you at a **7.2-month payback period**.' },
+          { text: 'The critical path runs through **Phase 1** \u2014 without unifying the LIDAR, video, and surface measurement data into a common geospatial model, the AI has no way to correlate defect patterns across measurement types. Herzog already has the richest track condition dataset in the industry thanks to RailSentry and the Video Track Chart system, but it\'s locked in three incompatible formats.' },
+          { text: 'I recommend a **pilot-first approach**: start with the Northeast Corridor (highest traffic density, most inspection frequency) and run AI classification alongside HSI\'s manual review for 6 weeks. This dual-track validation builds confidence with Class I railroad customers and creates the FRA compliance evidence needed for broader deployment. The total investment of **$450K** yields a projected **$1.38M in annual savings** from defect detection alone, with the predictive maintenance module adding another **$620K** from TAM-4/SpeedTrax integration \u2014 putting you at a **2.7-month payback period** on the combined system.' },
         ],
       },
     ],
     suggestions: [
-      'Show cross-OpCo data gaps',
-      'Compare vendor consolidation options',
-      "What's our AI readiness?",
-      'Generate Q1 board report',
+      'Show RailSentry data integration gaps',
+      'Compare crew dispatch optimization options',
+      "What's our FRA compliance readiness?",
+      'Generate fleet utilization report for Brad',
     ],
   },
   oakwood: {

@@ -33,18 +33,18 @@ interface CompanyAssessmentData {
 const assessmentData: Record<string, CompanyAssessmentData> = {
   meridian: {
     techStack: [
-      { name: 'SAP Business One', category: 'ERP', current: 3, target: 7 },
-      { name: 'Salesforce', category: 'CRM', current: 5, target: 8 },
-      { name: 'No Data Lake', category: 'Analytics', current: 1, target: 9 },
-      { name: 'Tableau', category: 'BI', current: 6, target: 8 },
-      { name: 'ServiceTitan', category: 'Field Ops', current: 4, target: 8 },
-      { name: 'ADP', category: 'HR/Payroll', current: 5, target: 7 },
+      { name: 'RailSentry / LIDAR', category: 'Track Inspection', current: 5, target: 9 },
+      { name: 'Wabtec PTC Platform', category: 'Signal & PTC', current: 4, target: 8 },
+      { name: 'SAP ECC', category: 'ERP', current: 3, target: 7 },
+      { name: 'Custom Dispatch System', category: 'Crew Ops', current: 2, target: 8 },
+      { name: 'Trimble / GPS Fleet', category: 'Fleet Tracking', current: 5, target: 8 },
+      { name: 'Power BI', category: 'Analytics', current: 4, target: 8 },
     ],
     licenses: [
-      { vendor: 'Salesforce CRM', total: 280, active: 185, waste: 340000, action: 'Downgrade 95 seats to Platform licenses' },
-      { vendor: 'Tableau', total: 120, active: 62, waste: 195000, action: 'Convert 40 to Viewer-only licenses' },
-      { vendor: 'SAP Business One', total: 85, active: 71, waste: 148000, action: 'Consolidate 2 unused OpCo instances' },
-      { vendor: 'Microsoft 365 E5', total: 450, active: 390, waste: 117000, action: 'Downgrade 60 to E3 tier' },
+      { vendor: 'SAP ECC', total: 420, active: 310, waste: 480000, action: 'Consolidate 4 division instances to single tenant' },
+      { vendor: 'Trimble Fleet Manager', total: 380, active: 260, waste: 320000, action: 'Remove inactive vehicle licenses post-fleet audit' },
+      { vendor: 'Microsoft 365 E5', total: 850, active: 680, waste: 280000, action: 'Downgrade 120 field accounts to F3 Frontline tier' },
+      { vendor: 'Power BI Pro', total: 240, active: 145, waste: 190000, action: 'Convert 60 to Viewer-only; migrate 35 to shared capacity' },
     ],
   },
   oakwood: {
@@ -283,18 +283,18 @@ interface ExtendedAssessmentData {
 const extendedData: Record<string, ExtendedAssessmentData> = {
   meridian: {
     integrations: [
-      { from: 'SAP Business One', to: 'Salesforce', status: 'partial', dataFlow: 'Manual CSV export weekly' },
-      { from: 'ServiceTitan', to: 'SAP Business One', status: 'siloed', dataFlow: 'No integration — rekeyed manually' },
-      { from: 'Tableau', to: 'SAP Business One', status: 'connected', dataFlow: 'ODBC direct connection' },
-      { from: 'ADP', to: 'SAP Business One', status: 'partial', dataFlow: 'Monthly batch file upload' },
-      { from: 'Salesforce', to: 'ServiceTitan', status: 'siloed', dataFlow: 'Phone/email handoff only' },
+      { from: 'RailSentry LIDAR', to: 'SAP ECC', status: 'siloed', dataFlow: 'No integration \u2014 manual GIS overlay by HSI engineers' },
+      { from: 'Wabtec PTC', to: 'HRSI Dispatch', status: 'partial', dataFlow: 'Signal status exported as CSV, emailed daily' },
+      { from: 'Trimble GPS', to: 'SAP ECC', status: 'partial', dataFlow: 'Weekly fleet position batch upload' },
+      { from: 'HRSI Dispatch', to: 'SAP ECC', status: 'siloed', dataFlow: 'Crew hours rekeyed manually into SAP payroll module' },
+      { from: 'Power BI', to: 'SAP ECC', status: 'connected', dataFlow: 'ODBC direct connection' },
     ],
     remediation: [
-      { priority: 1, action: 'Deploy data lake to unify field ops and financial data', category: 'integration', effort: 'High', timeline: '3-4 months', impact: '$920K savings unlock' },
-      { priority: 2, action: 'Integrate ServiceTitan ↔ SAP via API middleware', category: 'integration', effort: 'Medium', timeline: '6-8 weeks', impact: 'Eliminate manual rekeying' },
-      { priority: 3, action: 'Downgrade 95 unused Salesforce CRM seats', category: 'optimization', effort: 'Low', timeline: '2 weeks', impact: '$340K annual savings' },
-      { priority: 4, action: 'Migrate Tableau viewers to Power BI embedded', category: 'migration', effort: 'Medium', timeline: '2-3 months', impact: '$195K annual savings' },
-      { priority: 5, action: 'AI readiness training for field operations teams', category: 'training', effort: 'Low', timeline: '4 weeks', impact: 'Adoption uplift 20-30%' },
+      { priority: 1, action: 'Deploy track intelligence data lake to unify RailSentry + Video Track Chart + TAM-4 data', category: 'integration', effort: 'High', timeline: '3-4 months', impact: '$1.38M defect detection savings' },
+      { priority: 2, action: 'Integrate HRSI Dispatch \u2194 SAP ECC via API middleware with real-time HOS tracking', category: 'integration', effort: 'Medium', timeline: '6-8 weeks', impact: 'Eliminate 2.4-hr dispatch bottleneck' },
+      { priority: 3, action: 'Consolidate 4 SAP ECC division instances to single tenant', category: 'optimization', effort: 'High', timeline: '4-5 months', impact: '$480K annual license savings' },
+      { priority: 4, action: 'Remove 120 inactive Trimble fleet licenses post equipment audit', category: 'optimization', effort: 'Low', timeline: '2 weeks', impact: '$320K annual savings' },
+      { priority: 5, action: 'RailSentry mobile app training for track maintenance crews', category: 'training', effort: 'Low', timeline: '4 weeks', impact: 'Adoption uplift 20-30%' },
     ],
   },
   oakwood: {

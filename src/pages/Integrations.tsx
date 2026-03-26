@@ -32,16 +32,17 @@ interface CompanyIntegrationData {
 
 const integrationData: Record<string, CompanyIntegrationData> = {
   meridian: {
-    totalConnected: 6,
-    dataPointsPerDay: '142K',
-    uptime: 99.8,
+    totalConnected: 7,
+    dataPointsPerDay: '680K',
+    uptime: 99.6,
     integrations: [
-      { id: 'i1', name: 'ServiceTitan', category: 'Field Service Management', status: 'connected', lastSync: '2 min ago', recordsSynced: 48200 },
-      { id: 'i2', name: 'SAP Business One', category: 'ERP', status: 'connected', lastSync: '14 min ago', recordsSynced: 124800 },
-      { id: 'i3', name: 'NetSuite', category: 'Financial', status: 'syncing', lastSync: 'Syncing now', recordsSynced: 34100 },
-      { id: 'i4', name: 'Samsara', category: 'Fleet Telematics', status: 'connected', lastSync: '1 min ago', recordsSynced: 892000 },
-      { id: 'i5', name: 'SharePoint', category: 'Document Storage', status: 'connected', lastSync: '22 min ago', recordsSynced: 14200 },
-      { id: 'i6', name: 'Okta', category: 'Identity & Access', status: 'connected', lastSync: '8 min ago', recordsSynced: 1850 },
+      { id: 'i1', name: 'RailSentry / LIDAR Platform', category: 'Track Inspection', status: 'connected', lastSync: '< 1 min ago', recordsSynced: 1420000 },
+      { id: 'i2', name: 'Wabtec PTC Signal System', category: 'Positive Train Control', status: 'connected', lastSync: '3 min ago', recordsSynced: 842000 },
+      { id: 'i3', name: 'SAP ECC', category: 'ERP', status: 'syncing', lastSync: 'Syncing now', recordsSynced: 248000 },
+      { id: 'i4', name: 'Trimble GPS Fleet Tracking', category: 'Fleet Telematics', status: 'connected', lastSync: '1 min ago', recordsSynced: 2400000 },
+      { id: 'i5', name: 'HRSI Crew Dispatch System', category: 'Workforce Management', status: 'connected', lastSync: '8 min ago', recordsSynced: 84200 },
+      { id: 'i6', name: 'FRA Safety Portal', category: 'Regulatory Compliance', status: 'connected', lastSync: '4 hrs ago', recordsSynced: 14800 },
+      { id: 'i7', name: 'SharePoint — Engineering', category: 'Document Storage', status: 'connected', lastSync: '18 min ago', recordsSynced: 42000 },
     ],
   },
   oakwood: {

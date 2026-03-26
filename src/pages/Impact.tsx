@@ -77,25 +77,25 @@ interface CompanyAdoptionData {
 
 const impactData: Record<string, CompanyImpactData> = {
   meridian: {
-    totalAnnualImpact: 2800000,
+    totalAnnualImpact: 3600000,
     categories: [
-      { label: 'Verification Catches', amount: 920000, description: 'Prevented billing errors, compliance misses, and duplicate vendor entries', icon: 'shield', type: 'saving' },
-      { label: 'Process Automation', amount: 1440000, description: 'Field reports, invoice reconciliation, and equipment tracking automated', icon: 'zap', type: 'saving' },
-      { label: 'Adoption Uplift', amount: 680000, description: 'Cycle time reductions from higher tool adoption across field teams', icon: 'users', type: 'saving' },
-      { label: 'Implementation Cost', amount: -240000, description: 'Platform license, integration setup, and training program investment', icon: 'cost', type: 'cost' },
+      { label: 'Verification Catches', amount: 1080000, description: 'Track defect identification via RailSentry/LIDAR, FRA safety compliance catches, equipment failure prevention', icon: 'shield', type: 'saving' },
+      { label: 'Process Automation', amount: 1680000, description: 'Dispatch automation, crew scheduling optimization, fleet tracking and GPS ballast train routing automated', icon: 'zap', type: 'saving' },
+      { label: 'Adoption Uplift', amount: 1140000, description: 'Field crew productivity gains from mobile-first tools across 36-state rail operations', icon: 'users', type: 'saving' },
+      { label: 'Implementation Cost', amount: -300000, description: 'Platform license, PTC/signal system integration, and division-wide training rollout', icon: 'cost', type: 'cost' },
     ],
     waterfall: [
-      { label: 'Verification', value: 920000, type: 'positive' },
-      { label: 'Automation', value: 1440000, type: 'positive' },
-      { label: 'Adoption', value: 680000, type: 'positive' },
-      { label: 'Costs', value: -240000, type: 'negative' },
-      { label: 'Net Impact', value: 2800000, type: 'total' },
+      { label: 'Verification', value: 1080000, type: 'positive' },
+      { label: 'Automation', value: 1680000, type: 'positive' },
+      { label: 'Adoption', value: 1140000, type: 'positive' },
+      { label: 'Costs', value: -300000, type: 'negative' },
+      { label: 'Net Impact', value: 3600000, type: 'total' },
     ],
     metrics: [
       { label: 'Payback Period', value: '4.2 mo' },
       { label: 'Year 1 ROI', value: '165%' },
-      { label: 'Verified Accuracy', value: '97.4%' },
-      { label: 'Exception Resolution', value: '1.8 hrs', subtext: 'down from 6.2 hrs' },
+      { label: 'Verified Accuracy', value: '97.2%' },
+      { label: 'Exception Resolution', value: '1.4 hrs', subtext: 'down from 6.8 hrs' },
     ],
   },
   oakwood: {
@@ -390,20 +390,20 @@ const impactData: Record<string, CompanyImpactData> = {
 
 const adoptionData: Record<string, CompanyAdoptionData> = {
   meridian: {
-    overallRate: 68, overallTrend: '+8% vs last month', overallTrendDir: 'up', teamLabel: 'Department',
+    overallRate: 62, overallTrend: '+7% vs last month', overallTrendDir: 'up', teamLabel: 'Division / Team',
     teams: [
-      { name: 'Northeast Field Ops', active: 42, total: 48, adoption: 88, trend: '\u2191 12%', trendDir: 'up', status: 'strong' },
-      { name: 'Southeast Field Ops', active: 31, total: 44, adoption: 70, trend: '\u2191 6%', trendDir: 'up', status: 'growing' },
-      { name: 'Central Warehouse', active: 18, total: 22, adoption: 82, trend: '\u2191 3%', trendDir: 'up', status: 'strong' },
-      { name: 'AP / Finance', active: 8, total: 12, adoption: 67, trend: '\u2191 15%', trendDir: 'up', status: 'growing' },
-      { name: 'Southwest Field Ops', active: 14, total: 32, adoption: 44, trend: '\u2193 2%', trendDir: 'down', status: 'at-risk' },
-      { name: 'Fleet Management', active: 6, total: 14, adoption: 43, trend: '\u2014 0%', trendDir: 'flat', status: 'stalled' },
+      { name: 'Track Maintenance Crews (HCC)', active: 320, total: 420, adoption: 76, trend: '\u2191 9%', trendDir: 'up', status: 'strong' },
+      { name: 'Signal & Communications (HTI)', active: 180, total: 240, adoption: 75, trend: '\u2191 6%', trendDir: 'up', status: 'strong' },
+      { name: 'Fleet Operations (HRSI)', active: 260, total: 380, adoption: 68, trend: '\u2191 8%', trendDir: 'up', status: 'growing' },
+      { name: 'Rail Testing Division (HSI)', active: 140, total: 200, adoption: 70, trend: '\u2191 5%', trendDir: 'up', status: 'growing' },
+      { name: 'Transit Operations (HTSI)', active: 110, total: 220, adoption: 50, trend: '\u2191 3%', trendDir: 'up', status: 'at-risk' },
+      { name: 'Project Engineering', active: 82, total: 160, adoption: 51, trend: '\u2193 2%', trendDir: 'down', status: 'at-risk' },
     ],
     cycles: [
-      { label: 'Field report submission', before: '4.2 hrs', after: '1.1 hrs', improvement: '74%' },
-      { label: 'Invoice reconciliation', before: '3.5 days', after: '0.8 days', improvement: '77%' },
-      { label: 'Equipment inspection', before: '2.8 hrs', after: '0.9 hrs', improvement: '68%' },
-      { label: 'Compliance documentation', before: '6.0 hrs', after: '2.1 hrs', improvement: '65%' },
+      { label: 'Track geometry analysis report', before: '6.8 hrs', after: '1.4 hrs', improvement: '79%' },
+      { label: 'Crew dispatch cycle', before: '3.2 hrs', after: '0.6 hrs', improvement: '81%' },
+      { label: 'Equipment utilization report', before: '2 weeks', after: '45 min', improvement: '97%' },
+      { label: 'FRA compliance documentation', before: '8.0 hrs', after: '2.4 hrs', improvement: '70%' },
     ],
   },
   oakwood: {
