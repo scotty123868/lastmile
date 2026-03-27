@@ -447,7 +447,7 @@ export default function ContextWindows() {
                     expandedStage === idx
                       ? 'border-blue/40 bg-blue/5'
                       : 'border-border/50 hover:border-border hover:bg-surface-sunken/30'
-                  }`}
+                  } ${idx === 0 ? 'bg-blue/[0.03]' : idx === 1 ? 'bg-amber/[0.03]' : idx === 2 ? 'bg-emerald-500/[0.04]' : 'bg-purple-500/[0.03]'}`}
                 >
                   <div className="text-[10px] font-bold tracking-widest text-blue uppercase mb-2">{stage.title}</div>
                   <ul className="space-y-1">
@@ -571,7 +571,7 @@ export default function ContextWindows() {
                     {/* Token budget bar */}
                     <div className="h-2 rounded-full bg-surface-sunken overflow-hidden">
                       <div
-                        className={`h-full rounded-full transition-all ${tokenPct > 80 ? 'bg-amber' : 'bg-blue'}`}
+                        className={`h-full rounded-full transition-all ${tokenPct > 80 ? 'bg-amber' : 'bg-emerald-500'}`}
                         style={{ width: `${tokenPct}%` }}
                       />
                     </div>
@@ -594,13 +594,13 @@ export default function ContextWindows() {
             <span className="text-[11px] font-medium text-green">Live</span>
           </div>
         </div>
-        <div className="rounded-lg bg-[#0d1117] border border-[#1e2936] overflow-hidden">
+        <div className="rounded-lg bg-gray-950 border border-gray-800 overflow-hidden">
           <div ref={logRef} className="p-4 h-[320px] overflow-y-auto font-mono text-[11px] leading-[1.8] space-y-0">
             {logEntries.map((entry, idx) => (
               <div key={`${entry.ts}-${idx}`} className="flex gap-2">
-                <span className="text-[#6e7681] flex-shrink-0">[{entry.ts}]</span>
+                <span className="text-green-600/60 flex-shrink-0">[{entry.ts}]</span>
                 <span className={`font-bold flex-shrink-0 w-[60px] text-right ${opColors[entry.op]}`}>{entry.op}</span>
-                <span className="text-[#c9d1d9] ml-1">{entry.msg}</span>
+                <span className="text-green-400/80 ml-1">{entry.msg}</span>
               </div>
             ))}
           </div>

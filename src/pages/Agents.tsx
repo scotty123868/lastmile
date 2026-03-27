@@ -456,7 +456,7 @@ function AgentCard({
     <motion.div
       variants={fadeUp}
       custom={index}
-      className="bg-surface-raised border border-border rounded-xl p-5 relative overflow-hidden cursor-pointer hover:border-ink-tertiary/40 transition-colors"
+      className={`bg-surface-raised border border-border rounded-xl p-5 relative overflow-hidden cursor-pointer hover:border-ink-tertiary/40 transition-colors ${agent.accent === 'blue' ? 'border-l-4 border-l-blue' : 'border-l-4 border-l-emerald-500'}`}
       onClick={() => onOpenDetail(agent)}
     >
       <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${gradientColor}`} />
@@ -594,17 +594,17 @@ export default function Agents() {
         </p>
 
         {/* Summary Stats Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 bg-gray-900 rounded-xl p-6">
           {[
             { label: 'Active Agents', value: '9', sub: 'monitoring across 7 divisions' },
             { label: 'Saved This Quarter', value: '$1.2M', sub: 'sum of all agent savings' },
             { label: 'FRA Violations', value: 'Zero', sub: 'since deployment (Oct 2025)' },
             { label: 'Queries Answered Today', value: '2,340', sub: 'Atlas personal assistant' },
           ].map((s, i) => (
-            <div key={i} className="bg-surface-raised border border-border rounded-xl p-4 text-center">
-              <div className="text-[22px] font-bold text-ink tracking-tight">{s.value}</div>
-              <div className="text-[12px] font-semibold text-ink-secondary">{s.label}</div>
-              <div className="text-[11px] text-ink-tertiary mt-0.5">{s.sub}</div>
+            <div key={i} className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 text-center">
+              <div className="text-3xl font-bold text-white tracking-tight">{s.value}</div>
+              <div className="text-[12px] font-semibold text-gray-300">{s.label}</div>
+              <div className="text-[11px] text-gray-500 mt-0.5">{s.sub}</div>
             </div>
           ))}
         </div>
@@ -652,7 +652,7 @@ export default function Agents() {
         <motion.div variants={fadeUp} custom={4} initial="hidden" animate="visible">
           <div className="flex items-center gap-2 mb-1">
             <Shield className="w-5 h-5 text-blue" strokeWidth={1.8} />
-            <h2 className="text-[18px] font-semibold text-ink tracking-tight">Deep Dive &mdash; &quot;Dispatch&quot; HOS Compliance Agent</h2>
+            <h2 className="text-[22px] font-bold text-ink tracking-tight">Deep Dive &mdash; &quot;Dispatch&quot; HOS Compliance Agent</h2>
           </div>
           <p className="text-[13px] text-ink-tertiary mb-6">
             How Dispatch monitors FRA Hours-of-Service compliance across all 7 Herzog divisions in real time.
@@ -740,7 +740,7 @@ export default function Agents() {
         {/* 2B: Live Agent Activity Feed */}
         <motion.div variants={fadeUp} custom={6} initial="hidden" animate="visible" className="mb-8">
           <h3 className="text-[14px] font-semibold text-ink mb-4">Live Agent Activity Feed</h3>
-          <div className="bg-[#0B1120] rounded-xl border border-[#1E293B] overflow-hidden">
+          <div className="bg-[#060d11] rounded-xl border border-[#0f2a1a] overflow-hidden">
             <div className="flex items-center justify-between px-5 py-3 border-b border-[#1E293B]">
               <div className="flex items-center gap-2">
                 <Activity className="w-3.5 h-3.5 text-emerald-400" strokeWidth={2} />

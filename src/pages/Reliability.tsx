@@ -396,10 +396,10 @@ export default function Reliability() {
               Overall Trust Score
             </p>
             <div className="flex items-baseline gap-1">
-              <span className="text-5xl lg:text-6xl font-bold tracking-tight" style={{ color: '#22C55E' }}>
+              <span className="text-6xl lg:text-7xl font-bold tracking-tight text-emerald-500">
                 <CountUp end={94.2} />
               </span>
-              <span className="text-2xl font-semibold" style={{ color: '#22C55E' }}>%</span>
+              <span className="text-3xl font-semibold text-emerald-500">%</span>
             </div>
             <p className="text-xs text-ink-tertiary mt-1">62 active workflows, 847 tests/day</p>
           </div>
@@ -534,7 +534,7 @@ export default function Reliability() {
               style={{
                 borderLeftWidth: 4,
                 borderLeftColor: '#EF4444',
-                background: 'linear-gradient(135deg, rgba(239,68,68,0.03) 0%, transparent 40%)',
+                background: 'linear-gradient(135deg, rgba(239,68,68,0.06) 0%, rgba(239,68,68,0.02) 40%, transparent 70%)',
               }}
             >
               <div className="p-5 lg:p-6 space-y-4">
@@ -630,7 +630,7 @@ export default function Reliability() {
               <div className="flex items-stretch">
                 <div className="w-full max-w-[320px] mx-auto">
                   <div
-                    className="rounded-t-lg border border-border bg-[#EF4444]/8 px-4 py-3 text-center"
+                    className="rounded-t-lg border border-red-200 bg-red-50 px-4 py-4 text-center shadow-sm"
                     style={{ width: '50%', margin: '0 auto' }}
                   >
                     <p className="text-ink font-semibold text-[11px]">E2E Tests</p>
@@ -643,7 +643,7 @@ export default function Reliability() {
               {/* Integration tier */}
               <div className="w-full max-w-[320px] mx-auto">
                 <div
-                  className="border border-border border-t-0 bg-[#F59E0B]/8 px-4 py-3 text-center"
+                  className="border border-amber-200 border-t-0 bg-amber-50 px-4 py-4 text-center shadow-sm"
                   style={{ width: '75%', margin: '0 auto' }}
                 >
                   <p className="text-ink font-semibold text-[11px]">Integration Tests</p>
@@ -653,7 +653,7 @@ export default function Reliability() {
               </div>
               {/* Unit tier */}
               <div className="w-full max-w-[320px] mx-auto">
-                <div className="rounded-b-lg border border-border border-t-0 bg-[#22C55E]/8 px-4 py-3 text-center">
+                <div className="rounded-b-lg border border-emerald-200 border-t-0 bg-emerald-50 px-4 py-4 text-center shadow-sm">
                   <p className="text-ink font-semibold text-[11px]">Unit Tests</p>
                   <p className="text-ink-tertiary text-[10px]">Individual model assertions</p>
                 </div>
