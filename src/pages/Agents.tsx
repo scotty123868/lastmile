@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Area,
   XAxis,
@@ -21,10 +21,17 @@ import {
   TrendingDown,
   Search,
   ArrowRight,
+  Calculator,
+  Package,
+  Briefcase,
+  Mic,
+  Radio,
+  User,
+  X,
 } from 'lucide-react';
 import PreliminaryBanner from '../components/PreliminaryBanner';
 
-/* ── Animation variants ──────────────────────────────────── */
+/* -- Animation variants ------------------------------------------------- */
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
@@ -35,7 +42,7 @@ const fadeUp = {
   }),
 };
 
-/* ── Types ────────────────────────────────────────────────── */
+/* -- Types -------------------------------------------------------------- */
 
 interface ActivityEntry {
   time: string;
@@ -43,7 +50,20 @@ interface ActivityEntry {
   message: string;
 }
 
-/* ── Data ─────────────────────────────────────────────────── */
+interface AgentDef {
+  id: string;
+  name: string;
+  subtitle: string;
+  icon: React.ElementType;
+  status: 'active' | 'running';
+  statusLabel: string;
+  accent: 'blue' | 'green';
+  metrics: { label: string; value: string }[];
+  description: string;
+  deepDiveLink?: string;
+}
+
+/* -- Data --------------------------------------------------------------- */
 
 const performanceData = [
   { month: 'Oct', prevented: 8, falseAlarms: 5 },
@@ -62,8 +82,8 @@ const crewNames = [
   'F. Brown', 'G. Taylor', 'I. Anderson', 'W. Thomas', 'V. Robinson',
 ];
 const fraRules = [
-  'FRA Part 228.12(a)', 'FRA Part 228.405', 'FRA §228.405(a)(1)',
-  'UTU Agreement §4.2', 'IBEW Local 948 §12.1', 'LIUNA District Council §8.3',
+  'FRA Part 228.12(a)', 'FRA Part 228.405', 'FRA \u00A7228.405(a)(1)',
+  'UTU Agreement \u00A74.2', 'IBEW Local 948 \u00A712.1', 'LIUNA District Council \u00A78.3',
 ];
 
 function generateActivity(): ActivityEntry {
@@ -80,14 +100,14 @@ function generateActivity(): ActivityEntry {
 
   const rand = Math.random();
   if (rand < 0.35) {
-    return { time, type: 'CHECK', message: `${div} — Verified ${empCount} crew schedules against ${rule}` };
+    return { time, type: 'CHECK', message: `${div} \u2014 Verified ${empCount} crew schedules against ${rule}` };
   } else if (rand < 0.65) {
-    return { time, type: 'PASS', message: `${name} (${div}, Crew ${crew}) — ${hours}hr shift, ${rest}hr rest. Within spec.` };
+    return { time, type: 'PASS', message: `${name} (${div}, Crew ${crew}) \u2014 ${hours}hr shift, ${rest}hr rest. Within spec.` };
   } else if (rand < 0.80) {
     const mgr = crewNames[Math.floor(Math.random() * crewNames.length)];
-    return { time, type: 'WARN', message: `${name} (${div}, Crew ${crew}) — Approaching 276hr monthly limit (${monthHours}/276). Alert sent to ${div} Crew Manager ${mgr}.` };
+    return { time, type: 'WARN', message: `${name} (${div}, Crew ${crew}) \u2014 Approaching 276hr monthly limit (${monthHours}/276). Alert sent to ${div} Crew Manager ${mgr}.` };
   } else if (rand < 0.93) {
-    return { time, type: 'PREVENT', message: `${name} (${div}, Crew ${crew}) — Would exceed 12hr limit at ${Math.floor(Math.random() * 12) + 12}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}. Reassigned to relief crew. Notified Dispatch Supervisor.` };
+    return { time, type: 'PREVENT', message: `${name} (${div}, Crew ${crew}) \u2014 Would exceed 12hr limit at ${Math.floor(Math.random() * 12) + 12}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}. Reassigned to relief crew. Notified Dispatch Supervisor.` };
   } else {
     return { time, type: 'REPORT', message: `Monthly HOS summary for ${div} filed with FRA (0 violations, ${Math.floor(Math.random() * 8) + 1} prevented)` };
   }
@@ -95,19 +115,166 @@ function generateActivity(): ActivityEntry {
 
 function initialFeed(): ActivityEntry[] {
   return [
-    { time: '3:42:18 PM', type: 'CHECK', message: 'HCC — Verified 432 crew schedules against FRA Part 228.12(a)' },
-    { time: '3:42:16 PM', type: 'PASS', message: 'J. Rodriguez (HCC, Crew 7) — 9.5hr shift, 14.5hr rest. Within spec.' },
-    { time: '3:42:14 PM', type: 'WARN', message: 'M. Thompson (HTSI, Crew 12) — Approaching 276hr monthly limit (271/276). Alert sent to HTSI Crew Manager S. Williams.' },
-    { time: '3:42:11 PM', type: 'CHECK', message: 'HRSI — Verified 129 crew schedules against UTU Agreement §4.2' },
-    { time: '3:42:08 PM', type: 'PREVENT', message: 'K. Nguyen (HCC, Crew 3) — Would exceed 12hr limit at 14:30. Reassigned to relief crew. Notified Dispatch Supervisor.' },
-    { time: '3:42:05 PM', type: 'PASS', message: 'Batch: HSI ultrasonic testing crews (106 employees) — All compliant' },
-    { time: '3:42:02 PM', type: 'CHECK', message: 'HTI — Cross-referencing PTC maintenance windows with crew rest periods' },
-    { time: '3:41:58 PM', type: 'PASS', message: 'D. Kowalski (HTI, Signal Crew 2) — 5 consecutive days, 2-day rest scheduled' },
+    { time: '3:42:18 PM', type: 'CHECK', message: 'HCC \u2014 Verified 432 crew schedules against FRA Part 228.12(a)' },
+    { time: '3:42:16 PM', type: 'PASS', message: 'J. Rodriguez (HCC, Crew 7) \u2014 9.5hr shift, 14.5hr rest. Within spec.' },
+    { time: '3:42:14 PM', type: 'WARN', message: 'M. Thompson (HTSI, Crew 12) \u2014 Approaching 276hr monthly limit (271/276). Alert sent to HTSI Crew Manager S. Williams.' },
+    { time: '3:42:11 PM', type: 'CHECK', message: 'HRSI \u2014 Verified 129 crew schedules against UTU Agreement \u00A74.2' },
+    { time: '3:42:08 PM', type: 'PREVENT', message: 'K. Nguyen (HCC, Crew 3) \u2014 Would exceed 12hr limit at 14:30. Reassigned to relief crew. Notified Dispatch Supervisor.' },
+    { time: '3:42:05 PM', type: 'PASS', message: 'Batch: HSI ultrasonic testing crews (106 employees) \u2014 All compliant' },
+    { time: '3:42:02 PM', type: 'CHECK', message: 'HTI \u2014 Cross-referencing PTC maintenance windows with crew rest periods' },
+    { time: '3:41:58 PM', type: 'PASS', message: 'D. Kowalski (HTI, Signal Crew 2) \u2014 5 consecutive days, 2-day rest scheduled' },
     { time: '3:41:55 PM', type: 'REPORT', message: 'Monthly HOS summary for HCC filed with FRA (0 violations, 23 prevented)' },
   ];
 }
 
-/* ── Elapsed timer hook ───────────────────────────────────── */
+/* -- Agent Definitions -------------------------------------------------- */
+
+const operationsAgents: AgentDef[] = [
+  {
+    id: 'dispatch',
+    name: 'Dispatch',
+    subtitle: 'HOS Compliance Monitor',
+    icon: Shield,
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'blue',
+    metrics: [
+      { label: 'Watching', value: '2,800 employees across 7 divisions' },
+      { label: 'Violations prevented', value: '23 this month' },
+      { label: 'Savings this month', value: '$368,000' },
+    ],
+    description: 'Monitors FRA Hours-of-Service compliance across all 7 Herzog divisions in real time. Catches violations before they happen, automatically reassigns crew, and files FRA reports. Zero violations since deployment in October 2025.',
+    deepDiveLink: '#dispatch-deep-dive',
+  },
+  {
+    id: 'scout',
+    name: 'Scout',
+    subtitle: 'Track Defect Early Warning',
+    icon: Eye,
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'blue',
+    metrics: [
+      { label: 'Monitoring', value: '4,200 track miles' },
+      { label: 'Defects predicted this week', value: '3 (all scheduled)' },
+      { label: 'False alarm rate', value: '0.8%' },
+    ],
+    description: 'Combines geometry car data, weather patterns, tonnage history, and inspection records to predict track defects 2-3 weeks before they become safety issues. Prioritizes maintenance crew deployment across the network.',
+  },
+  {
+    id: 'ledger',
+    name: 'Ledger',
+    subtitle: 'License Waste Scanner',
+    icon: Search,
+    status: 'running',
+    statusLabel: 'Running (weekly scan)',
+    accent: 'blue',
+    metrics: [
+      { label: 'Last scan', value: 'March 24 \u2014 found $47K unused' },
+      { label: 'Coverage', value: '47 software platforms' },
+      { label: 'Next scan', value: 'March 31' },
+    ],
+    description: 'Audits software license usage across all divisions weekly. Identifies unused seats, duplicate subscriptions, and consolidation opportunities. Has recovered $312K in wasted software spend since October.',
+  },
+  {
+    id: 'estimator',
+    name: 'Estimator',
+    subtitle: 'Project Bid Intelligence',
+    icon: Calculator,
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'blue',
+    metrics: [
+      { label: 'Watching', value: '14 active bid packages' },
+      { label: 'Accuracy', value: '94% within \u00B18% of winning bid' },
+      { label: 'Last analysis', value: 'I-70 Bridge Rehab \u2014 flagged $180K underestimate' },
+      { label: 'Savings this quarter', value: '$420,000 in avoided overruns' },
+    ],
+    description: 'Analyzes project bid packages against historical data to catch cost estimation errors before submission. Rail projects have 44.7% average cost overrun \u2014 Estimator reduces this to under 12%. Compares material costs, labor rates, and timeline assumptions against 15 years of completed projects.',
+  },
+  {
+    id: 'quartermaster',
+    name: 'Quartermaster',
+    subtitle: 'Cross-Division Procurement',
+    icon: Package,
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'blue',
+    metrics: [
+      { label: 'Duplicate orders caught', value: '7 this month ($34K saved)' },
+      { label: 'Volume discount opportunities', value: '3 active negotiations' },
+      { label: 'Material catalog coverage', value: '73% standardized' },
+    ],
+    description: 'Monitors purchasing across all 7 divisions to catch duplicate orders, negotiate volume discounts, and standardize material catalogs. When HCC orders rail ties and HRSI orders the same ties from a different vendor at a higher price, Quartermaster catches it.',
+  },
+];
+
+const intelligenceAgents: AgentDef[] = [
+  {
+    id: 'chief',
+    name: 'Chief',
+    subtitle: 'Executive Briefing Agent',
+    icon: Briefcase,
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'green',
+    metrics: [
+      { label: "Today's briefing", value: '3 items flagged \u2014 HCC I-70 bridge 8-day slip, HTSI cert expiring Apr 2, HTI conflict resolved' },
+      { label: 'Briefings generated', value: '127 (since October)' },
+      { label: 'CEO read rate', value: '94%' },
+    ],
+    description: 'Monitors all 7 divisions daily and generates an executive briefing for Brad Lager every morning at 7:00 AM. Summarizes key metrics changes, compliance alerts, project milestones, budget variances, and personnel issues. Brad gets a 2-minute read instead of 45 minutes of division reports.',
+  },
+  {
+    id: 'relay',
+    name: 'Relay',
+    subtitle: 'Meeting Intelligence',
+    icon: Mic,
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'green',
+    metrics: [
+      { label: 'Meetings processed this week', value: '34' },
+      { label: 'Action items extracted', value: '87 (23 overdue)' },
+      { label: 'Commitment tracking', value: 'VP Ops audit due March 28 \u2014 1 day remaining' },
+    ],
+    description: 'Attends all internal meetings via calendar integration, generates transcripts, extracts action items, tracks commitments across meetings, and flags when deadlines are missed. Named after the railroad relay signal.',
+  },
+  {
+    id: 'signal',
+    name: 'Signal',
+    subtitle: 'Communications Intelligence',
+    icon: Radio,
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'green',
+    metrics: [
+      { label: 'Threads monitored today', value: '1,240' },
+      { label: 'Escalations triggered', value: '3 (safety, vendor dispute, overtime)' },
+      { label: 'Pattern detected', value: '4 crews reported GPS drift \u2014 possible firmware issue' },
+    ],
+    description: 'Monitors internal email and Slack for mentions of safety concerns, compliance issues, equipment problems, or customer complaints that need escalation. Surfaces patterns that would take weeks to notice manually. Named after the railroad signal system.',
+  },
+  {
+    id: 'atlas',
+    name: 'Atlas',
+    subtitle: 'Personal AI Assistant',
+    icon: User,
+    status: 'active',
+    statusLabel: 'Active (per-user)',
+    accent: 'green',
+    metrics: [
+      { label: 'Active personal instances', value: '847 of 2,800 employees' },
+      { label: 'Queries answered today', value: '2,340' },
+      { label: 'Avg response time', value: '1.2 seconds' },
+      { label: 'Top queries', value: 'Project status (34%), compliance (22%), resources (18%)' },
+    ],
+    description: 'Each employee\'s personal AI assistant connected to their role-specific data. A track inspector asks "what\'s the defect history at MP 247?" and gets an instant answer pulling from inspection records, weather data, and maintenance history. A PM asks "how\'s my project tracking?" and gets budget, schedule, and risk in one answer.',
+    deepDiveLink: '#atlas-deep-dive',
+  },
+];
+
+/* -- Elapsed timer hook ------------------------------------------------- */
 
 function useElapsedTimer(startSeconds: number) {
   const [elapsed, setElapsed] = useState(startSeconds);
@@ -131,9 +298,7 @@ function useCountdown(startSeconds: number) {
   return `in ${mins}m ${secs}s`;
 }
 
-/* ── Pipeline stage component ─────────────────────────────── */
-
-/* ── Activity Feed Row ────────────────────────────────────── */
+/* -- Activity Feed Row -------------------------------------------------- */
 
 function FeedRow({ entry, isNew }: { entry: ActivityEntry; isNew: boolean }) {
   const typeColors: Record<string, string> = {
@@ -168,7 +333,7 @@ function FeedRow({ entry, isNew }: { entry: ActivityEntry; isNew: boolean }) {
   );
 }
 
-/* ── Violations Prevented Card ────────────────────────────── */
+/* -- Violations Prevented Card ------------------------------------------ */
 
 interface ViolationCase {
   severity: 'green' | 'amber' | 'red';
@@ -268,13 +433,135 @@ function ViolationCard({ c }: { c: ViolationCase }) {
   );
 }
 
-/* ── Main Page Component ──────────────────────────────────── */
+/* -- Agent Card Component ----------------------------------------------- */
+
+function AgentCard({
+  agent,
+  index,
+  onOpenDetail,
+}: {
+  agent: AgentDef;
+  index: number;
+  onOpenDetail: (agent: AgentDef) => void;
+}) {
+  const pulsingDot = 'relative after:absolute after:inset-0 after:rounded-full after:bg-green after:animate-ping after:opacity-30';
+  const gradientColor = agent.accent === 'blue'
+    ? 'from-blue to-blue/40'
+    : 'from-emerald-500 to-emerald-500/40';
+  const iconColor = agent.accent === 'blue' ? 'text-blue' : 'text-emerald-500';
+
+  const Icon = agent.icon;
+
+  return (
+    <motion.div
+      variants={fadeUp}
+      custom={index}
+      className="bg-surface-raised border border-border rounded-xl p-5 relative overflow-hidden cursor-pointer hover:border-ink-tertiary/40 transition-colors"
+      onClick={() => onOpenDetail(agent)}
+    >
+      <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${gradientColor}`} />
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <Icon className={`w-4 h-4 ${iconColor}`} strokeWidth={1.8} />
+          <span className="text-[13px] font-semibold text-ink tracking-tight">&quot;{agent.name}&quot;</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          {agent.status === 'active' ? (
+            <>
+              <span className={`w-2 h-2 rounded-full bg-green ${pulsingDot}`} />
+              <span className="text-[11px] font-medium text-green">{agent.statusLabel}</span>
+            </>
+          ) : (
+            <>
+              <span className="w-2 h-2 rounded-full bg-amber" />
+              <span className="text-[11px] font-medium text-amber">{agent.statusLabel}</span>
+            </>
+          )}
+        </div>
+      </div>
+      <p className="text-[12px] font-medium text-ink-secondary mb-4">{agent.subtitle}</p>
+
+      <div className="space-y-2.5 text-[12px]">
+        {agent.metrics.map((m, i) => (
+          <div key={i} className="flex justify-between gap-2">
+            <span className="text-ink-tertiary flex-shrink-0">{m.label}</span>
+            <span className="font-medium text-ink text-right">{m.value}</span>
+          </div>
+        ))}
+      </div>
+
+      {agent.deepDiveLink && (
+        <div className="mt-4 pt-3 border-t border-border">
+          <a href={agent.deepDiveLink} className={`flex items-center gap-1 text-[11px] font-medium ${agent.accent === 'blue' ? 'text-blue' : 'text-emerald-500'} hover:underline`} onClick={(e) => e.stopPropagation()}>
+            Deep dive <ChevronRight className="w-3 h-3" />
+          </a>
+        </div>
+      )}
+    </motion.div>
+  );
+}
+
+/* -- Agent Detail Panel ------------------------------------------------- */
+
+function AgentDetailPanel({ agent, onClose }: { agent: AgentDef; onClose: () => void }) {
+  const Icon = agent.icon;
+  const accentColor = agent.accent === 'blue' ? 'text-blue' : 'text-emerald-500';
+  const borderAccent = agent.accent === 'blue' ? 'border-l-blue' : 'border-l-emerald-500';
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 12 }}
+      transition={{ duration: 0.25 }}
+      className={`bg-surface-raised border border-border rounded-xl p-6 border-l-4 ${borderAccent}`}
+    >
+      <div className="flex items-start justify-between mb-4">
+        <div className="flex items-center gap-3">
+          <Icon className={`w-5 h-5 ${accentColor}`} strokeWidth={1.8} />
+          <div>
+            <h3 className="text-[16px] font-semibold text-ink tracking-tight">&quot;{agent.name}&quot; &mdash; {agent.subtitle}</h3>
+          </div>
+        </div>
+        <button onClick={onClose} className="text-ink-tertiary hover:text-ink transition-colors p-1">
+          <X className="w-4 h-4" />
+        </button>
+      </div>
+      <p className="text-[13px] text-ink-secondary leading-relaxed mb-4">{agent.description}</p>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {agent.metrics.map((m, i) => (
+          <div key={i} className="bg-surface-sunken rounded-lg p-3">
+            <div className="text-[10px] text-ink-tertiary uppercase tracking-wider mb-1">{m.label}</div>
+            <div className="text-[13px] font-semibold text-ink">{m.value}</div>
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+/* -- Main Page Component ------------------------------------------------ */
 
 export default function Agents() {
   const lastCheck = useElapsedTimer(47);
   const nextCheck = useCountdown(780);
   const [feed, setFeed] = useState<ActivityEntry[]>(initialFeed);
   const feedRef = useRef<HTMLDivElement>(null);
+  const [openDetail, setOpenDetail] = useState<AgentDef | null>(null);
+
+  // Override Dispatch metrics with live timers
+  const dispatchWithTimers = {
+    ...operationsAgents[0],
+    metrics: [
+      { label: 'Watching', value: '2,800 employees across 7 divisions' },
+      { label: 'Last check', value: lastCheck },
+      { label: 'Violations prevented', value: '23 this month' },
+      { label: 'Savings this month', value: '$368,000' },
+      { label: 'Next scheduled check', value: nextCheck },
+    ],
+  };
+
+  const liveOpsAgents = [dispatchWithTimers, ...operationsAgents.slice(1)];
 
   // Auto-generate feed entries
   useEffect(() => {
@@ -290,14 +577,13 @@ export default function Agents() {
     return () => clearInterval(id);
   }, []);
 
-  // Pulsing dot animation class
   const pulsingDot = 'relative after:absolute after:inset-0 after:rounded-full after:bg-green after:animate-ping after:opacity-30';
 
   return (
     <div className="p-4 lg:p-8 max-w-[1400px] mx-auto space-y-8">
       <PreliminaryBanner />
 
-      {/* ──────────── SECTION 1: Agent Control Plane ──────────── */}
+      {/* ============ SECTION 0: Header + Summary Bar ============ */}
       <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
         <div className="flex items-center gap-3 mb-1">
           <Bot className="w-5 h-5 text-blue" strokeWidth={1.8} />
@@ -307,130 +593,73 @@ export default function Agents() {
           Named agents deployed across Herzog operations. Monitoring, analyzing, and acting 24/7.
         </p>
 
-        {/* Agent Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Card 1: Dispatch — HOS Compliance Monitor */}
-          <motion.div variants={fadeUp} custom={1} className="bg-surface-raised border border-border rounded-xl p-5 relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue to-blue/40" />
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <Shield className="w-4 h-4 text-blue" strokeWidth={1.8} />
-                <span className="text-[13px] font-semibold text-ink tracking-tight">&quot;Dispatch&quot;</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className={`w-2 h-2 rounded-full bg-green ${pulsingDot}`} />
-                <span className="text-[11px] font-medium text-green">Active</span>
-              </div>
+        {/* Summary Stats Bar */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+          {[
+            { label: 'Active Agents', value: '9', sub: 'monitoring across 7 divisions' },
+            { label: 'Saved This Quarter', value: '$1.2M', sub: 'sum of all agent savings' },
+            { label: 'FRA Violations', value: 'Zero', sub: 'since deployment (Oct 2025)' },
+            { label: 'Queries Answered Today', value: '2,340', sub: 'Atlas personal assistant' },
+          ].map((s, i) => (
+            <div key={i} className="bg-surface-raised border border-border rounded-xl p-4 text-center">
+              <div className="text-[22px] font-bold text-ink tracking-tight">{s.value}</div>
+              <div className="text-[12px] font-semibold text-ink-secondary">{s.label}</div>
+              <div className="text-[11px] text-ink-tertiary mt-0.5">{s.sub}</div>
             </div>
-            <p className="text-[12px] font-medium text-ink-secondary mb-4">HOS Compliance Monitor</p>
-
-            <div className="space-y-2.5 text-[12px]">
-              <div className="flex justify-between">
-                <span className="text-ink-tertiary">Watching</span>
-                <span className="font-medium text-ink">2,800 employees across 7 divisions</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-ink-tertiary">Last check</span>
-                <span className="font-mono text-ink">{lastCheck}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-ink-tertiary">Violations prevented</span>
-                <span className="font-semibold text-green">23 this month</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-ink-tertiary">Savings this month</span>
-                <span className="font-semibold text-ink">$368,000</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-ink-tertiary">Next scheduled check</span>
-                <span className="font-mono text-ink">{nextCheck}</span>
-              </div>
-            </div>
-
-            <div className="mt-4 pt-3 border-t border-border">
-              <a href="#dispatch-deep-dive" className="flex items-center gap-1 text-[11px] font-medium text-blue hover:underline">
-                Deep dive <ChevronRight className="w-3 h-3" />
-              </a>
-            </div>
-          </motion.div>
-
-          {/* Card 2: Scout — Track Defect Early Warning */}
-          <motion.div variants={fadeUp} custom={2} className="bg-surface-raised border border-border rounded-xl p-5 relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-emerald-500/40" />
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <Eye className="w-4 h-4 text-emerald-600" strokeWidth={1.8} />
-                <span className="text-[13px] font-semibold text-ink tracking-tight">&quot;Scout&quot;</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className={`w-2 h-2 rounded-full bg-green ${pulsingDot}`} />
-                <span className="text-[11px] font-medium text-green">Active</span>
-              </div>
-            </div>
-            <p className="text-[12px] font-medium text-ink-secondary mb-4">Track Defect Early Warning</p>
-
-            <div className="space-y-2.5 text-[12px]">
-              <div className="flex justify-between">
-                <span className="text-ink-tertiary">Monitoring</span>
-                <span className="font-medium text-ink">4,200 track miles</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-ink-tertiary">Defects predicted this week</span>
-                <span className="font-medium text-ink">3 (all scheduled)</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-ink-tertiary">False alarm rate</span>
-                <span className="font-medium text-green">0.8%</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Card 3: Ledger — License Waste Scanner */}
-          <motion.div variants={fadeUp} custom={3} className="bg-surface-raised border border-border rounded-xl p-5 relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-amber-500/40" />
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <Search className="w-4 h-4 text-amber-600" strokeWidth={1.8} />
-                <span className="text-[13px] font-semibold text-ink tracking-tight">&quot;Ledger&quot;</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-amber" />
-                <span className="text-[11px] font-medium text-amber">Running (weekly scan)</span>
-              </div>
-            </div>
-            <p className="text-[12px] font-medium text-ink-secondary mb-4">License Waste Scanner</p>
-
-            <div className="space-y-2.5 text-[12px]">
-              <div className="flex justify-between">
-                <span className="text-ink-tertiary">Last scan</span>
-                <span className="font-medium text-ink">March 24 — found $47K unused</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-ink-tertiary">Coverage</span>
-                <span className="font-medium text-ink">47 software platforms</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-ink-tertiary">Next scan</span>
-                <span className="font-medium text-ink">March 31</span>
-              </div>
-            </div>
-          </motion.div>
+          ))}
         </div>
       </motion.div>
 
-      {/* ──────────── SECTION 2: Deep Dive — Dispatch ──────────── */}
+      {/* ============ SECTION 1A: Operations Agents ============ */}
+      <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1}>
+        <div className="flex items-center gap-2 mb-1">
+          <div className="w-2 h-2 rounded-full bg-blue" />
+          <h2 className="text-[16px] font-semibold text-ink tracking-tight">Operations Agents</h2>
+        </div>
+        <p className="text-[12px] text-ink-tertiary mb-4">Automating safety-critical railroad workflows</p>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          {liveOpsAgents.map((agent, i) => (
+            <AgentCard key={agent.id} agent={agent} index={i + 2} onOpenDetail={setOpenDetail} />
+          ))}
+        </div>
+      </motion.div>
+
+      {/* ============ SECTION 1B: Intelligence Agents ============ */}
+      <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3}>
+        <div className="flex items-center gap-2 mb-1">
+          <div className="w-2 h-2 rounded-full bg-emerald-500" />
+          <h2 className="text-[16px] font-semibold text-ink tracking-tight">Intelligence Agents</h2>
+        </div>
+        <p className="text-[12px] text-ink-tertiary mb-4">Your organization&apos;s nervous system</p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {intelligenceAgents.map((agent, i) => (
+            <AgentCard key={agent.id} agent={agent} index={i + 7} onOpenDetail={setOpenDetail} />
+          ))}
+        </div>
+      </motion.div>
+
+      {/* ============ Agent Detail Panel (expandable) ============ */}
+      <AnimatePresence>
+        {openDetail && (
+          <AgentDetailPanel agent={openDetail} onClose={() => setOpenDetail(null)} />
+        )}
+      </AnimatePresence>
+
+      {/* ============ SECTION 2: Deep Dive -- Dispatch ============ */}
       <div id="dispatch-deep-dive" className="scroll-mt-20">
         <motion.div variants={fadeUp} custom={4} initial="hidden" animate="visible">
           <div className="flex items-center gap-2 mb-1">
             <Shield className="w-5 h-5 text-blue" strokeWidth={1.8} />
-            <h2 className="text-[18px] font-semibold text-ink tracking-tight">Deep Dive — &quot;Dispatch&quot; HOS Compliance Agent</h2>
+            <h2 className="text-[18px] font-semibold text-ink tracking-tight">Deep Dive &mdash; &quot;Dispatch&quot; HOS Compliance Agent</h2>
           </div>
           <p className="text-[13px] text-ink-tertiary mb-6">
             How Dispatch monitors FRA Hours-of-Service compliance across all 7 Herzog divisions in real time.
           </p>
         </motion.div>
 
-        {/* 2A: How Dispatch Works — Technical Architecture Pipeline */}
+        {/* 2A: How Dispatch Works -- Technical Architecture Pipeline */}
         <motion.div variants={fadeUp} custom={5} initial="hidden" animate="visible" className="mb-8">
           <h3 className="text-[14px] font-semibold text-ink mb-4">How Dispatch Works</h3>
           <div className="bg-[#0B1120] rounded-xl border border-[#1E293B] p-6 overflow-x-auto">
@@ -449,7 +678,6 @@ export default function Agents() {
                 </div>
               </div>
 
-              {/* Arrow */}
               <div className="flex items-center text-slate-600">
                 <ArrowRight className="w-5 h-5" strokeWidth={1.5} />
               </div>
@@ -470,7 +698,6 @@ export default function Agents() {
                 </div>
               </div>
 
-              {/* Arrow */}
               <div className="flex items-center text-slate-600">
                 <ArrowRight className="w-5 h-5" strokeWidth={1.5} />
               </div>
@@ -489,7 +716,6 @@ export default function Agents() {
                 </div>
               </div>
 
-              {/* Arrow */}
               <div className="flex items-center text-slate-600">
                 <ArrowRight className="w-5 h-5" strokeWidth={1.5} />
               </div>
@@ -518,7 +744,7 @@ export default function Agents() {
             <div className="flex items-center justify-between px-5 py-3 border-b border-[#1E293B]">
               <div className="flex items-center gap-2">
                 <Activity className="w-3.5 h-3.5 text-emerald-400" strokeWidth={2} />
-                <span className="text-[11px] font-semibold text-slate-300 uppercase tracking-wider">Live Feed — Dispatch</span>
+                <span className="text-[11px] font-semibold text-slate-300 uppercase tracking-wider">Live Feed &mdash; Dispatch</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <span className={`w-1.5 h-1.5 rounded-full bg-emerald-400 ${pulsingDot}`} />
@@ -533,9 +759,9 @@ export default function Agents() {
           </div>
         </motion.div>
 
-        {/* 2C: Violations Prevented — Evidence Cards */}
+        {/* 2C: Violations Prevented -- Evidence Cards */}
         <motion.div variants={fadeUp} custom={7} initial="hidden" animate="visible" className="mb-8">
-          <h3 className="text-[14px] font-semibold text-ink mb-4">Violations Prevented — Evidence Cards</h3>
+          <h3 className="text-[14px] font-semibold text-ink mb-4">Violations Prevented &mdash; Evidence Cards</h3>
           <div className="space-y-4">
             {violationCases.map((c, i) => (
               <ViolationCard key={i} c={c} />
@@ -626,7 +852,6 @@ export default function Agents() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Left: Basic Info + Data Sources */}
               <div className="space-y-5">
-                {/* Basic Info */}
                 <div>
                   <div className="text-[11px] font-bold text-ink-tertiary uppercase tracking-wider mb-2">Agent Info</div>
                   <div className="space-y-1.5 text-[12px] font-mono">
@@ -637,7 +862,6 @@ export default function Agents() {
                   </div>
                 </div>
 
-                {/* Data Sources */}
                 <div>
                   <div className="text-[11px] font-bold text-ink-tertiary uppercase tracking-wider mb-2">Data Sources</div>
                   <div className="space-y-1.5 text-[12px]">
@@ -656,7 +880,6 @@ export default function Agents() {
                   </div>
                 </div>
 
-                {/* Notification Channels */}
                 <div>
                   <div className="text-[11px] font-bold text-ink-tertiary uppercase tracking-wider mb-2">Notification Channels</div>
                   <div className="space-y-1.5 text-[12px]">
@@ -677,19 +900,18 @@ export default function Agents() {
 
               {/* Right: Compliance Rules + Human Review */}
               <div className="space-y-5">
-                {/* Compliance Rules Active */}
                 <div>
                   <div className="text-[11px] font-bold text-ink-tertiary uppercase tracking-wider mb-2">Compliance Rules Active</div>
                   <div className="space-y-1.5 text-[12px]">
                     {[
-                      '12-hour on-duty limit (FRA §228.405)',
-                      '10-hour minimum off-duty (FRA §228.405)',
-                      '276 monthly hour cap (FRA §228.405)',
-                      '6/2 consecutive day rule (FRA §228.405)',
+                      '12-hour on-duty limit (FRA \u00A7228.405)',
+                      '10-hour minimum off-duty (FRA \u00A7228.405)',
+                      '276 monthly hour cap (FRA \u00A7228.405)',
+                      '6/2 consecutive day rule (FRA \u00A7228.405)',
                       '30-hour limbo time (Company policy)',
-                      'UTU Agreement §4.2 (rest period provisions)',
-                      'IBEW Local 948 §12.1 (signal maintainer limits)',
-                      'LIUNA District Council §8.3 (track worker provisions)',
+                      'UTU Agreement \u00A74.2 (rest period provisions)',
+                      'IBEW Local 948 \u00A712.1 (signal maintainer limits)',
+                      'LIUNA District Council \u00A78.3 (track worker provisions)',
                     ].map((rule) => (
                       <div key={rule} className="flex items-start gap-2">
                         <CheckCircle2 className="w-3.5 h-3.5 text-green mt-0.5 flex-shrink-0" strokeWidth={2} />
@@ -699,7 +921,6 @@ export default function Agents() {
                   </div>
                 </div>
 
-                {/* Human Review Required For */}
                 <div>
                   <div className="text-[11px] font-bold text-ink-tertiary uppercase tracking-wider mb-2">Human Review Required For</div>
                   <div className="space-y-1.5 text-[12px]">
@@ -722,15 +943,157 @@ export default function Agents() {
         </motion.div>
       </div>
 
-      {/* ──────────── SECTION 3: The Pitch Line ──────────── */}
-      <motion.div variants={fadeUp} custom={10} initial="hidden" animate="visible">
+      {/* ============ SECTION 3: Deep Dive -- Atlas ============ */}
+      <div id="atlas-deep-dive" className="scroll-mt-20">
+        <motion.div variants={fadeUp} custom={10} initial="hidden" animate="visible">
+          <div className="flex items-center gap-2 mb-1">
+            <User className="w-5 h-5 text-emerald-500" strokeWidth={1.8} />
+            <h2 className="text-[18px] font-semibold text-ink tracking-tight">Deep Dive &mdash; &quot;Atlas&quot; Personal AI Assistant</h2>
+          </div>
+          <p className="text-[13px] text-ink-tertiary mb-6">
+            Every employee&apos;s personal AI assistant, connected to their role-specific data. 847 active instances serving 2,800 employees.
+          </p>
+        </motion.div>
+
+        {/* Atlas Demo */}
+        <motion.div variants={fadeUp} custom={11} initial="hidden" animate="visible" className="mb-8">
+          <h3 className="text-[14px] font-semibold text-ink mb-4">Live Demo &mdash; Atlas Answering a Query</h3>
+          <div className="bg-[#0B1120] rounded-xl border border-[#1E293B] overflow-hidden">
+            {/* User Query Header */}
+            <div className="px-5 py-3 border-b border-[#1E293B]">
+              <div className="flex items-center gap-2 mb-2">
+                <User className="w-3.5 h-3.5 text-slate-400" strokeWidth={2} />
+                <span className="text-[11px] font-semibold text-slate-300 uppercase tracking-wider">User Query</span>
+              </div>
+              <div className="font-mono text-[12px] text-slate-400">
+                <span className="text-emerald-400">USER:</span> Sarah Chen (Track Inspector, HSI)
+              </div>
+              <div className="font-mono text-[13px] text-ink mt-1">
+                &quot;What should I prioritize today?&quot;
+              </div>
+            </div>
+
+            {/* Context Sources */}
+            <div className="px-5 py-3 border-b border-[#1E293B] bg-[#0D1424]">
+              <div className="text-[10px] font-bold text-blue uppercase tracking-widest mb-2">Context Window &mdash; Sources Loaded</div>
+              <div className="font-mono text-[11px] text-slate-500 space-y-0.5">
+                <div><span className="text-slate-600">\u251C\u2500</span> Track inspection database <span className="text-slate-700">(HSI assignments, defect history)</span></div>
+                <div><span className="text-slate-600">\u251C\u2500</span> FRA defect log <span className="text-slate-700">(active defects, compliance deadlines)</span></div>
+                <div><span className="text-slate-600">\u251C\u2500</span> Weather API <span className="text-slate-700">(current conditions, 48hr forecast)</span></div>
+                <div><span className="text-slate-600">\u251C\u2500</span> HR training system <span className="text-slate-700">(certifications, renewals)</span></div>
+                <div><span className="text-slate-600">\u251C\u2500</span> Maintenance work orders <span className="text-slate-700">(recent emergency repairs)</span></div>
+                <div><span className="text-slate-600">\u2514\u2500</span> Inspection assignment queue <span className="text-slate-700">(today&apos;s route)</span></div>
+              </div>
+            </div>
+
+            {/* Atlas Response */}
+            <div className="px-5 py-4">
+              <div className="flex items-center gap-2 mb-3">
+                <span className={`w-2 h-2 rounded-full bg-emerald-400 ${pulsingDot}`} />
+                <span className="text-[11px] font-semibold text-emerald-400 uppercase tracking-wider">Atlas Response</span>
+              </div>
+              <div className="font-mono text-[12px] leading-relaxed space-y-4">
+                <div className="text-slate-300">
+                  Based on your inspection assignments and current conditions:
+                </div>
+
+                <div className="border-l-2 border-red-500 pl-3">
+                  <div className="text-red-400 font-semibold">1. PRIORITY: MP 247.1 &mdash; Surface deviation at 2.1&quot;</div>
+                  <div className="text-slate-400 mt-1">
+                    Exceeds Class 4 limit. Last 3 inspections show accelerating trend.
+                    <br />Recommend immediate assessment.
+                  </div>
+                </div>
+
+                <div className="border-l-2 border-amber-500 pl-3">
+                  <div className="text-amber-400 font-semibold">2. ATTENTION: MP 312.4 &mdash; Ballast repair follow-up</div>
+                  <div className="text-slate-400 mt-1">
+                    March 25 emergency work needs follow-up inspection per FRA &sect;213.233(c).
+                    <br />Due by April 1.
+                  </div>
+                </div>
+
+                <div className="border-l-2 border-emerald-500 pl-3">
+                  <div className="text-emerald-400 font-semibold">3. ROUTINE: MP 180&ndash;195 &mdash; Scheduled monthly inspection</div>
+                  <div className="text-slate-400 mt-1">
+                    No known defects. Weather forecast: clear, 58&deg;F.
+                    <br />Good conditions for visual inspection.
+                  </div>
+                </div>
+
+                <div className="border-l-2 border-blue-500 pl-3">
+                  <div className="text-blue-400 font-semibold">4. NOTE: FRA certification renewal due May 15</div>
+                  <div className="text-slate-400 mt-1">
+                    HR has scheduled the training module &mdash; check your email.
+                  </div>
+                </div>
+              </div>
+
+              {/* Context Freshness Footer */}
+              <div className="mt-4 pt-3 border-t border-[#1E293B] flex flex-wrap gap-x-6 gap-y-1 font-mono text-[10px] text-slate-600">
+                <span>Context freshness: <span className="text-slate-500">2 minutes ago</span></span>
+                <span>Sources: <span className="text-slate-500">14 data sources</span></span>
+                <span>Tokens: <span className="text-slate-500">4,247</span></span>
+                <span>Response time: <span className="text-emerald-600">1.1s</span></span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Atlas Usage Stats */}
+        <motion.div variants={fadeUp} custom={12} initial="hidden" animate="visible" className="mb-8">
+          <h3 className="text-[14px] font-semibold text-ink mb-4">Atlas Deployment Stats</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              { label: 'Active Instances', value: '847', sub: 'of 2,800 employees' },
+              { label: 'Queries Today', value: '2,340', sub: 'avg 2.8 per user' },
+              { label: 'Avg Response Time', value: '1.2s', sub: '14 data sources per query' },
+              { label: 'Satisfaction', value: '4.6/5', sub: 'from 312 user surveys' },
+            ].map((s, i) => (
+              <div key={i} className="bg-surface-raised border border-border rounded-lg p-4">
+                <div className="text-[10px] text-ink-tertiary uppercase tracking-wider mb-1">{s.label}</div>
+                <div className="text-[20px] font-semibold text-ink tracking-tight">{s.value}</div>
+                <div className="text-[11px] text-ink-tertiary">{s.sub}</div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Atlas Query Breakdown */}
+        <motion.div variants={fadeUp} custom={13} initial="hidden" animate="visible" className="mb-8">
+          <h3 className="text-[14px] font-semibold text-ink mb-4">Most Common Query Types</h3>
+          <div className="bg-surface-raised border border-border rounded-xl p-5">
+            <div className="space-y-3">
+              {[
+                { type: 'Project status', pct: 34, color: 'bg-blue' },
+                { type: 'Compliance lookups', pct: 22, color: 'bg-emerald-500' },
+                { type: 'Resource availability', pct: 18, color: 'bg-amber-500' },
+                { type: 'Equipment history', pct: 12, color: 'bg-purple-500' },
+                { type: 'Schedule queries', pct: 8, color: 'bg-red-500' },
+                { type: 'Other', pct: 6, color: 'bg-slate-400' },
+              ].map((q) => (
+                <div key={q.type} className="flex items-center gap-3">
+                  <span className="text-[12px] text-ink-secondary w-40 flex-shrink-0">{q.type}</span>
+                  <div className="flex-1 h-5 bg-surface-sunken rounded-full overflow-hidden">
+                    <div className={`h-full ${q.color} rounded-full`} style={{ width: `${q.pct}%` }} />
+                  </div>
+                  <span className="text-[12px] font-semibold text-ink w-10 text-right">{q.pct}%</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* ============ SECTION 4: The Pitch Line ============ */}
+      <motion.div variants={fadeUp} custom={14} initial="hidden" animate="visible">
         <div className="bg-surface-sunken border border-border rounded-xl p-8 text-center">
           <p className="text-[18px] font-semibold text-ink tracking-tight mb-2">
-            Your workforce didn&apos;t double. It got smarter.
+            9 agents. 7 divisions. 2,800 employees served.
           </p>
           <p className="text-[13px] text-ink-tertiary max-w-2xl mx-auto">
-            Dispatch monitors 2,800 employees 24/7 at 0.2-second response time — something that would
-            require 12 full-time compliance officers doing manual schedule reviews.
+            From FRA compliance to executive briefings, from project estimation to personal AI assistants &mdash;
+            this is what the Last Mile of AI looks like. Not a dashboard. A workforce multiplier.
           </p>
         </div>
       </motion.div>
