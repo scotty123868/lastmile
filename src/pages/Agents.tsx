@@ -483,9 +483,9 @@ function AgentCard({
 
       <div className="space-y-2.5 text-[12px]">
         {agent.metrics.map((m, i) => (
-          <div key={i} className="flex justify-between gap-2">
-            <span className="text-ink-tertiary flex-shrink-0">{m.label}</span>
-            <span className="font-medium text-ink text-right">{m.value}</span>
+          <div key={i} className="flex justify-between gap-3">
+            <span className="text-ink-tertiary whitespace-nowrap">{m.label}</span>
+            <span className="font-semibold text-ink text-right font-mono tabular-nums">{m.value}</span>
           </div>
         ))}
       </div>
@@ -681,7 +681,7 @@ export default function Agents() {
         </div>
         <p className="text-[12px] text-ink-tertiary mb-4">Automating safety-critical railroad workflows</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {liveOpsAgents.map((agent, i) => (
             <AgentCard key={agent.id} agent={agent} index={i + 2} onOpenDetail={setOpenDetail} />
           ))}
@@ -696,7 +696,7 @@ export default function Agents() {
         </div>
         <p className="text-[12px] text-ink-tertiary mb-4">Your organization&apos;s nervous system</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {intelligenceAgents.map((agent, i) => (
             <AgentCard key={agent.id} agent={agent} index={i + 7} onOpenDetail={setOpenDetail} />
           ))}
