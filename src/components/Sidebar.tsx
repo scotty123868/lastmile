@@ -19,6 +19,7 @@ import {
   Server,
   Terminal,
   ExternalLink,
+  Brain,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
 
@@ -39,6 +40,7 @@ const navSections: NavSection[] = [
       { to: '/assessment', icon: ClipboardCheck, label: 'Assessment' },
       { to: '/impact', icon: TrendingUp, label: 'Impact' },
       { to: '/intelligence', icon: MessageSquare, label: 'Intelligence' },
+      { to: '/ai-demo', icon: Brain, label: 'AI Analysis' },
     ],
   },
   {
