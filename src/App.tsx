@@ -16,6 +16,7 @@ import Assessment from './pages/Assessment';
 import ExecutiveBriefing from './pages/ExecutiveBriefing';
 import Connectors from './pages/Connectors';
 import Reliability from './pages/Reliability';
+import Adoption from './pages/Adoption';
 import { useCompany } from './data/CompanyContext';
 import { SimulationProvider } from './data/SimulationEngine';
 import EventToast from './components/EventToast';
@@ -35,7 +36,8 @@ const routeTitles: Record<string, string> = {
   '/analytics': 'Overview',
   '/assistant': 'Intelligence',
   '/context': 'Operations',
-  '/adoption': 'Impact',
+  '/adoption': 'Adoption',
+  '/adoption-pulse': 'Impact',
   '/integrations': 'Overview',
   '/data-intelligence': 'Intelligence',
 };
@@ -101,7 +103,8 @@ function AnimatedRoutes() {
 
           {/* Legacy routes still accessible (not in nav) */}
           <Route path="/context" element={<ContextPipeline />} />
-          <Route path="/adoption" element={<AdoptionPulse />} />
+          <Route path="/adoption" element={<Adoption />} />
+          <Route path="/adoption-pulse" element={<AdoptionPulse />} />
           <Route path="/integrations" element={<Integrations />} />
           <Route path="/data-intelligence" element={<DataIntelligence />} />
 
