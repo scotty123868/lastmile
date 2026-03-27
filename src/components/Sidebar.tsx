@@ -17,6 +17,7 @@ import {
   ShieldCheck,
   Users,
   Server,
+  Terminal,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
 
@@ -42,6 +43,7 @@ const navSections: NavSection[] = [
     items: [
       { to: '/infrastructure', icon: Server, label: 'AI Infrastructure' },
       { to: '/connectors', icon: Plug, label: 'System Connectors' },
+      { to: '/mcp-config', icon: Terminal, label: 'MCP Server' },
       { to: '/reliability', icon: ShieldCheck, label: 'AI Reliability' },
       { to: '/adoption', icon: Users, label: 'Adoption' },
     ],

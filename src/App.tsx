@@ -18,6 +18,7 @@ import Connectors from './pages/Connectors';
 import Reliability from './pages/Reliability';
 import Adoption from './pages/Adoption';
 import Infrastructure from './pages/Infrastructure';
+import MCPConfig from './pages/MCPConfig';
 import { useCompany } from './data/CompanyContext';
 import { SimulationProvider } from './data/SimulationEngine';
 import EventToast from './components/EventToast';
@@ -33,6 +34,7 @@ const routeTitles: Record<string, string> = {
   '/connectors': 'System Connectors',
   '/reliability': 'AI Reliability',
   '/infrastructure': 'AI Infrastructure',
+  '/mcp-config': 'MCP Server',
   // Legacy routes (redirected, but just in case)
   '/workflows': 'Operations',
   '/analytics': 'Overview',
@@ -103,6 +105,7 @@ function AnimatedRoutes() {
           <Route path="/connectors" element={<Connectors />} />
           <Route path="/reliability" element={<Reliability />} />
           <Route path="/infrastructure" element={<Infrastructure />} />
+          <Route path="/mcp-config" element={<MCPConfig />} />
 
           {/* Legacy routes still accessible (not in nav) */}
           <Route path="/context" element={<ContextPipeline />} />
