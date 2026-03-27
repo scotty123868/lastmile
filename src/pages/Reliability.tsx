@@ -355,9 +355,9 @@ function HBar({ pct, color, label }: { pct: number; color: string; label: string
 
 export default function Reliability() {
   /* Live test counter */
-  const [testsToday, setTestsToday] = useState(612);
+  const [testsToday, setTestsToday] = useState(847);
   useEffect(() => {
-    const id = setInterval(() => setTestsToday((v) => v + 1), 4000 + Math.random() * 1000);
+    const id = setInterval(() => setTestsToday((v) => v + 1), 100_000);
     return () => clearInterval(id);
   }, []);
 
@@ -401,7 +401,7 @@ export default function Reliability() {
               </span>
               <span className="text-3xl font-semibold text-emerald-500">%</span>
             </div>
-            <p className="text-xs text-ink-tertiary mt-1">62 active workflows, 847 tests/day</p>
+            <p className="text-xs text-ink-tertiary mt-1">62 active workflows, {testsToday.toLocaleString()} tests/day</p>
           </div>
 
           {/* Inline sparkline */}
@@ -660,7 +660,7 @@ export default function Reliability() {
                 <div className="text-right pr-2 text-[10px] text-ink-faint -mt-5">746/day</div>
               </div>
               <p className="text-center text-[11px] text-ink-secondary font-semibold mt-3 font-sans">
-                Total: 847 tests/day
+                Total: {testsToday.toLocaleString()} tests/day
               </p>
             </div>
           </div>

@@ -12,7 +12,6 @@ import {
   Building2,
   Landmark,
   Check,
-  FileText,
   Plug,
   ShieldCheck,
   Users,
@@ -36,7 +35,6 @@ const navSections: NavSection[] = [
   {
     title: 'Operations',
     items: [
-      { to: '/executive-briefing', icon: FileText, label: 'Executive Briefing' },
       { to: '/overview', icon: BarChart3, label: 'Overview' },
       { to: '/operations', icon: Activity, label: 'Operations' },
       { to: '/assessment', icon: ClipboardCheck, label: 'Assessment' },
@@ -298,7 +296,7 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
           rel="noopener noreferrer"
           className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-blue-400 transition-colors"
         >
-          Switch to Assessment
+          View Assessment →
           <ExternalLink className="w-3 h-3" strokeWidth={2} />
         </a>
       </div>

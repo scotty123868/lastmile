@@ -140,7 +140,7 @@ const pipelineStages: PipelineStage[] = [
   { title: 'SOURCE DATA', items: ['SAP Work Orders', 'P6 Schedules', 'GPS Feeds', 'Kronos', 'FRA Data', 'PTC Logs'], stat: '47 systems' },
   { title: 'DATA PROCESSING', items: ['Clean & normalize', 'Dedup & merge', 'Enrich w/ metadata', 'Schema map to unified model'], stat: '2.4M records' },
   { title: 'CONTEXT ENGINE', items: ['Role-based filtering', 'Relevance scoring', 'Token budget mgmt', 'Freshness guarantee'], stat: '1,084 windows' },
-  { title: 'USER\'S AI TOOLS', items: ['Queries answered', 'Right context served', 'Accurate responses', 'Updated in real-time'], stat: '127 active now' },
+  { title: 'USER\'S AI TOOLS', items: ['Queries answered', 'Right context served', 'Accurate responses', 'Updated in real-time'], stat: 'LIVE_USERS' },
 ];
 
 /* ── Context example data ─────────────────────────────────── */
@@ -295,10 +295,10 @@ export default function ContextWindows() {
   useEffect(() => {
     const id = setInterval(() => {
       setActiveUsers(prev => {
-        const delta = Math.random() > 0.5 ? 1 : -1;
+        const delta = (Math.random() > 0.5 ? 1 : -1) * randomInt(1, 3);
         return Math.max(118, Math.min(142, prev + delta));
       });
-    }, 3000);
+    }, 15000 + Math.random() * 5000);
     return () => clearInterval(id);
   }, []);
 
@@ -458,7 +458,7 @@ export default function ContextWindows() {
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-3 text-[12px] font-semibold text-ink">{stage.stat}</div>
+                  <div className="mt-3 text-[12px] font-semibold text-ink">{stage.stat === 'LIVE_USERS' ? `${activeUsers} active now` : stage.stat}</div>
                 </button>
 
                 {/* Expanded detail */}

@@ -13,7 +13,6 @@ import DataIntelligence from './pages/DataIntelligence';
 import Assistant from './pages/Assistant';
 import Analytics from './pages/Analytics';
 import Assessment from './pages/Assessment';
-import ExecutiveBriefing from './pages/ExecutiveBriefing';
 import Connectors from './pages/Connectors';
 import Reliability from './pages/Reliability';
 import Adoption from './pages/Adoption';
@@ -28,7 +27,6 @@ import EventToast from './components/EventToast';
 
 const routeTitles: Record<string, string> = {
   '/overview': 'Overview',
-  '/executive-briefing': 'Executive Briefing',
   '/operations': 'Operations',
   '/assessment': 'Assessment',
   '/impact': 'Impact',
@@ -97,9 +95,8 @@ function AnimatedRoutes() {
         className="h-full"
       >
         <Routes location={location}>
-          {/* Executive Briefing — default landing page */}
+          {/* Default landing page */}
           <Route path="/" element={<Navigate to="/overview" replace />} />
-          <Route path="/executive-briefing" element={<ExecutiveBriefing />} />
 
           {/* Primary routes */}
           <Route path="/overview" element={<Analytics />} />

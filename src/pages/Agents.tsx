@@ -549,6 +549,53 @@ export default function Agents() {
   const feedRef = useRef<HTMLDivElement>(null);
   const [openDetail, setOpenDetail] = useState<AgentDef | null>(null);
 
+  // Live query counter — slowly increments
+  const [queryCount, setQueryCount] = useState(2340);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setQueryCount((c) => c + 1);
+    }, 8000 + Math.random() * 4000);
+    return () => clearInterval(id);
+  }, []);
+
+  // Interactive Atlas demo state
+  const [atlasInput, setAtlasInput] = useState('');
+  const [atlasStreaming, setAtlasStreaming] = useState(false);
+  const [atlasResponse, setAtlasResponse] = useState('');
+  const [, setAtlasFullResponse] = useState('');
+  const [atlasQuestion, setAtlasQuestion] = useState('');
+  const streamRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const streamIdxRef = useRef(0);
+
+  const atlasQA: Record<string, string> = {
+    'What should I prioritize today?': `Based on your inspection assignments and current conditions:\n\n🔴 PRIORITY: MP 247.1 — Surface deviation trending toward Class 4 limit. Last 3 inspections show accelerating degradation. Recommend immediate assessment.\n\n🟡 ATTENTION: MP 312.4 — Ballast repair from March 25 needs follow-up inspection per FRA §213.233(c). Due by April 1.\n\n🟢 ROUTINE: MP 180-195 — Scheduled monthly inspection. Clear weather, good conditions.\n\nSources: Track inspection database, FRA defect log, weather API, your assignment queue\nContext: 14 data sources | Updated 2 min ago`,
+
+    'How are we tracking on the I-70 bridge?': `I-70 Bridge Rehabilitation (WO-2025-08834):\n\n📊 Budget: 69% spent ($2.14M of $3.1M) vs 71% schedule elapsed — slightly ahead on spend\n⚠️ Schedule: 8-day slip on critical path (bearing installation)\n💰 Contingency: $120K remaining, one pending change order for $45K\n📋 Comparable projects averaged 12% over budget — you're tracking within range\n\nRecommendation: Expedite bearing shipment — that's your critical path constraint. Current 2-week lead time puts August 15 deadline at risk.\n\nSources: Primavera P6, SAP financials, procurement system\nContext: 8 data sources | Updated 7 min ago`,
+
+    'Are we FRA compliant across all divisions?': `FRA Compliance Status — All Divisions:\n\n✅ Overall: 98.3% compliant (349 current, 6 overdue inspections)\n\nBy Division:\n• HCC: 47 current, 2 overdue (MP 247, MP 312)\n• HRSI: 23 current, 0 overdue ✓\n• HSI: 89 current, 1 overdue\n• HTI: 34 current, 0 overdue ✓\n• HTSI: 156 current, 3 overdue\n\n🚨 Critical Items:\n1. Signal fault in Zone 8 (HTI) — needs immediate attention\n2. Signal maintainer certification expiring April 2 — 6 days away, flagged to HR\n\nSources: FRA compliance database, HR training system, division inspection logs\nContext: 23 data sources | Updated 1 min ago`,
+  };
+
+  const startAtlasStream = (question: string) => {
+    const response = atlasQA[question] || `Connecting to Herzog systems... This query requires live system access. In production, Atlas would answer this in ~1.2 seconds using 14 connected data sources.`;
+    setAtlasQuestion(question);
+    setAtlasFullResponse(response);
+    setAtlasResponse('');
+    setAtlasStreaming(true);
+    streamIdxRef.current = 0;
+
+    if (streamRef.current) clearInterval(streamRef.current);
+    streamRef.current = setInterval(() => {
+      streamIdxRef.current += 1;
+      if (streamIdxRef.current >= response.length) {
+        if (streamRef.current) clearInterval(streamRef.current);
+        setAtlasResponse(response);
+        setAtlasStreaming(false);
+      } else {
+        setAtlasResponse(response.slice(0, streamIdxRef.current));
+      }
+    }, 18);
+  };
+
   // Override Dispatch metrics with live timers
   const dispatchWithTimers = {
     ...operationsAgents[0],
@@ -595,11 +642,21 @@ export default function Agents() {
 
         {/* Summary Stats Bar */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 bg-gray-900 rounded-xl p-6">
+          {/* Active Agents with pulsing green dot */}
+          <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 text-center">
+            <div className="flex items-center justify-center gap-2">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-50" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
+              </span>
+              <span className="text-3xl font-bold text-white tracking-tight">9</span>
+            </div>
+            <div className="text-[12px] font-semibold text-gray-300">Active Agents</div>
+            <div className="text-[11px] text-gray-500 mt-0.5">monitoring across 7 divisions</div>
+          </div>
           {[
-            { label: 'Active Agents', value: '9', sub: 'monitoring across 7 divisions' },
             { label: 'Saved This Quarter', value: '$1.2M', sub: 'sum of all agent savings' },
             { label: 'FRA Violations', value: 'Zero', sub: 'since deployment (Oct 2025)' },
-            { label: 'Queries Answered Today', value: '2,340', sub: 'Atlas personal assistant' },
           ].map((s, i) => (
             <div key={i} className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 text-center">
               <div className="text-3xl font-bold text-white tracking-tight">{s.value}</div>
@@ -607,6 +664,12 @@ export default function Agents() {
               <div className="text-[11px] text-gray-500 mt-0.5">{s.sub}</div>
             </div>
           ))}
+          {/* Live query counter */}
+          <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 text-center">
+            <div className="text-3xl font-bold text-white tracking-tight">{queryCount.toLocaleString()}</div>
+            <div className="text-[12px] font-semibold text-gray-300">Queries Answered Today</div>
+            <div className="text-[11px] text-gray-500 mt-0.5">Atlas personal assistant</div>
+          </div>
         </div>
       </motion.div>
 
@@ -955,88 +1018,73 @@ export default function Agents() {
           </p>
         </motion.div>
 
-        {/* Atlas Demo */}
+        {/* Interactive Atlas Demo */}
         <motion.div variants={fadeUp} custom={11} initial="hidden" animate="visible" className="mb-8">
-          <h3 className="text-[14px] font-semibold text-ink mb-4">Live Demo &mdash; Atlas Answering a Query</h3>
+          <h3 className="text-[14px] font-semibold text-ink mb-4">Try It &mdash; Ask Atlas Anything</h3>
           <div className="bg-[#0B1120] rounded-xl border border-[#1E293B] overflow-hidden">
-            {/* User Query Header */}
-            <div className="px-5 py-3 border-b border-[#1E293B]">
-              <div className="flex items-center gap-2 mb-2">
-                <User className="w-3.5 h-3.5 text-slate-400" strokeWidth={2} />
-                <span className="text-[11px] font-semibold text-slate-300 uppercase tracking-wider">User Query</span>
-              </div>
-              <div className="font-mono text-[12px] text-slate-400">
-                <span className="text-emerald-400">USER:</span> Sarah Chen (Track Inspector, HSI)
-              </div>
-              <div className="font-mono text-[13px] text-ink mt-1">
-                &quot;What should I prioritize today?&quot;
+            {/* Suggested Questions */}
+            <div className="px-5 py-4 border-b border-[#1E293B]">
+              <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">Suggested Questions</div>
+              <div className="flex flex-wrap gap-2">
+                {Object.keys(atlasQA).map((q) => (
+                  <button
+                    key={q}
+                    onClick={() => { setAtlasInput(q); startAtlasStream(q); }}
+                    disabled={atlasStreaming}
+                    className="px-3 py-1.5 rounded-full bg-[#1E293B] text-[12px] text-slate-300 hover:bg-[#2D3B4F] hover:text-white transition-colors disabled:opacity-50 cursor-pointer border border-[#2D3B4F]"
+                  >
+                    {q}
+                  </button>
+                ))}
               </div>
             </div>
 
-            {/* Context Sources */}
+            {/* Chat Input */}
             <div className="px-5 py-3 border-b border-[#1E293B] bg-[#0D1424]">
-              <div className="text-[10px] font-bold text-blue uppercase tracking-widest mb-2">Context Window &mdash; Sources Loaded</div>
-              <div className="font-mono text-[11px] text-slate-500 space-y-0.5">
-                <div><span className="text-slate-600">\u251C\u2500</span> Track inspection database <span className="text-slate-700">(HSI assignments, defect history)</span></div>
-                <div><span className="text-slate-600">\u251C\u2500</span> FRA defect log <span className="text-slate-700">(active defects, compliance deadlines)</span></div>
-                <div><span className="text-slate-600">\u251C\u2500</span> Weather API <span className="text-slate-700">(current conditions, 48hr forecast)</span></div>
-                <div><span className="text-slate-600">\u251C\u2500</span> HR training system <span className="text-slate-700">(certifications, renewals)</span></div>
-                <div><span className="text-slate-600">\u251C\u2500</span> Maintenance work orders <span className="text-slate-700">(recent emergency repairs)</span></div>
-                <div><span className="text-slate-600">\u2514\u2500</span> Inspection assignment queue <span className="text-slate-700">(today&apos;s route)</span></div>
+              <div className="flex items-center gap-3">
+                <span className="text-emerald-400 font-mono text-[12px] flex-shrink-0">&gt;</span>
+                <input
+                  type="text"
+                  value={atlasInput}
+                  onChange={(e) => setAtlasInput(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' && atlasInput.trim() && !atlasStreaming) startAtlasStream(atlasInput.trim()); }}
+                  placeholder="Ask Atlas anything about Herzog operations..."
+                  className="flex-1 bg-transparent border-none outline-none text-[13px] font-mono text-white placeholder:text-slate-600"
+                  disabled={atlasStreaming}
+                />
               </div>
             </div>
 
-            {/* Atlas Response */}
-            <div className="px-5 py-4">
-              <div className="flex items-center gap-2 mb-3">
-                <span className={`w-2 h-2 rounded-full bg-emerald-400 ${pulsingDot}`} />
-                <span className="text-[11px] font-semibold text-emerald-400 uppercase tracking-wider">Atlas Response</span>
+            {/* Atlas Response Area */}
+            {(atlasResponse || atlasStreaming) && (
+              <div className="px-5 py-4">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">Q:</span>
+                  <span className="text-[12px] text-slate-400 font-mono">{atlasQuestion}</span>
+                </div>
+                <div className="flex items-center gap-2 mb-3 mt-3">
+                  <span className={`w-2 h-2 rounded-full bg-emerald-400 ${pulsingDot}`} />
+                  <span className="text-[11px] font-semibold text-emerald-400 uppercase tracking-wider">Atlas</span>
+                  {atlasStreaming && <span className="text-[10px] text-slate-600 font-mono">streaming...</span>}
+                </div>
+                <div className="font-mono text-[12px] leading-relaxed text-slate-300 whitespace-pre-wrap">
+                  {atlasResponse}
+                  {atlasStreaming && (
+                    <span className="inline-block w-[2px] h-[14px] bg-emerald-400 ml-0.5 align-middle" style={{ animation: 'blink 0.8s step-end infinite' }} />
+                  )}
+                </div>
+                <style>{`@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }`}</style>
+
+                {/* Context footer (shown after streaming completes) */}
+                {!atlasStreaming && atlasResponse && (
+                  <div className="mt-4 pt-3 border-t border-[#1E293B] flex flex-wrap gap-x-6 gap-y-1 font-mono text-[10px] text-slate-600">
+                    <span>Context freshness: <span className="text-slate-500">2 minutes ago</span></span>
+                    <span>Sources: <span className="text-slate-500">14 data sources</span></span>
+                    <span>Response time: <span className="text-emerald-600">1.2s</span></span>
+                  </div>
+                )}
               </div>
-              <div className="font-mono text-[12px] leading-relaxed space-y-4">
-                <div className="text-slate-300">
-                  Based on your inspection assignments and current conditions:
-                </div>
-
-                <div className="border-l-2 border-red-500 pl-3">
-                  <div className="text-red-400 font-semibold">1. PRIORITY: MP 247.1 &mdash; Surface deviation at 2.1&quot;</div>
-                  <div className="text-slate-400 mt-1">
-                    Exceeds Class 4 limit. Last 3 inspections show accelerating trend.
-                    <br />Recommend immediate assessment.
-                  </div>
-                </div>
-
-                <div className="border-l-2 border-amber-500 pl-3">
-                  <div className="text-amber-400 font-semibold">2. ATTENTION: MP 312.4 &mdash; Ballast repair follow-up</div>
-                  <div className="text-slate-400 mt-1">
-                    March 25 emergency work needs follow-up inspection per FRA &sect;213.233(c).
-                    <br />Due by April 1.
-                  </div>
-                </div>
-
-                <div className="border-l-2 border-emerald-500 pl-3">
-                  <div className="text-emerald-400 font-semibold">3. ROUTINE: MP 180&ndash;195 &mdash; Scheduled monthly inspection</div>
-                  <div className="text-slate-400 mt-1">
-                    No known defects. Weather forecast: clear, 58&deg;F.
-                    <br />Good conditions for visual inspection.
-                  </div>
-                </div>
-
-                <div className="border-l-2 border-blue-500 pl-3">
-                  <div className="text-blue-400 font-semibold">4. NOTE: FRA certification renewal due May 15</div>
-                  <div className="text-slate-400 mt-1">
-                    HR has scheduled the training module &mdash; check your email.
-                  </div>
-                </div>
-              </div>
-
-              {/* Context Freshness Footer */}
-              <div className="mt-4 pt-3 border-t border-[#1E293B] flex flex-wrap gap-x-6 gap-y-1 font-mono text-[10px] text-slate-600">
-                <span>Context freshness: <span className="text-slate-500">2 minutes ago</span></span>
-                <span>Sources: <span className="text-slate-500">14 data sources</span></span>
-                <span>Tokens: <span className="text-slate-500">4,247</span></span>
-                <span>Response time: <span className="text-emerald-600">1.1s</span></span>
-              </div>
-            </div>
+            )}
           </div>
         </motion.div>
 
@@ -1046,7 +1094,7 @@ export default function Agents() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
               { label: 'Active Instances', value: '847', sub: 'of 2,800 employees' },
-              { label: 'Queries Today', value: '2,340', sub: 'avg 2.8 per user' },
+              { label: 'Queries Today', value: queryCount.toLocaleString(), sub: 'avg 2.8 per user' },
               { label: 'Avg Response Time', value: '1.2s', sub: '14 data sources per query' },
               { label: 'Satisfaction', value: '4.6/5', sub: 'from 312 user surveys' },
             ].map((s, i) => (
