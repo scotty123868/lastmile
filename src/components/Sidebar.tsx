@@ -21,6 +21,7 @@ import {
   ExternalLink,
   Brain,
   Layers,
+  Bot,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
 
@@ -47,6 +48,7 @@ const navSections: NavSection[] = [
   {
     title: 'Platform',
     items: [
+      { to: '/agents', icon: Bot, label: 'AI Agents' },
       { to: '/infrastructure', icon: Server, label: 'AI Infrastructure' },
       { to: '/connectors', icon: Plug, label: 'System Connectors' },
       { to: '/mcp-config', icon: Terminal, label: 'MCP Server' },

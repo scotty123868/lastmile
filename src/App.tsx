@@ -21,6 +21,7 @@ import Infrastructure from './pages/Infrastructure';
 import MCPConfig from './pages/MCPConfig';
 import AIDemo from './pages/AIDemo';
 import ContextWindows from './pages/ContextWindows';
+import Agents from './pages/Agents';
 import { useCompany } from './data/CompanyContext';
 import { SimulationProvider } from './data/SimulationEngine';
 import EventToast from './components/EventToast';
@@ -39,6 +40,7 @@ const routeTitles: Record<string, string> = {
   '/mcp-config': 'MCP Server',
   '/context-windows': 'Context Windows',
   '/ai-demo': 'AI Analysis',
+  '/agents': 'AI Agents',
   // Legacy routes (redirected, but just in case)
   '/workflows': 'Operations',
   '/analytics': 'Overview',
@@ -112,6 +114,7 @@ function AnimatedRoutes() {
           <Route path="/mcp-config" element={<MCPConfig />} />
           <Route path="/context-windows" element={<ContextWindows />} />
           <Route path="/ai-demo" element={<AIDemo />} />
+          <Route path="/agents" element={<Agents />} />
 
           {/* Legacy routes still accessible (not in nav) */}
           <Route path="/context" element={<ContextPipeline />} />
