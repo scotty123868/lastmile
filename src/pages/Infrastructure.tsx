@@ -121,10 +121,9 @@ const techStack: { category: string; icon: React.ElementType; color: string; ite
     icon: Brain,
     color: 'text-purple-500',
     items: [
-      { name: 'GPT-4o', desc: 'Document analysis & classification' },
-      { name: 'Claude 3.5 Sonnet', desc: 'Reasoning & recommendations' },
-      { name: 'Custom fine-tuned models', desc: 'Railroad-specific tasks (track geometry, signal analysis)' },
-      { name: 'RAG pipeline', desc: 'Pinecone vector store for context retrieval' },
+      { name: 'Claude API (Anthropic)', desc: 'Reasoning, analysis & recommendations' },
+      { name: 'MCP', desc: 'Model Context Protocol for system integration' },
+      { name: 'PostgreSQL pgvector', desc: 'Vector search for context retrieval' },
     ],
   },
   {
@@ -132,11 +131,11 @@ const techStack: { category: string; icon: React.ElementType; color: string; ite
     icon: Server,
     color: 'text-blue',
     items: [
-      { name: 'MCP', desc: 'Model Context Protocol for system integration' },
-      { name: 'Apache Kafka', desc: 'Real-time data streaming' },
-      { name: 'PostgreSQL + TimescaleDB', desc: 'Time-series metrics storage' },
-      { name: 'Redis', desc: 'Caching & session management' },
-      { name: 'Kubernetes (EKS)', desc: 'Container orchestration' },
+      { name: 'PostgreSQL (Supabase)', desc: 'Primary database & metrics storage' },
+      { name: 'Node.js + cron', desc: 'Agent runtime scheduling' },
+      { name: 'Railway', desc: 'Agent runtime hosting' },
+      { name: 'Vercel', desc: 'Dashboard hosting' },
+      { name: 'In-memory cache', desc: 'Node.js process-level caching' },
     ],
   },
   {
@@ -144,7 +143,7 @@ const techStack: { category: string; icon: React.ElementType; color: string; ite
     icon: Lock,
     color: 'text-green',
     items: [
-      { name: 'SOC 2 Type II', desc: 'Certified' },
+      { name: 'SOC 2 readiness checklist', desc: 'In progress' },
       { name: 'FRA Part 213', desc: 'Compliance validated' },
       { name: 'AES-256', desc: 'End-to-end encryption' },
       { name: 'RBAC', desc: 'Role-based access control' },
@@ -524,12 +523,12 @@ export default function Infrastructure() {
               <div className="flex-1 border border-slate-600/40 rounded-md p-3 bg-slate-800/50">
                 <div className="flex items-center gap-2 mb-2">
                   <Brain className="w-3 h-3 text-purple-400" strokeWidth={2} />
-                  <span className="text-slate-300 font-semibold text-[11px]">AI Processing Cluster (K8s)</span>
+                  <span className="text-slate-300 font-semibold text-[11px]">AI Processing (Node.js + Claude API)</span>
                 </div>
                 <div className="text-slate-500 text-[10px] space-y-0.5">
-                  <div>Model serving pods</div>
-                  <div>RAG pipeline</div>
-                  <div>Inference autoscaler</div>
+                  <div>Agent runtime (cron)</div>
+                  <div>Claude API calls</div>
+                  <div>pgvector context retrieval</div>
                 </div>
               </div>
             </div>
@@ -550,12 +549,12 @@ export default function Infrastructure() {
             <div className="border border-slate-600/40 rounded-md p-3 bg-slate-800/50 mb-4">
               <div className="flex items-center gap-2 mb-2">
                 <Database className="w-3 h-3 text-amber" strokeWidth={2} />
-                <span className="text-slate-300 font-semibold text-[11px]">Data Lake (S3 + PostgreSQL)</span>
+                <span className="text-slate-300 font-semibold text-[11px]">Data Layer (PostgreSQL / Supabase)</span>
               </div>
               <div className="flex gap-4 text-slate-500 text-[10px]">
-                <span>Immutable event store</span>
+                <span>Structured data store</span>
                 <span className="text-slate-700">|</span>
-                <span>TimescaleDB hypertables</span>
+                <span>pgvector embeddings</span>
                 <span className="text-slate-700">|</span>
                 <span>Encrypted at rest</span>
               </div>

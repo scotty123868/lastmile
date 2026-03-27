@@ -54,7 +54,7 @@ interface CompanyAdoptionData {
 
 const adoptionData: Record<string, CompanyAdoptionData> = {
   meridian: {
-    overallRate: 62,
+    overallRate: 38,
     overallTrend: '+7% vs last month',
     overallTrendDir: 'up',
     teamLabel: 'Division / Team',

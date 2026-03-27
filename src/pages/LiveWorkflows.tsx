@@ -18,7 +18,7 @@ import {
   AlertCircle,
   Clock,
 } from 'lucide-react';
-import { useCompany } from '../data/CompanyContext';
+import { useCompany, companies } from '../data/CompanyContext';
 import PreliminaryBanner from '../components/PreliminaryBanner';
 import { type LiveWorkflow, type WorkflowStep } from '../data/workflows';
 import { useSimulation } from '../data/SimulationEngine';
@@ -632,12 +632,19 @@ export default function LiveWorkflows() {
   const flagged = workflows.filter((w) => w.status === 'flagged').length;
   const totalSavings = workflows.reduce((sum, w) => sum + w.savings, 0);
 
-  const pipeline = pipelineData[company.id] || pipelineData.meridian;
-  const recentVerifications = miniLedgerData[company.id] || miniLedgerData.meridian;
+  const hasOwnPipeline = !!pipelineData[company.id];
+  const parentCompany = company.parentId ? companies.find((c) => c.id === company.parentId) : null;
+  const pipeline = pipelineData[company.id] || (company.parentId ? pipelineData[company.parentId] : null) || pipelineData.meridian;
+  const recentVerifications = miniLedgerData[company.id] || (company.parentId ? miniLedgerData[company.parentId] : null) || miniLedgerData.meridian;
 
   return (
     <div className="max-w-[960px] mx-auto px-4 lg:px-8 py-6 lg:py-8">
       <PreliminaryBanner />
+      {!hasOwnPipeline && parentCompany && (
+        <div className="mb-4 px-4 py-2.5 rounded-lg bg-amber-muted border border-amber/20 text-[12px] text-amber font-medium">
+          Showing {parentCompany.shortName} aggregate data — division-specific workflows not yet available.
+        </div>
+      )}
       {/* Page header */}
       <div className="mb-8">
         <h1 className="text-[22px] font-semibold text-ink tracking-tight">Operations</h1>

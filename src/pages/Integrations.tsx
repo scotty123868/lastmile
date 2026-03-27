@@ -8,7 +8,7 @@ import {
   Activity,
   Clock,
 } from 'lucide-react';
-import { useCompany } from '../data/CompanyContext';
+import { useCompany, companies } from '../data/CompanyContext';
 import PreliminaryBanner from '../components/PreliminaryBanner';
 
 /* ── Types ───────────────────────────────────────────────── */
@@ -146,13 +146,20 @@ function formatRecords(n: number): string {
 
 export default function Integrations() {
   const { company } = useCompany();
-  const data = integrationData[company.id] || integrationData.meridian;
+  const hasOwnData = !!integrationData[company.id];
+  const parentCompany = company.parentId ? companies.find((c) => c.id === company.parentId) : null;
+  const data = integrationData[company.id] || (company.parentId ? integrationData[company.parentId] : null) || integrationData.meridian;
 
   const errorCount = data.integrations.filter((i) => i.status === 'error').length;
 
   return (
     <div className="max-w-[960px] mx-auto px-4 lg:px-8 py-6 lg:py-8">
       <PreliminaryBanner />
+      {!hasOwnData && parentCompany && (
+        <div className="mb-4 px-4 py-2.5 rounded-lg bg-amber-muted border border-amber/20 text-[12px] text-amber font-medium">
+          Showing {parentCompany.shortName} aggregate data — division-specific integrations not yet available.
+        </div>
+      )}
       {/* Page header */}
       <div className="mb-8">
         <h1 className="text-[22px] font-semibold text-ink tracking-tight">Integrations</h1>

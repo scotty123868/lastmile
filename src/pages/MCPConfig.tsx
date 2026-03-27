@@ -89,7 +89,7 @@ const initialCrawlLogEntries = [
   { ts: '2026-03-26 17:32:18', system: 'SAP S/4HANA', msg: 'Synced 756 work orders (incremental)' },
   { ts: '2026-03-26 17:32:15', system: 'Kronos', msg: 'Synced 28 certification renewals' },
   { ts: '2026-03-26 17:32:12', system: 'Samsara Fleet', msg: 'Synced 167 vehicle telemetry events' },
-  { ts: '2026-03-26 17:32:08', system: 'Oracle EBS', msg: 'Synced 42 purchase requisitions' },
+  { ts: '2026-03-26 17:32:08', system: 'SAP ERP', msg: 'Synced 42 purchase requisitions' },
   { ts: '2026-03-26 17:27:18', system: 'SAP S/4HANA', msg: 'Synced 891 work orders (incremental)' },
   { ts: '2026-03-26 17:27:14', system: 'OSHA', msg: 'Synced 1 new compliance update' },
   { ts: '2026-03-26 17:27:11', system: 'GE SCADA', msg: 'Synced 2,341 sensor readings' },
@@ -116,7 +116,7 @@ const securityPoints = [
   'Encrypted at rest (AES-256) and in transit (TLS 1.3)',
   'RBAC \u2014 each connector has minimum-privilege service account',
   'Full audit trail \u2014 every query logged with timestamp and purpose',
-  'SOC 2 Type II compliant',
+  'SOC 2 readiness checklist in progress',
   'Data retention: configurable, default 90 days rolling window',
 ];
 
@@ -129,11 +129,10 @@ const connectorGroups: ConnectorGroup[] = [
   {
     label: 'Enterprise Systems',
     items: [
-      { name: 'SAP S/4HANA', connected: true },
-      { name: 'Oracle EBS', connected: true },
-      { name: 'Microsoft Dynamics', connected: false },
-      { name: 'Workday', connected: false },
-      { name: 'NetSuite', connected: false },
+      { name: 'SAP ERP', connected: true },
+      { name: 'Primavera P6', connected: true },
+      { name: 'Kronos/UKG', connected: true },
+      { name: 'Trimble GPS', connected: true },
     ],
   },
   {

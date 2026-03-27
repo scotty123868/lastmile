@@ -101,7 +101,7 @@ const chatData: Record<string, CompanyChat> = {
       'Show RailSentry data integration gaps',
       'Compare crew dispatch optimization options',
       "What's our FRA compliance readiness?",
-      'Generate fleet utilization report for Brad',
+      'Generate fleet utilization report for Q1',
     ],
   },
   oakwood: {
@@ -269,7 +269,7 @@ const chatData: Record<string, CompanyChat> = {
       'Show RailSentry data integration gaps',
       'Compare crew dispatch optimization options',
       "What's our FRA compliance readiness?",
-      'Generate fleet utilization report for Brad',
+      'Generate fleet utilization report for Q1',
     ],
   },
   'nb-energy': {
@@ -278,7 +278,7 @@ const chatData: Record<string, CompanyChat> = {
       'Show RailSentry data integration gaps',
       'Compare crew dispatch optimization options',
       "What's our FRA compliance readiness?",
-      'Generate fleet utilization report for Brad',
+      'Generate fleet utilization report for Q1',
     ],
   },
   'nb-financial': {
@@ -287,7 +287,7 @@ const chatData: Record<string, CompanyChat> = {
       'Show RailSentry data integration gaps',
       'Compare crew dispatch optimization options',
       "What's our FRA compliance readiness?",
-      'Generate fleet utilization report for Brad',
+      'Generate fleet utilization report for Q1',
     ],
   },
   'nb-health': {
@@ -296,7 +296,7 @@ const chatData: Record<string, CompanyChat> = {
       'Show RailSentry data integration gaps',
       'Compare crew dispatch optimization options',
       "What's our FRA compliance readiness?",
-      'Generate fleet utilization report for Brad',
+      'Generate fleet utilization report for Q1',
     ],
   },
   'ee-finance': {
@@ -305,7 +305,7 @@ const chatData: Record<string, CompanyChat> = {
       'Show RailSentry data integration gaps',
       'Compare crew dispatch optimization options',
       "What's our FRA compliance readiness?",
-      'Generate fleet utilization report for Brad',
+      'Generate fleet utilization report for Q1',
     ],
   },
   'ee-social': {
@@ -314,7 +314,7 @@ const chatData: Record<string, CompanyChat> = {
       'Show RailSentry data integration gaps',
       'Compare crew dispatch optimization options',
       "What's our FRA compliance readiness?",
-      'Generate fleet utilization report for Brad',
+      'Generate fleet utilization report for Q1',
     ],
   },
   'ee-economic': {
@@ -323,7 +323,7 @@ const chatData: Record<string, CompanyChat> = {
       'Show RailSentry data integration gaps',
       'Compare crew dispatch optimization options',
       "What's our FRA compliance readiness?",
-      'Generate fleet utilization report for Brad',
+      'Generate fleet utilization report for Q1',
     ],
   },
   'ee-ria': {
@@ -332,7 +332,7 @@ const chatData: Record<string, CompanyChat> = {
       'Show RailSentry data integration gaps',
       'Compare crew dispatch optimization options',
       "What's our FRA compliance readiness?",
-      'Generate fleet utilization report for Brad',
+      'Generate fleet utilization report for Q1',
     ],
   },
 };
@@ -577,9 +577,7 @@ export default function Assistant() {
             <Send className="w-4 h-4 text-white" strokeWidth={2} />
           </button>
         </div>
-        <p className="text-[11px] text-ink-tertiary text-center mt-2">
-          AI responses are generated for demo purposes and may not reflect actual data.
-        </p>
+        {/* Preliminary Estimate banner already indicates data status */}
       </div>
     </div>
   );

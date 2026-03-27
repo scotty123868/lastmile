@@ -223,7 +223,7 @@ const intelligenceAgents: AgentDef[] = [
       { label: 'Briefings generated', value: '127 (since October)' },
       { label: 'CEO read rate', value: '94%' },
     ],
-    description: 'Monitors all 7 divisions daily and generates an executive briefing for Brad Lager every morning at 7:00 AM. Summarizes key metrics changes, compliance alerts, project milestones, budget variances, and personnel issues. Brad gets a 2-minute read instead of 45 minutes of division reports.',
+    description: 'Monitors all 7 divisions daily and generates an executive briefing for the CEO every morning at 7:00 AM. Summarizes key metrics changes, compliance alerts, project milestones, budget variances, and personnel issues. The executive team gets a 2-minute read instead of 45 minutes of division reports.',
   },
   {
     id: 'relay',

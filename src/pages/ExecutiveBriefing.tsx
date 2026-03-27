@@ -35,7 +35,7 @@ export default function ExecutiveBriefing() {
             <br />across Herzog Companies operations.
           </h1>
           <p className="text-white/50 mt-4 text-lg max-w-2xl">
-            62 workflows analyzed, 84% average adoption rate — here's what's already working
+            62 workflows analyzed, 38% current adoption rate — here's what's already working
             and where the biggest gains remain.
           </p>
         </FadeIn>
@@ -74,8 +74,8 @@ export default function ExecutiveBriefing() {
               <Users className="w-5 h-5 text-purple-500" />
             </div>
             <p className="text-sm font-medium text-ink mb-1">Team Adoption</p>
-            <p className="text-3xl font-mono font-bold text-purple-500">84%</p>
-            <p className="text-sm text-ink/50 mt-2 break-words">Average adoption rate across active teams. Target: 95%+.</p>
+            <p className="text-3xl font-mono font-bold text-purple-500">38%</p>
+            <p className="text-sm text-ink/50 mt-2 break-words">Current AI tool adoption across the organization. Target: 95%+.</p>
           </div>
         </FadeIn>
       </div>

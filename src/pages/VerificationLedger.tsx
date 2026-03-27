@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, ShieldAlert, CheckCircle2, Clock } from 'lucide-react';
-import { useCompany } from '../data/CompanyContext';
+import { useCompany, companies } from '../data/CompanyContext';
 import VerificationModal from '../components/VerificationModal';
 import PreliminaryBanner from '../components/PreliminaryBanner';
 
@@ -367,7 +367,11 @@ function LedgerRow({ entry, index, onSelect }: { entry: LedgerEntry; index: numb
 
 export default function VerificationLedger() {
   const { company } = useCompany();
-  const entries = getLedgerForCompany(company.id);
+  const knownLedgerIds = ['meridian', 'oakwood', 'pinnacle', 'atlas', 'northbridge', 'estonia'];
+  const hasOwnData = knownLedgerIds.includes(company.id);
+  const parentCompany = company.parentId ? companies.find((c) => c.id === company.parentId) : null;
+  const entries = hasOwnData ? getLedgerForCompany(company.id) : (company.parentId ? getLedgerForCompany(company.parentId) : getLedgerForCompany(company.id));
+  const showingParent = !hasOwnData && !!parentCompany;
   const [filter, setFilter] = useState<string>('all');
   const [selectedEntry, setSelectedEntry] = useState<LedgerEntry | null>(null);
 
@@ -383,6 +387,11 @@ export default function VerificationLedger() {
   return (
     <div className="max-w-[960px] mx-auto px-4 lg:px-8 py-6 lg:py-8">
       <PreliminaryBanner />
+      {showingParent && (
+        <div className="mb-4 px-4 py-2.5 rounded-lg bg-amber-muted border border-amber/20 text-[12px] text-amber font-medium">
+          Showing {parentCompany!.shortName} aggregate data — division-specific ledger not yet available.
+        </div>
+      )}
       <div className="mb-6">
         <h1 className="text-[22px] font-semibold text-ink tracking-tight">Verification Ledger</h1>
         <p className="text-[13px] text-ink-tertiary mt-1">Every AI decision, correction, and escalation — auditable and traceable</p>

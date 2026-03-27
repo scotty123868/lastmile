@@ -111,7 +111,7 @@ async function main() {
   }
 
   console.log('');
-  console.log('Atlas (Personal Assistant) runs on-demand via API endpoint.');
+  console.log('Atlas (Personal Assistant) — triggered by user queries via the dashboard API.');
   console.log('');
   console.log('All agents scheduled. Runtime is live.');
   console.log('Press Ctrl+C to stop.');

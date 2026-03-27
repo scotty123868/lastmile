@@ -67,9 +67,9 @@ const successExamples = [
     title: 'Track Geometry — AI Caught a Developing Defect',
     input: 'Geometry car readings MP 247.1-249.3, March 18, 2026',
     analysis:
-      'Surface deviation trending from 1.6" to 2.1" over 90 days. Rate of change suggests Class 4 exceedance within 14 days.',
+      'AI ANALYSIS: Surface deviation trending from 1.2" to 1.6" over 90 days. Rate of change suggests Class 4 exceedance (2.0" limit) within 21 days.',
     expert:
-      'Reviewed same data, concurred. Noted: "AI caught the TREND that I would have missed in a batch review. The individual readings were all within spec."',
+      'Reviewed same data, concurred. Noted: "AI caught the TREND that I would have missed in a batch review. The individual readings were within spec at the time of measurement, but the trend indicates imminent exceedance."',
     expertName: 'Senior Inspector J. Martinez',
     outcome: 'Preventive maintenance scheduled. Avoided emergency speed restriction.',
     savings: '$47,000 in avoided emergency response + schedule disruption',
@@ -152,9 +152,9 @@ const reviewQueue = [
     reasoning: [
       'Geometry car data shows 2.3" surface deviation at MP 247.3.',
       'Compared against Class 4 threshold (2.0"): EXCEEDS by 0.3".',
-      'However, deviation direction is improving vs. prior reading (2.5" on Mar 12).',
-      'Low confidence because the TREND is improving but absolute value exceeds limit.',
-      'Recommendation: Class B defect — monitor within 30 days.',
+      'Prior reading was 2.5" on Mar 12 — trend is improving but still non-compliant.',
+      'Absolute value exceeds FRA limit regardless of trend direction.',
+      'Immediate speed restriction recommended per FRA §213.9. Maintenance crew dispatched.',
     ],
     outcome: null,
   },

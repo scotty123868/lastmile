@@ -76,7 +76,7 @@ const connections: Connection[] = [
     lastSyncMinutes: 12,
     records: '2,800 employees',
     schema: 81,
-    auth: 'SAML SSO',
+    auth: 'OAuth 2.0',
     dataFlowing: 'Timesheets, certifications, crew assignments',
   },
   {
@@ -106,9 +106,9 @@ const connections: Connection[] = [
     lastSync: '\u2014',
     records: '\u2014',
     schema: 45,
-    auth: 'Requires VPN access',
+    auth: 'OAuth 2.0 (via Kronos/UKG API)',
     dataFlowing: '',
-    note: 'Awaiting IT credentials for production access',
+    note: 'Integrated via Kronos/UKG API (shared data source) — awaiting IT credentials for production access',
   },
   {
     name: 'Active Directory / Azure AD',
