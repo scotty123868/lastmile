@@ -491,7 +491,7 @@ export const atlasWorkflows: LiveWorkflow[] = [
 export const northbridgeWorkflows: LiveWorkflow[] = [
   {
     id: 'northbridge-001',
-    name: 'Cross-OpCo Procurement Consolidation',
+    name: 'Cross-Division Procurement Consolidation',
     department: 'Corporate Procurement — 12 Operating Companies',
     status: 'running',
     startedAt: '5 min ago',
@@ -499,7 +499,7 @@ export const northbridgeWorkflows: LiveWorkflow[] = [
     cycleTime: { before: '3 weeks', after: '2 days' },
     steps: [
       {
-        id: 's1', label: 'Ingest Supplier Master Data', detail: 'Pulled supplier records from 12 OpCo SAP instances — 8,400 unique vendor entries',
+        id: 's1', label: 'Ingest Supplier Master Data', detail: 'Pulled supplier records from 7 division SAP instances — 8,400 unique vendor entries',
         status: 'completed', duration: '14s', agent: 'Data Pipeline',
       },
       {
@@ -508,7 +508,7 @@ export const northbridgeWorkflows: LiveWorkflow[] = [
         confidence: 94,
       },
       {
-        id: 's3', label: 'Price Harmonization Analysis', detail: 'Cross-OpCo price comparison for shared suppliers. 340 items with >15% price variance detected.',
+        id: 's3', label: 'Price Harmonization Analysis', detail: 'Cross-division price comparison for shared suppliers. 340 items with >15% price variance detected.',
         status: 'completed', duration: '18s', agent: 'Analytics Agent',
       },
       {
@@ -518,11 +518,11 @@ export const northbridgeWorkflows: LiveWorkflow[] = [
         check: {
           original: 'Separate POs to Titanium Metals Corp — Aerospace: $142/kg, Energy: $174/kg',
           corrected: 'Consolidated PO at negotiated volume price $138/kg — $340K annual savings',
-          flag: 'Cross-OpCo duplicate — price variance 22%',
+          flag: 'Cross-division duplicate — price variance 22%',
         },
       },
       {
-        id: 's5', label: 'Generate Consolidated PO Routing Rules', detail: 'Pending verification clearance — unified purchasing rules across 12 OpCos',
+        id: 's5', label: 'Generate Consolidated PO Routing Rules', detail: 'Pending verification clearance — unified purchasing rules across 7 divisions',
         status: 'pending', agent: 'Workflow Orchestrator',
       },
       {
@@ -579,7 +579,7 @@ export const northbridgeWorkflows: LiveWorkflow[] = [
     cycleTime: { before: '12 business days', after: '3 business days' },
     steps: [
       {
-        id: 's1', label: 'Ingest Trial Balances', detail: 'Pulled GL data from 12 OpCo SAP instances — 48,000 journal entries for month-end close',
+        id: 's1', label: 'Ingest Trial Balances', detail: 'Pulled GL data from 7 division SAP instances — 48,000 journal entries for month-end close',
         status: 'completed', duration: '8s', agent: 'Data Pipeline',
       },
       {

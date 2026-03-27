@@ -10,6 +10,7 @@ import {
   Megaphone,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
+import PreliminaryBanner from '../components/PreliminaryBanner';
 
 /* ── Types ───────────────────────────────────────────────── */
 
@@ -170,13 +171,13 @@ const adoptionData: Record<string, CompanyAdoptionData> = {
       { name: 'Shared Services', active: 1200, total: 2000, adoption: 60, trend: '\u2191 7%', trendDir: 'up', status: 'growing' },
     ],
     nudges: [
-      { id: 'n1', name: 'Cross-OpCo AI Champions Program', target: 'All operating companies', type: 'training', status: 'active', impact: '48 champions trained across 12 OpCos' },
+      { id: 'n1', name: 'Cross-Division AI Champions Program', target: 'All divisions', type: 'training', status: 'active', impact: '48 champions trained across 7 divisions' },
       { id: 'n2', name: 'Shared Services Onboarding Sprint', target: 'Shared Services', type: 'training', status: 'active', impact: '340 staff in current cohort' },
-      { id: 'n3', name: 'OpCo Adoption Leaderboard', target: 'All OpCos', type: 'peer-comparison', status: 'active', impact: 'Health Sciences +9% after seeing Aerospace data' },
-      { id: 'n4', name: 'Executive Dashboard Digest', target: 'C-suite and OpCo presidents', type: 'reminder', status: 'active', impact: 'Weekly adoption metrics to 14 executives' },
+      { id: 'n3', name: 'Division Adoption Leaderboard', target: 'All divisions', type: 'peer-comparison', status: 'active', impact: 'Health Sciences +9% after seeing Aerospace data' },
+      { id: 'n4', name: 'Executive Dashboard Digest', target: 'C-suite and division presidents', type: 'reminder', status: 'active', impact: 'Weekly adoption metrics to 14 executives' },
     ],
     cycles: [
-      { label: 'Procurement cycle (cross-OpCo)', before: '3 weeks', after: '2 days', improvement: '90%' },
+      { label: 'Procurement cycle (cross-division)', before: '3 weeks', after: '2 days', improvement: '90%' },
       { label: 'Maintenance work order creation', before: '45 min', after: '8 min', improvement: '82%' },
       { label: 'Financial close (consolidated)', before: '12 days', after: '3 days', improvement: '75%' },
       { label: 'Supplier onboarding', before: '4 weeks', after: '5 days', improvement: '82%' },
@@ -244,6 +245,7 @@ export default function AdoptionPulse() {
 
   return (
     <div className="max-w-[960px] mx-auto px-4 lg:px-8 py-6 lg:py-8">
+      <PreliminaryBanner />
       {/* Page header */}
       <div className="mb-8">
         <h1 className="text-[22px] font-semibold text-ink tracking-tight">Adoption Pulse</h1>

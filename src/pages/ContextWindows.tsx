@@ -17,6 +17,7 @@ import {
   RefreshCw,
   Search,
 } from 'lucide-react';
+import PreliminaryBanner from '../components/PreliminaryBanner';
 
 /* ── Animation ────────────────────────────────────────────── */
 
@@ -339,6 +340,7 @@ export default function ContextWindows() {
 
   return (
     <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-6 space-y-8">
+      <PreliminaryBanner />
       {/* ── Header ────────────────────────────────────────── */}
       <motion.div custom={sectionIdx++} variants={fadeUp} initial="hidden" animate="visible">
         <div className="flex items-center gap-3 mb-1">

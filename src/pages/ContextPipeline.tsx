@@ -15,6 +15,7 @@ import {
   Server,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
+import PreliminaryBanner from '../components/PreliminaryBanner';
 
 /* ── Types ───────────────────────────────────────────────── */
 
@@ -162,17 +163,17 @@ const pipelineData: Record<string, CompanyPipelineData> = {
     ],
     stats: { ingested: 48200, normalized: 46100, packed: 24, failed: 142 },
     documents: [
-      { id: 'd1', name: 'SAP_MasterData_12OpCos.api', type: 'api', origin: 'SAP S/4HANA Cloud — All Instances', size: '—', status: 'ready', fields: 142000, confidence: 98 },
+      { id: 'd1', name: 'SAP_MasterData_7Divisions.api', type: 'api', origin: 'SAP S/4HANA Cloud — All Instances', size: '—', status: 'ready', fields: 142000, confidence: 98 },
       { id: 'd2', name: 'IoT_SensorStream_6Plants.stream', type: 'api', origin: 'Siemens Xcelerator Gateway', size: '—', status: 'ready', fields: 84000, confidence: 99 },
       { id: 'd3', name: 'Supplier_Contracts_2026.pdf', type: 'pdf', origin: 'SharePoint — Corporate Procurement', size: '248 MB', status: 'processing', fields: 4200, confidence: 92 },
       { id: 'd4', name: 'Consolidated_Financials_Q4.xlsx', type: 'spreadsheet', origin: 'Workday Financial Mgmt', size: '34 MB', status: 'ready', fields: 48000, confidence: 97 },
-      { id: 'd5', name: 'CrossOpCo_Inventory_Daily.csv', type: 'csv', origin: 'SAP Inventory Module — All Plants', size: '82 MB', status: 'ready', fields: 24800, confidence: 96 },
+      { id: 'd5', name: 'CrossDivision_Inventory_Daily.csv', type: 'csv', origin: 'SAP Inventory Module — All Plants', size: '82 MB', status: 'ready', fields: 24800, confidence: 96 },
       { id: 'd6', name: 'Palantir_Analytics_Export.api', type: 'api', origin: 'Palantir Foundry', size: '—', status: 'ready', fields: 62000, confidence: 98 },
       { id: 'd7', name: 'Workforce_Data_Global.api', type: 'api', origin: 'Workday HCM', size: '—', status: 'ready', fields: 42000, confidence: 99 },
-      { id: 'd8', name: 'ServiceNow_Tickets_AllOpCos.api', type: 'api', origin: 'ServiceNow REST API', size: '—', status: 'ready', fields: 18400, confidence: 97 },
+      { id: 'd8', name: 'ServiceNow_Tickets_AllDivisions.api', type: 'api', origin: 'ServiceNow REST API', size: '—', status: 'ready', fields: 18400, confidence: 97 },
     ],
     contextPacks: [
-      { id: 'cp1', name: 'Cross-OpCo Procurement', description: 'Unified supplier master + PO history + price benchmarks + volume discounts + contract terms across 12 OpCos', sources: 8, fields: 84000, freshness: 'Hourly', status: 'ready', lastUpdated: '12 min ago', usedBy: ['Cross-OpCo Procurement Consolidation'] },
+      { id: 'cp1', name: 'Cross-Division Procurement', description: 'Unified supplier master + PO history + price benchmarks + volume discounts + contract terms across 7 divisions', sources: 8, fields: 84000, freshness: 'Hourly', status: 'ready', lastUpdated: '12 min ago', usedBy: ['Cross-Division Procurement Consolidation'] },
       { id: 'cp2', name: 'Predictive Maintenance', description: 'IoT sensor baselines + maintenance history + OEM specs + part lifecycle + operator logs across 6 plants', sources: 6, fields: 124000, freshness: 'Real-time', status: 'ready', lastUpdated: '1 min ago', usedBy: ['Predictive Maintenance — Industrial Fleet'] },
       { id: 'cp3', name: 'Financial Consolidation', description: 'Chart of accounts + intercompany agreements + FX rates + elimination rules + audit standards', sources: 5, fields: 48000, freshness: 'Daily', status: 'building', lastUpdated: '8 min ago', usedBy: ['Financial Close Automation'] },
       { id: 'cp4', name: 'Workforce Analytics', description: 'Employee master + skills matrix + utilization rates + training records + attrition data across 42K employees', sources: 4, fields: 42000, freshness: 'Daily', status: 'ready', lastUpdated: '4 hrs ago', usedBy: ['Workforce Optimization', 'Adoption Tracking'] },
@@ -320,6 +321,7 @@ export default function ContextPipeline() {
 
   return (
     <div className="max-w-[960px] mx-auto px-4 lg:px-8 py-6 lg:py-8">
+      <PreliminaryBanner />
       <div className="mb-8">
         <h1 className="text-[22px] font-semibold text-ink tracking-tight">Context Pipeline</h1>
         <p className="text-[13px] text-ink-tertiary mt-1">Data flowing in, getting cleaned, normalized, and packaged into AI-ready Context Packs</p>

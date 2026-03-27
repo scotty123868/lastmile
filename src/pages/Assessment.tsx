@@ -106,9 +106,9 @@ const assessmentData: Record<string, CompanyAssessmentData> = {
       { name: 'ServiceNow', category: 'IT/Ops', current: 7, target: 9 },
     ],
     licenses: [
-      { vendor: 'SAP S/4HANA', total: 2400, active: 1680, waste: 3800000, action: 'Harmonize 12 OpCo instances to unified tenant' },
+      { vendor: 'SAP S/4HANA', total: 2400, active: 1680, waste: 3800000, action: 'Harmonize 7 division instances to unified tenant' },
       { vendor: 'Workday', total: 1800, active: 1420, waste: 1400000, action: 'Consolidate legacy HRIS systems' },
-      { vendor: 'Palantir Foundry', total: 340, active: 180, waste: 840000, action: 'Migrate 8 OpCos to shared analytics layer' },
+      { vendor: 'Palantir Foundry', total: 340, active: 180, waste: 840000, action: 'Migrate 7 divisions to shared analytics layer' },
       { vendor: 'Salesforce Enterprise', total: 4200, active: 3100, waste: 2200000, action: 'Downgrade 1,100 to Platform licenses' },
     ],
   },
@@ -348,15 +348,15 @@ const extendedData: Record<string, ExtendedAssessmentData> = {
   },
   northbridge: {
     integrations: [
-      { from: 'SAP S/4HANA', to: 'Workday', status: 'partial', dataFlow: '8 of 12 OpCos integrated — 4 on legacy HRIS' },
-      { from: 'Palantir Foundry', to: 'SAP S/4HANA', status: 'connected', dataFlow: 'API ingestion from 9 OpCos' },
-      { from: 'Salesforce', to: 'ServiceNow', status: 'partial', dataFlow: '6 OpCos connected — 6 manual handoff' },
-      { from: 'Siemens Xcelerator', to: 'Palantir Foundry', status: 'partial', dataFlow: 'Industrial OpCos only — 4 of 12' },
+      { from: 'SAP S/4HANA', to: 'Workday', status: 'partial', dataFlow: '5 of 7 divisions integrated — 2 on legacy HRIS' },
+      { from: 'Palantir Foundry', to: 'SAP S/4HANA', status: 'connected', dataFlow: 'API ingestion from 6 divisions' },
+      { from: 'Salesforce', to: 'ServiceNow', status: 'partial', dataFlow: '5 divisions connected — 2 manual handoff' },
+      { from: 'Siemens Xcelerator', to: 'Palantir Foundry', status: 'partial', dataFlow: 'Industrial divisions only — 3 of 7' },
       { from: 'ServiceNow', to: 'SAP S/4HANA', status: 'connected', dataFlow: 'Enterprise ITSM integration' },
     ],
     remediation: [
-      { priority: 1, action: 'Harmonize all 12 OpCos onto unified SAP S/4HANA tenant', category: 'migration', effort: 'High', timeline: '6-8 months', impact: '$3.8M license + ops savings' },
-      { priority: 2, action: 'Extend Palantir Foundry ingestion to remaining 3 OpCos', category: 'integration', effort: 'Medium', timeline: '2-3 months', impact: 'Full cross-OpCo analytics' },
+      { priority: 1, action: 'Harmonize all 7 divisions onto unified SAP S/4HANA tenant', category: 'migration', effort: 'High', timeline: '6-8 months', impact: '$3.8M license + ops savings' },
+      { priority: 2, action: 'Extend Palantir Foundry ingestion to remaining division', category: 'integration', effort: 'Medium', timeline: '2-3 months', impact: 'Full cross-division analytics' },
       { priority: 3, action: 'Consolidate 4 legacy HRIS systems into Workday', category: 'migration', effort: 'High', timeline: '4-5 months', impact: '$1.4M annual savings' },
       { priority: 4, action: 'Downgrade 1,100 Salesforce seats to Platform licenses', category: 'optimization', effort: 'Low', timeline: '3 weeks', impact: '$2.2M annual savings' },
       { priority: 5, action: 'Enterprise-wide AI change management program', category: 'training', effort: 'Medium', timeline: '3 months', impact: 'Adoption uplift across 42K employees' },

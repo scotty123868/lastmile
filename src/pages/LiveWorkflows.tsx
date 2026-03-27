@@ -142,11 +142,11 @@ const pipelineData: Record<string, PipelineData> = {
     ],
     stats: { ingested: 48200, normalized: 46100, packed: 24, failed: 142 },
     documents: [
-      { id: 'd1', name: 'SAP_MasterData_12OpCos.api', type: 'api', origin: 'SAP S/4HANA Cloud \u2014 All Instances', size: '\u2014', status: 'ready', fields: 142000, confidence: 98 },
+      { id: 'd1', name: 'SAP_MasterData_7Divisions.api', type: 'api', origin: 'SAP S/4HANA Cloud \u2014 All Instances', size: '\u2014', status: 'ready', fields: 142000, confidence: 98 },
       { id: 'd2', name: 'IoT_SensorStream_6Plants.stream', type: 'api', origin: 'Siemens Xcelerator Gateway', size: '\u2014', status: 'ready', fields: 84000, confidence: 99 },
       { id: 'd3', name: 'Supplier_Contracts_2026.pdf', type: 'pdf', origin: 'SharePoint \u2014 Corporate Procurement', size: '248 MB', status: 'processing', fields: 4200, confidence: 92 },
       { id: 'd4', name: 'Consolidated_Financials_Q4.xlsx', type: 'spreadsheet', origin: 'Workday Financial Mgmt', size: '34 MB', status: 'ready', fields: 48000, confidence: 97 },
-      { id: 'd5', name: 'CrossOpCo_Inventory_Daily.csv', type: 'csv', origin: 'SAP Inventory Module \u2014 All Plants', size: '82 MB', status: 'ready', fields: 24800, confidence: 96 },
+      { id: 'd5', name: 'CrossDivision_Inventory_Daily.csv', type: 'csv', origin: 'SAP Inventory Module \u2014 All Plants', size: '82 MB', status: 'ready', fields: 24800, confidence: 96 },
       { id: 'd6', name: 'Palantir_Analytics_Export.api', type: 'api', origin: 'Palantir Foundry', size: '\u2014', status: 'ready', fields: 62000, confidence: 98 },
     ],
   },
@@ -282,8 +282,8 @@ const pipelineData: Record<string, PipelineData> = {
       { id: 'd2', name: 'BusinessRegistry_NewEntities.api', type: 'api', origin: 'Centre of Registers (RIK)', size: '—', status: 'ready', fields: 42000, confidence: 99 },
       { id: 'd3', name: 'eResidency_Applications_March.csv', type: 'csv', origin: 'e-Residency Program Portal', size: '14 MB', status: 'ready', fields: 8400, confidence: 96 },
       { id: 'd4', name: 'EU_Structural_Funds_Report.pdf', type: 'pdf', origin: 'State Shared Service Centre', size: '24 MB', status: 'processing', fields: 1200, confidence: 93 },
-      { id: 'd5', name: 'Foreign_Investment_Filings.pdf', type: 'pdf', origin: 'Enterprise Estonia (EAS)', size: '8.4 MB', status: 'ready', fields: 420, confidence: 95 },
-      { id: 'd6', name: 'Startup_Visa_Applications.xlsx', type: 'spreadsheet', origin: 'Startup Estonia Portal', size: '4.8 MB', status: 'ready', fields: 2400, confidence: 97 },
+      { id: 'd5', name: 'Fleet_Management_Reports.pdf', type: 'pdf', origin: 'Herzog Fleet Management System', size: '8.4 MB', status: 'ready', fields: 420, confidence: 95 },
+      { id: 'd6', name: 'Division_Ops_Submissions.xlsx', type: 'spreadsheet', origin: 'Division Operations Portal', size: '4.8 MB', status: 'ready', fields: 2400, confidence: 97 },
     ],
   },
   'ee-ria': {
@@ -337,7 +337,7 @@ const miniLedgerData: Record<string, MiniLedgerEntry[]> = {
     { id: 'VL-2026-0921', workflow: 'Quality Inspection', type: 'escalation', timestamp: '9 min ago', corrected: 'HOLD \u2014 tensile strength 122 ksi below AMS-6415 minimum 125 ksi. Engineering disposition required.' },
   ],
   northbridge: [
-    { id: 'VL-2026-1842', workflow: 'Cross-OpCo Procurement Consolidation', type: 'correction', timestamp: '2 min ago', corrected: 'Matched to existing vendor #VS-8841 "Titanium Metals Corporation" \u2014 active across 3 OpCos' },
+    { id: 'VL-2026-1842', workflow: 'Cross-Division Procurement Consolidation', type: 'correction', timestamp: '2 min ago', corrected: 'Matched to existing vendor #VS-8841 "Titanium Metals Corporation" \u2014 active across 3 divisions' },
     { id: 'VL-2026-1843', workflow: 'Predictive Maintenance \u2014 Industrial Fleet', type: 'flag', timestamp: '8 min ago', corrected: 'Bearing vibration 3.1\u03c3 above baseline \u2014 replacement recommended within 72 hours' },
     { id: 'VL-2026-1844', workflow: 'Financial Close Automation', type: 'correction', timestamp: '14 min ago', corrected: 'Reclassified as intercompany loan \u2014 eliminated in consolidation per IFRS 10' },
   ],

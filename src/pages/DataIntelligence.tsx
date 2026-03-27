@@ -13,6 +13,7 @@ import {
   ChevronUp,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
+import PreliminaryBanner from '../components/PreliminaryBanner';
 
 /* ── Types ───────────────────────────────────────────────── */
 
@@ -328,17 +329,17 @@ const dataIntelData: Record<string, CompanyDataIntel> = {
     ],
     gaps: [
       {
-        name: 'Cross-OpCo Data Unification',
+        name: 'Cross-Division Data Unification',
         severity: 'Critical',
         sources: ['SAP Instance 1-12', 'Workday', 'Palantir Foundry'],
-        gapLine: '12 separate SAP instances with no unified data layer — 340TB across systems with major cross-OpCo visibility gaps',
+        gapLine: '7 division SAP instances with no unified data layer — 340TB across systems with major cross-division visibility gaps',
         blockedCapabilities: [
-          'Real-time consolidated reporting across all 12 operating companies',
-          'Cross-OpCo procurement intelligence and volume leverage',
-          'Enterprise-wide workforce analytics and skills matching',
-          'Unified customer 360 across overlapping OpCo client bases',
+          'Real-time consolidated reporting across all 7 divisions',
+          'Cross-division procurement intelligence and volume leverage',
+          'Enterprise-wide workforce analytics and skills matching across divisions',
+          'Unified customer 360 across overlapping division client bases',
         ],
-        recommendedSolution: 'Deploy a Palantir Foundry enterprise ontology layer connecting all 12 SAP instances with real-time data federation and a unified semantic model.',
+        recommendedSolution: 'Deploy a Palantir Foundry enterprise ontology layer connecting all 7 division SAP instances with real-time data federation and a unified semantic model.',
         annualImpact: 6400000,
       },
       {
@@ -359,33 +360,33 @@ const dataIntelData: Record<string, CompanyDataIntel> = {
         name: 'ERP Fragmentation',
         severity: 'High',
         sources: ['SAP S/4HANA (8)', 'SAP ECC (3)', 'Oracle EBS (1)'],
-        gapLine: 'Mixed ERP landscape with 12 instances across 3 platforms — no harmonized chart of accounts or master data',
+        gapLine: 'Mixed ERP landscape with 7 instances across 3 platforms — no harmonized chart of accounts or master data',
         blockedCapabilities: [
           'Automated intercompany elimination and financial consolidation',
-          'Cross-OpCo inventory visibility and transfer optimization',
+          'Cross-division inventory visibility and transfer optimization',
           'Unified procurement and supplier management',
         ],
-        recommendedSolution: 'Implement SAP Central Finance as a consolidation layer with harmonized chart of accounts, enabling real-time financial visibility without full ERP migration.',
+        recommendedSolution: 'Implement SAP Central Finance as a consolidation layer with harmonized chart of accounts across 7 divisions, enabling real-time financial visibility without full ERP migration.',
         annualImpact: 3800000,
       },
       {
         name: 'Workforce Data Silos',
         severity: 'High',
-        sources: ['Workday (Corporate)', 'Legacy HRIS (4 OpCos)', 'Manual Systems (3 OpCos)'],
-        gapLine: 'Only corporate and 5 OpCos on Workday — remaining operate on legacy or manual HR systems',
+        sources: ['Workday (Corporate)', 'Legacy HRIS (3 divisions)', 'Manual Systems (2 divisions)'],
+        gapLine: 'Only corporate and 4 divisions on Workday — remaining divisions operate on legacy or manual HR systems',
         blockedCapabilities: [
-          'Enterprise-wide talent mobility and skills matching',
-          'Cross-OpCo resource allocation for projects',
+          'Enterprise-wide talent mobility and skills matching across divisions',
+          'Cross-division resource allocation for projects',
           'Unified compensation benchmarking and equity analysis',
         ],
-        recommendedSolution: 'Accelerate Workday rollout to remaining 7 OpCos with integration hub for legacy system data during transition period.',
+        recommendedSolution: 'Accelerate Workday rollout to remaining divisions with integration hub for legacy system data during transition period.',
         annualImpact: 3200000,
       },
     ],
     architecture: {
-      sourceSystems: ['SAP (x12)', 'Workday', 'Palantir', 'Siemens', 'Salesforce', 'ServiceNow'],
+      sourceSystems: ['SAP (x7)', 'Workday', 'Palantir', 'Siemens', 'Salesforce', 'ServiceNow'],
       platformName: 'Snowflake + Palantir Foundry',
-      capabilities: ['Cross-OpCo intelligence', 'Predictive maintenance', 'Financial consolidation'],
+      capabilities: ['Cross-division intelligence', 'Predictive maintenance', 'Financial consolidation'],
     },
     roi: { investment: 2400000, annualReturn: 18200000, multiplier: '7.6x' },
   },
@@ -553,6 +554,7 @@ export default function DataIntelligence() {
 
   return (
     <div className="max-w-[960px] mx-auto px-4 lg:px-8 py-6 lg:py-8">
+      <PreliminaryBanner />
       {/* Page header */}
       <div className="mb-8">
         <h1 className="text-[22px] font-semibold text-ink tracking-tight">Data Intelligence</h1>

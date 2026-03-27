@@ -147,11 +147,11 @@ const enrichedEntries: Record<string, EnrichedData> = {
   },
   'VL-2026-1845': {
     severity: 'critical',
-    flagDescription: 'Cross-OpCo duplicate purchase order detected — same supplier, same parts, different OpCos paying different prices',
+    flagDescription: 'Cross-division duplicate purchase order detected — same supplier, same parts, different divisions paying different prices',
     evidenceChain: [
-      'Procurement consolidation workflow ingested supplier master data from 12 OpCo SAP instances',
+      'Procurement consolidation workflow ingested supplier master data from 7 division SAP instances',
       'Entity Resolution deduplicated 8,400 vendor entries to 5,200 unique suppliers',
-      'Analytics Agent ran cross-OpCo price comparison for shared suppliers',
+      'Analytics Agent ran cross-division price comparison for shared suppliers',
       'Detected Northbridge Aerospace and Northbridge Energy both ordering Ti-6Al-4V alloy from Titanium Metals Corp',
       'Price variance: Aerospace pays $142/kg, Energy pays $174/kg — 22% difference for identical material',
       'Consolidated volume PO negotiation would achieve $138/kg — saving $340K annually',
@@ -159,14 +159,14 @@ const enrichedEntries: Record<string, EnrichedData> = {
     ],
     impact: [
       '$340K annual overspend on titanium alloy alone across two operating companies',
-      'Procurement policy violation — company policy requires cross-OpCo sourcing review for shared materials >$1M',
+      'Procurement policy violation — company policy requires cross-division sourcing review for shared materials >$1M',
       'Supplier leverage erosion — Titanium Metals Corp knows Northbridge entities are not coordinating purchases',
-      'Pattern likely repeats across other commodity categories — estimated $4.8M total cross-OpCo procurement waste',
+      'Pattern likely repeats across other commodity categories — estimated $4.8M total cross-division procurement waste',
     ],
     timeline: [
-      { time: '08:14:00', event: 'Supplier master data ingested from 12 SAP instances — 8,400 vendor entries' },
+      { time: '08:14:00', event: 'Supplier master data ingested from 7 SAP instances — 8,400 vendor entries' },
       { time: '08:14:14', event: 'Entity Resolution: 8,400 entries deduplicated to 5,200 unique suppliers' },
-      { time: '08:14:42', event: 'Price harmonization analysis started — comparing prices across OpCos' },
+      { time: '08:14:42', event: 'Price harmonization analysis started — comparing prices across divisions' },
       { time: '08:15:00', event: '340 items with >15% price variance detected across shared suppliers' },
       { time: '08:15:02', event: 'FLAG: Ti-6Al-4V alloy — Aerospace $142/kg vs Energy $174/kg (22% variance)' },
       { time: '08:15:03', event: 'Consolidated volume price calculated: $138/kg at combined volume' },

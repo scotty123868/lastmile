@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, ShieldAlert, CheckCircle2, Clock } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
 import VerificationModal from '../components/VerificationModal';
+import PreliminaryBanner from '../components/PreliminaryBanner';
 
 interface LedgerEntry {
   id: string;
@@ -160,11 +161,11 @@ const atlasLedger: LedgerEntry[] = [
 
 const northbridgeLedger: LedgerEntry[] = [
   {
-    id: 'VL-2026-1842', timestamp: '2 min ago', workflow: 'Cross-OpCo Procurement Consolidation',
+    id: 'VL-2026-1842', timestamp: '2 min ago', workflow: 'Cross-Division Procurement Consolidation',
     agent: 'Entity Resolution', type: 'correction',
     original: 'Supplier "TitaniumMetals Corp" — new vendor entry for Northbridge Energy',
-    corrected: 'Matched to existing vendor #VS-8841 "Titanium Metals Corporation" — active across 3 OpCos',
-    rationale: 'Duplicate vendor entry prevented. Name variation and different OpCo purchasing systems masked existing supplier relationship.',
+    corrected: 'Matched to existing vendor #VS-8841 "Titanium Metals Corporation" — active across 3 divisions',
+    rationale: 'Duplicate vendor entry prevented. Name variation and different division purchasing systems masked existing supplier relationship.',
     verifier: 'Auto-verified', standard: 'Vendor dedup protocol — DUNS match', confidence: 99,
   },
   {
@@ -184,10 +185,10 @@ const northbridgeLedger: LedgerEntry[] = [
     verifier: 'R. Fitzgerald', standard: 'IFRS 10 — Consolidated Financial Statements', confidence: 97,
   },
   {
-    id: 'VL-2026-1845', timestamp: '22 min ago', workflow: 'Cross-OpCo Procurement Consolidation',
+    id: 'VL-2026-1845', timestamp: '22 min ago', workflow: 'Cross-Division Procurement Consolidation',
     agent: 'Analytics Agent', type: 'flag',
     original: 'Separate POs to Titanium Metals Corp — Aerospace: $142/kg, Energy: $174/kg',
-    corrected: 'Cross-OpCo duplicate purchase order detected — same supplier, same parts, different OpCos paying different prices',
+    corrected: 'Cross-division duplicate purchase order detected — same supplier, same parts, different divisions paying different prices',
     rationale: 'Northbridge Aerospace and Northbridge Energy both ordering same Ti-6Al-4V alloy from Titanium Metals Corp at 22% price variance. Consolidated PO would save $340K annually.',
     verifier: 'P. Morrison', standard: 'Procurement Policy §3.1 — volume consolidation', confidence: 96,
   },
@@ -381,6 +382,7 @@ export default function VerificationLedger() {
 
   return (
     <div className="max-w-[960px] mx-auto px-4 lg:px-8 py-6 lg:py-8">
+      <PreliminaryBanner />
       <div className="mb-6">
         <h1 className="text-[22px] font-semibold text-ink tracking-tight">Verification Ledger</h1>
         <p className="text-[13px] text-ink-tertiary mt-1">Every AI decision, correction, and escalation — auditable and traceable</p>
