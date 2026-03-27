@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Plug,
   ArrowRight,
@@ -22,6 +22,7 @@ interface Connection {
   division?: string;
   status: ConnectionStatus;
   lastSync: string;
+  lastSyncMinutes?: number; // initial offset in minutes for live ticking
   records: string;
   schema: number;
   auth: string;
@@ -43,6 +44,7 @@ const connections: Connection[] = [
     name: 'SAP ERP (S/4HANA)',
     status: 'connected',
     lastSync: '3 min ago',
+    lastSyncMinutes: 3,
     records: '24,847 work orders',
     schema: 94,
     auth: 'OAuth 2.0 / Service Account',
@@ -52,6 +54,7 @@ const connections: Connection[] = [
     name: 'Primavera P6',
     status: 'connected',
     lastSync: '7 min ago',
+    lastSyncMinutes: 7,
     records: '1,247 active projects',
     schema: 87,
     auth: 'API Key + SSL cert',
@@ -70,6 +73,7 @@ const connections: Connection[] = [
     name: 'Kronos Workforce',
     status: 'connected',
     lastSync: '12 min ago',
+    lastSyncMinutes: 12,
     records: '2,800 employees',
     schema: 81,
     auth: 'SAML SSO',
@@ -80,6 +84,7 @@ const connections: Connection[] = [
     division: 'HTI division',
     status: 'syncing',
     lastSync: '22 min ago',
+    lastSyncMinutes: 22,
     records: '4,200 track-miles of signal data',
     schema: 73,
     auth: 'VPN + Certificate',
@@ -89,6 +94,7 @@ const connections: Connection[] = [
     name: 'FRA RISPC Database',
     status: 'connected',
     lastSync: '1 hour ago',
+    lastSyncMinutes: 60,
     records: '12,400 inspection records',
     schema: 96,
     auth: 'FRA API credentials',
@@ -108,6 +114,7 @@ const connections: Connection[] = [
     name: 'Active Directory / Azure AD',
     status: 'connected',
     lastSync: '5 min ago',
+    lastSyncMinutes: 5,
     records: '2,800 user accounts',
     schema: 100,
     auth: 'Azure AD Graph API',
@@ -210,9 +217,20 @@ function CircularProgress({ value, max }: { value: number; max: number }) {
   );
 }
 
-function ConnectionCard({ conn }: { conn: Connection }) {
+function formatSyncAge(minutes: number): string {
+  if (minutes < 60) return `${minutes} min ago`;
+  const hours = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  if (mins === 0) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+  return `${hours}h ${mins}m ago`;
+}
+
+function ConnectionCard({ conn, tickOffset }: { conn: Connection; tickOffset: number }) {
   const [expanded, setExpanded] = useState(false);
   const cfg = statusConfig[conn.status];
+  const displaySync = conn.lastSyncMinutes != null
+    ? formatSyncAge(conn.lastSyncMinutes + tickOffset)
+    : conn.lastSync;
   return (
     <div
       className="bg-surface-raised rounded-xl border border-border hover:border-blue/30 hover:shadow-sm transition-all duration-200 cursor-pointer"
@@ -237,7 +255,7 @@ function ConnectionCard({ conn }: { conn: Connection }) {
         <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-[12px]">
           <div>
             <span className="text-ink-tertiary">Last sync</span>
-            <p className="text-ink font-medium">{conn.lastSync}</p>
+            <p className="text-ink font-medium tabular-nums">{displaySync}</p>
           </div>
           <div>
             <span className="text-ink-tertiary">Records</span>
@@ -317,6 +335,18 @@ function PipelineStage({
 /* ── Page ─────────────────────────────────────────────────── */
 
 export default function Connectors() {
+  const [tickOffset, setTickOffset] = useState(0);
+  const tickRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    tickRef.current = setInterval(() => {
+      setTickOffset((t) => t + 1);
+    }, 60000); // tick every minute
+    return () => { if (tickRef.current) clearInterval(tickRef.current); };
+  }, []);
+
+  const headerSyncMinutes = 4 + tickOffset; // "Last sync 4m ago" ticks forward
+
   return (
     <div className="max-w-6xl mx-auto px-4 lg:px-8 py-8 space-y-8">
       {/* Header */}
@@ -335,7 +365,7 @@ export default function Connectors() {
             <CircularProgress value={12} max={47} />
           </StatusOverviewCard>
 
-          <StatusOverviewCard label="Data Freshness" value="Last sync 4m ago">
+          <StatusOverviewCard label="Data Freshness" value={`Last sync ${headerSyncMinutes}m ago`}>
             <div className="w-10 h-10 rounded-lg bg-green-muted flex items-center justify-center flex-shrink-0">
               <span className="w-3 h-3 rounded-full bg-[#22C55E] animate-pulse-live" />
             </div>
@@ -360,7 +390,7 @@ export default function Connectors() {
         <h2 className="text-[16px] font-semibold text-ink tracking-tight mb-4">Active Connections</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {connections.map((conn) => (
-            <ConnectionCard key={conn.name} conn={conn} />
+            <ConnectionCard key={conn.name} conn={conn} tickOffset={tickOffset} />
           ))}
         </div>
       </section>

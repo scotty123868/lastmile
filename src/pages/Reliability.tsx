@@ -186,6 +186,15 @@ function CountUp({ end, duration = 1.2 }: { end: number; duration?: number }) {
 /* ── Component ───────────────────────────────────────────── */
 
 export default function Reliability() {
+  // Live test counter: starts at a partial day count, increments every 4-5 seconds
+  const [testsToday, setTestsToday] = useState(612);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTestsToday((v) => v + 1);
+    }, 4000 + Math.random() * 1000); // 4-5 seconds randomized
+    return () => clearInterval(id);
+  }, []);
+
   const heroMetrics = [
     { label: 'Accuracy', value: 96.8, suffix: '%', color: '#22C55E' },
     { label: 'Consistency', value: 93.1, suffix: '%', color: '#22C55E' },
@@ -224,6 +233,15 @@ export default function Reliability() {
           <p className="text-xs text-ink-tertiary mt-2">
             Across 62 active workflows, 847 test cases executed daily
           </p>
+          <div className="mt-2 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface/60 border border-border/50">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green opacity-75" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green" />
+            </span>
+            <span className="text-[11px] font-medium text-ink-secondary tabular-nums">
+              Tests today: {testsToday.toLocaleString()}
+            </span>
+          </div>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">

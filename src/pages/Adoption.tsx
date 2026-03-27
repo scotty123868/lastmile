@@ -129,7 +129,16 @@ export default function Adoption() {
       {/* Header */}
       <div>
         <PreliminaryBanner />
-        <h1 className="text-2xl font-semibold text-ink tracking-tight mt-3">AI Adoption Dashboard</h1>
+        <div className="flex items-center gap-3 mt-3">
+          <h1 className="text-2xl font-semibold text-ink tracking-tight">AI Adoption Dashboard</h1>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-muted border border-green/20">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green" />
+            </span>
+            <span className="text-[11px] font-semibold text-green">Live</span>
+          </span>
+        </div>
         <p className="text-[13px] text-ink-tertiary mt-1">
           Enterprise-wide AI deployment progress across 7 divisions
         </p>

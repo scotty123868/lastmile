@@ -106,14 +106,7 @@ interface Metric {
   sparkline?: number[];
 }
 
-const metrics: Metric[] = [
-  { label: 'Data Throughput', value: '847', unit: 'records/min', color: 'text-blue', icon: Activity, sparkline: [4, 6, 5, 8, 7, 9, 6, 8, 10, 7, 9, 11, 8, 10, 9] },
-  { label: 'AI Queries', value: '1,247', unit: 'today', color: 'text-green', icon: Brain },
-  { label: 'Avg Response Time', value: '340', unit: 'ms', color: 'text-green', icon: Clock },
-  { label: 'Uptime', value: '99.97', unit: '% (30d)', color: 'text-green', icon: Zap },
-  { label: 'Active Sessions', value: '127', unit: 'users now', color: 'text-blue', icon: Users },
-  { label: 'Queue Depth', value: '3', unit: 'pending review', color: 'text-amber', icon: Eye },
-];
+/* metrics are now generated dynamically inside the component */
 
 /* ── Tech Stack ──────────────────────────────────────────── */
 
@@ -316,7 +309,59 @@ function ArrowConnector() {
 
 /* ── Main Component ──────────────────────────────────────── */
 
+function randomInt(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 export default function Infrastructure() {
+  // Live metric state
+  const [aiQueries, setAiQueries] = useState(1247);
+  const [throughput, setThroughput] = useState(847);
+  const [activeSessions, setActiveSessions] = useState(127);
+  const [queueDepth, setQueueDepth] = useState(3);
+
+  // AI Queries: +1-3 every 5 seconds
+  useEffect(() => {
+    const id = setInterval(() => {
+      setAiQueries((v) => v + randomInt(1, 3));
+    }, 5000);
+    return () => clearInterval(id);
+  }, []);
+
+  // Data Throughput: fluctuate ±50 every 10 seconds
+  useEffect(() => {
+    const id = setInterval(() => {
+      setThroughput((v) => Math.max(600, v + randomInt(-50, 50)));
+    }, 10000);
+    return () => clearInterval(id);
+  }, []);
+
+  // Active Sessions: fluctuate ±1-3 every 15 seconds
+  useEffect(() => {
+    const id = setInterval(() => {
+      setActiveSessions((v) => Math.max(100, v + randomInt(-3, 3)));
+    }, 15000);
+    return () => clearInterval(id);
+  }, []);
+
+  // Queue Depth: random 1-5 every 30 seconds
+  useEffect(() => {
+    const id = setInterval(() => {
+      setQueueDepth(randomInt(1, 5));
+    }, 30000);
+    return () => clearInterval(id);
+  }, []);
+
+  // Build live metrics array
+  const liveMetrics: Metric[] = [
+    { label: 'Data Throughput', value: throughput.toLocaleString(), unit: 'records/min', color: 'text-blue', icon: Activity, sparkline: [4, 6, 5, 8, 7, 9, 6, 8, 10, 7, 9, 11, 8, 10, 9] },
+    { label: 'AI Queries', value: aiQueries.toLocaleString(), unit: 'today', color: 'text-green', icon: Brain },
+    { label: 'Avg Response Time', value: '340', unit: 'ms', color: 'text-green', icon: Clock },
+    { label: 'Uptime', value: '99.97', unit: '% (30d)', color: 'text-green', icon: Zap },
+    { label: 'Active Sessions', value: activeSessions.toLocaleString(), unit: 'users now', color: 'text-blue', icon: Users },
+    { label: 'Queue Depth', value: String(queueDepth), unit: 'pending review', color: 'text-amber', icon: Eye },
+  ];
+
   return (
     <div className="p-4 lg:p-8 max-w-7xl mx-auto space-y-10">
       {/* Header */}
@@ -373,7 +418,7 @@ export default function Infrastructure() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-          {metrics.map((m, i) => {
+          {liveMetrics.map((m, i) => {
             const Icon = m.icon;
             return (
               <motion.div

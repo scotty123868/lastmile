@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import {
   Server,
@@ -26,6 +26,28 @@ const fadeUp = {
     transition: { delay: i * 0.08, duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] },
   }),
 };
+
+/* ── Live log message generators ─────────────────────────── */
+
+function randomInt(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function generateLiveLogEntry(): { ts: string; system: string; msg: string } {
+  const now = new Date();
+  const ts = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+  const templates = [
+    { system: 'SAP S/4HANA', msg: `Synced ${randomInt(200, 1200)} work orders (incremental)` },
+    { system: 'Kronos', msg: `Synced ${randomInt(5, 40)} timesheet updates` },
+    { system: 'Trimble GPS', msg: `Real-time feed: ${randomInt(200, 400)} vehicle positions updated` },
+    { system: 'FRA RISPC', msg: `Synced ${randomInt(1, 8)} new inspection records` },
+    { system: 'Primavera P6', msg: `Synced ${randomInt(5, 30)} project schedule updates` },
+    { system: 'PTC Signal', msg: `Synced ${randomInt(20, 150)} signal state changes` },
+    { system: 'Azure AD', msg: Math.random() > 0.5 ? '0 changes detected (no sync needed)' : 'Synced 2 permission updates' },
+  ];
+  const pick = templates[Math.floor(Math.random() * templates.length)];
+  return { ts, system: pick.system, msg: pick.msg };
+}
 
 /* ── Data ────────────────────────────────────────────────── */
 
@@ -55,7 +77,7 @@ const schemaFields = [
   { name: 'status', type: 'enum', mapped: true, sample: 'in_progress' },
 ];
 
-const crawlLogEntries = [
+const initialCrawlLogEntries = [
   { ts: '2026-03-26 17:42:18', system: 'SAP S/4HANA', msg: 'Synced 847 work orders (incremental)' },
   { ts: '2026-03-26 17:42:15', system: 'Kronos', msg: 'Synced 12 timesheet updates' },
   { ts: '2026-03-26 17:42:12', system: 'Trimble GPS', msg: 'Real-time feed: 342 vehicle positions updated' },
@@ -77,6 +99,15 @@ const crawlLogEntries = [
   { ts: '2026-03-26 17:22:12', system: 'PTC Signal', msg: 'Synced 134 signal state changes' },
   { ts: '2026-03-26 17:22:08', system: 'Trimble GPS', msg: 'Real-time feed: 298 vehicle positions updated' },
 ];
+
+/* ── Uptime formatter ────────────────────────────────────── */
+
+function formatUptime(totalSeconds: number): string {
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  return `${days}d ${hours}h ${minutes}m`;
+}
 
 const securityPoints = [
   'Read-only access \u2014 MCP never writes to source systems',
@@ -177,10 +208,23 @@ function StepBadge({ n }: { n: number }) {
 export default function MCPConfig() {
   const logRef = useRef<HTMLDivElement>(null);
   const [visibleLogs, setVisibleLogs] = useState<number>(0);
+  const [liveLogEntries, setLiveLogEntries] = useState(initialCrawlLogEntries);
+  const [newestId, setNewestId] = useState<number | null>(null);
 
-  // Animate log entries appearing one at a time
+  // Base uptime: 14d 6h 23m = 1,234,980 seconds
+  const [uptimeSeconds, setUptimeSeconds] = useState(14 * 86400 + 6 * 3600 + 23 * 60);
+
+  // Tick uptime every second
   useEffect(() => {
-    if (visibleLogs < crawlLogEntries.length) {
+    const id = setInterval(() => {
+      setUptimeSeconds((s) => s + 1);
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  // Animate initial log entries appearing one at a time
+  useEffect(() => {
+    if (visibleLogs < initialCrawlLogEntries.length) {
       const timer = setTimeout(() => {
         setVisibleLogs((v) => v + 1);
       }, visibleLogs === 0 ? 300 : 120);
@@ -188,12 +232,39 @@ export default function MCPConfig() {
     }
   }, [visibleLogs]);
 
-  // Auto-scroll log to bottom
+  // Add live log entries every 8-12 seconds (randomized)
+  const scheduleNextEntry = useCallback(() => {
+    const delay = randomInt(8000, 12000);
+    return setTimeout(() => {
+      const entry = generateLiveLogEntry();
+      setLiveLogEntries((prev) => {
+        const next = [entry, ...prev];
+        return next.slice(0, 30); // keep max 30
+      });
+      setNewestId(Date.now());
+    }, delay);
+  }, []);
+
+  useEffect(() => {
+    // Only start live entries after initial animation completes
+    if (visibleLogs < initialCrawlLogEntries.length) return;
+    let timerId = scheduleNextEntry();
+    const interval = setInterval(() => {
+      clearTimeout(timerId);
+      timerId = scheduleNextEntry();
+    }, randomInt(8000, 12000));
+    return () => {
+      clearTimeout(timerId);
+      clearInterval(interval);
+    };
+  }, [visibleLogs, scheduleNextEntry]);
+
+  // Auto-scroll log to top when new entries appear
   useEffect(() => {
     if (logRef.current) {
-      logRef.current.scrollTop = logRef.current.scrollHeight;
+      logRef.current.scrollTop = 0;
     }
-  }, [visibleLogs]);
+  }, [newestId]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 lg:px-8 py-6 pb-16 space-y-8">
@@ -222,7 +293,7 @@ export default function MCPConfig() {
             {[
               { label: 'Version', value: 'MCP v1.2.4', icon: Cpu },
               { label: 'Host', value: 'herzog-mcp.upskiller.internal', icon: Wifi },
-              { label: 'Uptime', value: '14d 6h 23m', icon: Clock },
+              { label: 'Uptime', value: formatUptime(uptimeSeconds), icon: Clock },
               { label: 'Last Health Check', value: '30 seconds ago \u2713', icon: Activity },
               { label: 'Connections', value: '12 active / 47 configured', icon: Database },
               { label: 'Data Volume', value: '2.4M records indexed', icon: FileText },
@@ -231,7 +302,7 @@ export default function MCPConfig() {
                 <item.icon className="w-3.5 h-3.5 text-ink-tertiary mt-0.5 flex-shrink-0" strokeWidth={1.5} />
                 <div>
                   <div className="text-[10px] font-medium text-ink-tertiary uppercase tracking-wider">{item.label}</div>
-                  <div className="text-[13px] font-medium text-ink mt-0.5">{item.value}</div>
+                  <div className="text-[13px] font-medium text-ink mt-0.5 tabular-nums">{item.value}</div>
                 </div>
               </div>
             ))}
@@ -433,9 +504,26 @@ export default function MCPConfig() {
           ref={logRef}
           className="rounded-xl bg-slate-900 p-4 h-[320px] overflow-y-auto font-mono text-[11px] leading-[1.8] scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent"
         >
-          {crawlLogEntries.slice(0, visibleLogs).map((entry, idx) => (
+          {/* Live entries (newest first at top) */}
+          {visibleLogs >= initialCrawlLogEntries.length &&
+            liveLogEntries.slice(0, liveLogEntries.length - initialCrawlLogEntries.length).map((entry, idx) => (
+              <motion.div
+                key={`live-${entry.ts}-${idx}`}
+                initial={{ opacity: 0, x: -8, backgroundColor: 'rgba(34,197,94,0.15)' }}
+                animate={{ opacity: 1, x: 0, backgroundColor: 'rgba(34,197,94,0)' }}
+                transition={{ opacity: { duration: 0.3 }, x: { duration: 0.3 }, backgroundColor: { duration: 2 } }}
+                className="text-green-400 whitespace-nowrap rounded px-1 -mx-1"
+              >
+                <span className="text-slate-500">[{entry.ts}]</span>{' '}
+                <span className="text-emerald-300">{entry.system}</span>{' '}
+                <span className="text-slate-500">&mdash;</span>{' '}
+                <span className="text-green-400/80">{entry.msg}</span>
+              </motion.div>
+            ))}
+          {/* Initial static entries */}
+          {initialCrawlLogEntries.slice(0, visibleLogs).map((entry, idx) => (
             <motion.div
-              key={idx}
+              key={`init-${idx}`}
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.25 }}
@@ -447,9 +535,6 @@ export default function MCPConfig() {
               <span className="text-green-400/80">{entry.msg}</span>
             </motion.div>
           ))}
-          {visibleLogs >= crawlLogEntries.length && (
-            <div className="text-slate-600 mt-1 animate-pulse">_ awaiting next sync cycle...</div>
-          )}
         </div>
       </motion.section>
 
