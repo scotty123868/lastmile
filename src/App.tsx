@@ -96,7 +96,7 @@ function AnimatedRoutes() {
       >
         <Routes location={location}>
           {/* Default landing page */}
-          <Route path="/" element={<Navigate to="/overview" replace />} />
+          <Route path="/" element={<Navigate to="/agents" replace />} />
 
           {/* Primary routes */}
           <Route path="/overview" element={<Analytics />} />

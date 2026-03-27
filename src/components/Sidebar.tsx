@@ -35,6 +35,7 @@ const navSections: NavSection[] = [
   {
     title: 'Operations',
     items: [
+      { to: '/agents', icon: Bot, label: 'AI Agents' },
       { to: '/overview', icon: BarChart3, label: 'Overview' },
       { to: '/operations', icon: Activity, label: 'Operations' },
       { to: '/assessment', icon: ClipboardCheck, label: 'Assessment' },
@@ -46,7 +47,6 @@ const navSections: NavSection[] = [
   {
     title: 'Platform',
     items: [
-      { to: '/agents', icon: Bot, label: 'AI Agents' },
       { to: '/infrastructure', icon: Server, label: 'AI Infrastructure' },
       { to: '/connectors', icon: Plug, label: 'System Connectors' },
       { to: '/mcp-config', icon: Terminal, label: 'MCP Server' },
