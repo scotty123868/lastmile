@@ -14,6 +14,7 @@ import {
   Check,
   FileText,
   Plug,
+  ShieldCheck,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
 
@@ -22,6 +23,7 @@ const navItems = [
   { to: '/overview', icon: BarChart3, label: 'Overview' },
   { to: '/operations', icon: Activity, label: 'Operations' },
   { to: '/connectors', icon: Plug, label: 'System Connectors' },
+  { to: '/reliability', icon: ShieldCheck, label: 'AI Reliability' },
   { to: '/assessment', icon: ClipboardCheck, label: 'Assessment' },
   { to: '/impact', icon: TrendingUp, label: 'Impact' },
   { to: '/intelligence', icon: MessageSquare, label: 'Intelligence' },

@@ -15,6 +15,7 @@ import Analytics from './pages/Analytics';
 import Assessment from './pages/Assessment';
 import ExecutiveBriefing from './pages/ExecutiveBriefing';
 import Connectors from './pages/Connectors';
+import Reliability from './pages/Reliability';
 import { useCompany } from './data/CompanyContext';
 import { SimulationProvider } from './data/SimulationEngine';
 import EventToast from './components/EventToast';
@@ -28,6 +29,7 @@ const routeTitles: Record<string, string> = {
   '/intelligence': 'Intelligence',
   '/verification': 'Verification Ledger',
   '/connectors': 'System Connectors',
+  '/reliability': 'AI Reliability',
   // Legacy routes (redirected, but just in case)
   '/workflows': 'Operations',
   '/analytics': 'Overview',
@@ -95,6 +97,7 @@ function AnimatedRoutes() {
           <Route path="/intelligence" element={<Assistant />} />
           <Route path="/verification" element={<VerificationLedger />} />
           <Route path="/connectors" element={<Connectors />} />
+          <Route path="/reliability" element={<Reliability />} />
 
           {/* Legacy routes still accessible (not in nav) */}
           <Route path="/context" element={<ContextPipeline />} />
