@@ -5,7 +5,6 @@ export interface Company {
   name: string;
   shortName: string;
   industry: string;
-  revenue: string;
   employees: number;
   opCos: number;
   initials: string;
@@ -25,7 +24,6 @@ export const companies: Company[] = [
     name: 'Herzog Companies',
     shortName: 'Herzog',
     industry: 'Railroad & Infrastructure Construction',
-    revenue: '$800M',
     employees: 2800,
     opCos: 7,
     initials: 'H',
@@ -41,7 +39,6 @@ export const companies: Company[] = [
     name: 'Herzog Contracting Corp',
     shortName: 'Herzog Contracting',
     industry: 'Rail & Highway Construction',
-    revenue: '$340M',
     employees: 1200,
     opCos: 1,
     initials: 'HC',
@@ -57,7 +54,6 @@ export const companies: Company[] = [
     name: 'Herzog Railroad Services',
     shortName: 'Herzog Railroad',
     industry: 'Railroad Maintenance & Equipment',
-    revenue: '$120M',
     employees: 380,
     opCos: 1,
     initials: 'HR',
@@ -73,7 +69,6 @@ export const companies: Company[] = [
     name: 'Herzog Services (Rail Testing)',
     shortName: 'Herzog Services',
     industry: 'Ultrasonic Rail Testing',
-    revenue: '$65M',
     employees: 220,
     opCos: 1,
     initials: 'HS',
@@ -89,7 +84,6 @@ export const companies: Company[] = [
     name: 'Herzog Technologies',
     shortName: 'Herzog Tech',
     industry: 'Signal & PTC Systems',
-    revenue: '$95M',
     employees: 310,
     opCos: 1,
     initials: 'HT',
@@ -105,7 +99,6 @@ export const companies: Company[] = [
     name: 'Herzog Transit Services',
     shortName: 'Herzog Transit',
     industry: 'Passenger Rail Operations',
-    revenue: '$110M',
     employees: 480,
     opCos: 1,
     initials: 'TS',
@@ -121,7 +114,6 @@ export const companies: Company[] = [
     name: 'Herzog Energy',
     shortName: 'Herzog Energy',
     industry: 'Energy Infrastructure',
-    revenue: '$45M',
     employees: 120,
     opCos: 1,
     initials: 'HE',
@@ -137,7 +129,6 @@ export const companies: Company[] = [
     name: 'Green Group LLC',
     shortName: 'Green Group',
     industry: 'Environmental Services',
-    revenue: '$25M',
     employees: 90,
     opCos: 1,
     initials: 'GG',

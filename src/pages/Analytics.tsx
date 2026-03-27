@@ -538,10 +538,6 @@ export default function Analytics() {
                 <span className="text-[12px] text-ink-secondary">{company.industry}</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <DollarSign className="w-3.5 h-3.5 text-ink-faint" strokeWidth={1.5} />
-                <span className="text-[12px] text-ink-secondary">{company.revenue}</span>
-              </div>
-              <div className="flex items-center gap-1.5">
                 <Users className="w-3.5 h-3.5 text-ink-faint" strokeWidth={1.5} />
                 <span className="text-[12px] text-ink-secondary">{company.employees.toLocaleString()} employees</span>
               </div>
@@ -638,7 +634,7 @@ export default function Analytics() {
                   <div className="flex items-center gap-3 mt-3 pt-3 border-t border-border">
                     <span className="text-[11px] text-ink-tertiary">{sub.employees.toLocaleString()} employees</span>
                     <span className="text-ink-faint">·</span>
-                    <span className="text-[11px] text-ink-tertiary">{sub.revenue}</span>
+                    <span className="text-[11px] text-ink-tertiary">{sub.industry}</span>
                     <span className="text-ink-faint">·</span>
                     <span className="text-[11px] text-ink-tertiary">ROI {subCurve.payback.year1ROI}%</span>
                   </div>

@@ -216,7 +216,7 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
                         </div>
                         <div className="flex-1 min-w-0">
                           <span className="text-[12px] font-medium text-white/90 truncate block">{c.shortName}</span>
-                          <span className="text-[10px] text-nav-text truncate block">{c.industry} · {c.revenue} · {c.employees.toLocaleString()} emp</span>
+                          <span className="text-[10px] text-nav-text truncate block">{c.industry} · {c.employees.toLocaleString()} emp</span>
                         </div>
                         {isSelected ? (
                           <Check className="w-3 h-3 text-blue flex-shrink-0" strokeWidth={2.5} />

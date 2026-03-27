@@ -477,7 +477,7 @@ export default function Impact() {
       {/* Page header */}
       <div className="mb-8">
         <h1 className="text-[22px] font-semibold text-ink tracking-tight">Impact</h1>
-        <p className="text-[13px] text-ink-tertiary mt-1">Realized value and ROI — {company.employees.toLocaleString()} employees, {company.revenue} revenue</p>
+        <p className="text-[13px] text-ink-tertiary mt-1">Realized value and ROI — {company.employees.toLocaleString()} employees, {company.opCos} operating compan{company.opCos === 1 ? 'y' : 'ies'}</p>
       </div>
 
       {/* Hero number */}
