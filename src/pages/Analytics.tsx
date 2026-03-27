@@ -19,6 +19,7 @@ import {
   Users,
   Building2,
   Briefcase,
+  ExternalLink,
 } from 'lucide-react';
 import {
   RadialBarChart,
@@ -102,6 +103,8 @@ interface CostCurveData {
   breakEvenLabel: string;
   payback: PaybackData;
 }
+
+const COMMAND_CENTER_URL = 'https://command-center-git-main-scotty123868s-projects.vercel.app';
 
 /* ── Company-specific data ───────────────────────────────── */
 
@@ -1153,6 +1156,17 @@ export default function Analytics() {
           </AnimatePresence>
         </motion.div>
       </section>
+
+      {/* ── Cross-link to Command Center ──────────────────────── */}
+      <a
+        href={COMMAND_CENTER_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-1.5 text-sm text-blue-500 hover:text-blue-400 transition-colors"
+      >
+        View full assessment
+        <ExternalLink className="w-3.5 h-3.5" strokeWidth={2} />
+      </a>
     </div>
   );
 }

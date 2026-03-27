@@ -13,9 +13,12 @@ import {
   ArrowUpRight,
   ArrowDownRight,
   Minus,
+  ExternalLink,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
 import PreliminaryBanner from '../components/PreliminaryBanner';
+
+const COMMAND_CENTER_URL = 'https://command-center-git-main-scotty123868s-projects.vercel.app';
 
 /* ── Types ───────────────────────────────────────────────── */
 
@@ -707,6 +710,17 @@ export default function Impact() {
           </div>
         </div>
       </CollapsibleSection>
+
+      {/* ── Cross-link to Command Center ROI ──────────────────── */}
+      <a
+        href={`${COMMAND_CENTER_URL}/roi-summary`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-1.5 text-sm text-blue-500 hover:text-blue-400 transition-colors"
+      >
+        View ROI breakdown
+        <ExternalLink className="w-3.5 h-3.5" strokeWidth={2} />
+      </a>
     </div>
   );
 }

@@ -18,8 +18,11 @@ import {
   Users,
   Server,
   Terminal,
+  ExternalLink,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
+
+const COMMAND_CENTER_URL = 'https://command-center-git-main-scotty123868s-projects.vercel.app';
 
 interface NavSection {
   title: string;
@@ -280,6 +283,19 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
           </div>
         ))}
       </nav>
+
+      {/* ── Cross-link to Command Center ────────── */}
+      <div className="px-4 py-2 border-t border-nav-border">
+        <a
+          href={COMMAND_CENTER_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-blue-400 transition-colors"
+        >
+          Switch to Assessment
+          <ExternalLink className="w-3 h-3" strokeWidth={2} />
+        </a>
+      </div>
 
       {/* Status */}
       <div className="px-4 py-3 border-t border-nav-border">
