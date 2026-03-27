@@ -25,27 +25,29 @@ export default function ExecutiveBriefing() {
 
   return (
     <div className="space-y-8 pb-16">
-      <PreliminaryBanner />
-
       {/* Hero Finding */}
-      <div className="bg-nav-bg rounded-2xl px-10 py-14 text-white">
+      <div className="bg-nav-bg rounded-2xl px-10 py-14 text-white relative overflow-hidden">
         <FadeIn>
-          <p className="text-xs uppercase tracking-[0.2em] text-ink/40 mb-3">Operations Intelligence Summary</p>
-          <h1 className="text-4xl font-light leading-tight text-ink">
+          <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-2">Building America's Infrastructure</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-white/30 mb-5">Operations Intelligence Summary</p>
+          <h1 className="text-4xl font-light leading-tight text-white">
             <span className="text-[#22C55E] font-normal">$3.6M</span> in verified annual impact
             <br />across Herzog Companies operations.
           </h1>
-          <p className="text-ink/50 mt-4 text-lg max-w-2xl">
+          <p className="text-white/50 mt-4 text-lg max-w-2xl">
             62 workflows analyzed, 84% average adoption rate — here's what's already working
             and where the biggest gains remain.
           </p>
         </FadeIn>
       </div>
 
+      {/* Preliminary estimate banner — between hero and stat cards */}
+      <PreliminaryBanner />
+
       {/* Three Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <FadeIn delay={0.05}>
-          <div className="bg-surface-card rounded-xl border border-border p-6 h-full">
+          <div className="bg-surface-raised rounded-xl border border-border p-6 h-full min-w-0">
             <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-4">
               <TrendingUp className="w-5 h-5 text-emerald-500" />
             </div>
@@ -56,7 +58,7 @@ export default function ExecutiveBriefing() {
         </FadeIn>
 
         <FadeIn delay={0.1}>
-          <div className="bg-surface-card rounded-xl border border-border p-6 h-full">
+          <div className="bg-surface-raised rounded-xl border border-border p-6 h-full min-w-0">
             <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4">
               <Activity className="w-5 h-5 text-blue-500" />
             </div>
@@ -67,20 +69,20 @@ export default function ExecutiveBriefing() {
         </FadeIn>
 
         <FadeIn delay={0.15}>
-          <div className="bg-surface-card rounded-xl border border-border p-6 h-full">
+          <div className="bg-surface-raised rounded-xl border border-border p-6 h-full min-w-0">
             <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4">
               <Users className="w-5 h-5 text-purple-500" />
             </div>
             <p className="text-sm font-medium text-ink mb-1">Team Adoption</p>
             <p className="text-3xl font-mono font-bold text-purple-500">84%</p>
-            <p className="text-sm text-ink/50 mt-2">Average adoption rate across active teams. Target: 95%+.</p>
+            <p className="text-sm text-ink/50 mt-2 break-words">Average adoption rate across active teams. Target: 95%+.</p>
           </div>
         </FadeIn>
       </div>
 
       {/* Division Impact Quick View */}
       <FadeIn delay={0.1}>
-        <div className="bg-surface-card rounded-xl border border-border p-8">
+        <div className="bg-surface-raised rounded-xl border border-border p-8 overflow-hidden">
           <div className="flex items-center justify-between mb-6">
             <p className="text-xs uppercase tracking-[0.15em] text-ink/40">Impact by Division</p>
             <button onClick={() => navigate('/impact')} className="text-xs text-blue-500 hover:text-blue-400 flex items-center gap-1 cursor-pointer">
@@ -96,11 +98,11 @@ export default function ExecutiveBriefing() {
               { name: 'Other divisions', impact: '$840K', pct: 24 },
             ].map((div) => (
               <div key={div.name} className="flex items-center gap-4">
-                <span className="text-sm text-ink w-48 flex-shrink-0">{div.name}</span>
-                <div className="flex-1 bg-surface rounded-full h-2 overflow-hidden">
+                <span className="text-sm text-ink w-52 flex-shrink-0 truncate">{div.name}</span>
+                <div className="flex-1 bg-surface rounded-full h-2 overflow-hidden min-w-0">
                   <div className="bg-blue-500 h-full rounded-full transition-all" style={{ width: `${div.pct}%` }} />
                 </div>
-                <span className="text-sm font-mono font-medium text-ink w-16 text-right">{div.impact}</span>
+                <span className="text-sm font-mono font-medium text-ink w-16 text-right flex-shrink-0">{div.impact}</span>
               </div>
             ))}
           </div>
@@ -109,13 +111,13 @@ export default function ExecutiveBriefing() {
 
       {/* CTA */}
       <FadeIn delay={0.1}>
-        <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-8 text-white flex items-center justify-between">
+        <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-8 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <p className="text-lg font-medium">Explore the full operations dashboard</p>
             <p className="text-blue-200 text-sm mt-1">Real-time workflows, adoption tracking, impact verification</p>
           </div>
           <button onClick={() => navigate('/overview')} className="bg-white text-blue-700 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors flex items-center gap-2 cursor-pointer flex-shrink-0">
-            Open Dashboard <ArrowRight className="w-4 h-4" />
+            View Operations Dashboard <ArrowRight className="w-4 h-4" />
           </button>
         </div>
       </FadeIn>
