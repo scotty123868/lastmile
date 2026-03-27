@@ -18,7 +18,7 @@ import {
 import { useCompany } from '../data/CompanyContext';
 import PreliminaryBanner from '../components/PreliminaryBanner';
 
-const COMMAND_CENTER_URL = 'https://command-center-git-main-scotty123868s-projects.vercel.app';
+const COMMAND_CENTER_URL = 'https://command-center-herzog.vercel.app';
 
 /* ── Types ───────────────────────────────────────────────── */
 
