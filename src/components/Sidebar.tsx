@@ -16,19 +16,36 @@ import {
   Plug,
   ShieldCheck,
   Users,
+  Server,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
 
-const navItems = [
-  { to: '/executive-briefing', icon: FileText, label: 'Executive Briefing' },
-  { to: '/overview', icon: BarChart3, label: 'Overview' },
-  { to: '/operations', icon: Activity, label: 'Operations' },
-  { to: '/connectors', icon: Plug, label: 'System Connectors' },
-  { to: '/reliability', icon: ShieldCheck, label: 'AI Reliability' },
-  { to: '/adoption', icon: Users, label: 'Adoption' },
-  { to: '/assessment', icon: ClipboardCheck, label: 'Assessment' },
-  { to: '/impact', icon: TrendingUp, label: 'Impact' },
-  { to: '/intelligence', icon: MessageSquare, label: 'Intelligence' },
+interface NavSection {
+  title: string;
+  items: { to: string; icon: React.ElementType; label: string }[];
+}
+
+const navSections: NavSection[] = [
+  {
+    title: 'Operations',
+    items: [
+      { to: '/executive-briefing', icon: FileText, label: 'Executive Briefing' },
+      { to: '/overview', icon: BarChart3, label: 'Overview' },
+      { to: '/operations', icon: Activity, label: 'Operations' },
+      { to: '/assessment', icon: ClipboardCheck, label: 'Assessment' },
+      { to: '/impact', icon: TrendingUp, label: 'Impact' },
+      { to: '/intelligence', icon: MessageSquare, label: 'Intelligence' },
+    ],
+  },
+  {
+    title: 'Platform',
+    items: [
+      { to: '/infrastructure', icon: Server, label: 'AI Infrastructure' },
+      { to: '/connectors', icon: Plug, label: 'System Connectors' },
+      { to: '/reliability', icon: ShieldCheck, label: 'AI Reliability' },
+      { to: '/adoption', icon: Users, label: 'Adoption' },
+    ],
+  },
 ];
 
 const pillarColors: Record<string, string> = {
@@ -245,9 +262,20 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 flex flex-col gap-0.5 px-3 mt-2 overflow-y-auto">
-        {navItems.map((item) => (
-          <NavItem key={item.to} {...item} />
+      <nav className="flex-1 flex flex-col px-3 mt-2 overflow-y-auto">
+        {navSections.map((section, sIdx) => (
+          <div key={section.title} className={sIdx > 0 ? 'mt-4' : ''}>
+            <div className="px-3 mb-1">
+              <span className="text-[9px] font-bold text-white/25 uppercase tracking-[0.12em]">
+                {section.title}
+              </span>
+            </div>
+            <div className="flex flex-col gap-0.5">
+              {section.items.map((item) => (
+                <NavItem key={item.to} {...item} />
+              ))}
+            </div>
+          </div>
         ))}
       </nav>
 
