@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { MessageSquare } from 'lucide-react';
+import { useCompany } from '../data/CompanyContext';
 import PreliminaryBanner from '../components/PreliminaryBanner';
 
 /* ── Agent badge colors ──────────────────────────────────── */
@@ -55,6 +56,111 @@ const feedTemplates: FeedTemplate[] = [
   { agent: 'LEDGER', status: 'green', message: 'Monthly SaaS audit complete — $22,400 in unused licenses flagged' },
   { agent: 'DISPATCH', status: 'green', message: 'HRSI weekend crew assignments validated — all within limits' },
 ];
+
+/* ── Division-specific feed templates ───────────────────── */
+
+const divisionFeedTemplates: Record<string, FeedTemplate[]> = {
+  hcc: [
+    { agent: 'DISPATCH', status: 'green', message: 'HCC Crew 7 highway resurfacing schedule verified — all compliant' },
+    { agent: 'ATLAS', status: 'green', message: 'Mike Torres (HCC) asked: "I-70 bridge rehabilitation status" — answered in 1.4s' },
+    { agent: 'DISPATCH', status: 'amber', message: 'R. Martinez (HCC) approaching 276hr monthly limit — superintendent alerted' },
+    { agent: 'QUARTERMASTER', status: 'green', message: 'Aggregate order consolidated across 3 HCC projects — saved $12,400' },
+    { agent: 'LEDGER', status: 'green', message: 'Detected 4 unused HCSS HeavyJob licenses — $18,200/yr recoverable' },
+    { agent: 'SCOUT', status: 'green', message: 'Equipment inspection CAT 349F #E22 — all systems nominal' },
+    { agent: 'CHIEF', status: 'info', message: 'Daily project status briefing delivered — 2 weather delays flagged' },
+    { agent: 'DISPATCH', status: 'red', message: 'PREVENTED: J. Smith would exceed 12hr limit on Highway 65 project — reassigned' },
+    { agent: 'RELAY', status: 'green', message: 'Project meeting transcript processed — 8 action items extracted' },
+    { agent: 'ATLAS', status: 'green', message: 'Tom Wright (HCC) asked: "equipment availability next week" — answered in 1.0s' },
+  ],
+  hsi: [
+    { agent: 'SCOUT', status: 'green', message: 'TAM-4 ultrasonic scan MP 280-295 complete — 2 defects logged for review' },
+    { agent: 'ATLAS', status: 'green', message: 'Sarah Chen (HSI) asked: "defect history MP 247" — answered in 1.1s' },
+    { agent: 'SCOUT', status: 'amber', message: 'Rail profile measurement MP 312 — gauge narrowing detected, monitoring' },
+    { agent: 'DISPATCH', status: 'green', message: 'HSI test car crew rotation validated — all FRA certifications current' },
+    { agent: 'SIGNAL', status: 'green', message: 'LIDAR calibration check passed — all sensors within spec' },
+    { agent: 'CHIEF', status: 'info', message: 'Weekly testing summary compiled — 142 track miles tested' },
+    { agent: 'LEDGER', status: 'green', message: 'Wheel probe inventory optimized — reduced spare cost by $4,800' },
+    { agent: 'ATLAS', status: 'green', message: 'J. Martinez (HSI) asked: "FRA defect classification for MP 312.4" — answered in 0.8s' },
+  ],
+  htsi: [
+    { agent: 'DISPATCH', status: 'green', message: 'HTSI morning rush crew deployment verified — all positions filled' },
+    { agent: 'DISPATCH', status: 'amber', message: 'Maria Thompson (HTSI) approaching 276hr monthly limit — crew manager alerted' },
+    { agent: 'ATLAS', status: 'green', message: 'L. Washington (HTSI) asked: "ridership trends downtown line" — answered in 1.2s' },
+    { agent: 'QUARTERMASTER', status: 'green', message: 'Fuel purchase consolidated across HTSI fleet — saved $3,200' },
+    { agent: 'SCOUT', status: 'green', message: 'Vehicle inspection Train #HTSI-44 — all safety systems passed' },
+    { agent: 'CHIEF', status: 'info', message: 'Daily ridership report delivered — 3.2% above forecast' },
+    { agent: 'RELAY', status: 'green', message: 'Customer complaint log processed — 4 service issues flagged' },
+    { agent: 'DISPATCH', status: 'red', message: 'PREVENTED: Operator K. Nguyen would exceed HOS limit — backup operator assigned' },
+  ],
+  hti: [
+    { agent: 'SIGNAL', status: 'green', message: 'PTC Zone 12 all wayside devices responding — latency nominal' },
+    { agent: 'ATLAS', status: 'green', message: 'K. Patel (HTI) asked: "PTC status corridor 12" — answered in 1.2s' },
+    { agent: 'SCOUT', status: 'green', message: 'Signal system diagnostic Zone 8-14 — no anomalies' },
+    { agent: 'DISPATCH', status: 'green', message: 'HTI night shift signal maintenance roster finalized — 0 compliance violations' },
+    { agent: 'LEDGER', status: 'green', message: 'Detected duplicate CAD licenses across HTI teams — $9,200/yr recoverable' },
+    { agent: 'CHIEF', status: 'info', message: 'Weekly PTC performance report compiled — 99.97% uptime' },
+    { agent: 'SIGNAL', status: 'amber', message: 'Minor communication latency increase on WD-4488 — monitoring' },
+    { agent: 'QUARTERMASTER', status: 'green', message: 'Signal cable inventory rebalanced across 3 zones — cost down 8%' },
+  ],
+  hrsi: [
+    { agent: 'DISPATCH', status: 'green', message: 'HRSI ballast crew assignments validated — all within HOS limits' },
+    { agent: 'ATLAS', status: 'green', message: 'Dave Kim (HRSI) asked: "next maintenance window for Unit 4402" — answered in 0.9s' },
+    { agent: 'QUARTERMASTER', status: 'green', message: 'Ballast order consolidated with HCC — saved $8,200' },
+    { agent: 'SCOUT', status: 'green', message: 'GPS Ballast Train #BT-18 operating within parameters' },
+    { agent: 'CHIEF', status: 'info', message: 'Equipment utilization report compiled — 2 units flagged for redeployment' },
+    { agent: 'DISPATCH', status: 'amber', message: 'J. Ramirez (HRSI) approaching overtime threshold — monitoring' },
+  ],
+  he: [
+    { agent: 'SCOUT', status: 'green', message: 'Solar array performance scan — all panels within 96% efficiency' },
+    { agent: 'SIGNAL', status: 'green', message: 'SCADA monitoring nominal — no alerts in last 2 hours' },
+    { agent: 'CHIEF', status: 'info', message: 'Daily energy production report compiled — 12% above forecast (sunny)' },
+    { agent: 'LEDGER', status: 'green', message: 'Maintenance contract renewal — negotiated 8% reduction' },
+  ],
+  gg: [
+    { agent: 'SCOUT', status: 'green', message: 'Wetland mitigation site monitoring — all 14 parameters within EPA limits' },
+    { agent: 'CHIEF', status: 'info', message: 'Quarterly compliance report auto-generated — ready for review' },
+    { agent: 'ATLAS', status: 'green', message: 'J. Park (GG) asked: "water quality trend site 7" — answered in 0.9s' },
+    { agent: 'SIGNAL', status: 'green', message: 'Environmental sensor network — all stations reporting normally' },
+  ],
+};
+
+/* ── Division-specific health data ─────────────────────── */
+
+const divisionHealthData: Record<string, DivisionHealth[]> = {
+  hcc: [
+    { id: 'hcc-east', name: 'East Region', status: 'healthy', users: 186, agents: 5 },
+    { id: 'hcc-west', name: 'West Region', status: 'healthy', users: 142, agents: 4 },
+    { id: 'hcc-central', name: 'Central Region', status: 'alert', users: 104, agents: 3 },
+  ],
+  hsi: [
+    { id: 'hsi-nec', name: 'NE Corridor', status: 'healthy', users: 42, agents: 2 },
+    { id: 'hsi-south', name: 'Southern', status: 'healthy', users: 38, agents: 1 },
+    { id: 'hsi-west', name: 'Western', status: 'monitoring', users: 26, agents: 1 },
+  ],
+  htsi: [
+    { id: 'htsi-commuter', name: 'Commuter Rail', status: 'healthy', users: 112, agents: 3 },
+    { id: 'htsi-intercity', name: 'Intercity', status: 'healthy', users: 58, agents: 2 },
+    { id: 'htsi-maint', name: 'Maintenance', status: 'alert', users: 32, agents: 1 },
+  ],
+  hti: [
+    { id: 'hti-signal', name: 'Signal Systems', status: 'healthy', users: 84, agents: 3 },
+    { id: 'hti-ptc', name: 'PTC Operations', status: 'alert', users: 48, agents: 2 },
+    { id: 'hti-comm', name: 'Communications', status: 'healthy', users: 29, agents: 1 },
+  ],
+  hrsi: [
+    { id: 'hrsi-ballast', name: 'Ballast Ops', status: 'healthy', users: 68, agents: 2 },
+    { id: 'hrsi-track', name: 'Track Renewal', status: 'healthy', users: 42, agents: 1 },
+    { id: 'hrsi-equip', name: 'Equipment', status: 'monitoring', users: 19, agents: 1 },
+  ],
+  he: [
+    { id: 'he-solar', name: 'Solar', status: 'healthy', users: 18, agents: 1 },
+    { id: 'he-wind', name: 'Wind', status: 'healthy', users: 16, agents: 1 },
+  ],
+  gg: [
+    { id: 'gg-remediation', name: 'Remediation', status: 'healthy', users: 12, agents: 1 },
+    { id: 'gg-compliance', name: 'Compliance', status: 'healthy', users: 8, agents: 1 },
+  ],
+};
 
 const statusDot: Record<StatusIcon, string> = {
   green: 'bg-green-400',
@@ -115,17 +221,24 @@ function formatSecondsAgo(seconds: number): string {
 
 export default function Analytics() {
   const navigate = useNavigate();
+  const { company } = useCompany();
+  const activeFeedTemplates = useMemo(() => divisionFeedTemplates[company.id] || feedTemplates, [company.id]);
+  const activeDivisions = useMemo(() => divisionHealthData[company.id] || divisions, [company.id]);
+  const isParent = company.id === 'meridian';
+
   const [lastCheckSeconds, setLastCheckSeconds] = useState(12);
   const [feed, setFeed] = useState<FeedEntry[]>([]);
   const templateIdx = useRef(0);
   const entryId = useRef(0);
 
-  // Initialize feed with recent entries
+  // Initialize feed with recent entries — reset when division changes
   useEffect(() => {
     const now = new Date();
     const initial: FeedEntry[] = [];
+    templateIdx.current = 0;
+    entryId.current = 0;
     for (let i = 0; i < 12; i++) {
-      const t = feedTemplates[i % feedTemplates.length];
+      const t = activeFeedTemplates[i % activeFeedTemplates.length];
       const time = new Date(now.getTime() - (12 - i) * 8000);
       initial.push({
         id: entryId.current++,
@@ -137,12 +250,12 @@ export default function Analytics() {
     }
     templateIdx.current = 12;
     setFeed(initial);
-  }, []);
+  }, [activeFeedTemplates]);
 
   // Add new entries every 5-8 seconds
   useEffect(() => {
     const addEntry = () => {
-      const t = feedTemplates[templateIdx.current % feedTemplates.length];
+      const t = activeFeedTemplates[templateIdx.current % activeFeedTemplates.length];
       templateIdx.current++;
       setFeed(prev => {
         const next = [{
@@ -159,7 +272,7 @@ export default function Analytics() {
 
     const interval = setInterval(addEntry, 5000 + Math.random() * 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [activeFeedTemplates]);
 
   // Tick the "last check" counter
   useEffect(() => {
@@ -194,7 +307,7 @@ export default function Analytics() {
           <div className="flex-1 min-w-0">
             <div className="text-[14px] font-semibold text-white">All Systems Operational</div>
             <div className="text-[12px] text-gray-400 mt-0.5">
-              9 agents active · 7 divisions monitored · Last check: {formatSecondsAgo(lastCheckSeconds)}
+              {isParent ? '9 agents active' : `${activeDivisions.reduce((s, d) => s + d.agents, 0)} agents active`} · {isParent ? '7 divisions' : `${activeDivisions.length} units`} monitored · Last check: {formatSecondsAgo(lastCheckSeconds)}
             </div>
           </div>
           <div className="hidden sm:flex items-center gap-1.5 px-2 py-1 rounded-full bg-green-500/10">
@@ -208,7 +321,7 @@ export default function Analytics() {
       <div className="mb-6">
         <h1 className="text-[22px] font-semibold text-ink tracking-tight">Operations Pulse</h1>
         <p className="text-[13px] text-ink-tertiary mt-1">
-          Real-time activity across all agents and divisions
+          Real-time activity{isParent ? ' across all agents and divisions' : ` — ${company.shortName} (${company.industry})`}
         </p>
       </div>
 
@@ -263,11 +376,11 @@ export default function Analytics() {
         className="mb-8"
       >
         <div className="flex items-center gap-2 mb-3">
-          <h2 className="text-[14px] font-semibold text-ink">Division Health</h2>
-          <span className="text-[11px] text-ink-faint">{divisions.length} divisions</span>
+          <h2 className="text-[14px] font-semibold text-ink">{isParent ? 'Division Health' : 'Unit Health'}</h2>
+          <span className="text-[11px] text-ink-faint">{activeDivisions.length} {isParent ? 'divisions' : 'units'}</span>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {divisions.map((div) => {
+          {activeDivisions.map((div) => {
             const sc = statusConfig[div.status];
             return (
               <div

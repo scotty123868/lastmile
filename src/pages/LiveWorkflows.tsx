@@ -82,6 +82,121 @@ const pipelineData: Record<string, PipelineData> = {
       { id: 'd6', name: 'VideoTrackChart_Segment_NE-22.scan', type: 'scan', origin: 'HSI Video Track Chart System', size: '2.4 GB', status: 'processing', fields: 420, confidence: 91 },
     ],
   },
+  hcc: {
+    stages: [
+      { label: 'Ingestion', count: 1840, status: 'active' },
+      { label: 'Normalization', count: 1780, status: 'active' },
+      { label: 'Entity Resolution', count: 1720, status: 'active' },
+      { label: 'Context Packing', count: 8, status: 'active' },
+    ],
+    stats: { ingested: 1840, normalized: 1780, packed: 8, failed: 4 },
+    documents: [
+      { id: 'd1', name: 'HeavyJob_DailyLogs_I70.csv', type: 'csv', origin: 'HCSS HeavyJob — I-70 Rehabilitation', size: '24 MB', status: 'ready', fields: 4200, confidence: 97 },
+      { id: 'd2', name: 'Primavera_Schedule_Q1.api', type: 'api', origin: 'Primavera P6 — Project Controls', size: '\u2014', status: 'ready', fields: 8400, confidence: 98 },
+      { id: 'd3', name: 'Samsara_Fleet_GPS_Daily.api', type: 'api', origin: 'Samsara GPS Fleet Tracking', size: '\u2014', status: 'ready', fields: 14200, confidence: 99 },
+      { id: 'd4', name: 'SAP_CostCenter_HCC.api', type: 'api', origin: 'SAP Financial Module', size: '\u2014', status: 'ready', fields: 6400, confidence: 98 },
+      { id: 'd5', name: 'BridgeInspection_I70_Mar.pdf', type: 'pdf', origin: 'Structural Engineering Reports', size: '8.2 MB', status: 'processing', fields: 142, confidence: 94 },
+      { id: 'd6', name: 'EquipmentMaint_CAT_Fleet.xlsx', type: 'spreadsheet', origin: 'Fleet Maintenance System', size: '4.8 MB', status: 'ready', fields: 2400, confidence: 96 },
+    ],
+  },
+  hrsi: {
+    stages: [
+      { label: 'Ingestion', count: 980, status: 'active' },
+      { label: 'Normalization', count: 940, status: 'active' },
+      { label: 'Entity Resolution', count: 910, status: 'active' },
+      { label: 'Context Packing', count: 4, status: 'active' },
+    ],
+    stats: { ingested: 980, normalized: 940, packed: 4, failed: 3 },
+    documents: [
+      { id: 'd1', name: 'GPS_Ballast_Fleet_Telemetry.api', type: 'api', origin: 'GPS Ballast Train Telemetry', size: '\u2014', status: 'ready', fields: 8400, confidence: 98 },
+      { id: 'd2', name: 'CrewDispatch_Midwest.xlsx', type: 'spreadsheet', origin: 'HRSI Dispatch System', size: '12.4 MB', status: 'ready', fields: 3200, confidence: 97 },
+      { id: 'd3', name: 'EquipmentTracker_BallastUnits.api', type: 'api', origin: 'Equipment Tracking System', size: '\u2014', status: 'ready', fields: 4800, confidence: 99 },
+      { id: 'd4', name: 'SAP_PM_WorkOrders.api', type: 'api', origin: 'SAP Plant Maintenance', size: '\u2014', status: 'ready', fields: 2400, confidence: 96 },
+      { id: 'd5', name: 'TrackRenewal_Schedule_Q1.pdf', type: 'pdf', origin: 'Track Renewal Planning', size: '2.1 MB', status: 'ready', fields: 84, confidence: 95 },
+      { id: 'd6', name: 'Kronos_CrewHours_HRSI.csv', type: 'csv', origin: 'Kronos Time & Attendance', size: '8.4 MB', status: 'ready', fields: 4200, confidence: 98 },
+    ],
+  },
+  hsi: {
+    stages: [
+      { label: 'Ingestion', count: 1220, status: 'active' },
+      { label: 'Normalization', count: 1180, status: 'active' },
+      { label: 'Entity Resolution', count: 1140, status: 'active' },
+      { label: 'Context Packing', count: 4, status: 'active' },
+    ],
+    stats: { ingested: 1220, normalized: 1180, packed: 4, failed: 2 },
+    documents: [
+      { id: 'd1', name: 'TAM4_Ultrasonic_NEC_Seg47.csv', type: 'csv', origin: 'TAM-4 Ultrasonic Test Car', size: '48 MB', status: 'ready', fields: 14200, confidence: 99 },
+      { id: 'd2', name: 'LIDAR_RailProfile_MP280.api', type: 'api', origin: 'LIDAR Rail Profile Scanner', size: '\u2014', status: 'ready', fields: 8400, confidence: 98 },
+      { id: 'd3', name: 'GPS_TestCar_Fleet.api', type: 'api', origin: 'GPS Fleet Tracking — Test Cars', size: '\u2014', status: 'ready', fields: 4800, confidence: 99 },
+      { id: 'd4', name: 'VideoTrackChart_NE22.scan', type: 'scan', origin: 'Video Track Chart System', size: '2.4 GB', status: 'processing', fields: 420, confidence: 91 },
+      { id: 'd5', name: 'FRA_DefectLog_Q1.pdf', type: 'pdf', origin: 'FRA Compliance Database', size: '4.2 MB', status: 'ready', fields: 248, confidence: 96 },
+      { id: 'd6', name: 'RailSentry_Readings_Mar.api', type: 'api', origin: 'RailSentry LIDAR Export', size: '\u2014', status: 'ready', fields: 12400, confidence: 98 },
+    ],
+  },
+  hti: {
+    stages: [
+      { label: 'Ingestion', count: 1640, status: 'active' },
+      { label: 'Normalization', count: 1580, status: 'active' },
+      { label: 'Entity Resolution', count: 1520, status: 'active' },
+      { label: 'Context Packing', count: 5, status: 'active' },
+    ],
+    stats: { ingested: 1640, normalized: 1580, packed: 5, failed: 3 },
+    documents: [
+      { id: 'd1', name: 'PTC_Signal_Logs_Zone12.api', type: 'api', origin: 'Positive Train Control System', size: '\u2014', status: 'ready', fields: 24800, confidence: 99 },
+      { id: 'd2', name: 'Wayside_Device_Telemetry.api', type: 'api', origin: 'Wayside Equipment Monitoring', size: '\u2014', status: 'ready', fields: 14200, confidence: 98 },
+      { id: 'd3', name: 'CAD_Signal_Designs_2026.pdf', type: 'pdf', origin: 'Signal Design CAD Library', size: '18.4 MB', status: 'ready', fields: 420, confidence: 96 },
+      { id: 'd4', name: 'FiberOptic_OTDR_Results.csv', type: 'csv', origin: 'Fiber Optic Test Equipment', size: '8.4 MB', status: 'ready', fields: 4800, confidence: 97 },
+      { id: 'd5', name: 'RadioSystem_Diagnostics.api', type: 'api', origin: 'Radio Communication System', size: '\u2014', status: 'ready', fields: 8400, confidence: 98 },
+      { id: 'd6', name: 'SCADA_SignalControl.api', type: 'api', origin: 'SCADA Signal Control System', size: '\u2014', status: 'ready', fields: 12400, confidence: 99 },
+    ],
+  },
+  htsi: {
+    stages: [
+      { label: 'Ingestion', count: 1120, status: 'active' },
+      { label: 'Normalization', count: 1080, status: 'active' },
+      { label: 'Entity Resolution', count: 1040, status: 'active' },
+      { label: 'Context Packing', count: 4, status: 'active' },
+    ],
+    stats: { ingested: 1120, normalized: 1080, packed: 4, failed: 5 },
+    documents: [
+      { id: 'd1', name: 'Trapeze_OPS_Schedule.api', type: 'api', origin: 'Trapeze Operations Planning', size: '\u2014', status: 'ready', fields: 8400, confidence: 98 },
+      { id: 'd2', name: 'VehicleTracking_Fleet.api', type: 'api', origin: 'Vehicle Tracking System', size: '\u2014', status: 'ready', fields: 14200, confidence: 99 },
+      { id: 'd3', name: 'Ridership_Analytics_Daily.csv', type: 'csv', origin: 'Ridership Analytics Platform', size: '12 MB', status: 'ready', fields: 4800, confidence: 97 },
+      { id: 'd4', name: 'FareCollection_Revenue.api', type: 'api', origin: 'Fare Collection System', size: '\u2014', status: 'ready', fields: 6400, confidence: 98 },
+      { id: 'd5', name: 'Kronos_CrewHours_HTSI.csv', type: 'csv', origin: 'Kronos Time & Attendance', size: '8.4 MB', status: 'ready', fields: 3200, confidence: 97 },
+      { id: 'd6', name: 'MaintenanceDB_FleetHealth.api', type: 'api', origin: 'Fleet Maintenance Database', size: '\u2014', status: 'processing', fields: 2400, confidence: 94 },
+    ],
+  },
+  he: {
+    stages: [
+      { label: 'Ingestion', count: 480, status: 'active' },
+      { label: 'Normalization', count: 460, status: 'active' },
+      { label: 'Entity Resolution', count: 440, status: 'active' },
+      { label: 'Context Packing', count: 2, status: 'active' },
+    ],
+    stats: { ingested: 480, normalized: 460, packed: 2, failed: 1 },
+    documents: [
+      { id: 'd1', name: 'SCADA_SolarArray_Daily.api', type: 'api', origin: 'SCADA Solar Monitoring', size: '\u2014', status: 'ready', fields: 4800, confidence: 99 },
+      { id: 'd2', name: 'WeatherAPI_SiteForecasts.api', type: 'api', origin: 'Weather Forecast API', size: '\u2014', status: 'ready', fields: 2400, confidence: 98 },
+      { id: 'd3', name: 'SAP_PM_Energy_Assets.api', type: 'api', origin: 'SAP Plant Maintenance', size: '\u2014', status: 'ready', fields: 1200, confidence: 96 },
+      { id: 'd4', name: 'SolarPanel_Performance.csv', type: 'csv', origin: 'Solar Monitoring Platform', size: '4.2 MB', status: 'ready', fields: 2400, confidence: 97 },
+    ],
+  },
+  gg: {
+    stages: [
+      { label: 'Ingestion', count: 320, status: 'active' },
+      { label: 'Normalization', count: 310, status: 'active' },
+      { label: 'Entity Resolution', count: 300, status: 'active' },
+      { label: 'Context Packing', count: 2, status: 'active' },
+    ],
+    stats: { ingested: 320, normalized: 310, packed: 2, failed: 1 },
+    documents: [
+      { id: 'd1', name: 'EPA_ComplianceDB_Q1.api', type: 'api', origin: 'EPA Compliance Database', size: '\u2014', status: 'ready', fields: 2400, confidence: 98 },
+      { id: 'd2', name: 'LabResults_WaterQuality.csv', type: 'csv', origin: 'Lab Information Mgmt System', size: '4.8 MB', status: 'ready', fields: 1200, confidence: 97 },
+      { id: 'd3', name: 'WetlandMonitoring_Site7.api', type: 'api', origin: 'Wetland Monitoring Sensors', size: '\u2014', status: 'ready', fields: 840, confidence: 96 },
+      { id: 'd4', name: 'Remediation_Progress_Mar.pdf', type: 'pdf', origin: 'Remediation Project Reports', size: '2.1 MB', status: 'processing', fields: 84, confidence: 93 },
+    ],
+  },
   oakwood: {
     stages: [
       { label: 'Ingestion', count: 12840, status: 'active' },
@@ -320,6 +435,41 @@ const miniLedgerData: Record<string, MiniLedgerEntry[]> = {
     { id: 'VL-2026-0847', workflow: 'Track Geometry Analysis \u2014 NEC Segment 47', type: 'correction', timestamp: '3 min ago', corrected: 'MP 144.8: Cross-level 1.82\u2033 \u2014 reclassified Urgent per FRA 49 CFR \u00a7213.63' },
     { id: 'VL-2026-0846', workflow: 'Crew Dispatch Optimization \u2014 Midwest', type: 'escalation', timestamp: '18 min ago', corrected: 'Crew #MW-34: Start shifted to 7:30 AM \u2014 FRA HOS 10-hour rest required (49 CFR \u00a7228)' },
     { id: 'VL-2026-0845', workflow: 'Equipment Utilization Report \u2014 Q1', type: 'approval', timestamp: '32 min ago', corrected: 'GPS Ballast Train #BT-18: Utilization 34%, recommend redeployment to BNSF Southwest window' },
+  ],
+  hcc: [
+    { id: 'VL-2026-0901', workflow: 'Bridge Load Analysis \u2014 I-70 Rehabilitation', type: 'correction', timestamp: '2 min ago', corrected: 'Bearing pad compression 16.2% \u2014 reclassified to Priority 1 replacement per AASHTO LRFD' },
+    { id: 'VL-2026-0902', workflow: 'Equipment Utilization \u2014 Excavator Fleet', type: 'flag', timestamp: '14 min ago', corrected: 'CAT 349F #E22: idle 68% over 14 days. Recommend redeployment to Highway 65 project.' },
+    { id: 'VL-2026-0903', workflow: 'Project Cost Tracking \u2014 I-70 Phase 2', type: 'approval', timestamp: '28 min ago', corrected: 'Monthly burn rate $1.2M within 3% of forecast. No variance escalation needed.' },
+  ],
+  hrsi: [
+    { id: 'VL-2026-0904', workflow: 'Ballast Train Deployment \u2014 BNSF Southwest', type: 'correction', timestamp: '5 min ago', corrected: 'GPS Ballast Train #BT-18: route adjusted for track window change \u2014 arrival delayed 4 hours' },
+    { id: 'VL-2026-0905', workflow: 'Crew HOS Compliance \u2014 Midwest', type: 'escalation', timestamp: '22 min ago', corrected: 'Crew #MW-34: 8.5 hours into shift, projected to exceed 12hr limit. Relief crew dispatched.' },
+    { id: 'VL-2026-0906', workflow: 'Equipment Maintenance \u2014 Unit 4402', type: 'approval', timestamp: '41 min ago', corrected: 'Scheduled service at 4,800 hours. Parts confirmed in stock. April 2 maintenance window.' },
+  ],
+  hsi: [
+    { id: 'VL-2026-0907', workflow: 'Rail Defect Classification \u2014 NEC Seg 47', type: 'correction', timestamp: '3 min ago', corrected: 'MP 312.4: transverse defect confirmed via manual hand test. Rail replacement ordered.' },
+    { id: 'VL-2026-0908', workflow: 'Test Car Calibration \u2014 TAM-4 Unit', type: 'approval', timestamp: '18 min ago', corrected: 'Calibration check passed. All 12 ultrasonic channels within 0.5dB of reference.' },
+    { id: 'VL-2026-0909', workflow: 'FRA Compliance Report \u2014 Q1 Testing', type: 'flag', timestamp: '35 min ago', corrected: '3 segments below minimum testing frequency. Priority scheduling needed for MP 140-155.' },
+  ],
+  hti: [
+    { id: 'VL-2026-0910', workflow: 'PTC Wayside Device Health \u2014 Zone 12', type: 'flag', timestamp: '4 min ago', corrected: 'WD-4472 communication latency 180ms (limit 200ms). Trending upward. Antenna inspection recommended.' },
+    { id: 'VL-2026-0911', workflow: 'Signal System Firmware Update \u2014 Zone 8', type: 'approval', timestamp: '16 min ago', corrected: 'Firmware v4.2.1 validated on 12 units. All responding within spec. Update approved.' },
+    { id: 'VL-2026-0912', workflow: 'Fiber Optic Link Test \u2014 Corridor 14', type: 'correction', timestamp: '29 min ago', corrected: 'OTDR reading shows 0.8dB loss at splice point #47. Acceptable but added to monitoring list.' },
+  ],
+  htsi: [
+    { id: 'VL-2026-0913', workflow: 'Service Schedule Optimization \u2014 Weekday', type: 'correction', timestamp: '6 min ago', corrected: 'Off-peak headway adjusted from 15min to 18min. Ridership data shows 22% below threshold.' },
+    { id: 'VL-2026-0914', workflow: 'Crew Scheduling \u2014 Weekend Service', type: 'escalation', timestamp: '19 min ago', corrected: 'Concert event March 28 \u2014 ridership surge expected. Additional trainset and crew assigned.' },
+    { id: 'VL-2026-0915', workflow: 'Vehicle Maintenance \u2014 Train #HTSI-44', type: 'approval', timestamp: '38 min ago', corrected: 'Brake inspection passed. All 8 cars within wear limits. Next inspection at 15,000 miles.' },
+  ],
+  he: [
+    { id: 'VL-2026-0916', workflow: 'Solar Array Performance \u2014 Site 3', type: 'flag', timestamp: '8 min ago', corrected: 'Panel cluster B7 output 12% below expected. Possible soiling or degradation. Inspection ordered.' },
+    { id: 'VL-2026-0917', workflow: 'Energy Production Forecast', type: 'approval', timestamp: '24 min ago', corrected: 'Weekly forecast within 4% of actual. Model accuracy trending upward.' },
+    { id: 'VL-2026-0918', workflow: 'SCADA Alert Review', type: 'correction', timestamp: '42 min ago', corrected: 'Inverter #INV-22 temperature alert \u2014 caused by ambient conditions, not fault. Alert threshold adjusted.' },
+  ],
+  gg: [
+    { id: 'VL-2026-0919', workflow: 'Wetland Compliance \u2014 Site 7 Quarterly', type: 'approval', timestamp: '12 min ago', corrected: 'All 14 parameters within EPA/state limits. Report auto-generated for submission.' },
+    { id: 'VL-2026-0920', workflow: 'Water Quality Monitoring', type: 'flag', timestamp: '28 min ago', corrected: 'Dissolved oxygen at Site 7 trending downward \u2014 2.4mg/L above minimum. Added to watch list.' },
+    { id: 'VL-2026-0921', workflow: 'Remediation Progress \u2014 Phase 2', type: 'correction', timestamp: '45 min ago', corrected: 'Soil sample results: contaminant levels reduced 34% vs baseline. On track for Phase 3.' },
   ],
   oakwood: [
     { id: 'VL-2026-1204', workflow: 'Claims Intake Processing', type: 'correction', timestamp: '1 min ago', corrected: 'Vehicle: 2022 Honda Accord EX-L \u2014 VIN: 1HGCV2F34NA012847, Obsidian Blue Pearl' },

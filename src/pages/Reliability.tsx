@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useCompany } from '../data/CompanyContext';
 import {
   ShieldCheck,
   AlertTriangle,
@@ -34,22 +35,253 @@ import PreliminaryBanner from '../components/PreliminaryBanner';
    DATA
    ══════════════════════════════════════════════════════════════ */
 
+/* -- Division-specific reliability data -- */
+const divisionReliability: Record<string, { accuracy: number; falsePositive: number; trend: string; testsPerDay: number; workflows: number }> = {
+  meridian: { accuracy: 94.2, falsePositive: 3.1, trend: '+2.4% (30d)', testsPerDay: 847, workflows: 62 },
+  hcc: { accuracy: 96.8, falsePositive: 0.8, trend: '+1.2% (30d)', testsPerDay: 312, workflows: 18 },
+  hrsi: { accuracy: 93.1, falsePositive: 4.2, trend: '+3.1% (30d)', testsPerDay: 124, workflows: 8 },
+  hsi: { accuracy: 94.2, falsePositive: 3.1, trend: '+2.4% (30d)', testsPerDay: 98, workflows: 6 },
+  hti: { accuracy: 97.4, falsePositive: 1.2, trend: '+0.8% (30d)', testsPerDay: 156, workflows: 10 },
+  htsi: { accuracy: 91.8, falsePositive: 5.4, trend: '+4.2% (30d)', testsPerDay: 89, workflows: 8 },
+  he: { accuracy: 95.6, falsePositive: 2.1, trend: '+1.8% (30d)', testsPerDay: 42, workflows: 4 },
+  gg: { accuracy: 98.1, falsePositive: 0.4, trend: '+0.3% (30d)', testsPerDay: 26, workflows: 3 },
+};
+
+/* -- Type definitions for division data -- */
+interface SuccessExample {
+  title: string;
+  input: string;
+  analysis: string;
+  expert: string;
+  expertName: string;
+  outcome: string;
+  savings: string;
+  confidence: number;
+}
+
+interface FailureExample {
+  title: string;
+  input: string;
+  analysis: string;
+  whatHappened: string;
+  whyFailed: string;
+  howCaught: string;
+  corrective: string[];
+  status: string;
+}
+
+interface ReviewQueueItem {
+  title: string;
+  flag: string;
+  confidence: number;
+  priority: 'Critical' | 'High' | 'Medium' | 'Low';
+  timestamp: string;
+  reviewer: string;
+  reasoning: string[];
+  outcome: 'approved' | 'corrected' | 'rejected' | null;
+}
+
+/* -- Division-specific success examples -- */
+const divisionSuccessExamples: Record<string, SuccessExample[]> = {
+  hcc: [
+    {
+      title: 'Bridge Inspection — AI Detected Bearing Deterioration',
+      input: 'Bridge inspection reports, I-70 Rehabilitation Project, March 2026',
+      analysis: 'AI ANALYSIS: Bearing pad compression exceeding 15% threshold on pier 3. Rate of degradation suggests replacement needed within 45 days.',
+      expert: 'Reviewed bearing measurements. Confirmed deterioration pattern. "AI integrated multiple inspection cycles that would have been reviewed separately."',
+      expertName: 'Senior Bridge Inspector R. Collins',
+      outcome: 'Bearing replacement scheduled during planned traffic control window.',
+      savings: '$89,000 in avoided emergency closure + traffic management',
+      confidence: 96.8,
+    },
+    {
+      title: 'Equipment Utilization — Cross-Project Optimization',
+      input: 'Fleet GPS data + project schedules, Q1 2026',
+      analysis: '4 excavators idle 60%+ across 3 active projects. Redeployment to I-35 project would eliminate 2 rental units ($4,200/week each).',
+      expert: 'Operations confirmed equipment was available. "We didn\'t have visibility across project sites to see the idle time."',
+      expertName: 'Fleet Manager T. Brooks',
+      outcome: 'Equipment redeployed. 2 rentals canceled.',
+      savings: '$218,400/yr in eliminated equipment rentals',
+      confidence: 94.1,
+    },
+  ],
+  hsi: [
+    {
+      title: 'Rail Flaw Detection — Pattern Recognition Across Corridors',
+      input: 'TAM-4 ultrasonic data, Northeast Corridor Segments 12-18, March 2026',
+      analysis: 'AI ANALYSIS: Transverse defect progression detected at MP 312.4. Growth rate 0.8mm/month suggests critical threshold in 60 days.',
+      expert: 'Confirmed via manual re-test. "The AI correlated readings across 3 separate test runs that showed the trend. Individual readings were borderline."',
+      expertName: 'Senior Rail Inspector M. Chen',
+      outcome: 'Rail section replaced during scheduled maintenance window.',
+      savings: '$124,000 in avoided derailment risk + emergency response',
+      confidence: 93.7,
+    },
+  ],
+  htsi: [
+    {
+      title: 'Passenger Service — Schedule Optimization',
+      input: 'Ridership data + crew schedules + equipment availability, March 2026',
+      analysis: 'Off-peak service can be consolidated from 4 trainsets to 3 without exceeding 85% capacity threshold. Saves 1 crew rotation per day.',
+      expert: 'Operations Manager verified ridership patterns. "The seasonal adjustment was something we do manually each quarter — AI caught it 3 weeks earlier."',
+      expertName: 'Transit Operations Manager L. Washington',
+      outcome: 'Off-peak schedule adjusted. Crew reassigned to peak service.',
+      savings: '$67,000/yr in optimized crew and equipment utilization',
+      confidence: 91.2,
+    },
+  ],
+  hti: [
+    {
+      title: 'PTC System — Predictive Maintenance Alert',
+      input: 'PTC wayside device telemetry, Zone 8-14, March 2026',
+      analysis: 'AI ANALYSIS: Communication latency trending upward on 3 wayside devices in Zone 12. Pattern consistent with antenna degradation, not software issue.',
+      expert: 'Field inspection confirmed corrosion on antenna connections. "AI distinguished hardware from software issues — saved us days of software troubleshooting."',
+      expertName: 'Signal Systems Engineer K. Patel',
+      outcome: 'Antenna assemblies replaced. Communication latency returned to baseline.',
+      savings: '$34,000 in avoided service disruptions + diagnostic time',
+      confidence: 97.1,
+    },
+  ],
+};
+
+/* -- Division-specific failure examples -- */
+const divisionFailureExamples: Record<string, FailureExample[]> = {
+  hcc: [
+    {
+      title: 'Material Cost Overestimate — Aggregate Pricing',
+      input: 'Bid package, Highway 65 resurfacing project',
+      analysis: 'Estimated aggregate cost: $380,000 based on regional pricing database.',
+      whatHappened: 'Actual cost was $290,000. AI used statewide average pricing instead of local quarry rates available through existing contracts.',
+      whyFailed: 'Procurement contract database was not connected. AI used public pricing data instead of negotiated rates.',
+      howCaught: 'Estimator (human-in-loop) flagged the per-ton rate as 30% above their experience with local suppliers.',
+      corrective: [
+        'Connected procurement contract database via MCP',
+        'Added negotiated rate lookup as priority over public pricing',
+        'Material cost estimates now within ±8% vs previous ±25%',
+      ],
+      status: 'Resolved. Procurement feed integrated.',
+    },
+  ],
+  htsi: [
+    {
+      title: 'Ridership Forecast Error — Special Event',
+      input: 'Daily ridership prediction, Saturday March 14, 2026',
+      analysis: 'Predicted ridership: 12,400 (normal Saturday pattern).',
+      whatHappened: 'Actual ridership: 28,600. Major concert event at downtown venue drove 130% surge.',
+      whyFailed: 'Event calendar integration was limited to city-operated venues. Third-party venue events were not in the data feed.',
+      howCaught: 'Operations dispatcher noticed platform crowding at 2PM and escalated. Additional trainsets deployed within 45 minutes.',
+      corrective: [
+        'Integrated Ticketmaster/LiveNation event feeds for service area',
+        'Added "special event" flag that triggers capacity planning review',
+        'Weekend forecast accuracy improved from 78% to 94%',
+      ],
+      status: 'Resolved. Event feed active for all major venues.',
+    },
+  ],
+};
+
+/* -- Division-specific review queue items -- */
+const divisionReviewQueue: Record<string, ReviewQueueItem[]> = {
+  hcc: [
+    {
+      title: 'Bridge Load Rating Update',
+      flag: 'Flagged for Review',
+      confidence: 82,
+      priority: 'High' as const,
+      timestamp: 'Mar 26, 2026 — 10:22 AM',
+      reviewer: 'Pending — structural engineer review',
+      reasoning: [
+        'Bridge #HCC-4472: load rating recalculated after deck rehabilitation.',
+        'AI computed HS-20 rating of 1.12 — marginally above 1.0 minimum.',
+        'Previous rating was 1.38 before rehab. Decrease unexpected.',
+        'Potential issue with input deck thickness assumption.',
+        'Recommend engineer verification of as-built dimensions.',
+      ],
+      outcome: null,
+    },
+    {
+      title: 'Equipment Maintenance Schedule',
+      flag: 'Auto-Approved',
+      confidence: 95,
+      priority: 'Low' as const,
+      timestamp: 'Mar 26, 2026 — 09:15 AM',
+      reviewer: 'Auto-approved (above 90% threshold)',
+      reasoning: [
+        'CAT 349F excavator #HCC-E22: 4,800 hours since last major service.',
+        'Manufacturer interval: 5,000 hours. Window: next 2 weeks.',
+        'No scheduling conflicts detected. Parts in stock at depot.',
+        'Service scheduled for April 2.',
+      ],
+      outcome: 'approved' as const,
+    },
+  ],
+  hsi: [
+    {
+      title: 'Rail Defect Classification — Ambiguous Reading',
+      flag: 'Manual Check Required',
+      confidence: 74,
+      priority: 'High' as const,
+      timestamp: 'Mar 26, 2026 — 08:55 AM',
+      reviewer: 'Pending — Level III UT technician',
+      reasoning: [
+        'TAM-4 reading at MP 312.4: anomaly detected in rail head.',
+        'Signal pattern inconclusive — could be transverse defect or weld inclusion.',
+        'Confidence split: 58% transverse defect, 42% benign inclusion.',
+        'FRA requires verification of all ambiguous readings.',
+        'Manual hand test recommended.',
+      ],
+      outcome: null,
+    },
+  ],
+  htsi: [
+    {
+      title: 'Service Reduction Recommendation',
+      flag: 'Flagged for Review',
+      confidence: 79,
+      priority: 'Medium' as const,
+      timestamp: 'Mar 26, 2026 — 07:30 AM',
+      reviewer: 'Pending — transit operations manager',
+      reasoning: [
+        'Weekday off-peak ridership down 22% vs. 6-month average.',
+        'AI recommends reducing frequency from 15min to 20min headways.',
+        'Projected savings: $4,200/week in crew and fuel costs.',
+        'Risk: customer satisfaction impact on commuter retention.',
+        'Requires operations manager approval per service change policy.',
+      ],
+      outcome: null,
+    },
+  ],
+  hti: [
+    {
+      title: 'PTC Software Update Validation',
+      flag: 'Automated Override',
+      confidence: 93,
+      priority: 'Medium' as const,
+      timestamp: 'Mar 26, 2026 — 06:45 AM',
+      reviewer: 'Auto-approved (above 90% threshold)',
+      reasoning: [
+        'PTC firmware v4.2.1 update validated across 12 wayside units.',
+        'All units responding within latency spec (<200ms).',
+        'No signal degradation detected post-update.',
+        'Auto-approved per standard update protocol.',
+      ],
+      outcome: 'approved' as const,
+    },
+  ],
+};
+
 /* -- Sparkline (30 days) -- */
-function generateSparkline() {
+function generateSparkline(startVal: number, endVal: number) {
   const pts = [];
-  const start = 91.8;
-  const end = 94.2;
   for (let i = 29; i >= 0; i--) {
     const p = (29 - i) / 29;
     const noise = Math.sin(i * 1.3) * 0.4 + Math.cos(i * 0.7) * 0.3;
     pts.push({
       d: 29 - i,
-      v: Math.round((start + (end - start) * p + noise) * 10) / 10,
+      v: Math.round((startVal + (endVal - startVal) * p + noise) * 10) / 10,
     });
   }
   return pts;
 }
-const sparkData = generateSparkline();
 
 /* -- 6-month performance data -- */
 const perfData = [
@@ -62,7 +294,7 @@ const perfData = [
 ];
 
 /* -- Success examples -- */
-const successExamples = [
+const successExamplesDefault = [
   {
     title: 'Track Geometry — AI Caught a Developing Defect',
     input: 'Geometry car readings MP 247.1-249.3, March 18, 2026',
@@ -102,7 +334,7 @@ const successExamples = [
 ];
 
 /* -- Failure examples -- */
-const failureExamples = [
+const failureExamplesDefault = [
   {
     title: 'False Positive — PTC Signal Anomaly',
     input: 'Signal system telemetry, PTC Zone 12',
@@ -141,7 +373,7 @@ const failureExamples = [
 ];
 
 /* -- Human-in-loop review queue -- */
-const reviewQueue = [
+const reviewQueueDefault = [
   {
     title: 'Track Defect Classification',
     flag: 'Flagged for Review',
@@ -354,8 +586,15 @@ function HBar({ pct, color, label }: { pct: number; color: string; label: string
    ══════════════════════════════════════════════════════════════ */
 
 export default function Reliability() {
+  const { company } = useCompany();
+  const divKey = company.id;
+  const rel = divisionReliability[divKey] || divisionReliability.meridian;
+
   /* Live test counter */
-  const [testsToday, setTestsToday] = useState(847);
+  const [testsToday, setTestsToday] = useState(rel.testsPerDay);
+  useEffect(() => {
+    setTestsToday(rel.testsPerDay);
+  }, [rel.testsPerDay]);
   useEffect(() => {
     const id = setInterval(() => setTestsToday((v) => v + 1), 100_000);
     return () => clearInterval(id);
@@ -364,11 +603,17 @@ export default function Reliability() {
   /* Expandable review queue */
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
 
+  /* Division-specific data */
+  const sparkData = useMemo(() => generateSparkline(rel.accuracy - 2.4, rel.accuracy), [rel.accuracy]);
+  const successExamples = divisionSuccessExamples[divKey] || successExamplesDefault;
+  const failureExamples = divisionFailureExamples[divKey] || failureExamplesDefault;
+  const reviewQueue = divisionReviewQueue[divKey] || reviewQueueDefault;
+
   const subScores = [
-    { label: 'Accuracy', pct: 96.8, color: '#22C55E' },
-    { label: 'Consistency', pct: 93.1, color: '#22C55E' },
-    { label: 'FRA Compliance', pct: 97.4, color: '#22C55E' },
-    { label: 'Drift Detection', pct: 2.1, color: '#F59E0B' },
+    { label: 'Accuracy', pct: rel.accuracy, color: '#22C55E' },
+    { label: 'Consistency', pct: Math.round((rel.accuracy - 1.1) * 10) / 10, color: '#22C55E' },
+    { label: 'FRA Compliance', pct: Math.round((rel.accuracy + 1.2) * 10) / 10 > 100 ? 99.8 : Math.round((rel.accuracy + 1.2) * 10) / 10, color: '#22C55E' },
+    { label: 'Drift Detection', pct: rel.falsePositive < 2 ? 1.2 : rel.falsePositive > 4 ? 3.8 : 2.1, color: '#F59E0B' },
   ];
 
   return (
@@ -397,11 +642,11 @@ export default function Reliability() {
             </p>
             <div className="flex items-baseline gap-1">
               <span className="text-6xl lg:text-7xl font-bold tracking-tight text-emerald-500">
-                <CountUp end={94.2} />
+                <CountUp end={rel.accuracy} />
               </span>
               <span className="text-3xl font-semibold text-emerald-500">%</span>
             </div>
-            <p className="text-xs text-ink-tertiary mt-1">62 active workflows, {testsToday.toLocaleString()} tests/day</p>
+            <p className="text-xs text-ink-tertiary mt-1">{rel.workflows} active workflows, {testsToday.toLocaleString()} tests/day</p>
           </div>
 
           {/* Inline sparkline */}
@@ -974,7 +1219,7 @@ export default function Reliability() {
             { label: 'Drift Alert', value: '>3% in 7 days', note: 'Trigger when accuracy drops', icon: AlertTriangle },
             { label: 'FRA Compliance', value: 'Enabled', note: 'Safety-critical: 95%+ required', icon: ShieldCheck },
             { label: 'Human Review SLA', value: 'Critical < 2h', note: 'Standard < 24 hours', icon: Clock },
-            { label: 'Target Score', value: '95%', note: 'Current: 94.2% (+0.8% trending)', icon: Target },
+            { label: 'Target Score', value: '95%', note: `Current: ${rel.accuracy}% (${rel.trend})`, icon: Target },
           ].map((c) => {
             const Icon = c.icon;
             return (
