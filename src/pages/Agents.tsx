@@ -73,6 +73,10 @@ import {
   getAgentsForDivision,
   getAllAgents,
   divisionMeta,
+  getTotalInstances,
+  getTotalTasksToday,
+  getTotalTasksThisWeek,
+  getFleetUptime,
   type AgentDef,
 } from '../data/divisionAgents';
 import { useAgents, useAgentDetail } from '../hooks/useAgentApi';
@@ -434,6 +438,19 @@ function AgentCard({
       <p className="text-[12px] font-medium text-ink-secondary mb-1">{agent.subtitle}</p>
       <p className="text-[10px] text-ink-tertiary mb-4 uppercase tracking-wider">{agent.divisionName}</p>
 
+      {/* Instance & throughput bar */}
+      <div className="flex items-center gap-3 mb-3 text-[11px]">
+        <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-blue-500/10">
+          <span className="font-semibold text-blue-400">{agent.instances}</span>
+          <span className="text-blue-400/70">{agent.instances === 1 ? 'instance' : 'instances'}</span>
+        </div>
+        <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-emerald-500/10">
+          <span className="font-semibold text-emerald-400">{agent.tasksToday.toLocaleString()}</span>
+          <span className="text-emerald-400/70">tasks/day</span>
+        </div>
+        <div className="ml-auto text-[10px] text-ink-tertiary font-mono">{agent.uptimePercent}%</div>
+      </div>
+
       <div className="space-y-2.5 text-[12px]">
         {agent.metrics.map((m, i) => (
           <div key={i} className="flex justify-between gap-3">
@@ -645,35 +662,57 @@ export default function Agents() {
             : `Named agents serving ${company.shortName}. Monitoring, analyzing, and acting 24/7.`}
         </p>
 
-        {/* Summary Stats Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 bg-gray-900 rounded-xl p-6">
-          <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 text-center">
-            <div className="flex items-center justify-center gap-2">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-50" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
-              </span>
-              <span className="text-3xl font-bold text-white tracking-tight">{visibleAgents.length}</span>
+        {/* Fleet Overview Stats */}
+        <div className="mb-8 bg-gray-900 rounded-xl p-6 space-y-4">
+          <div className="grid grid-cols-3 gap-3">
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 text-center">
+              <div className="text-3xl font-bold text-white tracking-tight">{visibleAgents.length}</div>
+              <div className="text-[12px] font-semibold text-gray-300">Agent Types</div>
+              <div className="text-[11px] text-gray-500 mt-0.5">
+                {isParent ? `across ${company.opCos} divisions` : `${visibleAgents.filter(a => a.division !== 'shared').length} division + ${visibleAgents.filter(a => a.division === 'shared').length} shared`}
+              </div>
             </div>
-            <div className="text-[12px] font-semibold text-gray-300">Active Agents</div>
-            <div className="text-[11px] text-gray-500 mt-0.5">
-              {isParent ? `across ${company.opCos} divisions` : `${visibleAgents.filter(a => a.division !== 'shared').length} division + ${visibleAgents.filter(a => a.division === 'shared').length} shared`}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 text-center">
+              <div className="flex items-center justify-center gap-2">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-50" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                </span>
+                <span className="text-3xl font-bold text-white tracking-tight">{getTotalInstances().toLocaleString()}</span>
+              </div>
+              <div className="text-[12px] font-semibold text-gray-300">Active Instances</div>
+              <div className="text-[11px] text-gray-500 mt-0.5">running concurrently</div>
+            </div>
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 text-center">
+              <div className="text-3xl font-bold text-white tracking-tight">{getTotalTasksToday().toLocaleString()}</div>
+              <div className="text-[12px] font-semibold text-gray-300">Tasks Today</div>
+              <div className="text-[11px] text-gray-500 mt-0.5">{getTotalTasksThisWeek().toLocaleString()} this week</div>
             </div>
           </div>
-          {[
-            { label: 'Saved This Quarter', value: '$1.2M', sub: 'sum of all agent savings' },
-            { label: 'FRA Violations', value: 'Zero', sub: 'since deployment (Oct 2025)' },
-          ].map((s, i) => (
-            <div key={i} className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 text-center">
-              <div className="text-3xl font-bold text-white tracking-tight">{s.value}</div>
-              <div className="text-[12px] font-semibold text-gray-300">{s.label}</div>
-              <div className="text-[11px] text-gray-500 mt-0.5">{s.sub}</div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              { label: 'Saved This Quarter', value: '$1.2M', sub: 'sum of all agent savings' },
+              { label: 'FRA Violations', value: 'Zero', sub: 'since deployment (Oct 2025)' },
+            ].map((s, i) => (
+              <div key={i} className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 text-center">
+                <div className="text-3xl font-bold text-white tracking-tight">{s.value}</div>
+                <div className="text-[12px] font-semibold text-gray-300">{s.label}</div>
+                <div className="text-[11px] text-gray-500 mt-0.5">{s.sub}</div>
+              </div>
+            ))}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 text-center">
+              <div className="text-3xl font-bold text-white tracking-tight">{queryCount.toLocaleString()}</div>
+              <div className="text-[12px] font-semibold text-gray-300">Queries Answered Today</div>
+              <div className="text-[11px] text-gray-500 mt-0.5">Atlas personal assistant</div>
             </div>
-          ))}
-          <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 text-center">
-            <div className="text-3xl font-bold text-white tracking-tight">{queryCount.toLocaleString()}</div>
-            <div className="text-[12px] font-semibold text-gray-300">Queries Answered Today</div>
-            <div className="text-[11px] text-gray-500 mt-0.5">Atlas personal assistant</div>
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 text-center">
+              <div className="flex items-center justify-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                <span className="text-3xl font-bold text-white tracking-tight">{getFleetUptime()}%</span>
+              </div>
+              <div className="text-[12px] font-semibold text-gray-300">Fleet Uptime</div>
+              <div className="text-[11px] text-gray-500 mt-0.5">weighted avg across all agents</div>
+            </div>
           </div>
         </div>
       </motion.div>

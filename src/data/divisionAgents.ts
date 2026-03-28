@@ -12,6 +12,14 @@ export interface AgentDef {
   description: string;
   category: 'operations' | 'intelligence' | 'safety' | 'logistics';
   deepDiveLink?: string;
+  /** Number of running instances of this agent type */
+  instances: number;
+  /** Tasks completed today */
+  tasksToday: number;
+  /** Tasks completed this week */
+  tasksThisWeek: number;
+  /** Uptime percentage (e.g. 99.95) */
+  uptimePercent: number;
 }
 
 /** Activity log entry returned by the agent detail API */
@@ -44,6 +52,10 @@ const sharedAgents: AgentDef[] = [
       "Each employee's personal AI assistant connected to their role-specific data. A track inspector asks \"what's the defect history at MP 247?\" and gets an instant answer pulling from inspection records, weather data, and maintenance history.",
     category: 'intelligence',
     deepDiveLink: '#atlas-deep-dive',
+    instances: 84,
+    tasksToday: 2340,
+    tasksThisWeek: 15210,
+    uptimePercent: 99.95,
   },
   {
     id: 'chief',
@@ -64,6 +76,10 @@ const sharedAgents: AgentDef[] = [
     description:
       'Monitors all 7 divisions daily and generates an executive briefing for the CEO every morning at 7:00 AM. Summarizes key metrics changes, compliance alerts, project milestones, budget variances, and personnel issues.',
     category: 'intelligence',
+    instances: 2,
+    tasksToday: 42,
+    tasksThisWeek: 273,
+    uptimePercent: 99.99,
   },
   {
     id: 'ledger',
@@ -84,6 +100,10 @@ const sharedAgents: AgentDef[] = [
     description:
       'Audits software license usage across all divisions weekly. Identifies unused seats, duplicate subscriptions, and consolidation opportunities. Has recovered $312K in wasted software spend since October.',
     category: 'operations',
+    instances: 7,
+    tasksToday: 168,
+    tasksThisWeek: 1092,
+    uptimePercent: 99.8,
   },
   {
     id: 'relay',
@@ -104,6 +124,10 @@ const sharedAgents: AgentDef[] = [
     description:
       'Attends all internal meetings via calendar integration, generates transcripts, extracts action items, tracks commitments across meetings, and flags when deadlines are missed.',
     category: 'intelligence',
+    instances: 4,
+    tasksToday: 356,
+    tasksThisWeek: 2314,
+    uptimePercent: 99.9,
   },
   {
     id: 'signal',
@@ -124,6 +148,82 @@ const sharedAgents: AgentDef[] = [
     description:
       'Monitors internal email and Slack for mentions of safety concerns, compliance issues, equipment problems, or customer complaints that need escalation. Surfaces patterns that would take weeks to notice manually.',
     category: 'intelligence',
+    instances: 4,
+    tasksToday: 3240,
+    tasksThisWeek: 21060,
+    uptimePercent: 99.97,
+  },
+  {
+    id: 'digital-twin',
+    name: 'Digital Twin',
+    subtitle: 'Digital Twin Engine',
+    icon: 'Box',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'purple',
+    division: 'shared',
+    divisionName: 'Shared Platform',
+    metrics: [
+      { label: 'Assets modeled', value: '1,840' },
+      { label: 'IoT endpoints synced', value: '2,400+' },
+      { label: 'Simulations run/week', value: '67' },
+      { label: 'Sync latency', value: '<5s' },
+    ],
+    description:
+      'Maintains virtual replicas of all major infrastructure assets. Syncs real-time sensor data from 2,400+ IoT endpoints. Enables simulation of maintenance scenarios before committing resources.',
+    category: 'intelligence',
+    instances: 3,
+    tasksToday: 142,
+    tasksThisWeek: 924,
+    uptimePercent: 99.92,
+  },
+  {
+    id: 'tender-processor',
+    name: 'Tender Processor',
+    subtitle: 'Tender Document Processor',
+    icon: 'FileSearch',
+    status: 'running',
+    statusLabel: 'Running (batch)',
+    accent: 'blue',
+    division: 'shared',
+    divisionName: 'Shared Platform',
+    metrics: [
+      { label: 'Tenders processed/week', value: '~40' },
+      { label: 'Conflicts detected', value: '18 this month' },
+      { label: 'Extraction accuracy', value: '96.8%' },
+      { label: 'Avg processing time', value: '12 min/doc' },
+    ],
+    description:
+      'Extracts structured data from complex bid/tender PDFs using vision-language models. Detects conflicts across document sections. Processes ~40 tender packages/week across all divisions.',
+    category: 'operations',
+    instances: 1,
+    tasksToday: 8,
+    tasksThisWeek: 41,
+    uptimePercent: 99.7,
+  },
+  {
+    id: 'capacity-planner',
+    name: 'Capacity Planner',
+    subtitle: 'Capacity Planning Agent',
+    icon: 'CalendarRange',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'green',
+    division: 'shared',
+    divisionName: 'Shared Platform',
+    metrics: [
+      { label: 'Forecast horizon', value: '90 days' },
+      { label: 'Divisions modeled', value: '7' },
+      { label: 'Bottlenecks flagged', value: '4 this week' },
+      { label: 'Forecast accuracy', value: '88%' },
+    ],
+    description:
+      'Forecasts resource needs across divisions 90 days out. Models crew availability, equipment utilization, and material supply chains. Flags bottlenecks before they impact schedules.',
+    category: 'logistics',
+    instances: 1,
+    tasksToday: 24,
+    tasksThisWeek: 168,
+    uptimePercent: 99.85,
   },
 ];
 
@@ -150,6 +250,10 @@ const hccAgents: AgentDef[] = [
       'Monitors FRA Hours-of-Service compliance across all 7 Herzog divisions in real time. Catches violations before they happen, automatically reassigns crew, and files FRA reports. Zero violations since deployment in October 2025.',
     category: 'safety',
     deepDiveLink: '#dispatch-deep-dive',
+    instances: 14,
+    tasksToday: 1920,
+    tasksThisWeek: 12480,
+    uptimePercent: 99.99,
   },
   {
     id: 'foreman',
@@ -170,6 +274,10 @@ const hccAgents: AgentDef[] = [
     description:
       'Optimizes heavy equipment dispatch and crew assignment across HCC construction projects. Reduces idle time, minimizes fuel consumption, and ensures the right equipment reaches the right jobsite.',
     category: 'logistics',
+    instances: 6,
+    tasksToday: 534,
+    tasksThisWeek: 3471,
+    uptimePercent: 99.7,
   },
   {
     id: 'blueprint',
@@ -190,6 +298,10 @@ const hccAgents: AgentDef[] = [
     description:
       'Analyzes project bid packages against historical data to catch cost estimation errors before submission. Rail projects have 44.7% average cost overrun \u2014 Blueprint reduces this to under 12%.',
     category: 'operations',
+    instances: 3,
+    tasksToday: 84,
+    tasksThisWeek: 546,
+    uptimePercent: 99.6,
   },
   {
     id: 'surveyor',
@@ -210,6 +322,10 @@ const hccAgents: AgentDef[] = [
     description:
       'Tracks fleet GPS data in real time to maximize vehicle utilization, optimize routing, and reduce fuel consumption across HCC construction operations.',
     category: 'logistics',
+    instances: 4,
+    tasksToday: 320,
+    tasksThisWeek: 2080,
+    uptimePercent: 99.8,
   },
   {
     id: 'batchmonitor',
@@ -230,6 +346,10 @@ const hccAgents: AgentDef[] = [
     description:
       'Monitors concrete batch plant operations in real time, tracking mix consistency, slump tests, temperature, and water-cement ratios. Flags out-of-spec batches before they leave the plant, preventing costly field rejections and rework.',
     category: 'operations',
+    instances: 3,
+    tasksToday: 141,
+    tasksThisWeek: 917,
+    uptimePercent: 99.2,
   },
   {
     id: 'fleettracker',
@@ -250,6 +370,10 @@ const hccAgents: AgentDef[] = [
     description:
       'Maintains a real-time inventory of all heavy equipment across HCC projects, tracking location, hours, maintenance schedules, and depreciation. Identifies underutilized assets for redeployment and flags equipment approaching service intervals.',
     category: 'logistics',
+    instances: 3,
+    tasksToday: 204,
+    tasksThisWeek: 1326,
+    uptimePercent: 99.5,
   },
   {
     id: 'weatherdelay',
@@ -270,6 +394,82 @@ const hccAgents: AgentDef[] = [
     description:
       'Combines hyperlocal weather forecasts with project schedule data to predict weather-related delays 3-5 days in advance. Automatically suggests schedule adjustments, crew reallocation, and material protection measures for each active jobsite.',
     category: 'intelligence',
+    instances: 2,
+    tasksToday: 72,
+    tasksThisWeek: 468,
+    uptimePercent: 99.7,
+  },
+  {
+    id: 'site-safety',
+    name: 'SiteSafety',
+    subtitle: 'Jobsite Safety Monitor',
+    icon: 'ShieldCheck',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'amber',
+    division: 'hcc',
+    divisionName: 'Herzog Contracting',
+    metrics: [
+      { label: 'Camera feeds monitored', value: '42' },
+      { label: 'PPE violations caught', value: '14 this week' },
+      { label: 'Exclusion zone alerts', value: '3 today' },
+      { label: 'Incident prevention rate', value: '94%' },
+    ],
+    description:
+      'Computer vision analysis of jobsite camera feeds for PPE compliance, exclusion zone violations, and unsafe crane operations. Alerts supervisors in real time and logs all safety events for trend analysis.',
+    category: 'safety',
+    instances: 4,
+    tasksToday: 340,
+    tasksThisWeek: 2380,
+    uptimePercent: 99.9,
+  },
+  {
+    id: 'concrete-qa',
+    name: 'ConcreteQA',
+    subtitle: 'Concrete Quality Assurance',
+    icon: 'FlaskConical',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'blue',
+    division: 'hcc',
+    divisionName: 'Herzog Contracting',
+    metrics: [
+      { label: 'Batch plants monitored', value: '6' },
+      { label: 'Pours tracked today', value: '18' },
+      { label: 'Out-of-spec alerts', value: '1 this week' },
+      { label: 'Cure temp compliance', value: '99.1%' },
+    ],
+    description:
+      'Monitors batch plant data, slump tests, and cure temperatures in real-time. Flags out-of-spec pours before they set, preventing costly demolition and rework on critical structural elements.',
+    category: 'operations',
+    instances: 2,
+    tasksToday: 47,
+    tasksThisWeek: 312,
+    uptimePercent: 99.6,
+  },
+  {
+    id: 'progress-tracker',
+    name: 'ProgressTracker',
+    subtitle: 'Construction Progress Tracker',
+    icon: 'Camera',
+    status: 'running',
+    statusLabel: 'Running (weekly survey)',
+    accent: 'green',
+    division: 'hcc',
+    divisionName: 'Herzog Contracting',
+    metrics: [
+      { label: 'Projects tracked', value: '14' },
+      { label: 'Drone surveys/week', value: '8' },
+      { label: 'BIM model sync', value: 'daily' },
+      { label: 'Avg completion accuracy', value: '±2.1%' },
+    ],
+    description:
+      'Compares drone survey data against BIM models to measure percent complete. Generates weekly progress reports automatically and flags schedule slippage before it compounds.',
+    category: 'intelligence',
+    instances: 1,
+    tasksToday: 14,
+    tasksThisWeek: 72,
+    uptimePercent: 99.4,
   },
 ];
 
@@ -295,6 +495,10 @@ const hrsiAgents: AgentDef[] = [
     description:
       'Combines geometry car data, weather patterns, tonnage history, and inspection records to predict track defects 2-3 weeks before they become safety issues.',
     category: 'safety',
+    instances: 8,
+    tasksToday: 840,
+    tasksThisWeek: 5460,
+    uptimePercent: 99.9,
   },
   {
     id: 'mechanic',
@@ -315,6 +519,10 @@ const hrsiAgents: AgentDef[] = [
     description:
       'Uses sensor data and maintenance history to predict equipment failures weeks in advance, enabling proactive repairs and avoiding costly unplanned downtime.',
     category: 'operations',
+    instances: 4,
+    tasksToday: 192,
+    tasksThisWeek: 1248,
+    uptimePercent: 99.7,
   },
   {
     id: 'stockroom',
@@ -335,6 +543,10 @@ const hrsiAgents: AgentDef[] = [
     description:
       'Optimizes parts inventory levels across HRSI warehouses using demand forecasting, lead time analysis, and criticality scoring to minimize stockouts while reducing carrying costs.',
     category: 'logistics',
+    instances: 3,
+    tasksToday: 108,
+    tasksThisWeek: 702,
+    uptimePercent: 99.5,
   },
   {
     id: 'ballast',
@@ -355,6 +567,10 @@ const hrsiAgents: AgentDef[] = [
     description:
       'Coordinates ballast and material deliveries across HRSI track maintenance projects, optimizing delivery routes and minimizing material waste.',
     category: 'logistics',
+    instances: 3,
+    tasksToday: 136,
+    tasksThisWeek: 884,
+    uptimePercent: 99.6,
   },
   {
     id: 'tiereplacement',
@@ -375,6 +591,10 @@ const hrsiAgents: AgentDef[] = [
     description:
       'Analyzes tie condition data from track inspections, tonnage history, and environmental factors to prioritize tie replacements by urgency. Optimizes gang deployment to minimize track time and maximize ties replaced per production day.',
     category: 'operations',
+    instances: 3,
+    tasksToday: 96,
+    tasksThisWeek: 624,
+    uptimePercent: 99.4,
   },
   {
     id: 'geometrycar',
@@ -395,6 +615,10 @@ const hrsiAgents: AgentDef[] = [
     description:
       'Processes geometry car measurement data to identify track geometry exceptions, trending conditions, and priority maintenance areas. Correlates geometry data with tonnage, weather, and maintenance history to predict degradation rates.',
     category: 'intelligence',
+    instances: 3,
+    tasksToday: 84,
+    tasksThisWeek: 546,
+    uptimePercent: 99.8,
   },
   {
     id: 'tampingscheduler',
@@ -415,6 +639,82 @@ const hrsiAgents: AgentDef[] = [
     description:
       'Optimizes tamping machine scheduling by coordinating track windows, crew availability, and priority segments. Ensures tamping operations achieve maximum production per track window while meeting FRA geometry standards.',
     category: 'logistics',
+    instances: 2,
+    tasksToday: 54,
+    tasksThisWeek: 351,
+    uptimePercent: 99.6,
+  },
+  {
+    id: 'geometry-car',
+    name: 'GeometryCar',
+    subtitle: 'Track Geometry Analyst',
+    icon: 'Ruler',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'green',
+    division: 'hrsi',
+    divisionName: 'Herzog Railroad Services',
+    metrics: [
+      { label: 'Track miles analyzed', value: '3,400/month' },
+      { label: 'Degradation trends', value: '12 active' },
+      { label: 'FRA threshold alerts', value: '4 this week' },
+      { label: 'Prediction lead time', value: '6.4 weeks' },
+    ],
+    description:
+      'Processes geometry car data to identify track degradation trends. Predicts maintenance windows before FRA thresholds are breached, enabling proactive scheduling that avoids slow orders.',
+    category: 'intelligence',
+    instances: 2,
+    tasksToday: 89,
+    tasksThisWeek: 623,
+    uptimePercent: 99.8,
+  },
+  {
+    id: 'crosstie-optimizer',
+    name: 'CrosstieOpt',
+    subtitle: 'Crosstie Replacement Optimizer',
+    icon: 'LayoutGrid',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'purple',
+    division: 'hrsi',
+    divisionName: 'Herzog Railroad Services',
+    metrics: [
+      { label: 'Ties assessed', value: '62,000' },
+      { label: 'Replacement schedules', value: '8 active' },
+      { label: 'Budget utilization', value: '94%' },
+      { label: 'Cost per tie saved', value: '$4.20' },
+    ],
+    description:
+      'Analyzes tie condition data, traffic density, and budget constraints to generate optimal replacement schedules. Balances urgency against gang availability to maximize tie life extension across the network.',
+    category: 'operations',
+    instances: 1,
+    tasksToday: 34,
+    tasksThisWeek: 238,
+    uptimePercent: 99.7,
+  },
+  {
+    id: 'weld-inspector',
+    name: 'WeldInspector',
+    subtitle: 'Rail Weld Inspector',
+    icon: 'Flame',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'amber',
+    division: 'hrsi',
+    divisionName: 'Herzog Railroad Services',
+    metrics: [
+      { label: 'Welds in network', value: '18,400' },
+      { label: 'UT results processed', value: '240/week' },
+      { label: 'Defect probability flags', value: '7' },
+      { label: 'Detection accuracy', value: '96.1%' },
+    ],
+    description:
+      'Monitors ultrasonic testing results for rail welds. Maintains a defect probability model for each weld in the network, prioritizing re-inspection based on age, tonnage, and environmental stress factors.',
+    category: 'safety',
+    instances: 1,
+    tasksToday: 48,
+    tasksThisWeek: 336,
+    uptimePercent: 99.9,
   },
 ];
 
@@ -440,6 +740,10 @@ const hsiAgents: AgentDef[] = [
     description:
       'AI-powered rail flaw detection system that processes ultrasonic and visual inspection data from geometry cars in real time, detecting rail defects with 94.2% accuracy.',
     category: 'safety',
+    instances: 4,
+    tasksToday: 648,
+    tasksThisWeek: 4212,
+    uptimePercent: 99.9,
   },
   {
     id: 'inspector',
@@ -460,6 +764,10 @@ const hsiAgents: AgentDef[] = [
     description:
       'Optimizes rail testing schedules across the network, balancing coverage requirements, crew availability, and equipment maintenance windows to maximize testing efficiency.',
     category: 'operations',
+    instances: 3,
+    tasksToday: 72,
+    tasksThisWeek: 468,
+    uptimePercent: 99.7,
   },
   {
     id: 'calibrator',
@@ -480,6 +788,10 @@ const hsiAgents: AgentDef[] = [
     description:
       'Tracks calibration status of all testing instruments, schedules recalibrations proactively, and ensures 100% compliance with NIST and FRA measurement standards.',
     category: 'operations',
+    instances: 2,
+    tasksToday: 24,
+    tasksThisWeek: 156,
+    uptimePercent: 99.6,
   },
   {
     id: 'emissionstracker',
@@ -500,6 +812,10 @@ const hsiAgents: AgentDef[] = [
     description:
       'Tracks emissions across all HSI testing operations including geometry cars, hi-rail vehicles, and support equipment. Generates EPA compliance reports automatically and identifies opportunities to reduce the carbon footprint of rail testing activities.',
     category: 'safety',
+    instances: 2,
+    tasksToday: 68,
+    tasksThisWeek: 442,
+    uptimePercent: 99.8,
   },
   {
     id: 'wastestream',
@@ -520,6 +836,10 @@ const hsiAgents: AgentDef[] = [
     description:
       'Monitors and optimizes waste streams from rail testing and environmental services operations. Tracks hazardous and non-hazardous waste volumes, identifies recycling opportunities, and automatically generates waste manifests for regulatory compliance.',
     category: 'operations',
+    instances: 2,
+    tasksToday: 46,
+    tasksThisWeek: 299,
+    uptimePercent: 99.5,
   },
   {
     id: 'permitrenewal',
@@ -540,6 +860,58 @@ const hsiAgents: AgentDef[] = [
     description:
       'Manages the full lifecycle of environmental and operational permits for HSI. Tracks expiration dates, auto-populates renewal applications from historical data, and ensures zero lapses across all state and federal permits.',
     category: 'safety',
+    instances: 2,
+    tasksToday: 24,
+    tasksThisWeek: 156,
+    uptimePercent: 99.9,
+  },
+  {
+    id: 'stormwater',
+    name: 'Stormwater',
+    subtitle: 'Stormwater Compliance Agent',
+    icon: 'CloudRain',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'green',
+    division: 'hsi',
+    divisionName: 'Herzog Services',
+    metrics: [
+      { label: 'Discharge permits tracked', value: '18' },
+      { label: 'Rain gauges monitored', value: '34' },
+      { label: 'BMP inspections/month', value: '48' },
+      { label: 'SWPPP reports auto-filed', value: '12' },
+    ],
+    description:
+      'Monitors discharge permits, rain gauge data, and BMP inspections. Auto-generates SWPPP reports and triggers corrective actions when rainfall thresholds approach permit limits.',
+    category: 'safety',
+    instances: 1,
+    tasksToday: 18,
+    tasksThisWeek: 126,
+    uptimePercent: 99.8,
+  },
+  {
+    id: 'remediation-tracker',
+    name: 'RemediationTracker',
+    subtitle: 'Remediation Progress Agent',
+    icon: 'ListChecks',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'amber',
+    division: 'hsi',
+    divisionName: 'Herzog Services',
+    metrics: [
+      { label: 'Active cleanup sites', value: '8' },
+      { label: 'Regulatory deadlines', value: '14 tracked' },
+      { label: 'Sampling schedules', value: '97% on-time' },
+      { label: 'Milestone completion', value: '91%' },
+    ],
+    description:
+      'Tracks contaminated site cleanup milestones against regulatory deadlines. Alerts when sampling schedules slip and generates compliance documentation for state and federal oversight agencies.',
+    category: 'operations',
+    instances: 1,
+    tasksToday: 12,
+    tasksThisWeek: 84,
+    uptimePercent: 99.5,
   },
 ];
 
@@ -565,6 +937,10 @@ const htiAgents: AgentDef[] = [
     description:
       'Monitors the health of railroad signal systems in real time, detecting anomalies and predicting failures before they impact train operations.',
     category: 'safety',
+    instances: 4,
+    tasksToday: 576,
+    tasksThisWeek: 3744,
+    uptimePercent: 99.97,
   },
   {
     id: 'integrator',
@@ -585,6 +961,10 @@ const htiAgents: AgentDef[] = [
     description:
       'Tracks Positive Train Control installation projects across multiple railroads, monitoring completion rates, schedule variance, and budget performance.',
     category: 'operations',
+    instances: 3,
+    tasksToday: 48,
+    tasksThisWeek: 312,
+    uptimePercent: 99.6,
   },
   {
     id: 'compliance',
@@ -605,6 +985,10 @@ const htiAgents: AgentDef[] = [
     description:
       'Automatically tracks FRA signal regulations, generates compliance reports, and ensures HTI signal installations meet all federal requirements.',
     category: 'safety',
+    instances: 3,
+    tasksToday: 84,
+    tasksThisWeek: 546,
+    uptimePercent: 99.8,
   },
   {
     id: 'patentmonitor',
@@ -625,6 +1009,10 @@ const htiAgents: AgentDef[] = [
     description:
       'Monitors the patent landscape for railroad signaling and PTC technologies, tracking competitor filings, identifying potential infringement risks, and surfacing licensing opportunities. Maintains HTI\'s IP portfolio status and renewal deadlines.',
     category: 'intelligence',
+    instances: 2,
+    tasksToday: 34,
+    tasksThisWeek: 221,
+    uptimePercent: 99.7,
   },
   {
     id: 'rdpipeline',
@@ -645,6 +1033,10 @@ const htiAgents: AgentDef[] = [
     description:
       'Tracks all HTI research and development projects through stage-gate milestones, monitoring budget burn rates, resource allocation, and projected commercialization timelines. Generates weekly status reports for technology leadership.',
     category: 'operations',
+    instances: 2,
+    tasksToday: 28,
+    tasksThisWeek: 182,
+    uptimePercent: 99.5,
   },
   {
     id: 'techtransfer',
@@ -665,6 +1057,58 @@ const htiAgents: AgentDef[] = [
     description:
       'Identifies opportunities to transfer HTI-developed technologies to other Herzog divisions or external partners. Evaluates commercial potential, manages licensing agreements, and tracks technology adoption across the enterprise.',
     category: 'intelligence',
+    instances: 2,
+    tasksToday: 24,
+    tasksThisWeek: 156,
+    uptimePercent: 99.4,
+  },
+  {
+    id: 'cyber-sentinel',
+    name: 'CyberSentinel',
+    subtitle: 'Cybersecurity Sentinel',
+    icon: 'ShieldAlert',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'purple',
+    division: 'hti',
+    divisionName: 'Herzog Technologies',
+    metrics: [
+      { label: 'OT/IT boundaries monitored', value: '14' },
+      { label: 'Anomalous traffic events', value: '3/week' },
+      { label: 'SCADA protocols analyzed', value: '8' },
+      { label: 'Mean detect time', value: '<90s' },
+    ],
+    description:
+      'Monitors OT/IT network boundaries for anomalous traffic patterns. Specialized in SCADA/ICS protocol analysis for railroad signaling systems, detecting intrusion attempts before they reach operational networks.',
+    category: 'safety',
+    instances: 3,
+    tasksToday: 1240,
+    tasksThisWeek: 8680,
+    uptimePercent: 99.99,
+  },
+  {
+    id: 'data-pipeline',
+    name: 'DataPipeline',
+    subtitle: 'Data Pipeline Monitor',
+    icon: 'Workflow',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'blue',
+    division: 'hti',
+    divisionName: 'Herzog Technologies',
+    metrics: [
+      { label: 'ETL jobs monitored', value: '89' },
+      { label: 'Data quality score', value: '97.2%' },
+      { label: 'Pipeline uptime', value: '99.8%' },
+      { label: 'Auto-restarts today', value: '2' },
+    ],
+    description:
+      'Watches ETL jobs, data quality scores, and pipeline latency across all division data feeds. Auto-restarts failed jobs and escalates persistent failures to the data engineering team.',
+    category: 'operations',
+    instances: 2,
+    tasksToday: 89,
+    tasksThisWeek: 623,
+    uptimePercent: 99.8,
   },
 ];
 
@@ -690,6 +1134,10 @@ const htsiAgents: AgentDef[] = [
     description:
       'Optimizes transit schedules in real time, predicting delays and adjusting routes to minimize passenger wait times and maximize on-time performance.',
     category: 'operations',
+    instances: 6,
+    tasksToday: 960,
+    tasksThisWeek: 6240,
+    uptimePercent: 99.95,
   },
   {
     id: 'conductor',
@@ -710,6 +1158,10 @@ const htsiAgents: AgentDef[] = [
     description:
       'Manages crew rostering for transit operations, ensuring qualification compliance, minimizing overtime costs, and maintaining 100% union rule adherence.',
     category: 'operations',
+    instances: 4,
+    tasksToday: 288,
+    tasksThisWeek: 1872,
+    uptimePercent: 99.8,
   },
   {
     id: 'passenger',
@@ -730,6 +1182,10 @@ const htsiAgents: AgentDef[] = [
     description:
       'Forecasts ridership demand across transit routes, enabling proactive capacity management and revenue optimization through dynamic scheduling.',
     category: 'intelligence',
+    instances: 4,
+    tasksToday: 192,
+    tasksThisWeek: 1248,
+    uptimePercent: 99.7,
   },
   {
     id: 'safety',
@@ -750,6 +1206,10 @@ const htsiAgents: AgentDef[] = [
     description:
       'Tracks safety incidents across transit operations in real time, analyzing trends, monitoring response times, and generating near-miss reports for continuous improvement.',
     category: 'safety',
+    instances: 4,
+    tasksToday: 480,
+    tasksThisWeek: 3120,
+    uptimePercent: 99.99,
   },
   {
     id: 'farerevenue',
@@ -770,6 +1230,10 @@ const htsiAgents: AgentDef[] = [
     description:
       'Optimizes fare revenue by analyzing ridership patterns, detecting fare evasion through gate data anomalies, and modeling dynamic pricing strategies. Reconciles fare collection across payment methods and generates revenue forecasts for transit authority reporting.',
     category: 'operations',
+    instances: 3,
+    tasksToday: 144,
+    tasksThisWeek: 936,
+    uptimePercent: 99.7,
   },
   {
     id: 'adacompliance',
@@ -790,6 +1254,10 @@ const htsiAgents: AgentDef[] = [
     description:
       'Continuously monitors ADA compliance across all transit stations and vehicles, tracking elevator/escalator uptime, platform gap measurements, audio announcement functionality, and tactile signage condition. Auto-generates FTA compliance reports.',
     category: 'safety',
+    instances: 3,
+    tasksToday: 84,
+    tasksThisWeek: 546,
+    uptimePercent: 99.6,
   },
   {
     id: 'fleetelectrify',
@@ -810,6 +1278,82 @@ const htsiAgents: AgentDef[] = [
     description:
       'Tracks the transit fleet electrification program, monitoring battery health across electric buses and rail vehicles, optimizing charging schedules to minimize peak demand charges, and projecting total cost of ownership for fleet replacement planning.',
     category: 'intelligence',
+    instances: 2,
+    tasksToday: 42,
+    tasksThisWeek: 273,
+    uptimePercent: 99.5,
+  },
+  {
+    id: 'passenger-flow',
+    name: 'PassengerFlow',
+    subtitle: 'Passenger Flow Optimizer',
+    icon: 'PersonStanding',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'blue',
+    division: 'htsi',
+    divisionName: 'Herzog Transit Services',
+    metrics: [
+      { label: 'Stations analyzed', value: '42' },
+      { label: 'Dwell time reduction', value: '-14%' },
+      { label: 'Crowding alerts today', value: '3' },
+      { label: 'Consist adjustments', value: '8/week' },
+    ],
+    description:
+      'Analyzes ridership patterns, dwell times, and platform crowding to optimize train frequency and consist length. Reduces passenger wait times during peak periods through real-time capacity balancing.',
+    category: 'intelligence',
+    instances: 4,
+    tasksToday: 312,
+    tasksThisWeek: 2184,
+    uptimePercent: 99.9,
+  },
+  {
+    id: 'fare-integrity',
+    name: 'FareIntegrity',
+    subtitle: 'Fare Integrity Agent',
+    icon: 'CreditCard',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'green',
+    division: 'htsi',
+    divisionName: 'Herzog Transit Services',
+    metrics: [
+      { label: 'Transactions analyzed', value: '84K/day' },
+      { label: 'Revenue leakage detected', value: '$12K/month' },
+      { label: 'Evasion patterns', value: '4 active' },
+      { label: 'Recovery rate', value: '68%' },
+    ],
+    description:
+      'Cross-references fare collection data with ridership counts to detect revenue leakage and fare evasion patterns. Identifies equipment malfunctions, policy gaps, and enforcement blind spots.',
+    category: 'operations',
+    instances: 2,
+    tasksToday: 84000,
+    tasksThisWeek: 588000,
+    uptimePercent: 99.95,
+  },
+  {
+    id: 'transit-comms',
+    name: 'TransitComms',
+    subtitle: 'Transit Communications Agent',
+    icon: 'Megaphone',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'purple',
+    division: 'htsi',
+    divisionName: 'Herzog Transit Services',
+    metrics: [
+      { label: 'Alerts generated/day', value: '34' },
+      { label: 'Passenger notifications', value: '12K/day' },
+      { label: 'Avg alert latency', value: '<45s' },
+      { label: 'Dispatch coordination', value: '98.4%' },
+    ],
+    description:
+      'Monitors real-time service alerts, generates passenger notifications, and coordinates with dispatch on service disruptions. Ensures consistent messaging across digital signs, apps, and PA systems.',
+    category: 'operations',
+    instances: 3,
+    tasksToday: 456,
+    tasksThisWeek: 3192,
+    uptimePercent: 99.97,
   },
 ];
 
@@ -835,6 +1379,10 @@ const heAgents: AgentDef[] = [
     description:
       'Monitors the health of energy infrastructure assets using sensor data and predictive analytics, detecting potential failures weeks before they occur.',
     category: 'operations',
+    instances: 4,
+    tasksToday: 440,
+    tasksThisWeek: 2860,
+    uptimePercent: 99.9,
   },
   {
     id: 'permit',
@@ -855,6 +1403,10 @@ const heAgents: AgentDef[] = [
     description:
       'Tracks environmental permits across energy projects, automatically filing renewal paperwork and ensuring 100% compliance with state and federal regulations.',
     category: 'safety',
+    instances: 2,
+    tasksToday: 32,
+    tasksThisWeek: 208,
+    uptimePercent: 99.8,
   },
   {
     id: 'maduediligence',
@@ -875,6 +1427,10 @@ const heAgents: AgentDef[] = [
     description:
       'Accelerates M&A due diligence by automatically ingesting and analyzing data room documents, financial statements, contracts, and regulatory filings. Identifies material risks, revenue concentration issues, and integration complexity across potential acquisition targets.',
     category: 'intelligence',
+    instances: 2,
+    tasksToday: 24,
+    tasksThisWeek: 156,
+    uptimePercent: 99.5,
   },
   {
     id: 'portfolioperf',
@@ -895,6 +1451,10 @@ const heAgents: AgentDef[] = [
     description:
       'Monitors financial and operational performance across all seven Herzog divisions, tracking ROIC, EBITDA margins, working capital efficiency, and growth metrics. Generates automated variance analysis when any KPI deviates beyond threshold.',
     category: 'intelligence',
+    instances: 3,
+    tasksToday: 84,
+    tasksThisWeek: 546,
+    uptimePercent: 99.7,
   },
   {
     id: 'boardreport',
@@ -915,6 +1475,58 @@ const heAgents: AgentDef[] = [
     description:
       'Automatically compiles board-ready reports by aggregating data from all divisions, generating executive summaries, financial highlights, risk assessments, and strategic initiative updates. Reduces board report preparation from 3 weeks to 2 days.',
     category: 'operations',
+    instances: 2,
+    tasksToday: 16,
+    tasksThisWeek: 104,
+    uptimePercent: 99.9,
+  },
+  {
+    id: 'insurance-analyzer',
+    name: 'InsuranceAnalyzer',
+    subtitle: 'Insurance Portfolio Analyzer',
+    icon: 'Umbrella',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'blue',
+    division: 'he',
+    divisionName: 'Herzog Energy',
+    metrics: [
+      { label: 'Policies tracked', value: '47' },
+      { label: 'Coverage gaps identified', value: '2' },
+      { label: 'Risk exposure modeled', value: '$1.2B' },
+      { label: 'Renewal prep lead time', value: '90 days' },
+    ],
+    description:
+      'Reviews coverage across all divisions, identifies gaps, and models risk exposure. Prepares renewal recommendations 90 days before expiration, ensuring optimal coverage at competitive premiums.',
+    category: 'intelligence',
+    instances: 1,
+    tasksToday: 8,
+    tasksThisWeek: 56,
+    uptimePercent: 99.7,
+  },
+  {
+    id: 'tax-optimizer',
+    name: 'TaxOptimizer',
+    subtitle: 'Tax Strategy Agent',
+    icon: 'Receipt',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'green',
+    division: 'he',
+    divisionName: 'Herzog Energy',
+    metrics: [
+      { label: 'Intercompany transactions', value: '1,200/month' },
+      { label: 'R&D credits identified', value: '$340K' },
+      { label: 'State/local obligations', value: '23 jurisdictions' },
+      { label: 'Divisions monitored', value: '7' },
+    ],
+    description:
+      'Monitors intercompany transactions, R&D credit opportunities, and state/local tax obligations across all 7 divisions. Identifies tax optimization strategies and ensures compliance across jurisdictions.',
+    category: 'operations',
+    instances: 1,
+    tasksToday: 42,
+    tasksThisWeek: 294,
+    uptimePercent: 99.8,
   },
 ];
 
@@ -940,6 +1552,10 @@ const ggAgents: AgentDef[] = [
     description:
       'Tracks environmental remediation progress across active cleanup sites, predicting completion timelines and monitoring cost variance against budgets.',
     category: 'operations',
+    instances: 3,
+    tasksToday: 72,
+    tasksThisWeek: 468,
+    uptimePercent: 99.6,
   },
   {
     id: 'monitor',
@@ -960,6 +1576,10 @@ const ggAgents: AgentDef[] = [
     description:
       'Monitors environmental sensors across Green Group sites, ensuring zero compliance violations and automatically filing required regulatory reports.',
     category: 'safety',
+    instances: 4,
+    tasksToday: 178,
+    tasksThisWeek: 1157,
+    uptimePercent: 99.8,
   },
   {
     id: 'quarryyield',
@@ -980,6 +1600,10 @@ const ggAgents: AgentDef[] = [
     description:
       'Optimizes quarry operations by analyzing blast patterns, crusher throughput, and aggregate gradation to maximize yield from each rock face. Uses geological survey data and production history to recommend optimal extraction sequences.',
     category: 'operations',
+    instances: 3,
+    tasksToday: 54,
+    tasksThisWeek: 351,
+    uptimePercent: 99.5,
   },
   {
     id: 'envscanner',
@@ -1000,6 +1624,10 @@ const ggAgents: AgentDef[] = [
     description:
       'Continuously scans federal, state, and local environmental regulations for changes that affect Green Group operations. Automatically assesses impact, generates compliance gap analyses, and drafts updated procedures before new rules take effect.',
     category: 'safety',
+    instances: 3,
+    tasksToday: 102,
+    tasksThisWeek: 663,
+    uptimePercent: 99.7,
   },
   {
     id: 'fleetmaintpredict',
@@ -1020,6 +1648,58 @@ const ggAgents: AgentDef[] = [
     description:
       'Predicts maintenance needs for Green Group\'s fleet of haul trucks, loaders, and environmental service vehicles using telematics data, vibration analysis, and oil sampling results. Pre-orders parts and schedules repairs during planned downtime.',
     category: 'logistics',
+    instances: 2,
+    tasksToday: 48,
+    tasksThisWeek: 312,
+    uptimePercent: 99.4,
+  },
+  {
+    id: 'blast-optimizer',
+    name: 'BlastOptimizer',
+    subtitle: 'Blast Pattern Optimizer',
+    icon: 'Target',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'purple',
+    division: 'gg',
+    divisionName: 'Green Group',
+    metrics: [
+      { label: 'Blast events analyzed', value: '340' },
+      { label: 'Overbreak reduction', value: '-22%' },
+      { label: 'Fragmentation score', value: '91%' },
+      { label: 'Cost per ton saved', value: '$0.84' },
+    ],
+    description:
+      'Analyzes geological survey data and previous blast results to optimize drill patterns, reducing overbreak and improving fragmentation. Each optimized blast saves material and increases crusher throughput.',
+    category: 'operations',
+    instances: 1,
+    tasksToday: 4,
+    tasksThisWeek: 28,
+    uptimePercent: 99.6,
+  },
+  {
+    id: 'loadout-scheduler',
+    name: 'LoadoutScheduler',
+    subtitle: 'Loadout Scheduling Agent',
+    icon: 'Clock',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'blue',
+    division: 'gg',
+    divisionName: 'Green Group',
+    metrics: [
+      { label: 'Trucks scheduled/day', value: '120' },
+      { label: 'Avg wait time', value: '8 min' },
+      { label: 'Daily tonnage', value: '14,200 tons' },
+      { label: 'Scale house utilization', value: '94%' },
+    ],
+    description:
+      'Coordinates truck arrivals, scale house operations, and inventory levels to minimize wait times and maximize daily tonnage. Dynamically adjusts schedules based on real-time queue length and production rates.',
+    category: 'logistics',
+    instances: 3,
+    tasksToday: 360,
+    tasksThisWeek: 2520,
+    uptimePercent: 99.8,
   },
 ];
 
@@ -1061,7 +1741,41 @@ export function getAgentsForDivision(divisionId: string): AgentDef[] {
   );
 }
 
-/** Returns all 48 agents */
+/** Returns all 48 agent types */
 export function getAllAgents(): AgentDef[] {
   return allAgents;
+}
+
+/* ── Fleet aggregate getters ──────────────────────────────────────────── */
+
+/** Total running instances across all agent types */
+export function getTotalInstances(): number {
+  return allAgents.reduce((sum, a) => sum + a.instances, 0);
+}
+
+/** Total tasks completed today across all agents */
+export function getTotalTasksToday(): number {
+  return allAgents.reduce((sum, a) => sum + a.tasksToday, 0);
+}
+
+/** Total tasks completed this week across all agents */
+export function getTotalTasksThisWeek(): number {
+  return allAgents.reduce((sum, a) => sum + a.tasksThisWeek, 0);
+}
+
+/** Active instances for a specific division (includes shared platform agents) */
+export function getActiveInstancesByDivision(divisionId: string): number {
+  if (divisionId === 'meridian' || divisionId === 'shared') {
+    return getTotalInstances();
+  }
+  return allAgents
+    .filter((a) => a.division === divisionId || a.division === 'shared')
+    .reduce((sum, a) => sum + a.instances, 0);
+}
+
+/** Weighted average uptime across the fleet (weighted by instances) */
+export function getFleetUptime(): number {
+  const totalInst = allAgents.reduce((sum, a) => sum + a.instances, 0);
+  const weightedSum = allAgents.reduce((sum, a) => sum + a.uptimePercent * a.instances, 0);
+  return Math.round((weightedSum / totalInst) * 100) / 100;
 }
