@@ -26,6 +26,7 @@ import { useCompany } from './data/CompanyContext';
 import { SimulationProvider } from './data/SimulationEngine';
 import EventToast from './components/EventToast';
 import AgentToast from './components/AgentToast';
+import FloatingAtlas from './components/FloatingAtlas';
 import { useSound } from './hooks/useSound';
 
 const routeTitles: Record<string, string> = {
@@ -209,6 +210,7 @@ export default function App() {
 
         <EventToast />
         <AgentToast />
+        <FloatingAtlas />
       </div>
     </SimulationProvider>
   );
