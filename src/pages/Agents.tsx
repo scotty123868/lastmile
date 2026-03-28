@@ -91,9 +91,10 @@ import {
   getAllAgents,
   divisionMeta,
   getTotalInstances,
-  getTotalTasksToday,
-  getTotalTasksThisWeek,
-  getFleetUptime,
+  getActiveInstancesByDivision,
+  getTasksTodayByDivision,
+  getTasksThisWeekByDivision,
+  getFleetUptimeByDivision,
   type AgentDef,
 } from '../data/divisionAgents';
 import { useAgents, useAgentDetail } from '../hooks/useAgentApi';
@@ -225,7 +226,7 @@ function generateActivity(): ActivityEntry {
   const empCount = Math.floor(Math.random() * 400) + 80;
   const hours = (Math.random() * 4 + 7).toFixed(1);
   const rest = (Math.random() * 6 + 10).toFixed(1);
-  const monthHours = Math.floor(Math.random() * 30) + 250;
+  const monthHours = Math.floor(Math.random() * 26) + 250;
 
   const rand = Math.random();
   if (rand < 0.35) {
@@ -616,8 +617,9 @@ export default function Agents() {
   // Show Dispatch deep dive when HCC or parent is selected
   const showDispatchDeepDive = isParent || company.id === 'hcc';
 
-  // Live query counter
-  const [queryCount, setQueryCount] = useState(2340);
+  // Live query counter — scale by division size
+  const baseQueryCount = isParent ? 2340 : Math.round(2340 * getActiveInstancesByDivision(company.id) / getTotalInstances());
+  const [queryCount, setQueryCount] = useState(baseQueryCount);
   useEffect(() => {
     const id = setInterval(() => {
       setQueryCount((c) => c + 1);
@@ -712,20 +714,20 @@ export default function Agents() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-50" />
                   <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
                 </span>
-                <span className="text-3xl font-bold text-white tracking-tight">{getTotalInstances().toLocaleString()}</span>
+                <span className="text-3xl font-bold text-white tracking-tight">{getActiveInstancesByDivision(company.id).toLocaleString()}</span>
               </div>
               <div className="text-[12px] font-semibold text-gray-300">Active Instances</div>
               <div className="text-[11px] text-gray-500 mt-0.5">running concurrently</div>
             </div>
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 text-center">
-              <div className="text-3xl font-bold text-white tracking-tight">{getTotalTasksToday().toLocaleString()}</div>
+              <div className="text-3xl font-bold text-white tracking-tight">{getTasksTodayByDivision(company.id).toLocaleString()}</div>
               <div className="text-[12px] font-semibold text-gray-300">Tasks Today</div>
-              <div className="text-[11px] text-gray-500 mt-0.5">{getTotalTasksThisWeek().toLocaleString()} this week</div>
+              <div className="text-[11px] text-gray-500 mt-0.5">{getTasksThisWeekByDivision(company.id).toLocaleString()} this week</div>
             </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
-              { label: 'Saved This Quarter', value: '$1.2M', sub: 'sum of all agent savings' },
+              { label: 'Saved This Quarter', value: isParent ? '$1.2M' : `$${Math.round(1200 * getActiveInstancesByDivision(company.id) / getTotalInstances())}K`, sub: 'sum of all agent savings' },
               { label: 'FRA Violations', value: 'Zero', sub: 'since deployment (Oct 2025)' },
             ].map((s, i) => (
               <div key={i} className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 text-center">
@@ -742,7 +744,7 @@ export default function Agents() {
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 text-center">
               <div className="flex items-center justify-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                <span className="text-3xl font-bold text-white tracking-tight">{getFleetUptime()}%</span>
+                <span className="text-3xl font-bold text-white tracking-tight">{getFleetUptimeByDivision(company.id)}%</span>
               </div>
               <div className="text-[12px] font-semibold text-gray-300">Fleet Uptime</div>
               <div className="text-[11px] text-gray-500 mt-0.5">weighted avg across all agents</div>

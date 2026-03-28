@@ -1779,3 +1779,35 @@ export function getFleetUptime(): number {
   const weightedSum = allAgents.reduce((sum, a) => sum + a.uptimePercent * a.instances, 0);
   return Math.round((weightedSum / totalInst) * 100) / 100;
 }
+
+/** Tasks completed today for a specific division (includes shared agents) */
+export function getTasksTodayByDivision(divisionId: string): number {
+  if (divisionId === 'meridian' || divisionId === 'shared') {
+    return getTotalTasksToday();
+  }
+  return allAgents
+    .filter((a) => a.division === divisionId || a.division === 'shared')
+    .reduce((sum, a) => sum + a.tasksToday, 0);
+}
+
+/** Tasks completed this week for a specific division (includes shared agents) */
+export function getTasksThisWeekByDivision(divisionId: string): number {
+  if (divisionId === 'meridian' || divisionId === 'shared') {
+    return getTotalTasksThisWeek();
+  }
+  return allAgents
+    .filter((a) => a.division === divisionId || a.division === 'shared')
+    .reduce((sum, a) => sum + a.tasksThisWeek, 0);
+}
+
+/** Weighted average uptime for a specific division (includes shared agents) */
+export function getFleetUptimeByDivision(divisionId: string): number {
+  if (divisionId === 'meridian' || divisionId === 'shared') {
+    return getFleetUptime();
+  }
+  const agents = allAgents.filter((a) => a.division === divisionId || a.division === 'shared');
+  const totalInst = agents.reduce((sum, a) => sum + a.instances, 0);
+  if (totalInst === 0) return 0;
+  const weightedSum = agents.reduce((sum, a) => sum + a.uptimePercent * a.instances, 0);
+  return Math.round((weightedSum / totalInst) * 100) / 100;
+}
