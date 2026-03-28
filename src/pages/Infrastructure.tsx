@@ -17,8 +17,10 @@ import {
   Cloud,
   Eye,
   Layers,
+  ExternalLink,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
+import { COMMAND_CENTER_URL } from '../data/crosslinks';
 import PreliminaryBanner from '../components/PreliminaryBanner';
 
 /* ── Animation variants ──────────────────────────────────── */
@@ -615,6 +617,17 @@ export default function Infrastructure() {
           </div>
         </div>
       </motion.section>
+
+      {/* ── Cross-link to Command Center Tech Stack ────────────── */}
+      <a
+        href={`${COMMAND_CENTER_URL}/tech-stack?company=${company.id}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-1.5 text-[13px] text-ink-tertiary hover:text-blue-400 transition-colors"
+      >
+        View Tech Stack mapping
+        <ExternalLink className="w-3 h-3" strokeWidth={2} />
+      </a>
     </div>
   );
 }

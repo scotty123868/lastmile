@@ -10,8 +10,11 @@ import {
   Brain,
   FileCheck,
   Server,
+  ExternalLink,
 } from 'lucide-react';
 import PreliminaryBanner from '../components/PreliminaryBanner';
+import { useCompany } from '../data/CompanyContext';
+import { COMMAND_CENTER_URL } from '../data/crosslinks';
 
 /* ── Types ───────────────────────────────────────────────── */
 
@@ -336,6 +339,7 @@ function PipelineStage({
 /* ── Page ─────────────────────────────────────────────────── */
 
 export default function Connectors() {
+  const { company } = useCompany();
   const [tickOffset, setTickOffset] = useState(0);
   const tickRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -454,6 +458,17 @@ export default function Connectors() {
           </div>
         </div>
       </section>
+
+      {/* ── Cross-link to Command Center Tech Stack ────────────── */}
+      <a
+        href={`${COMMAND_CENTER_URL}/tech-stack?company=${company.id}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-1.5 text-[13px] text-ink-tertiary hover:text-blue-400 transition-colors"
+      >
+        View Tech Stack mapping
+        <ExternalLink className="w-3 h-3" strokeWidth={2} />
+      </a>
     </div>
   );
 }

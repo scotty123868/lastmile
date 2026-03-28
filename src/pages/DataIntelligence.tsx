@@ -11,8 +11,10 @@ import {
   ArrowDown,
   ChevronDown,
   ChevronUp,
+  ExternalLink,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
+import { COMMAND_CENTER_URL } from '../data/crosslinks';
 import PreliminaryBanner from '../components/PreliminaryBanner';
 
 /* ── Types ───────────────────────────────────────────────── */
@@ -716,6 +718,17 @@ export default function DataIntelligence() {
           </div>
         </motion.div>
       </section>
+
+      {/* ── Cross-link to Command Center ROI ────────────────────── */}
+      <a
+        href={`${COMMAND_CENTER_URL}/roi-summary?company=${company.id}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-1.5 text-[13px] text-ink-tertiary hover:text-blue-400 transition-colors"
+      >
+        View ROI breakdown in Command Center
+        <ExternalLink className="w-3 h-3" strokeWidth={2} />
+      </a>
     </div>
   );
 }

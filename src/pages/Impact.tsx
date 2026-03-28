@@ -713,7 +713,7 @@ export default function Impact() {
 
       {/* ── Cross-link to Command Center ROI ──────────────────── */}
       <a
-        href={`${COMMAND_CENTER_URL}/roi-summary`}
+        href={`${COMMAND_CENTER_URL}/roi-summary?company=${company.id}`}
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center gap-1.5 text-sm text-blue-500 hover:text-blue-400 transition-colors"

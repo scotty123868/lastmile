@@ -290,7 +290,7 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
       {/* ── Cross-link to Command Center ────────── */}
       <div className="px-4 py-2 border-t border-nav-border">
         <a
-          href={COMMAND_CENTER_URL}
+          href={`${COMMAND_CENTER_URL}?company=${company.id}`}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-blue-400 transition-colors"
