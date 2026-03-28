@@ -693,7 +693,7 @@ export default function DataIntelligence() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="grid grid-cols-3 gap-3"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-3"
         >
           <div className="bg-surface-raised border border-border rounded-xl px-4 py-4 text-center">
             <div className="text-[11px] font-semibold text-ink-tertiary uppercase tracking-wider mb-1">Investment</div>

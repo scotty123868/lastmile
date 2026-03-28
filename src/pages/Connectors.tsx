@@ -426,7 +426,7 @@ export default function Connectors() {
         </h2>
         <div className="bg-surface-raised rounded-xl border border-border overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-[13px]">
+            <table className="w-full min-w-[600px] text-left text-[13px]">
               <thead>
                 <tr className="border-b border-border bg-surface-sunken/50">
                   <th className="px-5 py-3 font-medium text-ink-tertiary text-[11px] uppercase tracking-wider">System Name</th>

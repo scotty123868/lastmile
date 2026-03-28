@@ -64,7 +64,7 @@ function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
         <div className="flex items-center gap-3">
           <button
             onClick={onMenuClick}
-            className="flex h-7 w-7 items-center justify-center rounded-md text-ink-tertiary hover:text-ink hover:bg-surface-sunken transition-colors lg:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-md text-ink-tertiary hover:text-ink hover:bg-surface-sunken transition-colors lg:hidden"
           >
             <Menu className="h-4 w-4" strokeWidth={1.8} />
           </button>
@@ -77,7 +77,7 @@ function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
         <div className="flex items-center gap-3">
           <button
             onClick={toggleMute}
-            className="flex h-7 w-7 items-center justify-center rounded-md text-ink-tertiary hover:text-ink hover:bg-surface-sunken transition-colors"
+            className="flex h-11 w-11 items-center justify-center rounded-md text-ink-tertiary hover:text-ink hover:bg-surface-sunken transition-colors"
             title={isMuted ? 'Unmute sounds' : 'Mute sounds'}
           >
             {isMuted ? <VolumeX className="h-3.5 w-3.5" /> : <Volume2 className="h-3.5 w-3.5" />}

@@ -739,8 +739,8 @@ export default function AIDemo() {
             <h2 className="text-xs font-bold uppercase tracking-widest text-ink-tertiary">
               Value Comparison
             </h2>
-            <div className="rounded-xl border border-border bg-surface overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="rounded-xl border border-border bg-surface overflow-x-auto">
+              <table className="w-full min-w-[500px] text-sm">
                 <thead>
                   <tr className="border-b border-border bg-surface-sunken">
                     <th className="text-left px-5 py-3 text-xs font-bold uppercase tracking-wider text-ink-tertiary" />

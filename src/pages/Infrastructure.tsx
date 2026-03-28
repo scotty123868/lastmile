@@ -492,7 +492,7 @@ export default function Infrastructure() {
           <h2 className="text-[15px] font-semibold text-ink">Technology Stack</h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {techStack.map((cat, catIdx) => {
             const CatIcon = cat.icon;
             return (
