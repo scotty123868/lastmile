@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
@@ -22,6 +22,8 @@ import { useCompany, companies } from '../data/CompanyContext';
 import PreliminaryBanner from '../components/PreliminaryBanner';
 import { type LiveWorkflow, type WorkflowStep } from '../data/workflows';
 import { useSimulation } from '../data/SimulationEngine';
+import AgentDecisionChain from '../components/AgentDecisionChain';
+import { getDecisionsForDivision } from '../data/agentDecisions';
 
 /* ── Workflow status config ──────────────────────────────── */
 
@@ -943,6 +945,27 @@ export default function LiveWorkflows() {
           </Link>
         </div>
       </CollapsibleSection>
+
+      {/* ── Recent Agent Actions (Decision Chains) ────────── */}
+      <RecentAgentActions companyId={company.id} />
+    </div>
+  );
+}
+
+/* ── Recent Agent Actions wrapper ─────────────────────────── */
+
+function RecentAgentActions({ companyId }: { companyId: string }) {
+  const actions = useMemo(() => getDecisionsForDivision(companyId), [companyId]);
+
+  if (actions.length === 0) return null;
+
+  return (
+    <div className="mt-8">
+      <AgentDecisionChain
+        actions={actions}
+        title="Recent Agent Actions"
+        maxItems={5}
+      />
     </div>
   );
 }

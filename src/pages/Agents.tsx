@@ -98,6 +98,8 @@ import {
   type AgentDef,
 } from '../data/divisionAgents';
 import { useAgents, useAgentDetail } from '../hooks/useAgentApi';
+import AgentDecisionChain from '../components/AgentDecisionChain';
+import { getDecisionsForAgent } from '../data/agentDecisions';
 
 /* -- Icon lookup -------------------------------------------------------- */
 
@@ -568,7 +570,26 @@ function AgentDetailPanel({ agent, onClose }: { agent: AgentDef; onClose: () => 
           </div>
         </div>
       )}
+
+      {/* Agent Decision Chains */}
+      <AgentDecisionHistory agentId={agent.id} agentName={agent.name} />
     </motion.div>
+  );
+}
+
+/* -- Agent Decision History (for detail panel) ------------------------------ */
+
+function AgentDecisionHistory({ agentId, agentName }: { agentId: string; agentName: string }) {
+  const decisions = getDecisionsForAgent(agentId);
+  if (decisions.length === 0) return null;
+
+  return (
+    <div className="mt-5 pt-4 border-t border-border-subtle">
+      <AgentDecisionChain
+        actions={decisions}
+        title={`${agentName} Decision History`}
+      />
+    </div>
   );
 }
 
