@@ -58,6 +58,12 @@ const hccEvents: AgentToastEvent[] = [
   { agentName: 'Blueprint', action: 'Change order', detail: 'Scope change on KDOT project detected — cost impact analysis: +$180K, 2-week extension', accent: 'blue' },
   { agentName: 'Surveyor', action: 'Fleet report', detail: 'Weekly fleet utilization: 82% avg — up from 74% last month, 3 underutilized assets flagged', accent: 'blue' },
   { agentName: 'Dispatch', action: 'Compliance check', detail: 'All 340 active employees verified HOS compliant — daily report filed', accent: 'blue' },
+  { agentName: 'BatchMonitor', action: 'Batch flagged', detail: 'Batch #447 slump test at 5.8 in — outside spec range, held at plant for adjustment', accent: 'blue' },
+  { agentName: 'BatchMonitor', action: 'Quality report', detail: '47 batches monitored today — 99.2% pass rate, 0 field rejections this week', accent: 'blue' },
+  { agentName: 'FleetTracker', action: 'Asset relocated', detail: 'CAT D8 dozer reassigned from idle Topeka yard to I-35 grading project — saves 2 days', accent: 'purple' },
+  { agentName: 'FleetTracker', action: 'Service alert', detail: 'Komatsu PC360 at 1,980 hours — 2,000hr service window scheduled for Saturday', accent: 'purple' },
+  { agentName: 'WeatherDelay', action: 'Delay predicted', detail: 'Heavy rain forecast Wed-Thu at MO-291 bridge site — concrete pour rescheduled to Friday', accent: 'amber' },
+  { agentName: 'WeatherDelay', action: 'Schedule adjusted', detail: '3 outdoor crews moved to indoor tasks for tomorrow — 14 delay-days avoided this quarter', accent: 'amber' },
 ];
 
 /* ── HRSI — Herzog Railroad Services ───────────────────────────────────── */
@@ -83,6 +89,12 @@ const hrsiEvents: AgentToastEvent[] = [
   { agentName: 'Stockroom', action: 'Demand forecast', detail: 'Spring maintenance season demand model updated — 14% higher clip usage projected vs last year', accent: 'green' },
   { agentName: 'Ballast', action: 'Inventory synced', detail: 'Quarry inventory reconciled — 4,200 tons available at Carthage, matches delivery schedule', accent: 'green' },
   { agentName: 'Scout', action: 'Report generated', detail: 'Weekly track condition summary: 4,200 miles monitored, 8 defects predicted, 0 missed', accent: 'green' },
+  { agentName: 'TieReplacer', action: 'Priority updated', detail: 'Corridor 12 ties degrading faster than model — 240 replacements moved to Q2 schedule', accent: 'purple' },
+  { agentName: 'TieReplacer', action: 'Gang optimized', detail: 'Tie gang deployment adjusted — 8% more replacements per production day vs last month', accent: 'purple' },
+  { agentName: 'GeometryAnalyst', action: 'Exception report', detail: '2,800 miles analyzed — 34 geometry exceptions flagged, 7 trending corridors identified', accent: 'green' },
+  { agentName: 'GeometryAnalyst', action: 'Trend alert', detail: 'Cross-level deviation trending at MP 312-318 — tamping recommended before next quarter', accent: 'green' },
+  { agentName: 'TampScheduler', action: 'Window secured', detail: 'Track window confirmed for Corridor 8 tamping — 6-hour window, crew and equipment staged', accent: 'amber' },
+  { agentName: 'TampScheduler', action: 'Production tracked', detail: 'Tamping production at 94% of plan — 2.1% rework rate, on track for monthly target', accent: 'amber' },
 ];
 
 /* ── HSI — Herzog Services / Rail Testing ──────────────────────────────── */
@@ -108,6 +120,12 @@ const hsiEvents: AgentToastEvent[] = [
   { agentName: 'Calibrator', action: 'Instrument tracked', detail: 'New ultrasonic probe registered — serial #UT-2847, calibration baseline established', accent: 'amber' },
   { agentName: 'RailSentry', action: 'Real-time alert', detail: 'Active geometry car detecting class 4 track alignment issue — operator notified on-site', accent: 'amber' },
   { agentName: 'Inspector', action: 'Backlog cleared', detail: 'Testing backlog reduced to 6 segments — lowest level this quarter', accent: 'amber' },
+  { agentName: 'EmissionsTracker', action: 'Report filed', detail: 'Monthly emissions report: 142 tons CO2e — 18% below baseline, EPA report auto-filed', accent: 'green' },
+  { agentName: 'EmissionsTracker', action: 'Reduction opportunity', detail: 'Geometry car #3 fuel consumption 12% above fleet avg — maintenance check recommended', accent: 'green' },
+  { agentName: 'WasteStream', action: 'Diversion improved', detail: 'Waste diversion rate up to 74% — new recycling vendor for metal shavings saving $2.1K/mo', accent: 'purple' },
+  { agentName: 'WasteStream', action: 'Manifest filed', detail: 'Hazardous waste manifest MO-3012 auto-generated and submitted — pickup scheduled Friday', accent: 'purple' },
+  { agentName: 'PermitRenewal', action: 'Auto-renewed', detail: 'State air quality permit for testing facility — renewal filed 45 days ahead of deadline', accent: 'amber' },
+  { agentName: 'PermitRenewal', action: 'Deadline alert', detail: '5 permits due within 60 days — renewal packages prepared, 3 ready for submission', accent: 'amber' },
 ];
 
 /* ── HTI — Herzog Technologies ─────────────────────────────────────────── */
@@ -133,6 +151,12 @@ const htiEvents: AgentToastEvent[] = [
   { agentName: 'Compliance', action: 'Inspection logged', detail: 'Monthly signal inspection results: 340 points checked, 2 minor findings corrected', accent: 'purple' },
   { agentName: 'Sentinel', action: 'Pattern found', detail: 'Intermittent signal failures correlating with temperature swings at 3 grade crossings', accent: 'purple' },
   { agentName: 'Integrator', action: 'Handoff complete', detail: 'CSX PTC segment officially transferred to railroad operations — documentation archived', accent: 'purple' },
+  { agentName: 'PatentMonitor', action: 'Filing detected', detail: 'Competitor patent filing for wayside detection method — relevance analysis: low risk to HTI portfolio', accent: 'blue' },
+  { agentName: 'PatentMonitor', action: 'Licensing opportunity', detail: 'HTI signal encryption patent generating interest — 3 Class I railroads requesting evaluation', accent: 'blue' },
+  { agentName: 'R&DPipeline', action: 'Stage gate passed', detail: 'Autonomous track inspection project cleared Gate 3 — field trial approved for Q3', accent: 'green' },
+  { agentName: 'R&DPipeline', action: 'Budget update', detail: 'R&D spend at 82% of plan — 14 active projects, 2 approaching commercialization', accent: 'green' },
+  { agentName: 'TechTransfer', action: 'Transfer initiated', detail: 'PTC diagnostic tool adopted by HRSI maintenance — cross-division technology transfer #4 this year', accent: 'amber' },
+  { agentName: 'TechTransfer', action: 'Partner evaluated', detail: 'Technology licensing evaluation complete for Nordic Rail Systems — positive ROI projection', accent: 'amber' },
 ];
 
 /* ── HTSI — Herzog Transit Services ────────────────────────────────────── */
@@ -158,6 +182,12 @@ const htsiEvents: AgentToastEvent[] = [
   { agentName: 'Conductor', action: 'Training tracked', detail: '12 new operators completed simulator training — certification exams scheduled next week', accent: 'blue' },
   { agentName: 'Passenger', action: 'Pattern found', detail: 'Weekend ridership shifting earlier — peak now 10 AM vs 11 AM, schedule adjustment proposed', accent: 'blue' },
   { agentName: 'Safety', action: 'Camera alert', detail: 'Platform occupancy at Station 7 above threshold — crowd management announcement triggered', accent: 'blue' },
+  { agentName: 'FareRevenue', action: 'Evasion detected', detail: 'Fare gate anomaly at Station 14 — 1.8% evasion rate flagged, enforcement notified', accent: 'green' },
+  { agentName: 'FareRevenue', action: 'Revenue forecast', detail: 'Monthly fare revenue on track for $2.4M — dynamic pricing adding $67K vs flat rate', accent: 'green' },
+  { agentName: 'ADACompliance', action: 'Issue resolved', detail: 'Station 22 elevator restored to service — ADA compliance back to 98.6% across network', accent: 'purple' },
+  { agentName: 'ADACompliance', action: 'Audit prepared', detail: 'FTA ADA compliance package compiled — 42 stations documented, 6 open remediation items', accent: 'purple' },
+  { agentName: 'FleetElectrify', action: 'Charging optimized', detail: 'Off-peak charging schedule saved $8.2K this month — battery health across fleet at 94%', accent: 'amber' },
+  { agentName: 'FleetElectrify', action: 'Milestone reached', detail: 'Fleet electrification at 34% — 12 new electric buses deployed, CO2 down 280 tons/year', accent: 'amber' },
 ];
 
 /* ── HE — Herzog Energy ────────────────────────────────────────────────── */
@@ -183,6 +213,12 @@ const heEvents: AgentToastEvent[] = [
   { agentName: 'Permit', action: 'Document archived', detail: 'Annual compliance documentation archived — 34 reports, 12 permits, all cross-referenced', accent: 'green' },
   { agentName: 'GridWatch', action: 'Vegetation alert', detail: 'Drone survey detected vegetation encroachment at transmission corridor — work order created', accent: 'green' },
   { agentName: 'Permit', action: 'Fee tracked', detail: 'Permit fee schedule updated — $2,400 in annual fees auto-scheduled for payment', accent: 'green' },
+  { agentName: 'M&ADiligence', action: 'Data room analyzed', detail: 'Target company data room: 12,000 documents processed — 14 risk flags, 3 material findings', accent: 'purple' },
+  { agentName: 'M&ADiligence', action: 'Risk assessment', detail: 'Revenue concentration risk identified — top 3 customers represent 68% of target revenue', accent: 'purple' },
+  { agentName: 'PortfolioPerf', action: 'Variance alert', detail: 'HCC EBITDA margin down 1.4% vs plan — driven by weather delays on I-70 project', accent: 'blue' },
+  { agentName: 'PortfolioPerf', action: 'KPI update', detail: '142 KPIs refreshed across 7 divisions — ROIC trending +2.1% YoY, 4 variances flagged', accent: 'blue' },
+  { agentName: 'BoardReport', action: 'Report compiled', detail: 'Q1 board report draft: 47 pages auto-generated from 89 data sources — review time cut to 4 hours', accent: 'green' },
+  { agentName: 'BoardReport', action: 'Data aggregated', detail: 'Monthly division performance data collected — all 7 divisions reporting, 0 data gaps', accent: 'green' },
 ];
 
 /* ── GG — Green Group ──────────────────────────────────────────────────── */
@@ -208,6 +244,12 @@ const ggEvents: AgentToastEvent[] = [
   { agentName: 'Monitor', action: 'Data validated', detail: 'Automated QA on 2,400 sensor readings — 3 outliers flagged and investigated, all valid', accent: 'amber' },
   { agentName: 'Remediation', action: 'Stakeholder update', detail: 'Monthly progress reports sent to 8 regulatory agencies and 4 property owners', accent: 'amber' },
   { agentName: 'Monitor', action: 'Equipment health', detail: 'Treatment system pump #4 vibration elevated — maintenance scheduled before degradation', accent: 'amber' },
+  { agentName: 'QuarryYield', action: 'Blast optimized', detail: 'Quarry 3 blast pattern adjusted — fragmentation improved 14%, crusher throughput up 8%', accent: 'purple' },
+  { agentName: 'QuarryYield', action: 'Yield report', detail: 'Monthly quarry yield: 87% efficiency across 6 sites — revenue per ton up $1.20 vs last year', accent: 'purple' },
+  { agentName: 'EnvScanner', action: 'Regulation change', detail: 'New EPA stormwater rule effective May 1 — impact assessment complete, 2 procedure updates drafted', accent: 'green' },
+  { agentName: 'EnvScanner', action: 'Compliance verified', detail: '340 regulations scanned — 0 compliance gaps, 4 upcoming changes tracked and prepared for', accent: 'green' },
+  { agentName: 'FleetMaintPredict', action: 'Failure predicted', detail: 'Haul truck #12 transmission showing degradation pattern — repair scheduled during weekend downtime', accent: 'blue' },
+  { agentName: 'FleetMaintPredict', action: 'Parts ordered', detail: '12 parts pre-ordered for predicted maintenance — 34% less unplanned downtime this quarter', accent: 'blue' },
 ];
 
 /* ── Event pools by division ───────────────────────────────────────────── */

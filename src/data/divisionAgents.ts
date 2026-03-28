@@ -14,6 +14,13 @@ export interface AgentDef {
   deepDiveLink?: string;
 }
 
+/** Activity log entry returned by the agent detail API */
+export interface AgentActivity {
+  timestamp: string;
+  action: string;
+  detail: string;
+}
+
 /* ── Shared Platform Agents (5) ─────────────────────────────────────────── */
 
 const sharedAgents: AgentDef[] = [
@@ -120,7 +127,7 @@ const sharedAgents: AgentDef[] = [
   },
 ];
 
-/* ── HCC — Herzog Contracting Corp (4) ──────────────────────────────────── */
+/* ── HCC — Herzog Contracting Corp (7) ──────────────────────────────────── */
 
 const hccAgents: AgentDef[] = [
   {
@@ -204,9 +211,69 @@ const hccAgents: AgentDef[] = [
       'Tracks fleet GPS data in real time to maximize vehicle utilization, optimize routing, and reduce fuel consumption across HCC construction operations.',
     category: 'logistics',
   },
+  {
+    id: 'batchmonitor',
+    name: 'BatchMonitor',
+    subtitle: 'Concrete Batch Monitor',
+    icon: 'Beaker',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'blue',
+    division: 'hcc',
+    divisionName: 'Herzog Contracting',
+    metrics: [
+      { label: 'Batches monitored today', value: '47' },
+      { label: 'Quality pass rate', value: '99.2%' },
+      { label: 'Slump variance', value: '±0.3 in' },
+      { label: 'Waste reduced', value: '12%' },
+    ],
+    description:
+      'Monitors concrete batch plant operations in real time, tracking mix consistency, slump tests, temperature, and water-cement ratios. Flags out-of-spec batches before they leave the plant, preventing costly field rejections and rework.',
+    category: 'operations',
+  },
+  {
+    id: 'fleettracker',
+    name: 'FleetTracker',
+    subtitle: 'Equipment Fleet Tracker',
+    icon: 'Container',
+    status: 'running',
+    statusLabel: 'Running (daily sync)',
+    accent: 'purple',
+    division: 'hcc',
+    divisionName: 'Herzog Contracting',
+    metrics: [
+      { label: 'Heavy equipment tracked', value: '340' },
+      { label: 'Maintenance compliance', value: '97.4%' },
+      { label: 'Avg utilization', value: '78%' },
+      { label: 'Cost per hour tracked', value: '$142' },
+    ],
+    description:
+      'Maintains a real-time inventory of all heavy equipment across HCC projects, tracking location, hours, maintenance schedules, and depreciation. Identifies underutilized assets for redeployment and flags equipment approaching service intervals.',
+    category: 'logistics',
+  },
+  {
+    id: 'weatherdelay',
+    name: 'WeatherDelay',
+    subtitle: 'Weather Delay Predictor',
+    icon: 'CloudRain',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'amber',
+    division: 'hcc',
+    divisionName: 'Herzog Contracting',
+    metrics: [
+      { label: 'Sites monitored', value: '18' },
+      { label: 'Prediction accuracy', value: '89%' },
+      { label: 'Delay days avoided', value: '14 this quarter' },
+      { label: 'Schedule impact saved', value: '$220K' },
+    ],
+    description:
+      'Combines hyperlocal weather forecasts with project schedule data to predict weather-related delays 3-5 days in advance. Automatically suggests schedule adjustments, crew reallocation, and material protection measures for each active jobsite.',
+    category: 'intelligence',
+  },
 ];
 
-/* ── HRSI — Herzog Railroad Services (4) ────────────────────────────────── */
+/* ── HRSI — Herzog Railroad Services (7) ────────────────────────────────── */
 
 const hrsiAgents: AgentDef[] = [
   {
@@ -289,9 +356,69 @@ const hrsiAgents: AgentDef[] = [
       'Coordinates ballast and material deliveries across HRSI track maintenance projects, optimizing delivery routes and minimizing material waste.',
     category: 'logistics',
   },
+  {
+    id: 'tiereplacement',
+    name: 'TieReplacer',
+    subtitle: 'Tie Replacement Optimizer',
+    icon: 'Rows3',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'purple',
+    division: 'hrsi',
+    divisionName: 'Herzog Railroad Services',
+    metrics: [
+      { label: 'Ties assessed', value: '48,000' },
+      { label: 'Replacement priority', value: '1,240 this quarter' },
+      { label: 'Cost optimization', value: '-8% vs manual' },
+      { label: 'Life extension', value: '+2.4 years avg' },
+    ],
+    description:
+      'Analyzes tie condition data from track inspections, tonnage history, and environmental factors to prioritize tie replacements by urgency. Optimizes gang deployment to minimize track time and maximize ties replaced per production day.',
+    category: 'operations',
+  },
+  {
+    id: 'geometrycar',
+    name: 'GeometryAnalyst',
+    subtitle: 'Geometry Car Analyst',
+    icon: 'LineChart',
+    status: 'running',
+    statusLabel: 'Running (analysis)',
+    accent: 'green',
+    division: 'hrsi',
+    divisionName: 'Herzog Railroad Services',
+    metrics: [
+      { label: 'Miles analyzed', value: '2,800/month' },
+      { label: 'Exception reports', value: '34' },
+      { label: 'Trend corridors flagged', value: '7' },
+      { label: 'FRA compliance', value: '99.4%' },
+    ],
+    description:
+      'Processes geometry car measurement data to identify track geometry exceptions, trending conditions, and priority maintenance areas. Correlates geometry data with tonnage, weather, and maintenance history to predict degradation rates.',
+    category: 'intelligence',
+  },
+  {
+    id: 'tampingscheduler',
+    name: 'TampScheduler',
+    subtitle: 'Tamping Scheduler',
+    icon: 'CalendarClock',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'amber',
+    division: 'hrsi',
+    divisionName: 'Herzog Railroad Services',
+    metrics: [
+      { label: 'Tamping windows scheduled', value: '18/month' },
+      { label: 'Track time utilization', value: '94%' },
+      { label: 'Production rate', value: '+11% vs plan' },
+      { label: 'Rework rate', value: '2.1%' },
+    ],
+    description:
+      'Optimizes tamping machine scheduling by coordinating track windows, crew availability, and priority segments. Ensures tamping operations achieve maximum production per track window while meeting FRA geometry standards.',
+    category: 'logistics',
+  },
 ];
 
-/* ── HSI — Herzog Services / Rail Testing (3) ───────────────────────────── */
+/* ── HSI — Herzog Services / Rail Testing (6) ───────────────────────────── */
 
 const hsiAgents: AgentDef[] = [
   {
@@ -354,9 +481,69 @@ const hsiAgents: AgentDef[] = [
       'Tracks calibration status of all testing instruments, schedules recalibrations proactively, and ensures 100% compliance with NIST and FRA measurement standards.',
     category: 'operations',
   },
+  {
+    id: 'emissionstracker',
+    name: 'EmissionsTracker',
+    subtitle: 'Emissions Tracker',
+    icon: 'Wind',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'green',
+    division: 'hsi',
+    divisionName: 'Herzog Services',
+    metrics: [
+      { label: 'Sources monitored', value: '34' },
+      { label: 'CO2e this month', value: '142 tons' },
+      { label: 'Reduction vs baseline', value: '-18%' },
+      { label: 'EPA compliance', value: '100%' },
+    ],
+    description:
+      'Tracks emissions across all HSI testing operations including geometry cars, hi-rail vehicles, and support equipment. Generates EPA compliance reports automatically and identifies opportunities to reduce the carbon footprint of rail testing activities.',
+    category: 'safety',
+  },
+  {
+    id: 'wastestream',
+    name: 'WasteStream',
+    subtitle: 'Waste Stream Optimizer',
+    icon: 'Recycle',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'purple',
+    division: 'hsi',
+    divisionName: 'Herzog Services',
+    metrics: [
+      { label: 'Waste streams tracked', value: '12' },
+      { label: 'Diversion rate', value: '74%' },
+      { label: 'Cost savings', value: '$8.2K/month' },
+      { label: 'Manifests auto-filed', value: '23' },
+    ],
+    description:
+      'Monitors and optimizes waste streams from rail testing and environmental services operations. Tracks hazardous and non-hazardous waste volumes, identifies recycling opportunities, and automatically generates waste manifests for regulatory compliance.',
+    category: 'operations',
+  },
+  {
+    id: 'permitrenewal',
+    name: 'PermitRenewal',
+    subtitle: 'Permit Renewal Agent',
+    icon: 'FileClock',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'amber',
+    division: 'hsi',
+    divisionName: 'Herzog Services',
+    metrics: [
+      { label: 'Active permits', value: '47' },
+      { label: 'Renewals due (60 days)', value: '5' },
+      { label: 'Auto-renewed', value: '12 this quarter' },
+      { label: 'Compliance rate', value: '100%' },
+    ],
+    description:
+      'Manages the full lifecycle of environmental and operational permits for HSI. Tracks expiration dates, auto-populates renewal applications from historical data, and ensures zero lapses across all state and federal permits.',
+    category: 'safety',
+  },
 ];
 
-/* ── HTI — Herzog Technologies (3) ──────────────────────────────────────── */
+/* ── HTI — Herzog Technologies (6) ──────────────────────────────────────── */
 
 const htiAgents: AgentDef[] = [
   {
@@ -419,9 +606,69 @@ const htiAgents: AgentDef[] = [
       'Automatically tracks FRA signal regulations, generates compliance reports, and ensures HTI signal installations meet all federal requirements.',
     category: 'safety',
   },
+  {
+    id: 'patentmonitor',
+    name: 'PatentMonitor',
+    subtitle: 'Patent Monitor',
+    icon: 'ScrollText',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'blue',
+    division: 'hti',
+    divisionName: 'Herzog Technologies',
+    metrics: [
+      { label: 'Patents tracked', value: '89' },
+      { label: 'New filings monitored', value: '340/month' },
+      { label: 'Infringement risks', value: '0' },
+      { label: 'Licensing opportunities', value: '3' },
+    ],
+    description:
+      'Monitors the patent landscape for railroad signaling and PTC technologies, tracking competitor filings, identifying potential infringement risks, and surfacing licensing opportunities. Maintains HTI\'s IP portfolio status and renewal deadlines.',
+    category: 'intelligence',
+  },
+  {
+    id: 'rdpipeline',
+    name: 'R&DPipeline',
+    subtitle: 'R&D Pipeline Tracker',
+    icon: 'FlaskConical',
+    status: 'running',
+    statusLabel: 'Running (weekly update)',
+    accent: 'green',
+    division: 'hti',
+    divisionName: 'Herzog Technologies',
+    metrics: [
+      { label: 'Active R&D projects', value: '14' },
+      { label: 'Stage gates passed', value: '8 this quarter' },
+      { label: 'Budget utilization', value: '82%' },
+      { label: 'Time to market avg', value: '14 months' },
+    ],
+    description:
+      'Tracks all HTI research and development projects through stage-gate milestones, monitoring budget burn rates, resource allocation, and projected commercialization timelines. Generates weekly status reports for technology leadership.',
+    category: 'operations',
+  },
+  {
+    id: 'techtransfer',
+    name: 'TechTransfer',
+    subtitle: 'Tech Transfer Agent',
+    icon: 'ArrowLeftRight',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'amber',
+    division: 'hti',
+    divisionName: 'Herzog Technologies',
+    metrics: [
+      { label: 'Transfer opportunities', value: '7' },
+      { label: 'Cross-division adoptions', value: '4 this year' },
+      { label: 'Revenue from licensing', value: '$180K' },
+      { label: 'Partner evaluations', value: '12' },
+    ],
+    description:
+      'Identifies opportunities to transfer HTI-developed technologies to other Herzog divisions or external partners. Evaluates commercial potential, manages licensing agreements, and tracks technology adoption across the enterprise.',
+    category: 'intelligence',
+  },
 ];
 
-/* ── HTSI — Herzog Transit Services (4) ─────────────────────────────────── */
+/* ── HTSI — Herzog Transit Services (7) ─────────────────────────────────── */
 
 const htsiAgents: AgentDef[] = [
   {
@@ -504,9 +751,69 @@ const htsiAgents: AgentDef[] = [
       'Tracks safety incidents across transit operations in real time, analyzing trends, monitoring response times, and generating near-miss reports for continuous improvement.',
     category: 'safety',
   },
+  {
+    id: 'farerevenue',
+    name: 'FareRevenue',
+    subtitle: 'Fare Revenue Optimizer',
+    icon: 'DollarSign',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'green',
+    division: 'htsi',
+    divisionName: 'Herzog Transit Services',
+    metrics: [
+      { label: 'Revenue tracked', value: '$2.4M/month' },
+      { label: 'Fare evasion detected', value: '1.8%' },
+      { label: 'Dynamic pricing uplift', value: '+$67K/month' },
+      { label: 'Reconciliation accuracy', value: '99.7%' },
+    ],
+    description:
+      'Optimizes fare revenue by analyzing ridership patterns, detecting fare evasion through gate data anomalies, and modeling dynamic pricing strategies. Reconciles fare collection across payment methods and generates revenue forecasts for transit authority reporting.',
+    category: 'operations',
+  },
+  {
+    id: 'adacompliance',
+    name: 'ADACompliance',
+    subtitle: 'ADA Compliance Monitor',
+    icon: 'Accessibility',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'purple',
+    division: 'htsi',
+    divisionName: 'Herzog Transit Services',
+    metrics: [
+      { label: 'Stations monitored', value: '42' },
+      { label: 'ADA compliance rate', value: '98.6%' },
+      { label: 'Issues open', value: '6' },
+      { label: 'Avg resolution time', value: '2.4 days' },
+    ],
+    description:
+      'Continuously monitors ADA compliance across all transit stations and vehicles, tracking elevator/escalator uptime, platform gap measurements, audio announcement functionality, and tactile signage condition. Auto-generates FTA compliance reports.',
+    category: 'safety',
+  },
+  {
+    id: 'fleetelectrify',
+    name: 'FleetElectrify',
+    subtitle: 'Fleet Electrification Tracker',
+    icon: 'BatteryCharging',
+    status: 'running',
+    statusLabel: 'Running (quarterly model)',
+    accent: 'amber',
+    division: 'htsi',
+    divisionName: 'Herzog Transit Services',
+    metrics: [
+      { label: 'Fleet electrified', value: '34%' },
+      { label: 'Charging stations', value: '18 active' },
+      { label: 'Energy cost savings', value: '$42K/month' },
+      { label: 'CO2 reduction', value: '280 tons/year' },
+    ],
+    description:
+      'Tracks the transit fleet electrification program, monitoring battery health across electric buses and rail vehicles, optimizing charging schedules to minimize peak demand charges, and projecting total cost of ownership for fleet replacement planning.',
+    category: 'intelligence',
+  },
 ];
 
-/* ── HE — Herzog Energy (2) ─────────────────────────────────────────────── */
+/* ── HE — Herzog Energy (5) ──────────────────────────────────────────────── */
 
 const heAgents: AgentDef[] = [
   {
@@ -549,9 +856,69 @@ const heAgents: AgentDef[] = [
       'Tracks environmental permits across energy projects, automatically filing renewal paperwork and ensuring 100% compliance with state and federal regulations.',
     category: 'safety',
   },
+  {
+    id: 'maduediligence',
+    name: 'M&ADiligence',
+    subtitle: 'M&A Due Diligence Agent',
+    icon: 'Scale',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'purple',
+    division: 'he',
+    divisionName: 'Herzog Energy',
+    metrics: [
+      { label: 'Active evaluations', value: '3' },
+      { label: 'Data rooms processed', value: '12,000 docs' },
+      { label: 'Risk flags identified', value: '14' },
+      { label: 'Avg analysis time', value: '4.2 days' },
+    ],
+    description:
+      'Accelerates M&A due diligence by automatically ingesting and analyzing data room documents, financial statements, contracts, and regulatory filings. Identifies material risks, revenue concentration issues, and integration complexity across potential acquisition targets.',
+    category: 'intelligence',
+  },
+  {
+    id: 'portfolioperf',
+    name: 'PortfolioPerf',
+    subtitle: 'Portfolio Performance Tracker',
+    icon: 'PieChart',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'blue',
+    division: 'he',
+    divisionName: 'Herzog Energy',
+    metrics: [
+      { label: 'Divisions tracked', value: '7' },
+      { label: 'KPIs monitored', value: '142' },
+      { label: 'Variance alerts', value: '4 this week' },
+      { label: 'ROIC trend', value: '+2.1% YoY' },
+    ],
+    description:
+      'Monitors financial and operational performance across all seven Herzog divisions, tracking ROIC, EBITDA margins, working capital efficiency, and growth metrics. Generates automated variance analysis when any KPI deviates beyond threshold.',
+    category: 'intelligence',
+  },
+  {
+    id: 'boardreport',
+    name: 'BoardReport',
+    subtitle: 'Board Report Compiler',
+    icon: 'Presentation',
+    status: 'running',
+    statusLabel: 'Running (monthly cycle)',
+    accent: 'green',
+    division: 'he',
+    divisionName: 'Herzog Energy',
+    metrics: [
+      { label: 'Reports compiled', value: '4/quarter' },
+      { label: 'Data sources', value: '89' },
+      { label: 'Pages auto-generated', value: '47' },
+      { label: 'Review time saved', value: '18 hours/report' },
+    ],
+    description:
+      'Automatically compiles board-ready reports by aggregating data from all divisions, generating executive summaries, financial highlights, risk assessments, and strategic initiative updates. Reduces board report preparation from 3 weeks to 2 days.',
+    category: 'operations',
+  },
 ];
 
-/* ── GG — Green Group (2) ───────────────────────────────────────────────── */
+/* ── GG — Green Group (5) ────────────────────────────────────────────────── */
 
 const ggAgents: AgentDef[] = [
   {
@@ -594,6 +961,66 @@ const ggAgents: AgentDef[] = [
       'Monitors environmental sensors across Green Group sites, ensuring zero compliance violations and automatically filing required regulatory reports.',
     category: 'safety',
   },
+  {
+    id: 'quarryyield',
+    name: 'QuarryYield',
+    subtitle: 'Quarry Yield Optimizer',
+    icon: 'Mountain',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'purple',
+    division: 'gg',
+    divisionName: 'Green Group',
+    metrics: [
+      { label: 'Quarries monitored', value: '6' },
+      { label: 'Yield efficiency', value: '87%' },
+      { label: 'Blast optimization', value: '+14% fragmentation' },
+      { label: 'Revenue per ton', value: '+$1.20' },
+    ],
+    description:
+      'Optimizes quarry operations by analyzing blast patterns, crusher throughput, and aggregate gradation to maximize yield from each rock face. Uses geological survey data and production history to recommend optimal extraction sequences.',
+    category: 'operations',
+  },
+  {
+    id: 'envscanner',
+    name: 'EnvScanner',
+    subtitle: 'Environmental Compliance Scanner',
+    icon: 'ScanSearch',
+    status: 'active',
+    statusLabel: 'Active',
+    accent: 'green',
+    division: 'gg',
+    divisionName: 'Green Group',
+    metrics: [
+      { label: 'Regulations scanned', value: '340' },
+      { label: 'Compliance gaps', value: '0' },
+      { label: 'Upcoming changes', value: '4' },
+      { label: 'Auto-reports filed', value: '18/month' },
+    ],
+    description:
+      'Continuously scans federal, state, and local environmental regulations for changes that affect Green Group operations. Automatically assesses impact, generates compliance gap analyses, and drafts updated procedures before new rules take effect.',
+    category: 'safety',
+  },
+  {
+    id: 'fleetmaintpredict',
+    name: 'FleetMaintPredict',
+    subtitle: 'Fleet Maintenance Predictor',
+    icon: 'Cog',
+    status: 'running',
+    statusLabel: 'Running (analysis)',
+    accent: 'blue',
+    division: 'gg',
+    divisionName: 'Green Group',
+    metrics: [
+      { label: 'Vehicles monitored', value: '78' },
+      { label: 'Failures predicted', value: '4 (next 30 days)' },
+      { label: 'Downtime reduced', value: '34%' },
+      { label: 'Parts pre-ordered', value: '12' },
+    ],
+    description:
+      'Predicts maintenance needs for Green Group\'s fleet of haul trucks, loaders, and environmental service vehicles using telematics data, vibration analysis, and oil sampling results. Pre-orders parts and schedules repairs during planned downtime.',
+    category: 'logistics',
+  },
 ];
 
 /* ── Combined list ──────────────────────────────────────────────────────── */
@@ -634,7 +1061,7 @@ export function getAgentsForDivision(divisionId: string): AgentDef[] {
   );
 }
 
-/** Returns all 32 agents */
+/** Returns all 48 agents */
 export function getAllAgents(): AgentDef[] {
   return allAgents;
 }

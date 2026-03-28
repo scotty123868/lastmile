@@ -1,7 +1,8 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { Menu, Volume2, VolumeX } from 'lucide-react';
+import { Menu, Volume2, VolumeX, Wifi } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useHealthCheck } from './hooks/useAgentApi';
 import Sidebar from './components/Sidebar';
 import LiveWorkflows from './pages/LiveWorkflows';
 import VerificationLedger from './pages/VerificationLedger';
@@ -56,6 +57,7 @@ function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
   const location = useLocation();
   const { company } = useCompany();
   const { isMuted, toggleMute } = useSound();
+  const { health, healthy } = useHealthCheck(30000);
   const pageTitle = routeTitles[location.pathname] || 'Overview';
 
   return (
@@ -75,6 +77,16 @@ function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
           </div>
         </div>
         <div className="flex items-center gap-3">
+          {/* API Health indicator */}
+          <div
+            className={`flex items-center gap-1.5 px-2 py-1 rounded-full ${healthy ? 'bg-green-muted' : 'bg-amber-muted'}`}
+            title={health ? `API: ${health.status} | Uptime: ${health.uptime} | Last incident: ${health.lastIncident}` : 'API: checking...'}
+          >
+            <Wifi className={`h-3 w-3 ${healthy ? 'text-green' : 'text-amber'}`} />
+            <span className={`text-[10px] font-medium ${healthy ? 'text-green' : 'text-amber'}`}>
+              {health ? health.uptime : '...'}
+            </span>
+          </div>
           <button
             onClick={toggleMute}
             className="flex h-11 w-11 items-center justify-center rounded-md text-ink-tertiary hover:text-ink hover:bg-surface-sunken transition-colors"

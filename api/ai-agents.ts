@@ -20,7 +20,7 @@ interface AgentMetrics {
   confidenceThreshold: number;
 }
 
-// Agent definitions matching divisionAgents.ts (27 total agents across 8 divisions)
+// Agent definitions matching divisionAgents.ts (48 total agents across 8 divisions)
 const agentDefs: { id: string; name: string; type: 'operations' | 'intelligence' | 'safety' | 'logistics'; division: string; status: 'active' | 'running'; baseAccuracy: number; baseFP: number; baseEvents: number; baseSavings: number }[] = [
   // Shared Platform (5)
   { id: 'atlas', name: 'Atlas', type: 'intelligence', division: 'shared', status: 'active', baseAccuracy: 92.1, baseFP: 6.3, baseEvents: 2340, baseSavings: 0 },
@@ -28,35 +28,56 @@ const agentDefs: { id: string; name: string; type: 'operations' | 'intelligence'
   { id: 'ledger', name: 'Ledger', type: 'operations', division: 'shared', status: 'running', baseAccuracy: 98.5, baseFP: 0.8, baseEvents: 47, baseSavings: 47000 },
   { id: 'relay', name: 'Relay', type: 'intelligence', division: 'shared', status: 'active', baseAccuracy: 93.8, baseFP: 3.4, baseEvents: 89, baseSavings: 0 },
   { id: 'signal', name: 'Signal', type: 'intelligence', division: 'shared', status: 'active', baseAccuracy: 91.4, baseFP: 4.8, baseEvents: 12000, baseSavings: 0 },
-  // HCC (4)
+  // HCC (7)
   { id: 'dispatch', name: 'Dispatch', type: 'safety', division: 'hcc', status: 'active', baseAccuracy: 96.2, baseFP: 2.1, baseEvents: 2340, baseSavings: 368000 },
   { id: 'foreman', name: 'Foreman', type: 'logistics', division: 'hcc', status: 'active', baseAccuracy: 93.4, baseFP: 3.2, baseEvents: 89, baseSavings: 12000 },
   { id: 'blueprint', name: 'Blueprint', type: 'operations', division: 'hcc', status: 'active', baseAccuracy: 91.8, baseFP: 5.2, baseEvents: 14, baseSavings: 420000 },
   { id: 'surveyor', name: 'Surveyor', type: 'logistics', division: 'hcc', status: 'active', baseAccuracy: 89.4, baseFP: 4.8, baseEvents: 156, baseSavings: 8400 },
-  // HRSI (4)
+  { id: 'batchmonitor', name: 'BatchMonitor', type: 'operations', division: 'hcc', status: 'active', baseAccuracy: 99.2, baseFP: 0.8, baseEvents: 47, baseSavings: 18000 },
+  { id: 'fleettracker', name: 'FleetTracker', type: 'logistics', division: 'hcc', status: 'running', baseAccuracy: 97.4, baseFP: 1.2, baseEvents: 340, baseSavings: 24000 },
+  { id: 'weatherdelay', name: 'WeatherDelay', type: 'intelligence', division: 'hcc', status: 'active', baseAccuracy: 89.0, baseFP: 6.8, baseEvents: 18, baseSavings: 220000 },
+  // HRSI (7)
   { id: 'scout', name: 'Scout', type: 'safety', division: 'hrsi', status: 'active', baseAccuracy: 94.2, baseFP: 3.1, baseEvents: 890, baseSavings: 245000 },
   { id: 'mechanic', name: 'Mechanic', type: 'operations', division: 'hrsi', status: 'active', baseAccuracy: 92.8, baseFP: 3.8, baseEvents: 156, baseSavings: 89000 },
   { id: 'stockroom', name: 'Stockroom', type: 'logistics', division: 'hrsi', status: 'running', baseAccuracy: 90.2, baseFP: 4.2, baseEvents: 4200, baseSavings: 14000 },
   { id: 'ballast', name: 'Ballast', type: 'logistics', division: 'hrsi', status: 'active', baseAccuracy: 91.6, baseFP: 3.6, baseEvents: 34, baseSavings: 22000 },
-  // HSI (3)
+  { id: 'tiereplacement', name: 'TieReplacer', type: 'operations', division: 'hrsi', status: 'active', baseAccuracy: 93.4, baseFP: 2.8, baseEvents: 48000, baseSavings: 67000 },
+  { id: 'geometrycar', name: 'GeometryAnalyst', type: 'intelligence', division: 'hrsi', status: 'running', baseAccuracy: 96.8, baseFP: 1.4, baseEvents: 2800, baseSavings: 0 },
+  { id: 'tampingscheduler', name: 'TampScheduler', type: 'logistics', division: 'hrsi', status: 'active', baseAccuracy: 94.0, baseFP: 2.1, baseEvents: 18, baseSavings: 34000 },
+  // HSI (6)
   { id: 'railsentry', name: 'RailSentry', type: 'safety', division: 'hsi', status: 'active', baseAccuracy: 94.2, baseFP: 3.1, baseEvents: 12000, baseSavings: 124000 },
   { id: 'inspector', name: 'Inspector', type: 'operations', division: 'hsi', status: 'active', baseAccuracy: 92.4, baseFP: 4.0, baseEvents: 180, baseSavings: 0 },
   { id: 'calibrator', name: 'Calibrator', type: 'operations', division: 'hsi', status: 'active', baseAccuracy: 99.6, baseFP: 0.4, baseEvents: 89, baseSavings: 14000 },
-  // HTI (3)
+  { id: 'emissionstracker', name: 'EmissionsTracker', type: 'safety', division: 'hsi', status: 'active', baseAccuracy: 98.4, baseFP: 0.6, baseEvents: 34, baseSavings: 0 },
+  { id: 'wastestream', name: 'WasteStream', type: 'operations', division: 'hsi', status: 'active', baseAccuracy: 95.2, baseFP: 2.4, baseEvents: 12, baseSavings: 8200 },
+  { id: 'permitrenewal', name: 'PermitRenewal', type: 'safety', division: 'hsi', status: 'active', baseAccuracy: 100.0, baseFP: 0.0, baseEvents: 47, baseSavings: 0 },
+  // HTI (6)
   { id: 'sentinel', name: 'Sentinel', type: 'safety', division: 'hti', status: 'active', baseAccuracy: 97.4, baseFP: 1.2, baseEvents: 2400, baseSavings: 34000 },
   { id: 'integrator', name: 'Integrator', type: 'operations', division: 'hti', status: 'active', baseAccuracy: 95.8, baseFP: 2.4, baseEvents: 8, baseSavings: 0 },
   { id: 'compliance', name: 'Compliance', type: 'safety', division: 'hti', status: 'active', baseAccuracy: 99.8, baseFP: 0.2, baseEvents: 47, baseSavings: 0 },
-  // HTSI (4)
+  { id: 'patentmonitor', name: 'PatentMonitor', type: 'intelligence', division: 'hti', status: 'active', baseAccuracy: 96.2, baseFP: 1.8, baseEvents: 340, baseSavings: 180000 },
+  { id: 'rdpipeline', name: 'R&DPipeline', type: 'operations', division: 'hti', status: 'running', baseAccuracy: 94.6, baseFP: 2.0, baseEvents: 14, baseSavings: 0 },
+  { id: 'techtransfer', name: 'TechTransfer', type: 'intelligence', division: 'hti', status: 'active', baseAccuracy: 91.4, baseFP: 4.2, baseEvents: 7, baseSavings: 180000 },
+  // HTSI (7)
   { id: 'router', name: 'Router', type: 'operations', division: 'htsi', status: 'active', baseAccuracy: 91.8, baseFP: 5.4, baseEvents: 24, baseSavings: 67000 },
   { id: 'conductor', name: 'Conductor', type: 'operations', division: 'htsi', status: 'active', baseAccuracy: 93.2, baseFP: 3.8, baseEvents: 480, baseSavings: 22000 },
   { id: 'passenger', name: 'Passenger', type: 'intelligence', division: 'htsi', status: 'active', baseAccuracy: 91.0, baseFP: 5.0, baseEvents: 24, baseSavings: 34000 },
   { id: 'safety', name: 'Safety', type: 'safety', division: 'htsi', status: 'active', baseAccuracy: 95.4, baseFP: 2.2, baseEvents: 0, baseSavings: 0 },
-  // HE (2)
+  { id: 'farerevenue', name: 'FareRevenue', type: 'operations', division: 'htsi', status: 'active', baseAccuracy: 99.7, baseFP: 0.3, baseEvents: 2400, baseSavings: 67000 },
+  { id: 'adacompliance', name: 'ADACompliance', type: 'safety', division: 'htsi', status: 'active', baseAccuracy: 98.6, baseFP: 0.8, baseEvents: 42, baseSavings: 0 },
+  { id: 'fleetelectrify', name: 'FleetElectrify', type: 'intelligence', division: 'htsi', status: 'running', baseAccuracy: 93.2, baseFP: 3.0, baseEvents: 18, baseSavings: 42000 },
+  // HE (5)
   { id: 'gridwatch', name: 'GridWatch', type: 'operations', division: 'he', status: 'active', baseAccuracy: 95.6, baseFP: 2.1, baseEvents: 340, baseSavings: 0 },
   { id: 'permit', name: 'Permit', type: 'safety', division: 'he', status: 'active', baseAccuracy: 99.2, baseFP: 0.4, baseEvents: 23, baseSavings: 0 },
-  // GG (2)
+  { id: 'maduediligence', name: 'M&ADiligence', type: 'intelligence', division: 'he', status: 'active', baseAccuracy: 94.8, baseFP: 2.4, baseEvents: 12000, baseSavings: 0 },
+  { id: 'portfolioperf', name: 'PortfolioPerf', type: 'intelligence', division: 'he', status: 'active', baseAccuracy: 96.4, baseFP: 1.6, baseEvents: 142, baseSavings: 0 },
+  { id: 'boardreport', name: 'BoardReport', type: 'operations', division: 'he', status: 'running', baseAccuracy: 97.8, baseFP: 0.8, baseEvents: 89, baseSavings: 0 },
+  // GG (5)
   { id: 'remediation', name: 'Remediation', type: 'operations', division: 'gg', status: 'active', baseAccuracy: 98.1, baseFP: 0.4, baseEvents: 12, baseSavings: 0 },
   { id: 'monitor', name: 'Monitor', type: 'safety', division: 'gg', status: 'active', baseAccuracy: 97.8, baseFP: 0.6, baseEvents: 89, baseSavings: 0 },
+  { id: 'quarryyield', name: 'QuarryYield', type: 'operations', division: 'gg', status: 'active', baseAccuracy: 87.0, baseFP: 4.8, baseEvents: 6, baseSavings: 34000 },
+  { id: 'envscanner', name: 'EnvScanner', type: 'safety', division: 'gg', status: 'active', baseAccuracy: 99.4, baseFP: 0.2, baseEvents: 340, baseSavings: 0 },
+  { id: 'fleetmaintpredict', name: 'FleetMaintPredict', type: 'logistics', division: 'gg', status: 'running', baseAccuracy: 92.6, baseFP: 3.4, baseEvents: 78, baseSavings: 18000 },
 ];
 
 // In production, these would come from a database or monitoring service.

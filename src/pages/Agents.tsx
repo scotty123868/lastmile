@@ -45,6 +45,27 @@ import {
   FileText,
   Leaf,
   Thermometer,
+  Beaker,
+  Container,
+  CloudRain,
+  Rows3,
+  LineChart,
+  CalendarClock,
+  Wind,
+  Recycle,
+  FileClock,
+  ScrollText,
+  FlaskConical,
+  ArrowLeftRight,
+  DollarSign,
+  Accessibility,
+  BatteryCharging,
+  Scale,
+  PieChart,
+  Presentation,
+  Mountain,
+  ScanSearch,
+  Cog,
 } from 'lucide-react';
 import PreliminaryBanner from '../components/PreliminaryBanner';
 import { useCompany } from '../data/CompanyContext';
@@ -54,6 +75,7 @@ import {
   divisionMeta,
   type AgentDef,
 } from '../data/divisionAgents';
+import { useAgents, useAgentDetail } from '../hooks/useAgentApi';
 
 /* -- Icon lookup -------------------------------------------------------- */
 
@@ -86,6 +108,27 @@ const iconMap: Record<string, React.ElementType> = {
   FileText,
   Leaf,
   Thermometer,
+  Beaker,
+  Container,
+  CloudRain,
+  Rows3,
+  LineChart,
+  CalendarClock,
+  Wind,
+  Recycle,
+  FileClock,
+  ScrollText,
+  FlaskConical,
+  ArrowLeftRight,
+  DollarSign,
+  Accessibility,
+  BatteryCharging,
+  Scale,
+  PieChart,
+  Presentation,
+  Mountain,
+  ScanSearch,
+  Cog,
 };
 
 function getIcon(name: string): React.ElementType {
@@ -416,6 +459,7 @@ function AgentCard({
 function AgentDetailPanel({ agent, onClose }: { agent: AgentDef; onClose: () => void }) {
   const Icon = getIcon(agent.icon);
   const style = accentStyles[agent.accent] ?? accentStyles.blue;
+  const { detail } = useAgentDetail(agent.id);
 
   return (
     <motion.div
@@ -438,6 +482,16 @@ function AgentDetailPanel({ agent, onClose }: { agent: AgentDef; onClose: () => 
         </button>
       </div>
       <p className="text-[13px] text-ink-secondary leading-relaxed mb-4">{agent.description}</p>
+
+      {/* API-enriched stats bar */}
+      {detail && (
+        <div className="flex gap-4 mb-4 text-[11px] text-ink-tertiary">
+          <span>Uptime: <span className="text-ink font-medium">{detail.uptime}</span></span>
+          <span>Tasks today: <span className="text-ink font-medium">{detail.tasksCompletedToday}</span></span>
+          <span>Avg response: <span className="text-ink font-medium">{detail.avgResponseTimeMs}ms</span></span>
+        </div>
+      )}
+
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {agent.metrics.map((m, i) => (
           <div key={i} className="bg-surface-sunken rounded-lg p-3">
@@ -446,6 +500,22 @@ function AgentDetailPanel({ agent, onClose }: { agent: AgentDef; onClose: () => 
           </div>
         ))}
       </div>
+
+      {/* Activity log from API */}
+      {detail?.activities && detail.activities.length > 0 && (
+        <div className="mt-4">
+          <h4 className="text-[11px] text-ink-tertiary uppercase tracking-wider mb-2">Recent Activity</h4>
+          <div className="space-y-1.5 max-h-40 overflow-y-auto">
+            {detail.activities.slice(0, 5).map((act, i) => (
+              <div key={i} className="flex gap-2 text-[12px]">
+                <span className="text-ink-tertiary whitespace-nowrap">{new Date(act.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                <span className={`font-medium ${style.icon}`}>{act.action}</span>
+                <span className="text-ink-secondary truncate">{act.detail}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </motion.div>
   );
 }
@@ -460,9 +530,16 @@ export default function Agents() {
   const feedRef = useRef<HTMLDivElement>(null);
   const [openDetail, setOpenDetail] = useState<AgentDef | null>(null);
 
-  // Get agents based on current division
-  const visibleAgents = useMemo(() => getAgentsForDivision(company.id), [company.id]);
-  const totalAll = getAllAgents().length;
+  // Fetch from API with static fallback
+  const apiDivision = isParent ? undefined : company.id;
+  const { agents: apiAgents, fromApi } = useAgents(apiDivision);
+
+  // Use API data if available, otherwise fall back to static imports
+  const visibleAgents = useMemo(() => {
+    if (fromApi && apiAgents.length > 0) return apiAgents;
+    return getAgentsForDivision(company.id);
+  }, [fromApi, apiAgents, company.id]);
+  const totalAll = fromApi && isParent ? apiAgents.length : getAllAgents().length;
 
   // Group agents by division for parent view
   const groupedByDivision = useMemo(() => {
