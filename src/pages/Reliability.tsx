@@ -290,7 +290,7 @@ const perfData = [
   { month: 'Dec', accuracy: 94, falsePositive: 3.8, tests: 510 },
   { month: 'Jan', accuracy: 95.5, falsePositive: 2.1, tests: 620 },
   { month: 'Feb', accuracy: 96.2, falsePositive: 1.2, tests: 740 },
-  { month: 'Mar', accuracy: 96.8, falsePositive: 0.8, tests: 847 },
+  { month: 'Mar', accuracy: 94.2, falsePositive: 3.1, tests: 847 },
 ];
 
 /* -- Success examples -- */
