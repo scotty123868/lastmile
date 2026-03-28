@@ -262,7 +262,7 @@ const impactData: Record<string, CompanyImpactData> = {
 
 const adoptionData: Record<string, CompanyAdoptionData> = {
   meridian: {
-    overallRate: 62, overallTrend: '+7% vs last month', overallTrendDir: 'up', teamLabel: 'Division / Team',
+    overallRate: 67, overallTrend: '+7% vs last month', overallTrendDir: 'up', teamLabel: 'Division / Team',
     teams: [
       { name: 'Track Maintenance Crews (HCC)', active: 320, total: 420, adoption: 76, trend: '\u2191 9%', trendDir: 'up', status: 'strong' },
       { name: 'Signal & Communications (HTI)', active: 180, total: 240, adoption: 75, trend: '\u2191 6%', trendDir: 'up', status: 'strong' },
@@ -279,7 +279,7 @@ const adoptionData: Record<string, CompanyAdoptionData> = {
     ],
   },
   hcc: {
-    overallRate: 64, overallTrend: '+8% vs last month', overallTrendDir: 'up', teamLabel: 'Division / Crew',
+    overallRate: 74, overallTrend: '+8% vs last month', overallTrendDir: 'up', teamLabel: 'Division / Crew',
     teams: [
       { name: 'Track Construction Crews', active: 280, total: 360, adoption: 78, trend: '\u2191 10%', trendDir: 'up', status: 'strong' },
       { name: 'Highway & Bridge Ops', active: 220, total: 300, adoption: 73, trend: '\u2191 8%', trendDir: 'up', status: 'growing' },
@@ -296,7 +296,7 @@ const adoptionData: Record<string, CompanyAdoptionData> = {
     ],
   },
   hrsi: {
-    overallRate: 58, overallTrend: '+6% vs last month', overallTrendDir: 'up', teamLabel: 'Operations Team',
+    overallRate: 66, overallTrend: '+6% vs last month', overallTrendDir: 'up', teamLabel: 'Operations Team',
     teams: [
       { name: 'Ballast Train Operators', active: 110, total: 150, adoption: 73, trend: '\u2191 8%', trendDir: 'up', status: 'growing' },
       { name: 'Track Renewal Crews', active: 80, total: 120, adoption: 67, trend: '\u2191 7%', trendDir: 'up', status: 'growing' },
@@ -311,7 +311,7 @@ const adoptionData: Record<string, CompanyAdoptionData> = {
     ],
   },
   hsi: {
-    overallRate: 66, overallTrend: '+5% vs last month', overallTrendDir: 'up', teamLabel: 'Testing Team',
+    overallRate: 73, overallTrend: '+5% vs last month', overallTrendDir: 'up', teamLabel: 'Testing Team',
     teams: [
       { name: 'Ultrasonic Testing Operators', active: 82, total: 100, adoption: 82, trend: '\u2191 6%', trendDir: 'up', status: 'strong' },
       { name: 'FRA Compliance Analysts', active: 36, total: 45, adoption: 80, trend: '\u2191 4%', trendDir: 'up', status: 'strong' },
@@ -326,7 +326,7 @@ const adoptionData: Record<string, CompanyAdoptionData> = {
     ],
   },
   hti: {
-    overallRate: 68, overallTrend: '+7% vs last month', overallTrendDir: 'up', teamLabel: 'Engineering Team',
+    overallRate: 74, overallTrend: '+7% vs last month', overallTrendDir: 'up', teamLabel: 'Engineering Team',
     teams: [
       { name: 'PTC Installation Crews', active: 88, total: 120, adoption: 73, trend: '\u2191 8%', trendDir: 'up', status: 'growing' },
       { name: 'Signal Design Engineers', active: 52, total: 60, adoption: 87, trend: '\u2191 5%', trendDir: 'up', status: 'strong' },
@@ -342,7 +342,7 @@ const adoptionData: Record<string, CompanyAdoptionData> = {
     ],
   },
   htsi: {
-    overallRate: 52, overallTrend: '+4% vs last month', overallTrendDir: 'up', teamLabel: 'Transit Division',
+    overallRate: 60, overallTrend: '+4% vs last month', overallTrendDir: 'up', teamLabel: 'Transit Division',
     teams: [
       { name: 'Train Dispatchers', active: 68, total: 90, adoption: 76, trend: '\u2191 6%', trendDir: 'up', status: 'growing' },
       { name: 'Station Operations', active: 80, total: 120, adoption: 67, trend: '\u2191 5%', trendDir: 'up', status: 'growing' },
@@ -359,7 +359,7 @@ const adoptionData: Record<string, CompanyAdoptionData> = {
     ],
   },
   he: {
-    overallRate: 62, overallTrend: '+6% vs last month', overallTrendDir: 'up', teamLabel: 'Energy Team',
+    overallRate: 68, overallTrend: '+6% vs last month', overallTrendDir: 'up', teamLabel: 'Energy Team',
     teams: [
       { name: 'Solar Project Engineering', active: 28, total: 35, adoption: 80, trend: '\u2191 5%', trendDir: 'up', status: 'strong' },
       { name: 'Wind Operations', active: 22, total: 30, adoption: 73, trend: '\u2191 7%', trendDir: 'up', status: 'growing' },
@@ -374,7 +374,7 @@ const adoptionData: Record<string, CompanyAdoptionData> = {
     ],
   },
   gg: {
-    overallRate: 56, overallTrend: '+5% vs last month', overallTrendDir: 'up', teamLabel: 'Services Team',
+    overallRate: 58, overallTrend: '+5% vs last month', overallTrendDir: 'up', teamLabel: 'Services Team',
     teams: [
       { name: 'Environmental Compliance', active: 22, total: 30, adoption: 73, trend: '\u2191 6%', trendDir: 'up', status: 'growing' },
       { name: 'Remediation Field Crews', active: 18, total: 35, adoption: 51, trend: '\u2191 4%', trendDir: 'up', status: 'at-risk' },
