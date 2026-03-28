@@ -52,7 +52,7 @@ function Sparkline({ data, color, width = 80, height = 24 }: { data: number[]; c
 /* ── Gauge bar for saturation ─────────────────────────── */
 
 function GaugeBar({ percent }: { percent: number }) {
-  const color = percent > 80 ? '#F59E0B' : percent > 90 ? '#EF4444' : '#10B981';
+  const color = percent > 90 ? '#EF4444' : percent > 80 ? '#F59E0B' : '#10B981';
   return (
     <div className="w-full mt-2">
       <div className="h-2 w-full rounded-full bg-white/[0.06] overflow-hidden">
@@ -71,19 +71,19 @@ function GaugeBar({ percent }: { percent: number }) {
 /* ── Trend icon ───────────────────────────────────────── */
 
 function TrendIcon({ direction, positive }: { direction: 'up' | 'down' | 'flat'; positive: boolean }) {
-  const color = positive ? 'text-green-400' : 'text-amber-400';
+  const color = positive ? 'text-green' : 'text-amber';
   if (direction === 'up') return <TrendingUp className={`w-3 h-3 ${color}`} />;
   if (direction === 'down') return <TrendingDown className={`w-3 h-3 ${color}`} />;
-  return <Minus className={`w-3 h-3 text-gray-400`} />;
+  return <Minus className={`w-3 h-3 text-ink-tertiary`} />;
 }
 
 /* ── Badge ────────────────────────────────────────────── */
 
 function Badge({ text, color }: { text: string; color: 'green' | 'amber' | 'red' }) {
   const styles: Record<string, string> = {
-    green: 'bg-green-500/15 text-green-400',
-    amber: 'bg-amber-500/15 text-amber-400',
-    red: 'bg-red-500/15 text-red-400',
+    green: 'bg-green-muted text-green',
+    amber: 'bg-amber-muted text-amber',
+    red: 'bg-red-muted text-red',
   };
   return (
     <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold ${styles[color]}`}>
@@ -118,7 +118,7 @@ function SignalCard({ signal, index, sparkColor }: { signal: GoldenSignal; index
         <Sparkline data={signal.sparkline} color={sparkColor} />
         <div className="flex items-center gap-1 shrink-0">
           <TrendIcon direction={signal.trend.direction} positive={signal.trend.positive} />
-          <span className={`text-[10px] font-medium ${signal.trend.positive ? 'text-green-400' : 'text-amber-400'}`}>
+          <span className={`text-[10px] font-medium ${signal.trend.positive ? 'text-green' : 'text-amber'}`}>
             {signal.trend.value}
           </span>
         </div>

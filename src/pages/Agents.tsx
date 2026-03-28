@@ -642,11 +642,14 @@ export default function Agents() {
   const baseQueryCount = isParent ? 2340 : Math.round(2340 * getActiveInstancesByDivision(company.id) / getTotalInstances());
   const [queryCount, setQueryCount] = useState(baseQueryCount);
   useEffect(() => {
+    setQueryCount(baseQueryCount);
+  }, [baseQueryCount]);
+  useEffect(() => {
     const id = setInterval(() => {
       setQueryCount((c) => c + 1);
     }, 8000 + Math.random() * 4000);
     return () => clearInterval(id);
-  }, []);
+  }, [company.id]);
 
   // Interactive Atlas demo state
   const [atlasInput, setAtlasInput] = useState('');

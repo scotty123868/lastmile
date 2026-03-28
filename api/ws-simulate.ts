@@ -67,7 +67,7 @@ const eventDetails: Record<string, string[]> = {
   ],
   'health.check': [
     'All 14 connected systems responding within SLA',
-    'Agent runtime health check passed — 48/48 agents nominal',
+    'Agent runtime health check passed — 68/68 agents nominal',
     'Database replication lag: 0.3ms — within threshold',
   ],
 };

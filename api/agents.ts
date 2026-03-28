@@ -27,7 +27,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const division = req.query.division as string | undefined;
   if (division) {
-    agents = agents.filter(a => a.division === division.toLowerCase());
+    const divLower = division.toLowerCase();
+    agents = agents.filter(a => a.division === divLower || a.division === 'shared');
     if (agents.length === 0) {
       return res.status(404).json(errorEnvelope(`No agents found for division: ${division}`, 404));
     }

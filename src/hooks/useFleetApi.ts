@@ -151,8 +151,8 @@ export function useFleetStatus(intervalMs = 15000) {
     const result = await apiFetch<FleetStatus>('/api/fleet-status');
     if (result) {
       setData(result);
-      setLoading(false);
     }
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -261,8 +261,8 @@ export function useIntegrations(intervalMs = 30000) {
     const result = await apiFetch<IntegrationsData>('/api/integrations');
     if (result) {
       setData(result);
-      setLoading(false);
     }
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -284,8 +284,8 @@ export function useAlerts(intervalMs = 20000) {
     const result = await apiFetch<AlertData>('/api/alerts');
     if (result) {
       setData(result);
-      setLoading(false);
     }
+    setLoading(false);
   }, []);
 
   useEffect(() => {
