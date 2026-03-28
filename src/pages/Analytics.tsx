@@ -7,6 +7,7 @@ import { getAllAgents, getAgentsForDivision, getTotalInstances, getTotalTasksTod
 import { useFleetStatus } from '../hooks/useFleetApi';
 import PreliminaryBanner from '../components/PreliminaryBanner';
 import LiveActivityFeed from '../components/LiveActivityFeed';
+import GoldenSignals from '../components/GoldenSignals';
 
 /* ── Agent badge colors ──────────────────────────────────── */
 
@@ -331,6 +332,9 @@ export default function Analytics() {
           Real-time activity{isParent ? ' across all agents and divisions' : ` — ${company.shortName} (${company.industry})`}
         </p>
       </div>
+
+      {/* ── Golden Signals ─────────────────────────────────── */}
+      <GoldenSignals />
 
       {/* ── Live Activity Feed ─────────────────────────────── */}
       <motion.div
