@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import PreliminaryBanner from '../components/PreliminaryBanner';
 import { useCompany } from '../data/CompanyContext';
+import { useIntegrations } from '../hooks/useFleetApi';
 import { COMMAND_CENTER_URL } from '../data/crosslinks';
 
 /* ── Types ───────────────────────────────────────────────── */
@@ -343,6 +344,9 @@ export default function Connectors() {
   const [tickOffset, setTickOffset] = useState(0);
   const tickRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  // API-backed integration data for enhanced metrics
+  const { data: apiIntegrations } = useIntegrations(30000);
+
   useEffect(() => {
     tickRef.current = setInterval(() => {
       setTickOffset((t) => t + 1);
@@ -366,8 +370,12 @@ export default function Connectors() {
       {/* Section 1: Connection Status Overview */}
       <section>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <StatusOverviewCard label="Connected Systems" value="12 / 47" sub="25% onboarded">
-            <CircularProgress value={12} max={47} />
+          <StatusOverviewCard
+            label="Connected Systems"
+            value={apiIntegrations ? `${apiIntegrations.summary.connected} / ${apiIntegrations.summary.total}` : '12 / 47'}
+            sub={apiIntegrations ? `${Math.round(apiIntegrations.summary.connected / apiIntegrations.summary.total * 100)}% connected` : '25% onboarded'}
+          >
+            <CircularProgress value={apiIntegrations ? apiIntegrations.summary.connected : 12} max={apiIntegrations ? apiIntegrations.summary.total : 47} />
           </StatusOverviewCard>
 
           <StatusOverviewCard label="Data Freshness" value={`Last sync ${headerSyncMinutes}m ago`}>

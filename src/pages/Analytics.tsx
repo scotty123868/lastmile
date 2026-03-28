@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { MessageSquare } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
 import { getAllAgents, getAgentsForDivision, getTotalInstances, getTotalTasksToday, getFleetUptime } from '../data/divisionAgents';
+import { useFleetStatus } from '../hooks/useFleetApi';
 import PreliminaryBanner from '../components/PreliminaryBanner';
+import LiveActivityFeed from '../components/LiveActivityFeed';
 
 /* ── Agent badge colors ──────────────────────────────────── */
 
@@ -228,6 +230,9 @@ export default function Analytics() {
   const isParent = company.id === 'meridian';
   const agentCount = useMemo(() => isParent ? getAllAgents().length : getAgentsForDivision(company.id).length, [isParent, company.id]);
 
+  // API-backed fleet status (enhances the status bar when available)
+  const { data: fleetData } = useFleetStatus(15000);
+
   const [lastCheckSeconds, setLastCheckSeconds] = useState(12);
   const [feed, setFeed] = useState<FeedEntry[]>([]);
   const templateIdx = useRef(0);
@@ -309,7 +314,7 @@ export default function Analytics() {
           <div className="flex-1 min-w-0">
             <div className="text-[14px] font-semibold text-white">All Systems Operational</div>
             <div className="text-[12px] text-gray-400 mt-0.5">
-              {agentCount} agent types · {getTotalInstances()} instances · {getTotalTasksToday().toLocaleString()} tasks today · {getFleetUptime()}% uptime · {isParent ? '7 divisions' : `${activeDivisions.length} units`} · Last check: {formatSecondsAgo(lastCheckSeconds)}
+              {fleetData ? fleetData.fleet.totalAgentTypes : agentCount} agent types · {fleetData ? fleetData.fleet.totalInstances : getTotalInstances()} instances · {fleetData ? fleetData.fleet.tasksToday.toLocaleString() : getTotalTasksToday().toLocaleString()} tasks today · {fleetData ? fleetData.fleet.fleetUptime : `${getFleetUptime()}%`} uptime · {isParent ? '7 divisions' : `${activeDivisions.length} units`} · Last check: {formatSecondsAgo(lastCheckSeconds)}
             </div>
           </div>
           <div className="hidden sm:flex items-center gap-1.5 px-2 py-1 rounded-full bg-green-500/10">
@@ -402,6 +407,19 @@ export default function Analytics() {
             );
           })}
         </div>
+      </motion.div>
+
+      {/* ── API-backed Live Activity Feed ───────────────────── */}
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.3 }}
+        className="mb-8"
+      >
+        <LiveActivityFeed
+          division={isParent ? undefined : company.id}
+          maxVisible={10}
+        />
       </motion.div>
 
       {/* ── Try Atlas Floating Button ──────────────────────── */}

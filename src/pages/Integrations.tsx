@@ -7,8 +7,10 @@ import {
   Plug,
   Activity,
   Clock,
+  Wifi,
 } from 'lucide-react';
 import { useCompany, companies } from '../data/CompanyContext';
+import { useIntegrations } from '../hooks/useFleetApi';
 import PreliminaryBanner from '../components/PreliminaryBanner';
 
 /* ── Types ───────────────────────────────────────────────── */
@@ -233,6 +235,9 @@ export default function Integrations() {
   const parentCompany = company.parentId ? companies.find((c) => c.id === company.parentId) : null;
   const data = integrationData[company.id] || (company.parentId ? integrationData[company.parentId] : null) || integrationData.meridian;
 
+  // API-backed integration data
+  const { data: apiData } = useIntegrations(30000);
+
   const errorCount = data.integrations.filter((i) => i.status === 'error').length;
 
   return (
@@ -243,6 +248,28 @@ export default function Integrations() {
           Showing {parentCompany.shortName} aggregate data — division-specific integrations not yet available.
         </div>
       )}
+
+      {/* API health banner */}
+      {apiData && (
+        <motion.div
+          initial={{ opacity: 0, y: -4 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-4 px-4 py-2.5 rounded-lg bg-surface-raised border border-border flex items-center gap-3"
+        >
+          <Wifi className={`w-3.5 h-3.5 ${apiData.summary.overallHealth === 'healthy' ? 'text-green' : 'text-amber'}`} />
+          <span className="text-[12px] text-ink-secondary">
+            <span className="font-medium text-ink">{apiData.summary.total} enterprise systems</span>
+            {' — '}{apiData.summary.connected} connected
+            {apiData.summary.degraded > 0 && `, ${apiData.summary.degraded} degraded`}
+            {' — '}{apiData.summary.totalRecordsProcessed.toLocaleString()} records processed
+            {' — '}avg latency {apiData.summary.avgLatencyMs}ms
+          </span>
+          <span className={`ml-auto text-[10px] font-medium px-1.5 py-0.5 rounded ${apiData.summary.overallHealth === 'healthy' ? 'text-green bg-green-muted' : 'text-amber bg-amber-muted'}`}>
+            {apiData.summary.overallHealth === 'healthy' ? 'All Healthy' : 'Degraded'}
+          </span>
+        </motion.div>
+      )}
+
       {/* Page header */}
       <div className="mb-8">
         <h1 className="text-[22px] font-semibold text-ink tracking-tight">Integrations</h1>
