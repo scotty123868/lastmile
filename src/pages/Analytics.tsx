@@ -1,7 +1,6 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { MessageSquare } from 'lucide-react';
+// MessageSquare removed — unused after Atlas button cleanup
 import { useCompany } from '../data/CompanyContext';
 import { getAllAgents, getAgentsForDivision, getTotalInstances, getTotalTasksToday, getFleetUptime } from '../data/divisionAgents';
 import { useFleetStatus } from '../hooks/useFleetApi';
@@ -224,7 +223,6 @@ function formatSecondsAgo(seconds: number): string {
 /* ── Main Component ──────────────────────────────────────── */
 
 export default function Analytics() {
-  const navigate = useNavigate();
   const { company } = useCompany();
   const activeFeedTemplates = useMemo(() => divisionFeedTemplates[company.id] || feedTemplates, [company.id]);
   const activeDivisions = useMemo(() => divisionHealthData[company.id] || divisions, [company.id]);
@@ -289,15 +287,6 @@ export default function Analytics() {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
-
-  const handleTryAtlas = useCallback(() => {
-    navigate('/agents');
-    // Scroll to atlas section after navigation
-    setTimeout(() => {
-      const el = document.getElementById('atlas-deep-dive');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 300);
-  }, [navigate]);
 
   return (
     <div className="max-w-[960px] mx-auto px-4 lg:px-8 py-6 lg:py-8">
