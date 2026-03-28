@@ -25,15 +25,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Per-division breakdown
   const divisions = Object.entries(divisionMeta).map(([id, meta]) => {
     const agents = allAgents.filter(a => a.division === id);
-    const activeCount = agents.filter(a => a.status === 'active').length;
-    const runningCount = agents.filter(a => a.status === 'running').length;
+    const instanceSum = agents.reduce((s, a) => s + (a.instances || 1), 0);
+    const runningInstances = Math.round(instanceSum * 0.85 + Math.floor(Math.random() * 3));
     return {
       id,
       name: meta.name,
       accent: meta.accent,
       agentTypes: agents.length,
-      activeInstances: activeCount + Math.floor(Math.random() * 3),
-      runningInstances: runningCount,
+      activeInstances: instanceSum + Math.floor(Math.random() * 3),
+      runningInstances,
       tasksToday: Math.floor(jitter(tasksToday / 8, 40)),
       uptime: jitter(99.8, 0.3),
       alertsActive: id === 'hcc' ? 1 : id === 'htsi' ? 1 : 0,

@@ -90,7 +90,8 @@ export default function FloatingAtlas() {
     if (!text.trim() || isTyping) return;
 
     const userMsg: ChatMessage = { role: 'user', content: text.trim() };
-    setMessages(prev => [...prev, userMsg]);
+    const assistantPlaceholder: ChatMessage = { role: 'assistant', content: '' };
+    setMessages(prev => [...prev, userMsg, assistantPlaceholder]);
     setInput('');
     setIsTyping(true);
 
@@ -112,7 +113,6 @@ export default function FloatingAtlas() {
 
       const decoder = new TextDecoder();
       let assistantContent = '';
-      setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
 
       let buffer = '';
       while (true) {
@@ -164,7 +164,7 @@ export default function FloatingAtlas() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-            className="fixed bottom-24 right-6 z-50 w-[400px] h-[500px] rounded-2xl border border-border bg-surface shadow-2xl flex flex-col overflow-hidden"
+            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[400px] h-[70vh] sm:h-[500px] max-h-[500px] rounded-2xl border border-border bg-surface shadow-2xl flex flex-col overflow-hidden"
             style={{ backdropFilter: 'blur(20px)' }}
           >
             {/* Header */}

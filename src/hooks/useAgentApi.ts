@@ -124,6 +124,8 @@ export function useHealthCheck(intervalMs: number = 30000) {
     if (data) {
       setHealth(data);
       setHealthy(data.status === 'healthy');
+    } else {
+      setHealthy(false);
     }
   }, []);
 

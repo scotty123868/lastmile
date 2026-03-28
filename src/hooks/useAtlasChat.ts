@@ -21,10 +21,11 @@ export function useAtlasChat(options: UseAtlasChatOptions = {}) {
     setError(null);
     const userMsg: ChatMessage = { role: 'user', content: userMessage.trim() };
 
-    setMessages(prev => [...prev, userMsg]);
+    // Add user message AND empty assistant placeholder atomically to prevent race
+    setMessages(prev => [...prev, userMsg, { role: 'assistant', content: '' }]);
     setIsStreaming(true);
 
-    // Build message history for the API
+    // Build message history for the API (exclude the empty placeholder)
     const apiMessages = [...messages, userMsg].map(m => ({
       role: m.role as 'user' | 'assistant',
       content: m.content,
@@ -53,9 +54,6 @@ export function useAtlasChat(options: UseAtlasChatOptions = {}) {
 
       const decoder = new TextDecoder();
       let assistantContent = '';
-
-      // Add empty assistant message that we'll stream into
-      setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
 
       let buffer = '';
       while (true) {

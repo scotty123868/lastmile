@@ -426,18 +426,7 @@ export default function Analytics() {
         />
       </motion.div>
 
-      {/* ── Try Atlas Floating Button ──────────────────────── */}
-      <motion.button
-        onClick={handleTryAtlas}
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.8, type: 'spring', stiffness: 300, damping: 20 }}
-        className="fixed bottom-6 right-6 bg-emerald-600 text-white px-4 py-3 rounded-full shadow-lg hover:bg-emerald-700 transition-all z-50 flex items-center gap-2 animate-bounce-subtle"
-        style={{ animationDuration: '2s', animationIterationCount: '3' }}
-      >
-        <MessageSquare className="w-4 h-4" strokeWidth={2} />
-        <span className="text-[13px] font-semibold">Ask Atlas</span>
-      </motion.button>
+      {/* Atlas CTA removed — global FloatingAtlas button handles this */}
     </div>
   );
 }
