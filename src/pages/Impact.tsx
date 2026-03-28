@@ -98,7 +98,7 @@ const impactData: Record<string, CompanyImpactData> = {
     metrics: [
       { label: 'Payback Period', value: '4.2 mo' },
       { label: 'Year 1 ROI', value: '165%' },
-      { label: 'Verified Accuracy', value: '97.2%' },
+      { label: 'Verified Accuracy', value: '94.2%' },
       { label: 'Exception Resolution', value: '1.4 hrs', subtext: 'down from 6.8 hrs' },
     ],
   },
@@ -142,7 +142,7 @@ const impactData: Record<string, CompanyImpactData> = {
     metrics: [
       { label: 'Payback Period', value: '4.4 mo' },
       { label: 'Year 1 ROI', value: '154%' },
-      { label: 'Verified Accuracy', value: '97.0%' },
+      { label: 'Verified Accuracy', value: '93.1%' },
       { label: 'Exception Resolution', value: '1.6 hrs', subtext: 'down from 7.2 hrs' },
     ],
   },
@@ -164,7 +164,7 @@ const impactData: Record<string, CompanyImpactData> = {
     metrics: [
       { label: 'Payback Period', value: '3.8 mo' },
       { label: 'Year 1 ROI', value: '172%' },
-      { label: 'Verified Accuracy', value: '98.2%' },
+      { label: 'Verified Accuracy', value: '94.2%' },
       { label: 'Exception Resolution', value: '0.8 hrs', subtext: 'down from 4.2 hrs' },
     ],
   },
@@ -208,7 +208,7 @@ const impactData: Record<string, CompanyImpactData> = {
     metrics: [
       { label: 'Payback Period', value: '4.6 mo' },
       { label: 'Year 1 ROI', value: '148%' },
-      { label: 'Verified Accuracy', value: '96.6%' },
+      { label: 'Verified Accuracy', value: '91.8%' },
       { label: 'Exception Resolution', value: '1.8 hrs', subtext: 'down from 8.4 hrs' },
     ],
   },
@@ -230,7 +230,7 @@ const impactData: Record<string, CompanyImpactData> = {
     metrics: [
       { label: 'Payback Period', value: '3.6 mo' },
       { label: 'Year 1 ROI', value: '180%' },
-      { label: 'Verified Accuracy', value: '97.8%' },
+      { label: 'Verified Accuracy', value: '95.6%' },
       { label: 'Exception Resolution', value: '0.6 hrs', subtext: 'down from 3.2 hrs' },
     ],
   },
@@ -252,7 +252,7 @@ const impactData: Record<string, CompanyImpactData> = {
     metrics: [
       { label: 'Payback Period', value: '3.4 mo' },
       { label: 'Year 1 ROI', value: '186%' },
-      { label: 'Verified Accuracy', value: '98.0%' },
+      { label: 'Verified Accuracy', value: '98.1%' },
       { label: 'Exception Resolution', value: '0.4 hrs', subtext: 'down from 2.8 hrs' },
     ],
   },
