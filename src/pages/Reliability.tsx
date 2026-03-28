@@ -283,15 +283,24 @@ function generateSparkline(startVal: number, endVal: number) {
   return pts;
 }
 
-/* -- 6-month performance data -- */
-const perfData = [
-  { month: 'Oct', accuracy: 89, falsePositive: 8, tests: 340 },
-  { month: 'Nov', accuracy: 92, falsePositive: 5.5, tests: 420 },
-  { month: 'Dec', accuracy: 94, falsePositive: 3.8, tests: 510 },
-  { month: 'Jan', accuracy: 95.5, falsePositive: 2.1, tests: 620 },
-  { month: 'Feb', accuracy: 96.2, falsePositive: 1.2, tests: 740 },
-  { month: 'Mar', accuracy: 94.2, falsePositive: 3.1, tests: 847 },
-];
+/* -- 6-month performance data (generated per division to match current values) -- */
+function buildPerfData(accuracy: number, falsePositive: number, testsPerDay: number) {
+  // Work backwards from current March values to Oct start
+  const accStart = Math.round((accuracy - 5.2) * 10) / 10;
+  const fpStart = Math.round((falsePositive + 4.9) * 10) / 10;
+  const testStart = Math.round(testsPerDay * 0.4);
+  const months = ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'];
+  return months.map((month, i) => {
+    const t = i / 5; // 0 to 1
+    return {
+      month,
+      accuracy: Math.round((accStart + (accuracy - accStart) * t) * 10) / 10,
+      falsePositive: Math.round((fpStart + (falsePositive - fpStart) * t) * 10) / 10,
+      tests: Math.round(testStart + (testsPerDay - testStart) * t),
+    };
+  });
+}
+/* buildPerfData is used in the component via useMemo */
 
 /* -- Success examples -- */
 const successExamplesDefault = [
@@ -604,6 +613,7 @@ export default function Reliability() {
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
 
   /* Division-specific data */
+  const perfData = useMemo(() => buildPerfData(rel.accuracy, rel.falsePositive, rel.testsPerDay), [rel.accuracy, rel.falsePositive, rel.testsPerDay]);
   const sparkData = useMemo(() => generateSparkline(rel.accuracy - 2.4, rel.accuracy), [rel.accuracy]);
   const successExamples = divisionSuccessExamples[divKey] || successExamplesDefault;
   const failureExamples = divisionFailureExamples[divKey] || failureExamplesDefault;

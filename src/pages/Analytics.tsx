@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { MessageSquare } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
+import { getAllAgents, getAgentsForDivision } from '../data/divisionAgents';
 import PreliminaryBanner from '../components/PreliminaryBanner';
 
 /* ── Agent badge colors ──────────────────────────────────── */
@@ -225,6 +226,7 @@ export default function Analytics() {
   const activeFeedTemplates = useMemo(() => divisionFeedTemplates[company.id] || feedTemplates, [company.id]);
   const activeDivisions = useMemo(() => divisionHealthData[company.id] || divisions, [company.id]);
   const isParent = company.id === 'meridian';
+  const agentCount = useMemo(() => isParent ? getAllAgents().length : getAgentsForDivision(company.id).length, [isParent, company.id]);
 
   const [lastCheckSeconds, setLastCheckSeconds] = useState(12);
   const [feed, setFeed] = useState<FeedEntry[]>([]);
@@ -307,7 +309,7 @@ export default function Analytics() {
           <div className="flex-1 min-w-0">
             <div className="text-[14px] font-semibold text-white">All Systems Operational</div>
             <div className="text-[12px] text-gray-400 mt-0.5">
-              {isParent ? '9 agents active' : `${activeDivisions.reduce((s, d) => s + d.agents, 0)} agents active`} · {isParent ? '7 divisions' : `${activeDivisions.length} units`} monitored · Last check: {formatSecondsAgo(lastCheckSeconds)}
+              {agentCount} agents active · {isParent ? '7 divisions' : `${activeDivisions.length} units`} monitored · Last check: {formatSecondsAgo(lastCheckSeconds)}
             </div>
           </div>
           <div className="hidden sm:flex items-center gap-1.5 px-2 py-1 rounded-full bg-green-500/10">
