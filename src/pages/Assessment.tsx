@@ -48,6 +48,108 @@ const assessmentData: Record<string, CompanyAssessmentData> = {
       { vendor: 'Power BI Pro', total: 240, active: 145, waste: 190000, action: 'Convert 60 to Viewer-only; migrate 35 to shared capacity' },
     ],
   },
+  hcc: {
+    techStack: [
+      { name: 'HCSS HeavyJob', category: 'Construction Mgmt', current: 6, target: 9 },
+      { name: 'Primavera P6', category: 'Project Controls', current: 5, target: 8 },
+      { name: 'SAP ECC', category: 'ERP', current: 3, target: 7 },
+      { name: 'Samsara GPS', category: 'Fleet Tracking', current: 7, target: 9 },
+      { name: 'Trimble Earthworks', category: 'Machine Control', current: 6, target: 8 },
+      { name: 'Power BI', category: 'Analytics', current: 4, target: 8 },
+    ],
+    licenses: [
+      { vendor: 'HCSS HeavyJob', total: 180, active: 142, waste: 76000, action: 'Remove inactive field licenses from completed projects' },
+      { vendor: 'Primavera P6', total: 85, active: 62, waste: 92000, action: 'Downgrade 15 seats to viewer-only' },
+      { vendor: 'Samsara', total: 220, active: 200, waste: 24000, action: 'Decommission 20 retired vehicle trackers' },
+      { vendor: 'AutoCAD', total: 45, active: 28, waste: 68000, action: 'Consolidate with HTI shared license pool' },
+    ],
+  },
+  hrsi: {
+    techStack: [
+      { name: 'GPS Ballast Train System', category: 'Equipment Control', current: 7, target: 9 },
+      { name: 'SAP Plant Maintenance', category: 'Maintenance', current: 4, target: 8 },
+      { name: 'Kronos / UKG', category: 'Workforce Mgmt', current: 6, target: 8 },
+      { name: 'Custom Dispatch System', category: 'Crew Ops', current: 3, target: 8 },
+      { name: 'Equipment Tracker', category: 'Asset Mgmt', current: 5, target: 8 },
+      { name: 'Power BI', category: 'Analytics', current: 3, target: 7 },
+    ],
+    licenses: [
+      { vendor: 'SAP PM Module', total: 65, active: 48, waste: 34000, action: 'Consolidate with HCC SAP instance' },
+      { vendor: 'Kronos / UKG', total: 140, active: 129, waste: 11000, action: 'Remove inactive seasonal workers' },
+      { vendor: 'Equipment Tracker', total: 80, active: 68, waste: 18000, action: 'Migrate 12 unused mobile licenses' },
+    ],
+  },
+  hsi: {
+    techStack: [
+      { name: 'RailSentry LIDAR', category: 'Track Inspection', current: 8, target: 9 },
+      { name: 'Video Track Chart', category: 'Visual Inspection', current: 6, target: 8 },
+      { name: 'TAM-4 Ultrasonic', category: 'Rail Testing', current: 7, target: 9 },
+      { name: 'FRA Compliance Portal', category: 'Regulatory', current: 5, target: 8 },
+      { name: 'GIS Mapping', category: 'Geospatial', current: 4, target: 8 },
+      { name: 'Power BI', category: 'Analytics', current: 4, target: 7 },
+    ],
+    licenses: [
+      { vendor: 'RailSentry Software', total: 24, active: 22, waste: 8000, action: 'Align licenses to active geometry car count' },
+      { vendor: 'ESRI ArcGIS', total: 18, active: 10, waste: 32000, action: 'Migrate field staff to ArcGIS Online tier' },
+      { vendor: 'FRA Portal Access', total: 40, active: 34, waste: 12000, action: 'Remove departed analyst accounts' },
+    ],
+  },
+  hti: {
+    techStack: [
+      { name: 'Wabtec PTC Platform', category: 'Signal & PTC', current: 7, target: 9 },
+      { name: 'SCADA Signal Control', category: 'Signal Monitoring', current: 6, target: 9 },
+      { name: 'AutoCAD / MicroStation', category: 'Design', current: 5, target: 8 },
+      { name: 'Fiber Optic OTDR', category: 'Testing', current: 7, target: 8 },
+      { name: 'Radio System Diagnostics', category: 'Communications', current: 6, target: 8 },
+      { name: 'GIS Territory Mapping', category: 'Geospatial', current: 4, target: 8 },
+    ],
+    licenses: [
+      { vendor: 'AutoCAD / MicroStation', total: 60, active: 42, waste: 72000, action: 'Consolidate with HCC shared license pool' },
+      { vendor: 'Wabtec PTC Suite', total: 35, active: 32, waste: 18000, action: 'Remove test environment surplus' },
+      { vendor: 'SCADA HMI Licenses', total: 28, active: 24, waste: 16000, action: 'Decommission legacy monitoring stations' },
+    ],
+  },
+  htsi: {
+    techStack: [
+      { name: 'Trapeze OPS', category: 'Transit Planning', current: 6, target: 9 },
+      { name: 'Vehicle Tracking System', category: 'Fleet Mgmt', current: 7, target: 9 },
+      { name: 'Fare Collection System', category: 'Revenue', current: 5, target: 8 },
+      { name: 'Kronos / UKG', category: 'Workforce Mgmt', current: 6, target: 8 },
+      { name: 'Ridership Analytics', category: 'Analytics', current: 4, target: 8 },
+      { name: 'Maintenance DB', category: 'Fleet Maintenance', current: 3, target: 7 },
+    ],
+    licenses: [
+      { vendor: 'Trapeze OPS Suite', total: 45, active: 38, waste: 28000, action: 'Remove 7 inactive dispatcher seats' },
+      { vendor: 'Kronos / UKG', total: 200, active: 180, waste: 20000, action: 'Consolidate with HRSI Kronos instance' },
+      { vendor: 'Ridership Analytics', total: 30, active: 18, waste: 24000, action: 'Migrate to Power BI dashboards' },
+    ],
+  },
+  he: {
+    techStack: [
+      { name: 'SCADA Solar/Wind', category: 'Energy Monitoring', current: 7, target: 9 },
+      { name: 'Grid Interconnection Tools', category: 'Compliance', current: 5, target: 8 },
+      { name: 'Permit Tracking System', category: 'Regulatory', current: 4, target: 7 },
+      { name: 'Weather Forecasting API', category: 'External Data', current: 6, target: 8 },
+      { name: 'SAP ECC', category: 'ERP', current: 3, target: 7 },
+    ],
+    licenses: [
+      { vendor: 'SCADA HMI', total: 18, active: 16, waste: 8000, action: 'Remove 2 decommissioned site licenses' },
+      { vendor: 'SAP ECC', total: 30, active: 22, waste: 16000, action: 'Consolidate into parent SAP tenant' },
+    ],
+  },
+  gg: {
+    techStack: [
+      { name: 'Environmental Monitoring', category: 'Compliance', current: 6, target: 8 },
+      { name: 'EPA Reporting Portal', category: 'Regulatory', current: 5, target: 8 },
+      { name: 'Waste Stream Tracker', category: 'Operations', current: 4, target: 7 },
+      { name: 'GIS Remediation Mapping', category: 'Geospatial', current: 5, target: 8 },
+      { name: 'Lab Data Management', category: 'Testing', current: 3, target: 7 },
+    ],
+    licenses: [
+      { vendor: 'ESRI ArcGIS', total: 12, active: 8, waste: 16000, action: 'Consolidate with HSI GIS licenses' },
+      { vendor: 'Lab Data Software', total: 8, active: 5, waste: 9000, action: 'Remove 3 inactive analyst seats' },
+    ],
+  },
   oakwood: {
     techStack: [
       { name: 'Guidewire ClaimCenter', category: 'Claims', current: 4, target: 8 },
@@ -296,6 +398,85 @@ const extendedData: Record<string, ExtendedAssessmentData> = {
       { priority: 3, action: 'Consolidate 4 SAP ECC division instances to single tenant', category: 'optimization', effort: 'High', timeline: '4-5 months', impact: '$480K annual license savings' },
       { priority: 4, action: 'Remove 120 inactive Trimble fleet licenses post equipment audit', category: 'optimization', effort: 'Low', timeline: '2 weeks', impact: '$320K annual savings' },
       { priority: 5, action: 'RailSentry mobile app training for track maintenance crews', category: 'training', effort: 'Low', timeline: '4 weeks', impact: 'Adoption uplift 20-30%' },
+    ],
+  },
+  hcc: {
+    integrations: [
+      { from: 'HCSS HeavyJob', to: 'SAP ECC', status: 'partial', dataFlow: 'Daily batch upload of cost data' },
+      { from: 'Primavera P6', to: 'SAP ECC', status: 'connected', dataFlow: 'Bi-directional sync via middleware' },
+      { from: 'Samsara GPS', to: 'Equipment Tracker', status: 'connected', dataFlow: 'Real-time fleet telemetry' },
+      { from: 'Trimble Earthworks', to: 'HCSS HeavyJob', status: 'siloed', dataFlow: 'Manual grade data export' },
+    ],
+    remediation: [
+      { priority: 1, action: 'Integrate Trimble machine control data into HeavyJob for automated grade reporting', category: 'integration', effort: 'Medium', timeline: '6-8 weeks', impact: 'Eliminate 3-hr daily manual reconciliation' },
+      { priority: 2, action: 'Consolidate AutoCAD licenses with HTI shared pool', category: 'optimization', effort: 'Low', timeline: '2 weeks', impact: '$68K annual savings' },
+      { priority: 3, action: 'Deploy mobile HCSS for field superintendents', category: 'training', effort: 'Low', timeline: '4 weeks', impact: 'Adoption uplift 15-25%' },
+    ],
+  },
+  hrsi: {
+    integrations: [
+      { from: 'GPS Ballast System', to: 'SAP PM', status: 'partial', dataFlow: 'Weekly position batch upload' },
+      { from: 'Kronos / UKG', to: 'Custom Dispatch', status: 'connected', dataFlow: 'Shared API data source' },
+      { from: 'Equipment Tracker', to: 'SAP PM', status: 'siloed', dataFlow: 'Manual work order entry' },
+    ],
+    remediation: [
+      { priority: 1, action: 'Integrate Equipment Tracker with SAP PM for automated work order generation', category: 'integration', effort: 'Medium', timeline: '8 weeks', impact: 'Reduce work order entry time by 4 hrs/day' },
+      { priority: 2, action: 'Deploy real-time GPS ballast telemetry to SAP PM', category: 'integration', effort: 'Medium', timeline: '6 weeks', impact: '$89K maintenance cost avoidance' },
+    ],
+  },
+  hsi: {
+    integrations: [
+      { from: 'RailSentry LIDAR', to: 'Video Track Chart', status: 'siloed', dataFlow: 'Manual GIS overlay — 4-6 hrs per corridor' },
+      { from: 'TAM-4 Ultrasonic', to: 'FRA Portal', status: 'partial', dataFlow: 'Semi-automated defect upload' },
+      { from: 'GIS Mapping', to: 'RailSentry', status: 'partial', dataFlow: 'Monthly batch coordinate sync' },
+    ],
+    remediation: [
+      { priority: 1, action: 'Build unified track intelligence data lake for LIDAR + Video + TAM-4', category: 'integration', effort: 'High', timeline: '3-4 months', impact: '$1.38M defect detection savings' },
+      { priority: 2, action: 'Automate FRA defect classification from TAM-4 data', category: 'integration', effort: 'Medium', timeline: '8 weeks', impact: 'Reduce classification time 82%' },
+    ],
+  },
+  hti: {
+    integrations: [
+      { from: 'Wabtec PTC', to: 'SCADA', status: 'connected', dataFlow: 'Real-time signal telemetry' },
+      { from: 'AutoCAD', to: 'GIS Territory', status: 'partial', dataFlow: 'Manual design export to GIS' },
+      { from: 'Fiber OTDR', to: 'SCADA', status: 'siloed', dataFlow: 'Test results entered manually' },
+    ],
+    remediation: [
+      { priority: 1, action: 'Automate OTDR test result ingestion into SCADA monitoring', category: 'integration', effort: 'Medium', timeline: '6 weeks', impact: 'Real-time fiber health monitoring' },
+      { priority: 2, action: 'Consolidate CAD licenses with HCC', category: 'optimization', effort: 'Low', timeline: '2 weeks', impact: '$72K annual savings' },
+    ],
+  },
+  htsi: {
+    integrations: [
+      { from: 'Trapeze OPS', to: 'Vehicle Tracking', status: 'connected', dataFlow: 'Real-time schedule adherence' },
+      { from: 'Fare Collection', to: 'Ridership Analytics', status: 'partial', dataFlow: 'Daily batch revenue data' },
+      { from: 'Kronos / UKG', to: 'Trapeze OPS', status: 'siloed', dataFlow: 'Manual crew schedule sync' },
+    ],
+    remediation: [
+      { priority: 1, action: 'Integrate Kronos crew data with Trapeze for automated rostering', category: 'integration', effort: 'Medium', timeline: '8 weeks', impact: 'Reduce scheduling errors 40%' },
+      { priority: 2, action: 'Real-time fare data to ridership analytics', category: 'integration', effort: 'Low', timeline: '3 weeks', impact: 'Same-day revenue visibility' },
+    ],
+  },
+  he: {
+    integrations: [
+      { from: 'SCADA Solar', to: 'Grid Tools', status: 'connected', dataFlow: 'Real-time production data' },
+      { from: 'Permit Tracking', to: 'SAP ECC', status: 'siloed', dataFlow: 'Manual cost allocation' },
+      { from: 'Weather API', to: 'SCADA', status: 'connected', dataFlow: 'Hourly forecast integration' },
+    ],
+    remediation: [
+      { priority: 1, action: 'Automate permit cost tracking in SAP', category: 'integration', effort: 'Low', timeline: '4 weeks', impact: 'Eliminate 6 hrs/week manual entry' },
+      { priority: 2, action: 'Consolidate SAP into parent tenant', category: 'optimization', effort: 'Medium', timeline: '8 weeks', impact: '$16K annual savings' },
+    ],
+  },
+  gg: {
+    integrations: [
+      { from: 'Environmental Monitoring', to: 'EPA Portal', status: 'connected', dataFlow: 'Automated compliance reports' },
+      { from: 'Waste Stream Tracker', to: 'Lab Data Mgmt', status: 'partial', dataFlow: 'Weekly batch sample results' },
+      { from: 'GIS Remediation', to: 'Environmental Monitoring', status: 'siloed', dataFlow: 'Manual coordinate entry' },
+    ],
+    remediation: [
+      { priority: 1, action: 'Integrate GIS with environmental monitoring for automated site mapping', category: 'integration', effort: 'Medium', timeline: '6 weeks', impact: 'Eliminate 4 hrs/site manual mapping' },
+      { priority: 2, action: 'Real-time lab data to waste stream tracker', category: 'integration', effort: 'Low', timeline: '3 weeks', impact: 'Same-day compliance visibility' },
     ],
   },
   oakwood: {

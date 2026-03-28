@@ -245,9 +245,197 @@ const estoniaLedger: LedgerEntry[] = [
   },
 ];
 
+const hccLedger: LedgerEntry[] = [
+  {
+    id: 'VL-2026-0901', timestamp: '2 min ago', workflow: 'Bridge Load Analysis — I-70 Rehabilitation',
+    agent: 'GPT-4o Extraction', type: 'correction',
+    original: 'Bearing pad compression 14.8% — within tolerance',
+    corrected: 'Bearing pad compression 16.2% — reclassified to Priority 1 replacement per AASHTO LRFD',
+    rationale: 'AI rounded measurement down from raw inspection data. Re-extraction from field reports confirmed 16.2%, exceeding 15% replacement threshold.',
+    verifier: 'R. Collins', standard: 'AASHTO LRFD Bridge Design', confidence: 96,
+  },
+  {
+    id: 'VL-2026-0902', timestamp: '14 min ago', workflow: 'Equipment Utilization — Excavator Fleet',
+    agent: 'Analytics Agent', type: 'flag',
+    original: 'CAT 349F #E22: Utilization 68% — acceptable',
+    corrected: 'CAT 349F #E22: Utilization 68% over 14 days but idle 100% last 6 days. Recommend redeployment to Highway 65.',
+    rationale: 'Average masks recent idle period. Equipment available for redeployment, saving $4,200/week rental on Highway 65.',
+    verifier: 'T. Brooks', standard: 'Fleet Policy §3.1 — Equipment Redeployment', confidence: 94,
+  },
+  {
+    id: 'VL-2026-0903', timestamp: '28 min ago', workflow: 'Project Cost Tracking — I-70 Phase 2',
+    agent: 'Analytics Agent', type: 'approval',
+    original: 'Monthly burn rate $1.2M — within forecast',
+    corrected: 'Monthly burn rate $1.2M within 3% of forecast. No variance escalation needed.',
+    rationale: 'Cost tracking within tolerance. Contingency reserve at $120K sufficient for remaining scope.',
+    verifier: 'Auto-verified', standard: 'Project Controls Policy', confidence: 98,
+  },
+  {
+    id: 'VL-2026-0904', timestamp: '45 min ago', workflow: 'Subcontractor Compliance — Highway 65',
+    agent: 'Document Generator', type: 'escalation',
+    original: 'Subcontractor SafetyFirst LLC: compliance current',
+    corrected: 'SafetyFirst LLC: OSHA 300 log shows 3 recordable incidents in 90 days. Exceeds HCC safety threshold.',
+    rationale: 'AI flagged elevated incident rate. HCC policy requires safety review when subcontractor incident rate exceeds 2 per quarter.',
+    verifier: 'S. Williams', standard: 'HCC Safety Policy §5.2', confidence: 91,
+  },
+];
+
+const hrsiLedger: LedgerEntry[] = [
+  {
+    id: 'VL-2026-0911', timestamp: '5 min ago', workflow: 'Ballast Train Deployment — BNSF Southwest',
+    agent: 'Optimization Agent', type: 'correction',
+    original: 'GPS Ballast Train #BT-18: Deploy on original route',
+    corrected: 'GPS Ballast Train #BT-18: Route adjusted for track window change — arrival delayed 4 hours',
+    rationale: 'BNSF track window shifted 4 hours due to revenue train scheduling conflict. Route recalculated.',
+    verifier: 'D. Holman', standard: 'BNSF Operating Rules §12.3', confidence: 97,
+  },
+  {
+    id: 'VL-2026-0912', timestamp: '22 min ago', workflow: 'Crew HOS Compliance — Midwest',
+    agent: 'Optimization Agent', type: 'escalation',
+    original: 'Crew #MW-34: Continue current shift',
+    corrected: 'Crew #MW-34: 8.5 hours into shift, projected to exceed 12hr limit. Relief crew dispatched.',
+    rationale: 'Hours-of-service projection shows violation risk. Relief crew J. Ramirez (0 hrs today) assigned.',
+    verifier: 'T. Bradshaw', standard: 'FRA 49 CFR §228', confidence: 98,
+  },
+  {
+    id: 'VL-2026-0913', timestamp: '41 min ago', workflow: 'Equipment Maintenance — Unit 4402',
+    agent: 'Analytics Agent', type: 'approval',
+    original: 'Unit 4402: Scheduled service at 4,800 hours',
+    corrected: 'Scheduled service confirmed. Parts in stock. April 2 maintenance window.',
+    rationale: 'Service interval confirmed per manufacturer specs. All required parts available in warehouse.',
+    verifier: 'Auto-verified', standard: 'Equipment Maintenance Schedule', confidence: 97,
+  },
+];
+
+const hsiLedger: LedgerEntry[] = [
+  {
+    id: 'VL-2026-0921', timestamp: '3 min ago', workflow: 'Rail Defect Classification — NEC Seg 47',
+    agent: 'GPT-4o Extraction', type: 'correction',
+    original: 'MP 312.4: Transverse defect — Priority 2',
+    corrected: 'MP 312.4: Transverse defect confirmed via manual hand test. Reclassified Priority 1. Rail replacement ordered.',
+    rationale: 'AI underestimated defect severity. Manual re-test confirmed growth rate 0.8mm/month, suggesting critical threshold in 60 days.',
+    verifier: 'M. Chen', standard: 'FRA 49 CFR §213.113', confidence: 93,
+  },
+  {
+    id: 'VL-2026-0922', timestamp: '18 min ago', workflow: 'Test Car Calibration — TAM-4 Unit',
+    agent: 'Analytics Agent', type: 'approval',
+    original: 'TAM-4 calibration: All channels within spec',
+    corrected: 'Calibration check passed. All 12 ultrasonic channels within 0.5dB of reference.',
+    rationale: 'Calibration verified against NIST-traceable reference standards. All channels nominal.',
+    verifier: 'Auto-verified', standard: 'NIST Calibration Protocol', confidence: 99,
+  },
+  {
+    id: 'VL-2026-0923', timestamp: '35 min ago', workflow: 'FRA Compliance Report — Q1 Testing',
+    agent: 'Document Generator', type: 'flag',
+    original: 'Testing coverage: All segments compliant',
+    corrected: '3 segments below minimum testing frequency. Priority scheduling needed for MP 140-155.',
+    rationale: 'Quarterly coverage audit shows 3 segments missed required inspection interval per FRA testing frequency mandate.',
+    verifier: 'J. Martinez', standard: 'FRA Testing Frequency Mandate', confidence: 88,
+  },
+];
+
+const htiLedger: LedgerEntry[] = [
+  {
+    id: 'VL-2026-0931', timestamp: '4 min ago', workflow: 'PTC Wayside Device Health — Zone 12',
+    agent: 'Analytics Agent', type: 'flag',
+    original: 'WD-4472: Communication latency 180ms — within spec',
+    corrected: 'WD-4472 communication latency 180ms (limit 200ms). Trending upward. Antenna inspection recommended.',
+    rationale: 'Latency increased 40ms over 14 days. Pattern consistent with antenna degradation, not software issue.',
+    verifier: 'K. Patel', standard: 'PTC Communication Standards', confidence: 97,
+  },
+  {
+    id: 'VL-2026-0932', timestamp: '16 min ago', workflow: 'Signal System Firmware Update — Zone 8',
+    agent: 'Analytics Agent', type: 'approval',
+    original: 'Firmware v4.2.1: Update to v4.3.0',
+    corrected: 'Firmware v4.2.1 validated on 12 units. All responding within spec. Update approved.',
+    rationale: 'Post-update validation passed on all 12 units. No communication degradation observed.',
+    verifier: 'Auto-verified', standard: 'Wabtec I-ETMS Advisory WA-2026-008', confidence: 99,
+  },
+  {
+    id: 'VL-2026-0933', timestamp: '29 min ago', workflow: 'Fiber Optic Link Test — Corridor 14',
+    agent: 'GPT-4o Extraction', type: 'correction',
+    original: 'Splice point #47: OTDR reading 0.5dB loss — acceptable',
+    corrected: 'OTDR reading corrected to 0.8dB loss at splice point #47. Acceptable but added to monitoring list.',
+    rationale: 'AI misread OTDR trace. Re-extraction confirmed 0.8dB, still within 1.0dB limit but warranting monitoring.',
+    verifier: 'L. Chen', standard: 'Fiber Optic Testing Standards', confidence: 94,
+  },
+];
+
+const htsiLedger: LedgerEntry[] = [
+  {
+    id: 'VL-2026-0941', timestamp: '6 min ago', workflow: 'Service Schedule Optimization — Weekday',
+    agent: 'Optimization Agent', type: 'correction',
+    original: 'Off-peak headway: Maintain 15-minute intervals',
+    corrected: 'Off-peak headway adjusted from 15min to 18min. Ridership data shows 22% below threshold.',
+    rationale: 'Ridership analytics confirms demand below 85% capacity threshold. Adjustment saves 1 crew rotation.',
+    verifier: 'L. Washington', standard: 'Transit Service Standards', confidence: 91,
+  },
+  {
+    id: 'VL-2026-0942', timestamp: '19 min ago', workflow: 'Crew Scheduling — Weekend Service',
+    agent: 'Optimization Agent', type: 'escalation',
+    original: 'Weekend service: Standard deployment',
+    corrected: 'Concert event March 28 — ridership surge expected. Additional trainset and crew assigned.',
+    rationale: 'Event calendar integration detected major venue event. Historical data shows 130% surge for similar events.',
+    verifier: 'R. Patel', standard: 'HTSI Capacity Planning Policy', confidence: 94,
+  },
+  {
+    id: 'VL-2026-0943', timestamp: '38 min ago', workflow: 'Vehicle Maintenance — Train #HTSI-44',
+    agent: 'Analytics Agent', type: 'approval',
+    original: 'Train #HTSI-44: Brake inspection',
+    corrected: 'Brake inspection passed. All 8 cars within wear limits. Next inspection at 15,000 miles.',
+    rationale: 'All brake pad measurements within specification. Remaining life exceeds next scheduled service interval.',
+    verifier: 'Auto-verified', standard: 'FRA Passenger Equipment Safety Standards', confidence: 98,
+  },
+];
+
+const heLedger: LedgerEntry[] = [
+  {
+    id: 'VL-2026-0951', timestamp: '8 min ago', workflow: 'Solar Array Performance — Site 3',
+    agent: 'Analytics Agent', type: 'flag',
+    original: 'Panel cluster B7: Output within range',
+    corrected: 'Panel cluster B7 output 12% below expected. Possible soiling or degradation. Inspection ordered.',
+    rationale: 'Performance analytics detected sustained underperformance vs adjacent clusters and weather-adjusted baseline.',
+    verifier: 'Field Engineer', standard: 'Solar Performance Monitoring Protocol', confidence: 92,
+  },
+  {
+    id: 'VL-2026-0952', timestamp: '24 min ago', workflow: 'Energy Production Forecast',
+    agent: 'Analytics Agent', type: 'approval',
+    original: 'Weekly forecast: 2,400 MWh',
+    corrected: 'Weekly forecast within 4% of actual. Model accuracy trending upward.',
+    rationale: 'Forecast vs actual variance well within 10% acceptable range. Model improving with additional weather data.',
+    verifier: 'Auto-verified', standard: 'Energy Forecasting Standards', confidence: 97,
+  },
+];
+
+const ggLedger: LedgerEntry[] = [
+  {
+    id: 'VL-2026-0961', timestamp: '12 min ago', workflow: 'Wetland Compliance — Site 7 Quarterly',
+    agent: 'Analytics Agent', type: 'approval',
+    original: 'Quarterly compliance check: Standard review',
+    corrected: 'All 14 parameters within EPA/state limits. Report auto-generated for submission.',
+    rationale: 'All sensor readings within regulatory limits. Automated report generated per EPA quarterly filing schedule.',
+    verifier: 'Auto-verified', standard: 'EPA Clean Water Act §404', confidence: 99,
+  },
+  {
+    id: 'VL-2026-0962', timestamp: '28 min ago', workflow: 'Water Quality Monitoring',
+    agent: 'Analytics Agent', type: 'flag',
+    original: 'Site 7 dissolved oxygen: 4.8 mg/L — compliant',
+    corrected: 'Dissolved oxygen at Site 7 trending downward — 2.4mg/L above minimum. Added to watch list.',
+    rationale: 'While still above 2.4mg/L minimum, the 14-day trend shows declining readings that could approach limits.',
+    verifier: 'J. Park', standard: 'State Environmental Standards', confidence: 88,
+  },
+];
+
 function getLedgerForCompany(id: string): LedgerEntry[] {
   switch (id) {
     case 'meridian': return meridianLedger;
+    case 'hcc': return hccLedger;
+    case 'hrsi': return hrsiLedger;
+    case 'hsi': return hsiLedger;
+    case 'hti': return htiLedger;
+    case 'htsi': return htsiLedger;
+    case 'he': return heLedger;
+    case 'gg': return ggLedger;
     case 'oakwood': return oakwoodLedger;
     case 'pinnacle': return pinnacleLedger;
     case 'atlas': return atlasLedger;
@@ -367,7 +555,7 @@ function LedgerRow({ entry, index, onSelect }: { entry: LedgerEntry; index: numb
 
 export default function VerificationLedger() {
   const { company } = useCompany();
-  const knownLedgerIds = ['meridian', 'oakwood', 'pinnacle', 'atlas', 'northbridge', 'estonia'];
+  const knownLedgerIds = ['meridian', 'hcc', 'hrsi', 'hsi', 'hti', 'htsi', 'he', 'gg', 'oakwood', 'pinnacle', 'atlas', 'northbridge', 'estonia'];
   const hasOwnData = knownLedgerIds.includes(company.id);
   const parentCompany = company.parentId ? companies.find((c) => c.id === company.parentId) : null;
   const entries = hasOwnData ? getLedgerForCompany(company.id) : (company.parentId ? getLedgerForCompany(company.parentId) : getLedgerForCompany(company.id));
