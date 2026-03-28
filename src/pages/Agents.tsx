@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Area,
@@ -28,8 +28,69 @@ import {
   Radio,
   User,
   X,
+  Truck,
+  MapPin,
+  Wrench,
+  Layers,
+  ScanLine,
+  ClipboardCheck,
+  Gauge,
+  GitBranch,
+  FileCheck,
+  Route,
+  Users,
+  BarChart3,
+  ShieldAlert,
+  Zap,
+  FileText,
+  Leaf,
+  Thermometer,
 } from 'lucide-react';
 import PreliminaryBanner from '../components/PreliminaryBanner';
+import { useCompany } from '../data/CompanyContext';
+import {
+  getAgentsForDivision,
+  getAllAgents,
+  divisionMeta,
+  type AgentDef,
+} from '../data/divisionAgents';
+
+/* -- Icon lookup -------------------------------------------------------- */
+
+const iconMap: Record<string, React.ElementType> = {
+  Shield,
+  Eye,
+  Search,
+  Calculator,
+  Package,
+  Briefcase,
+  Mic,
+  Radio,
+  User,
+  Bot,
+  Activity,
+  Truck,
+  MapPin,
+  Wrench,
+  Layers,
+  ScanLine,
+  ClipboardCheck,
+  Gauge,
+  GitBranch,
+  FileCheck,
+  Route,
+  Users,
+  BarChart3,
+  ShieldAlert,
+  Zap,
+  FileText,
+  Leaf,
+  Thermometer,
+};
+
+function getIcon(name: string): React.ElementType {
+  return iconMap[name] ?? Bot;
+}
 
 /* -- Animation variants ------------------------------------------------- */
 
@@ -48,19 +109,6 @@ interface ActivityEntry {
   time: string;
   type: 'CHECK' | 'PASS' | 'WARN' | 'PREVENT' | 'REPORT';
   message: string;
-}
-
-interface AgentDef {
-  id: string;
-  name: string;
-  subtitle: string;
-  icon: React.ElementType;
-  status: 'active' | 'running';
-  statusLabel: string;
-  accent: 'blue' | 'green';
-  metrics: { label: string; value: string }[];
-  description: string;
-  deepDiveLink?: string;
 }
 
 /* -- Data --------------------------------------------------------------- */
@@ -127,213 +175,7 @@ function initialFeed(): ActivityEntry[] {
   ];
 }
 
-/* -- Agent Definitions -------------------------------------------------- */
-
-const operationsAgents: AgentDef[] = [
-  {
-    id: 'dispatch',
-    name: 'Dispatch',
-    subtitle: 'HOS Compliance Monitor',
-    icon: Shield,
-    status: 'active',
-    statusLabel: 'Active',
-    accent: 'blue',
-    metrics: [
-      { label: 'Watching', value: '2,800 employees across 7 divisions' },
-      { label: 'Violations prevented', value: '23 this month' },
-      { label: 'Savings this month', value: '$368,000' },
-    ],
-    description: 'Monitors FRA Hours-of-Service compliance across all 7 Herzog divisions in real time. Catches violations before they happen, automatically reassigns crew, and files FRA reports. Zero violations since deployment in October 2025.',
-    deepDiveLink: '#dispatch-deep-dive',
-  },
-  {
-    id: 'scout',
-    name: 'Scout',
-    subtitle: 'Track Defect Early Warning',
-    icon: Eye,
-    status: 'active',
-    statusLabel: 'Active',
-    accent: 'blue',
-    metrics: [
-      { label: 'Monitoring', value: '4,200 track miles' },
-      { label: 'Defects predicted this week', value: '3 (all scheduled)' },
-      { label: 'False alarm rate', value: '0.8%' },
-    ],
-    description: 'Combines geometry car data, weather patterns, tonnage history, and inspection records to predict track defects 2-3 weeks before they become safety issues. Prioritizes maintenance crew deployment across the network.',
-  },
-  {
-    id: 'ledger',
-    name: 'Ledger',
-    subtitle: 'License Waste Scanner',
-    icon: Search,
-    status: 'running',
-    statusLabel: 'Running (weekly scan)',
-    accent: 'blue',
-    metrics: [
-      { label: 'Last scan', value: 'March 24 \u2014 found $47K unused' },
-      { label: 'Coverage', value: '47 software platforms' },
-      { label: 'Next scan', value: 'March 31' },
-    ],
-    description: 'Audits software license usage across all divisions weekly. Identifies unused seats, duplicate subscriptions, and consolidation opportunities. Has recovered $312K in wasted software spend since October.',
-  },
-  {
-    id: 'estimator',
-    name: 'Estimator',
-    subtitle: 'Project Bid Intelligence',
-    icon: Calculator,
-    status: 'active',
-    statusLabel: 'Active',
-    accent: 'blue',
-    metrics: [
-      { label: 'Watching', value: '14 active bid packages' },
-      { label: 'Accuracy', value: '94% within \u00B18% of winning bid' },
-      { label: 'Last analysis', value: 'I-70 Bridge Rehab \u2014 flagged $180K underestimate' },
-      { label: 'Savings this quarter', value: '$420,000 in avoided overruns' },
-    ],
-    description: 'Analyzes project bid packages against historical data to catch cost estimation errors before submission. Rail projects have 44.7% average cost overrun \u2014 Estimator reduces this to under 12%. Compares material costs, labor rates, and timeline assumptions against 15 years of completed projects.',
-  },
-  {
-    id: 'quartermaster',
-    name: 'Quartermaster',
-    subtitle: 'Cross-Division Procurement',
-    icon: Package,
-    status: 'active',
-    statusLabel: 'Active',
-    accent: 'blue',
-    metrics: [
-      { label: 'Duplicate orders caught', value: '7 this month ($34K saved)' },
-      { label: 'Volume discount opportunities', value: '3 active negotiations' },
-      { label: 'Material catalog coverage', value: '73% standardized' },
-    ],
-    description: 'Monitors purchasing across all 7 divisions to catch duplicate orders, negotiate volume discounts, and standardize material catalogs. When HCC orders rail ties and HRSI orders the same ties from a different vendor at a higher price, Quartermaster catches it.',
-  },
-];
-
-const intelligenceAgents: AgentDef[] = [
-  {
-    id: 'chief',
-    name: 'Chief',
-    subtitle: 'Executive Briefing Agent',
-    icon: Briefcase,
-    status: 'active',
-    statusLabel: 'Active',
-    accent: 'green',
-    metrics: [
-      { label: "Today's briefing", value: '3 items flagged \u2014 HCC I-70 bridge 8-day slip, HTSI cert expiring Apr 2, HTI conflict resolved' },
-      { label: 'Briefings generated', value: '127 (since October)' },
-      { label: 'CEO read rate', value: '94%' },
-    ],
-    description: 'Monitors all 7 divisions daily and generates an executive briefing for the CEO every morning at 7:00 AM. Summarizes key metrics changes, compliance alerts, project milestones, budget variances, and personnel issues. The executive team gets a 2-minute read instead of 45 minutes of division reports.',
-  },
-  {
-    id: 'relay',
-    name: 'Relay',
-    subtitle: 'Meeting Intelligence',
-    icon: Mic,
-    status: 'active',
-    statusLabel: 'Active',
-    accent: 'green',
-    metrics: [
-      { label: 'Meetings processed this week', value: '34' },
-      { label: 'Action items extracted', value: '87 (23 overdue)' },
-      { label: 'Commitment tracking', value: 'VP Ops audit due March 28 \u2014 1 day remaining' },
-    ],
-    description: 'Attends all internal meetings via calendar integration, generates transcripts, extracts action items, tracks commitments across meetings, and flags when deadlines are missed. Named after the railroad relay signal.',
-  },
-  {
-    id: 'signal',
-    name: 'Signal',
-    subtitle: 'Communications Intelligence',
-    icon: Radio,
-    status: 'active',
-    statusLabel: 'Active',
-    accent: 'green',
-    metrics: [
-      { label: 'Threads monitored today', value: '1,240' },
-      { label: 'Escalations triggered', value: '3 (safety, vendor dispute, overtime)' },
-      { label: 'Pattern detected', value: '4 crews reported GPS drift \u2014 possible firmware issue' },
-    ],
-    description: 'Monitors internal email and Slack for mentions of safety concerns, compliance issues, equipment problems, or customer complaints that need escalation. Surfaces patterns that would take weeks to notice manually. Named after the railroad signal system.',
-  },
-  {
-    id: 'atlas',
-    name: 'Atlas',
-    subtitle: 'Personal AI Assistant',
-    icon: User,
-    status: 'active',
-    statusLabel: 'Active (per-user)',
-    accent: 'green',
-    metrics: [
-      { label: 'Active personal instances', value: '847 of 2,800 employees' },
-      { label: 'Queries answered today', value: '2,340' },
-      { label: 'Avg response time', value: '1.2 seconds' },
-      { label: 'Top queries', value: 'Project status (34%), compliance (22%), resources (18%)' },
-    ],
-    description: 'Each employee\'s personal AI assistant connected to their role-specific data. A track inspector asks "what\'s the defect history at MP 247?" and gets an instant answer pulling from inspection records, weather data, and maintenance history. A PM asks "how\'s my project tracking?" and gets budget, schedule, and risk in one answer.',
-    deepDiveLink: '#atlas-deep-dive',
-  },
-];
-
-/* -- Elapsed timer hook ------------------------------------------------- */
-
-function useElapsedTimer(startSeconds: number) {
-  const [elapsed, setElapsed] = useState(startSeconds);
-  useEffect(() => {
-    const id = setInterval(() => setElapsed((s) => s + 1), 1000);
-    return () => clearInterval(id);
-  }, []);
-  const mins = Math.floor(elapsed / 60);
-  const secs = elapsed % 60;
-  return mins > 0 ? `${mins}m ${secs}s ago` : `${secs}s ago`;
-}
-
-function useCountdown(startSeconds: number) {
-  const [remaining, setRemaining] = useState(startSeconds);
-  useEffect(() => {
-    const id = setInterval(() => setRemaining((s) => (s <= 0 ? 780 : s - 1)), 1000);
-    return () => clearInterval(id);
-  }, []);
-  const mins = Math.floor(remaining / 60);
-  const secs = remaining % 60;
-  return `in ${mins}m ${secs}s`;
-}
-
-/* -- Activity Feed Row -------------------------------------------------- */
-
-function FeedRow({ entry, isNew }: { entry: ActivityEntry; isNew: boolean }) {
-  const typeColors: Record<string, string> = {
-    CHECK: 'text-slate-500',
-    PASS: 'text-emerald-400',
-    WARN: 'text-amber-400',
-    PREVENT: 'text-red-400 font-semibold',
-    REPORT: 'text-blue-400',
-  };
-
-  const typeIcons: Record<string, string> = {
-    CHECK: 'CHECK  ',
-    PASS: '\u2713 PASS  ',
-    WARN: '\u26A0 WARN  ',
-    PREVENT: '\uD83D\uDEA8 PREVENT',
-    REPORT: '\uD83D\uDCCB REPORT ',
-  };
-
-  return (
-    <motion.div
-      initial={isNew ? { opacity: 0, y: -8, backgroundColor: 'rgba(37, 99, 235, 0.08)' } : { opacity: 1 }}
-      animate={{ opacity: 1, y: 0, backgroundColor: 'rgba(0, 0, 0, 0)' }}
-      transition={{ duration: 0.4 }}
-      className="flex gap-3 py-1.5 font-mono text-[12px] leading-relaxed border-b border-white/[0.03] last:border-0"
-    >
-      <span className="text-slate-600 whitespace-nowrap flex-shrink-0">[{entry.time}]</span>
-      <span className={`whitespace-nowrap flex-shrink-0 ${typeColors[entry.type]}`}>
-        {typeIcons[entry.type]}
-      </span>
-      <span className={typeColors[entry.type]}>{entry.message}</span>
-    </motion.div>
-  );
-}
-
-/* -- Violations Prevented Card ------------------------------------------ */
+/* -- Violations Prevented Data ------------------------------------------ */
 
 interface ViolationCase {
   severity: 'green' | 'amber' | 'red';
@@ -387,6 +229,43 @@ const violationCases: ViolationCase[] = [
   },
 ];
 
+/* -- Activity Feed Row -------------------------------------------------- */
+
+function FeedRow({ entry, isNew }: { entry: ActivityEntry; isNew: boolean }) {
+  const typeColors: Record<string, string> = {
+    CHECK: 'text-slate-500',
+    PASS: 'text-emerald-400',
+    WARN: 'text-amber-400',
+    PREVENT: 'text-red-400 font-semibold',
+    REPORT: 'text-blue-400',
+  };
+
+  const typeIcons: Record<string, string> = {
+    CHECK: 'CHECK  ',
+    PASS: '\u2713 PASS  ',
+    WARN: '\u26A0 WARN  ',
+    PREVENT: '\uD83D\uDEA8 PREVENT',
+    REPORT: '\uD83D\uDCCB REPORT ',
+  };
+
+  return (
+    <motion.div
+      initial={isNew ? { opacity: 0, y: -8, backgroundColor: 'rgba(37, 99, 235, 0.08)' } : { opacity: 1 }}
+      animate={{ opacity: 1, y: 0, backgroundColor: 'rgba(0, 0, 0, 0)' }}
+      transition={{ duration: 0.4 }}
+      className="flex gap-3 py-1.5 font-mono text-[12px] leading-relaxed border-b border-white/[0.03] last:border-0"
+    >
+      <span className="text-slate-600 whitespace-nowrap flex-shrink-0">[{entry.time}]</span>
+      <span className={`whitespace-nowrap flex-shrink-0 ${typeColors[entry.type]}`}>
+        {typeIcons[entry.type]}
+      </span>
+      <span className={typeColors[entry.type]}>{entry.message}</span>
+    </motion.div>
+  );
+}
+
+/* -- Violation Card ----------------------------------------------------- */
+
 function ViolationCard({ c }: { c: ViolationCase }) {
   const borderColor = c.severity === 'green' ? 'border-l-emerald-500' : c.severity === 'amber' ? 'border-l-amber-500' : 'border-l-red-500';
   return (
@@ -433,6 +312,35 @@ function ViolationCard({ c }: { c: ViolationCase }) {
   );
 }
 
+/* -- Accent helpers ----------------------------------------------------- */
+
+const accentStyles: Record<string, { gradient: string; icon: string; border: string; dot: string }> = {
+  blue: {
+    gradient: 'from-blue to-blue/40',
+    icon: 'text-blue',
+    border: 'border-l-blue',
+    dot: 'bg-blue',
+  },
+  green: {
+    gradient: 'from-emerald-500 to-emerald-500/40',
+    icon: 'text-emerald-500',
+    border: 'border-l-emerald-500',
+    dot: 'bg-emerald-500',
+  },
+  amber: {
+    gradient: 'from-amber-500 to-amber-500/40',
+    icon: 'text-amber-500',
+    border: 'border-l-amber-500',
+    dot: 'bg-amber-500',
+  },
+  purple: {
+    gradient: 'from-purple-500 to-purple-500/40',
+    icon: 'text-purple-500',
+    border: 'border-l-purple-500',
+    dot: 'bg-purple-500',
+  },
+};
+
 /* -- Agent Card Component ----------------------------------------------- */
 
 function AgentCard({
@@ -445,24 +353,20 @@ function AgentCard({
   onOpenDetail: (agent: AgentDef) => void;
 }) {
   const pulsingDot = 'relative after:absolute after:inset-0 after:rounded-full after:bg-green after:animate-ping after:opacity-30';
-  const gradientColor = agent.accent === 'blue'
-    ? 'from-blue to-blue/40'
-    : 'from-emerald-500 to-emerald-500/40';
-  const iconColor = agent.accent === 'blue' ? 'text-blue' : 'text-emerald-500';
-
-  const Icon = agent.icon;
+  const style = accentStyles[agent.accent] ?? accentStyles.blue;
+  const Icon = getIcon(agent.icon);
 
   return (
     <motion.div
       variants={fadeUp}
       custom={index}
-      className={`bg-surface-raised border border-border rounded-xl p-5 relative overflow-hidden cursor-pointer hover:border-ink-tertiary/40 transition-colors ${agent.accent === 'blue' ? 'border-l-4 border-l-blue' : 'border-l-4 border-l-emerald-500'}`}
+      className={`bg-surface-raised border border-border rounded-xl p-5 relative overflow-hidden cursor-pointer hover:border-ink-tertiary/40 transition-colors border-l-4 ${style.border}`}
       onClick={() => onOpenDetail(agent)}
     >
-      <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${gradientColor}`} />
+      <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${style.gradient}`} />
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <Icon className={`w-4 h-4 ${iconColor}`} strokeWidth={1.8} />
+          <Icon className={`w-4 h-4 ${style.icon}`} strokeWidth={1.8} />
           <span className="text-[13px] font-semibold text-ink tracking-tight">&quot;{agent.name}&quot;</span>
         </div>
         <div className="flex items-center gap-1.5">
@@ -471,15 +375,21 @@ function AgentCard({
               <span className={`w-2 h-2 rounded-full bg-green ${pulsingDot}`} />
               <span className="text-[11px] font-medium text-green">{agent.statusLabel}</span>
             </>
-          ) : (
+          ) : agent.status === 'running' ? (
             <>
               <span className="w-2 h-2 rounded-full bg-amber" />
               <span className="text-[11px] font-medium text-amber">{agent.statusLabel}</span>
             </>
+          ) : (
+            <>
+              <span className="w-2 h-2 rounded-full bg-slate-400" />
+              <span className="text-[11px] font-medium text-slate-400">{agent.statusLabel}</span>
+            </>
           )}
         </div>
       </div>
-      <p className="text-[12px] font-medium text-ink-secondary mb-4">{agent.subtitle}</p>
+      <p className="text-[12px] font-medium text-ink-secondary mb-1">{agent.subtitle}</p>
+      <p className="text-[10px] text-ink-tertiary mb-4 uppercase tracking-wider">{agent.divisionName}</p>
 
       <div className="space-y-2.5 text-[12px]">
         {agent.metrics.map((m, i) => (
@@ -492,7 +402,7 @@ function AgentCard({
 
       {agent.deepDiveLink && (
         <div className="mt-4 pt-3 border-t border-border">
-          <a href={agent.deepDiveLink} className={`flex items-center gap-1 text-[11px] font-medium ${agent.accent === 'blue' ? 'text-blue' : 'text-emerald-500'} hover:underline`} onClick={(e) => e.stopPropagation()}>
+          <a href={agent.deepDiveLink} className={`flex items-center gap-1 text-[11px] font-medium ${style.icon} hover:underline`} onClick={(e) => e.stopPropagation()}>
             Deep dive <ChevronRight className="w-3 h-3" />
           </a>
         </div>
@@ -504,9 +414,8 @@ function AgentCard({
 /* -- Agent Detail Panel ------------------------------------------------- */
 
 function AgentDetailPanel({ agent, onClose }: { agent: AgentDef; onClose: () => void }) {
-  const Icon = agent.icon;
-  const accentColor = agent.accent === 'blue' ? 'text-blue' : 'text-emerald-500';
-  const borderAccent = agent.accent === 'blue' ? 'border-l-blue' : 'border-l-emerald-500';
+  const Icon = getIcon(agent.icon);
+  const style = accentStyles[agent.accent] ?? accentStyles.blue;
 
   return (
     <motion.div
@@ -514,13 +423,14 @@ function AgentDetailPanel({ agent, onClose }: { agent: AgentDef; onClose: () => 
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 12 }}
       transition={{ duration: 0.25 }}
-      className={`bg-surface-raised border border-border rounded-xl p-6 border-l-4 ${borderAccent}`}
+      className={`bg-surface-raised border border-border rounded-xl p-6 border-l-4 ${style.border}`}
     >
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
-          <Icon className={`w-5 h-5 ${accentColor}`} strokeWidth={1.8} />
+          <Icon className={`w-5 h-5 ${style.icon}`} strokeWidth={1.8} />
           <div>
             <h3 className="text-[16px] font-semibold text-ink tracking-tight">&quot;{agent.name}&quot; &mdash; {agent.subtitle}</h3>
+            <p className="text-[11px] text-ink-tertiary uppercase tracking-wider mt-0.5">{agent.divisionName}</p>
           </div>
         </div>
         <button onClick={onClose} className="text-ink-tertiary hover:text-ink transition-colors p-1">
@@ -543,13 +453,42 @@ function AgentDetailPanel({ agent, onClose }: { agent: AgentDef; onClose: () => 
 /* -- Main Page Component ------------------------------------------------ */
 
 export default function Agents() {
-  const lastCheck = useElapsedTimer(47);
-  const nextCheck = useCountdown(780);
+  const { company } = useCompany();
+  const isParent = company.id === 'meridian';
+
   const [feed, setFeed] = useState<ActivityEntry[]>(initialFeed);
   const feedRef = useRef<HTMLDivElement>(null);
   const [openDetail, setOpenDetail] = useState<AgentDef | null>(null);
 
-  // Live query counter — slowly increments
+  // Get agents based on current division
+  const visibleAgents = useMemo(() => getAgentsForDivision(company.id), [company.id]);
+  const totalAll = getAllAgents().length;
+
+  // Group agents by division for parent view
+  const groupedByDivision = useMemo(() => {
+    if (!isParent) return null;
+    const groups: Record<string, AgentDef[]> = {};
+    for (const agent of visibleAgents) {
+      if (!groups[agent.division]) groups[agent.division] = [];
+      groups[agent.division].push(agent);
+    }
+    return groups;
+  }, [isParent, visibleAgents]);
+
+  // For division view, separate shared from division-specific
+  const divisionSpecificAgents = useMemo(
+    () => (isParent ? [] : visibleAgents.filter((a) => a.division !== 'shared')),
+    [isParent, visibleAgents],
+  );
+  const sharedAgentsForDivision = useMemo(
+    () => (isParent ? [] : visibleAgents.filter((a) => a.division === 'shared')),
+    [isParent, visibleAgents],
+  );
+
+  // Show Dispatch deep dive when HCC or parent is selected
+  const showDispatchDeepDive = isParent || company.id === 'hcc';
+
+  // Live query counter
   const [queryCount, setQueryCount] = useState(2340);
   useEffect(() => {
     const id = setInterval(() => {
@@ -568,11 +507,9 @@ export default function Agents() {
   const streamIdxRef = useRef(0);
 
   const atlasQA: Record<string, string> = {
-    'What should I prioritize today?': `Based on your inspection assignments and current conditions:\n\n🔴 PRIORITY: MP 247.1 — Surface deviation trending toward Class 4 limit. Last 3 inspections show accelerating degradation. Recommend immediate assessment.\n\n🟡 ATTENTION: MP 312.4 — Ballast repair from March 25 needs follow-up inspection per FRA §213.233(c). Due by April 1.\n\n🟢 ROUTINE: MP 180-195 — Scheduled monthly inspection. Clear weather, good conditions.\n\nSources: Track inspection database, FRA defect log, weather API, your assignment queue\nContext: 14 data sources | Updated 2 min ago`,
-
-    'How are we tracking on the I-70 bridge?': `I-70 Bridge Rehabilitation (WO-2025-08834):\n\n📊 Budget: 69% spent ($2.14M of $3.1M) vs 71% schedule elapsed — slightly ahead on spend\n⚠️ Schedule: 8-day slip on critical path (bearing installation)\n💰 Contingency: $120K remaining, one pending change order for $45K\n📋 Comparable projects averaged 12% over budget — you're tracking within range\n\nRecommendation: Expedite bearing shipment — that's your critical path constraint. Current 2-week lead time puts August 15 deadline at risk.\n\nSources: Primavera P6, SAP financials, procurement system\nContext: 8 data sources | Updated 7 min ago`,
-
-    'Are we FRA compliant across all divisions?': `FRA Compliance Status — All Divisions:\n\n✅ Overall: 98.3% compliant (349 current, 6 overdue inspections)\n\nBy Division:\n• HCC: 47 current, 2 overdue (MP 247, MP 312)\n• HRSI: 23 current, 0 overdue ✓\n• HSI: 89 current, 1 overdue\n• HTI: 34 current, 0 overdue ✓\n• HTSI: 156 current, 3 overdue\n\n🚨 Critical Items:\n1. Signal fault in Zone 8 (HTI) — needs immediate attention\n2. Signal maintainer certification expiring April 2 — 6 days away, flagged to HR\n\nSources: FRA compliance database, HR training system, division inspection logs\nContext: 23 data sources | Updated 1 min ago`,
+    'What should I prioritize today?': `Based on your inspection assignments and current conditions:\n\n\uD83D\uDD34 PRIORITY: MP 247.1 \u2014 Surface deviation trending toward Class 4 limit. Last 3 inspections show accelerating degradation. Recommend immediate assessment.\n\n\uD83D\uDFE1 ATTENTION: MP 312.4 \u2014 Ballast repair from March 25 needs follow-up inspection per FRA \u00A7213.233(c). Due by April 1.\n\n\uD83D\uDFE2 ROUTINE: MP 180-195 \u2014 Scheduled monthly inspection. Clear weather, good conditions.\n\nSources: Track inspection database, FRA defect log, weather API, your assignment queue\nContext: 14 data sources | Updated 2 min ago`,
+    'How are we tracking on the I-70 bridge?': `I-70 Bridge Rehabilitation (WO-2025-08834):\n\n\uD83D\uDCCA Budget: 69% spent ($2.14M of $3.1M) vs 71% schedule elapsed \u2014 slightly ahead on spend\n\u26A0\uFE0F Schedule: 8-day slip on critical path (bearing installation)\n\uD83D\uDCB0 Contingency: $120K remaining, one pending change order for $45K\n\uD83D\uDCCB Comparable projects averaged 12% over budget \u2014 you're tracking within range\n\nRecommendation: Expedite bearing shipment \u2014 that's your critical path constraint. Current 2-week lead time puts August 15 deadline at risk.\n\nSources: Primavera P6, SAP financials, procurement system\nContext: 8 data sources | Updated 7 min ago`,
+    'Are we FRA compliant across all divisions?': `FRA Compliance Status \u2014 All Divisions:\n\n\u2705 Overall: 98.3% compliant (349 current, 6 overdue inspections)\n\nBy Division:\n\u2022 HCC: 47 current, 2 overdue (MP 247, MP 312)\n\u2022 HRSI: 23 current, 0 overdue \u2713\n\u2022 HSI: 89 current, 1 overdue\n\u2022 HTI: 34 current, 0 overdue \u2713\n\u2022 HTSI: 156 current, 3 overdue\n\n\uD83D\uDEA8 Critical Items:\n1. Signal fault in Zone 8 (HTI) \u2014 needs immediate attention\n2. Signal maintainer certification expiring April 2 \u2014 6 days away, flagged to HR\n\nSources: FRA compliance database, HR training system, division inspection logs\nContext: 23 data sources | Updated 1 min ago`,
   };
 
   const startAtlasStream = (question: string) => {
@@ -596,20 +533,6 @@ export default function Agents() {
     }, 18);
   };
 
-  // Override Dispatch metrics with live timers
-  const dispatchWithTimers = {
-    ...operationsAgents[0],
-    metrics: [
-      { label: 'Watching', value: '2,800 employees across 7 divisions' },
-      { label: 'Last check', value: lastCheck },
-      { label: 'Violations prevented', value: '23 this month' },
-      { label: 'Savings this month', value: '$368,000' },
-      { label: 'Next scheduled check', value: nextCheck },
-    ],
-  };
-
-  const liveOpsAgents = [dispatchWithTimers, ...operationsAgents.slice(1)];
-
   // Auto-generate feed entries
   useEffect(() => {
     const addEntry = () => {
@@ -626,6 +549,9 @@ export default function Agents() {
 
   const pulsingDot = 'relative after:absolute after:inset-0 after:rounded-full after:bg-green after:animate-ping after:opacity-30';
 
+  // Division group order for parent view
+  const divisionOrder = ['shared', 'hcc', 'hrsi', 'hsi', 'hti', 'htsi', 'he', 'gg'];
+
   return (
     <div className="p-4 lg:p-8 max-w-[1400px] mx-auto space-y-8">
       <PreliminaryBanner />
@@ -637,22 +563,25 @@ export default function Agents() {
           <h1 className="text-[22px] font-semibold text-ink tracking-tight">AI Agents</h1>
         </div>
         <p className="text-[13px] text-ink-tertiary mb-6">
-          Named agents deployed across Herzog operations. Monitoring, analyzing, and acting 24/7.
+          {isParent
+            ? 'Named agents deployed across all Herzog divisions. Monitoring, analyzing, and acting 24/7.'
+            : `Named agents serving ${company.shortName}. Monitoring, analyzing, and acting 24/7.`}
         </p>
 
         {/* Summary Stats Bar */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 bg-gray-900 rounded-xl p-6">
-          {/* Active Agents with pulsing green dot */}
           <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 text-center">
             <div className="flex items-center justify-center gap-2">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-50" />
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
               </span>
-              <span className="text-3xl font-bold text-white tracking-tight">9</span>
+              <span className="text-3xl font-bold text-white tracking-tight">{visibleAgents.length}</span>
             </div>
             <div className="text-[12px] font-semibold text-gray-300">Active Agents</div>
-            <div className="text-[11px] text-gray-500 mt-0.5">monitoring across 7 divisions</div>
+            <div className="text-[11px] text-gray-500 mt-0.5">
+              {isParent ? `across ${company.opCos} divisions` : `${visibleAgents.filter(a => a.division !== 'shared').length} division + ${visibleAgents.filter(a => a.division === 'shared').length} shared`}
+            </div>
           </div>
           {[
             { label: 'Saved This Quarter', value: '$1.2M', sub: 'sum of all agent savings' },
@@ -664,7 +593,6 @@ export default function Agents() {
               <div className="text-[11px] text-gray-500 mt-0.5">{s.sub}</div>
             </div>
           ))}
-          {/* Live query counter */}
           <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 text-center">
             <div className="text-3xl font-bold text-white tracking-tight">{queryCount.toLocaleString()}</div>
             <div className="text-[12px] font-semibold text-gray-300">Queries Answered Today</div>
@@ -673,35 +601,73 @@ export default function Agents() {
         </div>
       </motion.div>
 
-      {/* ============ SECTION 1A: Operations Agents ============ */}
-      <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1}>
-        <div className="flex items-center gap-2 mb-1">
-          <div className="w-2 h-2 rounded-full bg-blue" />
-          <h2 className="text-[16px] font-semibold text-ink tracking-tight">Operations Agents</h2>
-        </div>
-        <p className="text-[12px] text-ink-tertiary mb-4">Automating safety-critical railroad workflows</p>
+      {/* ============ AGENT CARDS ============ */}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {liveOpsAgents.map((agent, i) => (
-            <AgentCard key={agent.id} agent={agent} index={i + 2} onOpenDetail={setOpenDetail} />
-          ))}
-        </div>
-      </motion.div>
+      {/* Parent view: agents grouped by division */}
+      {isParent && groupedByDivision && divisionOrder.map((divId) => {
+        const agents = groupedByDivision[divId];
+        if (!agents || agents.length === 0) return null;
+        const meta = divisionMeta[divId];
+        const dotColor = accentStyles[meta.accent]?.dot ?? 'bg-blue';
 
-      {/* ============ SECTION 1B: Intelligence Agents ============ */}
-      <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3}>
-        <div className="flex items-center gap-2 mb-1">
-          <div className="w-2 h-2 rounded-full bg-emerald-500" />
-          <h2 className="text-[16px] font-semibold text-ink tracking-tight">Intelligence Agents</h2>
-        </div>
-        <p className="text-[12px] text-ink-tertiary mb-4">Your organization&apos;s nervous system</p>
+        return (
+          <motion.div key={divId} initial="hidden" animate="visible" variants={fadeUp} custom={1}>
+            <div className="flex items-center gap-2 mb-1">
+              <div className={`w-2 h-2 rounded-full ${dotColor}`} />
+              <h2 className="text-[16px] font-semibold text-ink tracking-tight">{meta.name}</h2>
+              <span className="text-[12px] text-ink-tertiary ml-1">({agents.length} agent{agents.length !== 1 ? 's' : ''})</span>
+            </div>
+            <p className="text-[12px] text-ink-tertiary mb-4">
+              {divId === 'shared' ? 'Cross-division platform agents serving all of Herzog' : `Division-specific agents for ${meta.name}`}
+            </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {intelligenceAgents.map((agent, i) => (
-            <AgentCard key={agent.id} agent={agent} index={i + 7} onOpenDetail={setOpenDetail} />
-          ))}
-        </div>
-      </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+              {agents.map((agent, i) => (
+                <AgentCard key={agent.id} agent={agent} index={i + 2} onOpenDetail={setOpenDetail} />
+              ))}
+            </div>
+          </motion.div>
+        );
+      })}
+
+      {/* Division view: division-specific agents then shared */}
+      {!isParent && (
+        <>
+          {divisionSpecificAgents.length > 0 && (
+            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1}>
+              <div className="flex items-center gap-2 mb-1">
+                <div className={`w-2 h-2 rounded-full ${accentStyles[divisionSpecificAgents[0].accent]?.dot ?? 'bg-blue'}`} />
+                <h2 className="text-[16px] font-semibold text-ink tracking-tight">{company.shortName} Agents</h2>
+                <span className="text-[12px] text-ink-tertiary ml-1">({divisionSpecificAgents.length})</span>
+              </div>
+              <p className="text-[12px] text-ink-tertiary mb-4">Division-specific agents for {company.shortName}</p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {divisionSpecificAgents.map((agent, i) => (
+                  <AgentCard key={agent.id} agent={agent} index={i + 2} onOpenDetail={setOpenDetail} />
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {sharedAgentsForDivision.length > 0 && (
+            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3}>
+              <div className="flex items-center gap-2 mb-1">
+                <div className="w-2 h-2 rounded-full bg-blue" />
+                <h2 className="text-[16px] font-semibold text-ink tracking-tight">Shared Platform Agents</h2>
+                <span className="text-[12px] text-ink-tertiary ml-1">({sharedAgentsForDivision.length})</span>
+              </div>
+              <p className="text-[12px] text-ink-tertiary mb-4">Cross-division platform agents available to {company.shortName}</p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {sharedAgentsForDivision.map((agent, i) => (
+                  <AgentCard key={agent.id} agent={agent} index={i + 7} onOpenDetail={setOpenDetail} />
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </>
+      )}
 
       {/* ============ Agent Detail Panel (expandable) ============ */}
       <AnimatePresence>
@@ -711,300 +677,302 @@ export default function Agents() {
       </AnimatePresence>
 
       {/* ============ SECTION 2: Deep Dive -- Dispatch ============ */}
-      <div id="dispatch-deep-dive" className="scroll-mt-20">
-        <motion.div variants={fadeUp} custom={4} initial="hidden" animate="visible">
-          <div className="flex items-center gap-2 mb-1">
-            <Shield className="w-5 h-5 text-blue" strokeWidth={1.8} />
-            <h2 className="text-[22px] font-bold text-ink tracking-tight">Deep Dive &mdash; &quot;Dispatch&quot; HOS Compliance Agent</h2>
-          </div>
-          <p className="text-[13px] text-ink-tertiary mb-6">
-            How Dispatch monitors FRA Hours-of-Service compliance across all 7 Herzog divisions in real time.
-          </p>
-        </motion.div>
+      {showDispatchDeepDive && (
+        <div id="dispatch-deep-dive" className="scroll-mt-20">
+          <motion.div variants={fadeUp} custom={4} initial="hidden" animate="visible">
+            <div className="flex items-center gap-2 mb-1">
+              <Shield className="w-5 h-5 text-blue" strokeWidth={1.8} />
+              <h2 className="text-[22px] font-bold text-ink tracking-tight">Deep Dive &mdash; &quot;Dispatch&quot; HOS Compliance Agent</h2>
+            </div>
+            <p className="text-[13px] text-ink-tertiary mb-6">
+              How Dispatch monitors FRA Hours-of-Service compliance across all 7 Herzog divisions in real time.
+            </p>
+          </motion.div>
 
-        {/* 2A: How Dispatch Works -- Technical Architecture Pipeline */}
-        <motion.div variants={fadeUp} custom={5} initial="hidden" animate="visible" className="mb-8">
-          <h3 className="text-[14px] font-semibold text-ink mb-4">How Dispatch Works</h3>
-          <div className="bg-[#0B1120] rounded-xl border border-[#1E293B] p-6 overflow-x-auto">
-            <div className="flex gap-3 min-w-[780px]">
-              {/* Stage 1: Data Inputs */}
-              <div className="flex-1">
-                <div className="bg-[#111827] border border-[#1E293B] rounded-lg p-4 h-full relative">
-                  <div className="absolute -top-px left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-blue/60 to-transparent animate-pulse" />
-                  <div className="text-[10px] font-bold text-blue uppercase tracking-widest mb-3">Data Inputs</div>
-                  <div className="space-y-1.5 text-[11px] text-slate-400 font-mono">
-                    <div>Kronos/UKG time entries</div>
-                    <div>Crew assignments from dispatch</div>
-                    <div>Division schedules</div>
-                    <div>Union agreements (UTU, IBEW, LIUNA)</div>
+          {/* 2A: How Dispatch Works -- Technical Architecture Pipeline */}
+          <motion.div variants={fadeUp} custom={5} initial="hidden" animate="visible" className="mb-8">
+            <h3 className="text-[14px] font-semibold text-ink mb-4">How Dispatch Works</h3>
+            <div className="bg-[#0B1120] rounded-xl border border-[#1E293B] p-6 overflow-x-auto">
+              <div className="flex gap-3 min-w-[780px]">
+                {/* Stage 1: Data Inputs */}
+                <div className="flex-1">
+                  <div className="bg-[#111827] border border-[#1E293B] rounded-lg p-4 h-full relative">
+                    <div className="absolute -top-px left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-blue/60 to-transparent animate-pulse" />
+                    <div className="text-[10px] font-bold text-blue uppercase tracking-widest mb-3">Data Inputs</div>
+                    <div className="space-y-1.5 text-[11px] text-slate-400 font-mono">
+                      <div>Kronos/UKG time entries</div>
+                      <div>Crew assignments from dispatch</div>
+                      <div>Division schedules</div>
+                      <div>Union agreements (UTU, IBEW, LIUNA)</div>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="flex items-center text-slate-600">
-                <ArrowRight className="w-5 h-5" strokeWidth={1.5} />
-              </div>
+                <div className="flex items-center text-slate-600">
+                  <ArrowRight className="w-5 h-5" strokeWidth={1.5} />
+                </div>
 
-              {/* Stage 2: Compliance Engine */}
-              <div className="flex-1">
-                <div className="bg-[#111827] border border-[#1E293B] rounded-lg p-4 h-full relative">
-                  <div className="absolute -top-px left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-emerald-500/60 to-transparent animate-pulse" style={{ animationDelay: '0.5s' }} />
-                  <div className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest mb-3">Compliance Engine</div>
-                  <div className="space-y-1.5 text-[11px] text-slate-400 font-mono">
-                    <div>FRA Part 228 rules:</div>
-                    <div className="pl-2">&bull; 12hr on / 10hr off</div>
-                    <div className="pl-2">&bull; 276hr/mo cap</div>
-                    <div className="pl-2">&bull; 6 days on / 2 days off</div>
-                    <div className="pl-2">&bull; 30hr limbo time</div>
-                    <div className="mt-1">UTU/IBEW/LIUNA rules</div>
+                {/* Stage 2: Compliance Engine */}
+                <div className="flex-1">
+                  <div className="bg-[#111827] border border-[#1E293B] rounded-lg p-4 h-full relative">
+                    <div className="absolute -top-px left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-emerald-500/60 to-transparent animate-pulse" style={{ animationDelay: '0.5s' }} />
+                    <div className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest mb-3">Compliance Engine</div>
+                    <div className="space-y-1.5 text-[11px] text-slate-400 font-mono">
+                      <div>FRA Part 228 rules:</div>
+                      <div className="pl-2">&bull; 12hr on / 10hr off</div>
+                      <div className="pl-2">&bull; 276hr/mo cap</div>
+                      <div className="pl-2">&bull; 6 days on / 2 days off</div>
+                      <div className="pl-2">&bull; 30hr limbo time</div>
+                      <div className="mt-1">UTU/IBEW/LIUNA rules</div>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="flex items-center text-slate-600">
-                <ArrowRight className="w-5 h-5" strokeWidth={1.5} />
-              </div>
+                <div className="flex items-center text-slate-600">
+                  <ArrowRight className="w-5 h-5" strokeWidth={1.5} />
+                </div>
 
-              {/* Stage 3: Decision Logic */}
-              <div className="flex-1">
-                <div className="bg-[#111827] border border-[#1E293B] rounded-lg p-4 h-full relative">
-                  <div className="absolute -top-px left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-amber-500/60 to-transparent animate-pulse" style={{ animationDelay: '1s' }} />
-                  <div className="text-[10px] font-bold text-amber-400 uppercase tracking-widest mb-3">Decision Logic</div>
-                  <div className="space-y-1.5 text-[11px] text-slate-400 font-mono">
-                    <div className="text-emerald-400">Within spec: PASS</div>
-                    <div className="text-amber-400">Approaching limit: WARN</div>
-                    <div className="text-red-400">Would exceed: PREVENT</div>
-                    <div className="text-blue-400">Already over: REPORT</div>
+                {/* Stage 3: Decision Logic */}
+                <div className="flex-1">
+                  <div className="bg-[#111827] border border-[#1E293B] rounded-lg p-4 h-full relative">
+                    <div className="absolute -top-px left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-amber-500/60 to-transparent animate-pulse" style={{ animationDelay: '1s' }} />
+                    <div className="text-[10px] font-bold text-amber-400 uppercase tracking-widest mb-3">Decision Logic</div>
+                    <div className="space-y-1.5 text-[11px] text-slate-400 font-mono">
+                      <div className="text-emerald-400">Within spec: PASS</div>
+                      <div className="text-amber-400">Approaching limit: WARN</div>
+                      <div className="text-red-400">Would exceed: PREVENT</div>
+                      <div className="text-blue-400">Already over: REPORT</div>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="flex items-center text-slate-600">
-                <ArrowRight className="w-5 h-5" strokeWidth={1.5} />
-              </div>
+                <div className="flex items-center text-slate-600">
+                  <ArrowRight className="w-5 h-5" strokeWidth={1.5} />
+                </div>
 
-              {/* Stage 4: Action */}
-              <div className="flex-1">
-                <div className="bg-[#111827] border border-[#1E293B] rounded-lg p-4 h-full relative">
-                  <div className="absolute -top-px left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-red-500/60 to-transparent animate-pulse" style={{ animationDelay: '1.5s' }} />
-                  <div className="text-[10px] font-bold text-red-400 uppercase tracking-widest mb-3">Action</div>
-                  <div className="space-y-1.5 text-[11px] text-slate-400 font-mono">
-                    <div><span className="text-emerald-400">&check;</span> Clear: Log &amp; move</div>
-                    <div><span className="text-amber-400">&triangledown;</span> Warning: Alert crew mgr</div>
-                    <div><span className="text-red-400">&times;</span> Violation: Block + escalate</div>
-                    <div><span className="text-blue-400">&#9634;</span> Report: FRA filing</div>
+                {/* Stage 4: Action */}
+                <div className="flex-1">
+                  <div className="bg-[#111827] border border-[#1E293B] rounded-lg p-4 h-full relative">
+                    <div className="absolute -top-px left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-red-500/60 to-transparent animate-pulse" style={{ animationDelay: '1.5s' }} />
+                    <div className="text-[10px] font-bold text-red-400 uppercase tracking-widest mb-3">Action</div>
+                    <div className="space-y-1.5 text-[11px] text-slate-400 font-mono">
+                      <div><span className="text-emerald-400">&check;</span> Clear: Log &amp; move</div>
+                      <div><span className="text-amber-400">&triangledown;</span> Warning: Alert crew mgr</div>
+                      <div><span className="text-red-400">&times;</span> Violation: Block + escalate</div>
+                      <div><span className="text-blue-400">&#9634;</span> Report: FRA filing</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        {/* 2B: Live Agent Activity Feed */}
-        <motion.div variants={fadeUp} custom={6} initial="hidden" animate="visible" className="mb-8">
-          <h3 className="text-[14px] font-semibold text-ink mb-4">Live Agent Activity Feed</h3>
-          <div className="bg-[#060d11] rounded-xl border border-[#0f2a1a] overflow-hidden">
-            <div className="flex items-center justify-between px-5 py-3 border-b border-[#1E293B]">
-              <div className="flex items-center gap-2">
-                <Activity className="w-3.5 h-3.5 text-emerald-400" strokeWidth={2} />
-                <span className="text-[11px] font-semibold text-slate-300 uppercase tracking-wider">Live Feed &mdash; Dispatch</span>
+          {/* 2B: Live Agent Activity Feed */}
+          <motion.div variants={fadeUp} custom={6} initial="hidden" animate="visible" className="mb-8">
+            <h3 className="text-[14px] font-semibold text-ink mb-4">Live Agent Activity Feed</h3>
+            <div className="bg-[#060d11] rounded-xl border border-[#0f2a1a] overflow-hidden">
+              <div className="flex items-center justify-between px-5 py-3 border-b border-[#1E293B]">
+                <div className="flex items-center gap-2">
+                  <Activity className="w-3.5 h-3.5 text-emerald-400" strokeWidth={2} />
+                  <span className="text-[11px] font-semibold text-slate-300 uppercase tracking-wider">Live Feed &mdash; Dispatch</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span className={`w-1.5 h-1.5 rounded-full bg-emerald-400 ${pulsingDot}`} />
+                  <span className="text-[10px] text-emerald-400 font-mono">streaming</span>
+                </div>
               </div>
-              <div className="flex items-center gap-1.5">
-                <span className={`w-1.5 h-1.5 rounded-full bg-emerald-400 ${pulsingDot}`} />
-                <span className="text-[10px] text-emerald-400 font-mono">streaming</span>
+              <div ref={feedRef} className="px-5 py-3 max-h-[360px] overflow-y-auto">
+                {feed.map((entry, i) => (
+                  <FeedRow key={`${entry.time}-${i}`} entry={entry} isNew={i === 0} />
+                ))}
               </div>
             </div>
-            <div ref={feedRef} className="px-5 py-3 max-h-[360px] overflow-y-auto">
-              {feed.map((entry, i) => (
-                <FeedRow key={`${entry.time}-${i}`} entry={entry} isNew={i === 0} />
+          </motion.div>
+
+          {/* 2C: Violations Prevented -- Evidence Cards */}
+          <motion.div variants={fadeUp} custom={7} initial="hidden" animate="visible" className="mb-8">
+            <h3 className="text-[14px] font-semibold text-ink mb-4">Violations Prevented &mdash; Evidence Cards</h3>
+            <div className="space-y-4">
+              {violationCases.map((c, i) => (
+                <ViolationCard key={i} c={c} />
               ))}
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        {/* 2C: Violations Prevented -- Evidence Cards */}
-        <motion.div variants={fadeUp} custom={7} initial="hidden" animate="visible" className="mb-8">
-          <h3 className="text-[14px] font-semibold text-ink mb-4">Violations Prevented &mdash; Evidence Cards</h3>
-          <div className="space-y-4">
-            {violationCases.map((c, i) => (
-              <ViolationCard key={i} c={c} />
-            ))}
-          </div>
-        </motion.div>
+          {/* 2D: Agent Performance Dashboard */}
+          <motion.div variants={fadeUp} custom={8} initial="hidden" animate="visible" className="mb-8">
+            <h3 className="text-[14px] font-semibold text-ink mb-4">Agent Performance Dashboard</h3>
 
-        {/* 2D: Agent Performance Dashboard */}
-        <motion.div variants={fadeUp} custom={8} initial="hidden" animate="visible" className="mb-8">
-          <h3 className="text-[14px] font-semibold text-ink mb-4">Agent Performance Dashboard</h3>
-
-          {/* Metrics Row */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
-            {[
-              { label: 'Violations Prevented', value: '23', sub: 'this month', trend: 'up', trendVal: 'from 18 last month' },
-              { label: 'Time to Detect', value: '0.2s', sub: 'avg', trend: 'down', trendVal: 'vs. 42min manual' },
-              { label: 'False Alarm Rate', value: '1.2%', sub: '', trend: 'down', trendVal: 'from 3.8% in Oct' },
-              { label: 'Crew Utilization', value: '+4.7%', sub: '', trend: 'up', trendVal: 'optimized scheduling' },
-              { label: 'FRA Compliance', value: '100%', sub: '0 violations in 6 months', trend: null, trendVal: '' },
-            ].map((m, i) => (
-              <div key={i} className="bg-surface-raised border border-border rounded-lg p-4">
-                <div className="text-[10px] text-ink-tertiary uppercase tracking-wider mb-1">{m.label}</div>
-                <div className="text-[20px] font-semibold text-ink tracking-tight">{m.value}</div>
-                {m.sub && <div className="text-[11px] text-ink-tertiary">{m.sub}</div>}
-                {m.trend && (
-                  <div className={`flex items-center gap-1 mt-1 text-[11px] ${m.trend === 'up' ? 'text-green' : 'text-green'}`}>
-                    {m.trend === 'up' ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                    <span>{m.trendVal}</span>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Chart */}
-          <div className="bg-surface-raised border border-border rounded-xl p-5">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h4 className="text-[13px] font-semibold text-ink">Agent Performance Over Time</h4>
-                <p className="text-[11px] text-ink-tertiary mt-0.5">Agent improves through continuous learning from human review feedback</p>
-              </div>
+            {/* Metrics Row */}
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
+              {[
+                { label: 'Violations Prevented', value: '23', sub: 'this month', trend: 'up' as const, trendVal: 'from 18 last month' },
+                { label: 'Time to Detect', value: '0.2s', sub: 'avg', trend: 'down' as const, trendVal: 'vs. 42min manual' },
+                { label: 'False Alarm Rate', value: '1.2%', sub: '', trend: 'down' as const, trendVal: 'from 3.8% in Oct' },
+                { label: 'Crew Utilization', value: '+4.7%', sub: '', trend: 'up' as const, trendVal: 'optimized scheduling' },
+                { label: 'FRA Compliance', value: '100%', sub: '0 violations in 6 months', trend: null, trendVal: '' },
+              ].map((m, i) => (
+                <div key={i} className="bg-surface-raised border border-border rounded-lg p-4">
+                  <div className="text-[10px] text-ink-tertiary uppercase tracking-wider mb-1">{m.label}</div>
+                  <div className="text-[20px] font-semibold text-ink tracking-tight">{m.value}</div>
+                  {m.sub && <div className="text-[11px] text-ink-tertiary">{m.sub}</div>}
+                  {m.trend && (
+                    <div className="flex items-center gap-1 mt-1 text-[11px] text-green">
+                      {m.trend === 'up' ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                      <span>{m.trendVal}</span>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
-            <ResponsiveContainer width="100%" height={260}>
-              <ComposedChart data={performanceData} margin={{ top: 4, right: 8, bottom: 0, left: -16 }}>
-                <defs>
-                  <linearGradient id="preventedGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#2563EB" stopOpacity={0.25} />
-                    <stop offset="100%" stopColor="#2563EB" stopOpacity={0.02} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.06)" />
-                <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#A1A1AA' }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 11, fill: '#A1A1AA' }} axisLine={false} tickLine={false} />
-                <Tooltip
-                  contentStyle={{
-                    background: '#fff',
-                    border: '1px solid #E4E4E7',
-                    borderRadius: 8,
-                    fontSize: 12,
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-                  }}
-                />
-                <Area
-                  type="monotone"
-                  dataKey="prevented"
-                  name="Violations Prevented"
-                  stroke="#2563EB"
-                  fill="url(#preventedGrad)"
-                  strokeWidth={2}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="falseAlarms"
-                  name="False Alarms"
-                  stroke="#DC2626"
-                  strokeWidth={2}
-                  dot={{ r: 3, fill: '#DC2626' }}
-                />
-              </ComposedChart>
-            </ResponsiveContainer>
-          </div>
-        </motion.div>
 
-        {/* 2E: Agent Configuration */}
-        <motion.div variants={fadeUp} custom={9} initial="hidden" animate="visible" className="mb-8">
-          <h3 className="text-[14px] font-semibold text-ink mb-4">Agent Configuration</h3>
-          <div className="bg-surface-raised border border-border rounded-xl p-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Left: Basic Info + Data Sources */}
-              <div className="space-y-5">
+            {/* Chart */}
+            <div className="bg-surface-raised border border-border rounded-xl p-5">
+              <div className="flex items-center justify-between mb-4">
                 <div>
-                  <div className="text-[11px] font-bold text-ink-tertiary uppercase tracking-wider mb-2">Agent Info</div>
-                  <div className="space-y-1.5 text-[12px] font-mono">
-                    <div className="flex gap-3"><span className="text-ink-tertiary w-24">Agent</span><span className="text-ink">Dispatch</span></div>
-                    <div className="flex gap-3"><span className="text-ink-tertiary w-24">Version</span><span className="text-ink">2.4.1</span></div>
-                    <div className="flex gap-3"><span className="text-ink-tertiary w-24">Deployed</span><span className="text-ink">October 14, 2025</span></div>
-                    <div className="flex gap-3"><span className="text-ink-tertiary w-24">Last Updated</span><span className="text-ink">March 22, 2026</span></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="text-[11px] font-bold text-ink-tertiary uppercase tracking-wider mb-2">Data Sources</div>
-                  <div className="space-y-1.5 text-[12px]">
-                    {[
-                      ['Kronos/UKG Time & Attendance', 'real-time sync'],
-                      ['Crew Management System', '5-minute polling'],
-                      ['Division Schedules', 'daily import'],
-                      ['Union Agreements Database', 'manual update, last: Feb 2026'],
-                      ['FRA Part 228 Rules Engine', 'auto-updated with regulatory changes'],
-                    ].map(([name, detail]) => (
-                      <div key={name} className="flex items-start gap-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-green mt-0.5 flex-shrink-0" strokeWidth={2} />
-                        <span className="text-ink">{name} <span className="text-ink-tertiary">({detail})</span></span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <div className="text-[11px] font-bold text-ink-tertiary uppercase tracking-wider mb-2">Notification Channels</div>
-                  <div className="space-y-1.5 text-[12px]">
-                    {[
-                      ['Crew Manager', 'direct alert, <30 sec'],
-                      ['Division Ops Manager', 'daily digest'],
-                      ['FRA Compliance Officer', 'weekly summary'],
-                      ['VP Operations', 'monthly board report'],
-                    ].map(([name, detail]) => (
-                      <div key={name} className="flex items-start gap-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-green mt-0.5 flex-shrink-0" strokeWidth={2} />
-                        <span className="text-ink">{name} <span className="text-ink-tertiary">({detail})</span></span>
-                      </div>
-                    ))}
-                  </div>
+                  <h4 className="text-[13px] font-semibold text-ink">Agent Performance Over Time</h4>
+                  <p className="text-[11px] text-ink-tertiary mt-0.5">Agent improves through continuous learning from human review feedback</p>
                 </div>
               </div>
+              <ResponsiveContainer width="100%" height={260}>
+                <ComposedChart data={performanceData} margin={{ top: 4, right: 8, bottom: 0, left: -16 }}>
+                  <defs>
+                    <linearGradient id="preventedGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#2563EB" stopOpacity={0.25} />
+                      <stop offset="100%" stopColor="#2563EB" stopOpacity={0.02} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.06)" />
+                  <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#A1A1AA' }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fontSize: 11, fill: '#A1A1AA' }} axisLine={false} tickLine={false} />
+                  <Tooltip
+                    contentStyle={{
+                      background: '#fff',
+                      border: '1px solid #E4E4E7',
+                      borderRadius: 8,
+                      fontSize: 12,
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                    }}
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="prevented"
+                    name="Violations Prevented"
+                    stroke="#2563EB"
+                    fill="url(#preventedGrad)"
+                    strokeWidth={2}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="falseAlarms"
+                    name="False Alarms"
+                    stroke="#DC2626"
+                    strokeWidth={2}
+                    dot={{ r: 3, fill: '#DC2626' }}
+                  />
+                </ComposedChart>
+              </ResponsiveContainer>
+            </div>
+          </motion.div>
 
-              {/* Right: Compliance Rules + Human Review */}
-              <div className="space-y-5">
-                <div>
-                  <div className="text-[11px] font-bold text-ink-tertiary uppercase tracking-wider mb-2">Compliance Rules Active</div>
-                  <div className="space-y-1.5 text-[12px]">
-                    {[
-                      '12-hour on-duty limit (FRA \u00A7228.405)',
-                      '10-hour minimum off-duty (FRA \u00A7228.405)',
-                      '276 monthly hour cap (FRA \u00A7228.405)',
-                      '6/2 consecutive day rule (FRA \u00A7228.405)',
-                      '30-hour limbo time (Company policy)',
-                      'UTU Agreement \u00A74.2 (rest period provisions)',
-                      'IBEW Local 948 \u00A712.1 (signal maintainer limits)',
-                      'LIUNA District Council \u00A78.3 (track worker provisions)',
-                    ].map((rule) => (
-                      <div key={rule} className="flex items-start gap-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-green mt-0.5 flex-shrink-0" strokeWidth={2} />
-                        <span className="text-ink">{rule}</span>
-                      </div>
-                    ))}
+          {/* 2E: Agent Configuration */}
+          <motion.div variants={fadeUp} custom={9} initial="hidden" animate="visible" className="mb-8">
+            <h3 className="text-[14px] font-semibold text-ink mb-4">Agent Configuration</h3>
+            <div className="bg-surface-raised border border-border rounded-xl p-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Left: Basic Info + Data Sources */}
+                <div className="space-y-5">
+                  <div>
+                    <div className="text-[11px] font-bold text-ink-tertiary uppercase tracking-wider mb-2">Agent Info</div>
+                    <div className="space-y-1.5 text-[12px] font-mono">
+                      <div className="flex gap-3"><span className="text-ink-tertiary w-24">Agent</span><span className="text-ink">Dispatch</span></div>
+                      <div className="flex gap-3"><span className="text-ink-tertiary w-24">Version</span><span className="text-ink">2.4.1</span></div>
+                      <div className="flex gap-3"><span className="text-ink-tertiary w-24">Deployed</span><span className="text-ink">October 14, 2025</span></div>
+                      <div className="flex gap-3"><span className="text-ink-tertiary w-24">Last Updated</span><span className="text-ink">March 22, 2026</span></div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="text-[11px] font-bold text-ink-tertiary uppercase tracking-wider mb-2">Data Sources</div>
+                    <div className="space-y-1.5 text-[12px]">
+                      {[
+                        ['Kronos/UKG Time & Attendance', 'real-time sync'],
+                        ['Crew Management System', '5-minute polling'],
+                        ['Division Schedules', 'daily import'],
+                        ['Union Agreements Database', 'manual update, last: Feb 2026'],
+                        ['FRA Part 228 Rules Engine', 'auto-updated with regulatory changes'],
+                      ].map(([name, detail]) => (
+                        <div key={name} className="flex items-start gap-2">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-green mt-0.5 flex-shrink-0" strokeWidth={2} />
+                          <span className="text-ink">{name} <span className="text-ink-tertiary">({detail})</span></span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="text-[11px] font-bold text-ink-tertiary uppercase tracking-wider mb-2">Notification Channels</div>
+                    <div className="space-y-1.5 text-[12px]">
+                      {[
+                        ['Crew Manager', 'direct alert, <30 sec'],
+                        ['Division Ops Manager', 'daily digest'],
+                        ['FRA Compliance Officer', 'weekly summary'],
+                        ['VP Operations', 'monthly board report'],
+                      ].map(([name, detail]) => (
+                        <div key={name} className="flex items-start gap-2">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-green mt-0.5 flex-shrink-0" strokeWidth={2} />
+                          <span className="text-ink">{name} <span className="text-ink-tertiary">({detail})</span></span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
-                <div>
-                  <div className="text-[11px] font-bold text-ink-tertiary uppercase tracking-wider mb-2">Human Review Required For</div>
-                  <div className="space-y-1.5 text-[12px]">
-                    {[
-                      'Assignment blocks (PREVENT actions)',
-                      'Schedule modifications affecting >3 employees',
-                      'Override requests from field supervisors',
-                      'FRA filing submissions',
-                    ].map((item) => (
-                      <div key={item} className="flex items-start gap-2">
-                        <span className="text-amber mt-0.5 flex-shrink-0">&bull;</span>
-                        <span className="text-ink">{item}</span>
-                      </div>
-                    ))}
+                {/* Right: Compliance Rules + Human Review */}
+                <div className="space-y-5">
+                  <div>
+                    <div className="text-[11px] font-bold text-ink-tertiary uppercase tracking-wider mb-2">Compliance Rules Active</div>
+                    <div className="space-y-1.5 text-[12px]">
+                      {[
+                        '12-hour on-duty limit (FRA \u00A7228.405)',
+                        '10-hour minimum off-duty (FRA \u00A7228.405)',
+                        '276 monthly hour cap (FRA \u00A7228.405)',
+                        '6/2 consecutive day rule (FRA \u00A7228.405)',
+                        '30-hour limbo time (Company policy)',
+                        'UTU Agreement \u00A74.2 (rest period provisions)',
+                        'IBEW Local 948 \u00A712.1 (signal maintainer limits)',
+                        'LIUNA District Council \u00A78.3 (track worker provisions)',
+                      ].map((rule) => (
+                        <div key={rule} className="flex items-start gap-2">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-green mt-0.5 flex-shrink-0" strokeWidth={2} />
+                          <span className="text-ink">{rule}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="text-[11px] font-bold text-ink-tertiary uppercase tracking-wider mb-2">Human Review Required For</div>
+                    <div className="space-y-1.5 text-[12px]">
+                      {[
+                        'Assignment blocks (PREVENT actions)',
+                        'Schedule modifications affecting >3 employees',
+                        'Override requests from field supervisors',
+                        'FRA filing submissions',
+                      ].map((item) => (
+                        <div key={item} className="flex items-start gap-2">
+                          <span className="text-amber mt-0.5 flex-shrink-0">&bull;</span>
+                          <span className="text-ink">{item}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </motion.div>
-      </div>
+          </motion.div>
+        </div>
+      )}
 
       {/* ============ SECTION 3: Deep Dive -- Atlas ============ */}
       <div id="atlas-deep-dive" className="scroll-mt-20">
@@ -1137,7 +1105,9 @@ export default function Agents() {
       <motion.div variants={fadeUp} custom={14} initial="hidden" animate="visible">
         <div className="bg-surface-sunken border border-border rounded-xl p-8 text-center">
           <p className="text-[18px] font-semibold text-ink tracking-tight mb-2">
-            9 agents. 7 divisions. 2,800 employees served.
+            {isParent
+              ? `${totalAll} agents. ${company.opCos} divisions. ${company.employees.toLocaleString()} employees served.`
+              : `${visibleAgents.length} agents. ${company.employees.toLocaleString()} employees served.`}
           </p>
           <p className="text-[13px] text-ink-tertiary max-w-2xl mx-auto">
             From FRA compliance to executive briefings, from project estimation to personal AI assistants &mdash;
