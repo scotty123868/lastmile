@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { useSimulation, type SimEvent } from '../data/SimulationEngine';
+import { playChime } from '../hooks/useSound';
 
 const dotColor: Record<SimEvent['type'], string> = {
   'workflow-step-complete': 'bg-blue',
@@ -33,6 +34,7 @@ export default function EventToast() {
     });
 
     setVisible((prev) => [{ event: latest }, ...prev].slice(0, 3));
+    playChime();
   }, [recentEvents, seen]);
 
   // Auto-dismiss after 4 seconds

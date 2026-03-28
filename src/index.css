@@ -92,6 +92,41 @@ h1, h2, h3, h4, h5, h6 {
 }
 .animate-flow { animation: flow 1.8s ease-in-out infinite; }
 
+/* ── Card hover micro-interaction ─────────────────────────── */
+
+.lm-card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lm-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* ── Staggered card entrance ─────────────────────────────── */
+
+@keyframes lm-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lm-fade-up {
+  animation: lm-fade-up 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+
+.lm-stagger-1 { animation-delay: 50ms; }
+.lm-stagger-2 { animation-delay: 100ms; }
+.lm-stagger-3 { animation-delay: 150ms; }
+.lm-stagger-4 { animation-delay: 200ms; }
+.lm-stagger-5 { animation-delay: 250ms; }
+.lm-stagger-6 { animation-delay: 300ms; }
+
 /* ── Premium card elevation ──────────────────────────────── */
 .rounded-lg, .rounded-xl {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
@@ -100,4 +135,34 @@ h1, h2, h3, h4, h5, h6 {
 
 .rounded-lg:hover, .rounded-xl:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+/* ── Mobile responsiveness ─────────────────────────────── */
+
+@media (max-width: 767px) {
+  body {
+    font-size: 14px;
+  }
+
+  /* Tables: horizontal scroll */
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Ensure minimum tap target size */
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Exclude tiny inline elements */
+  span > a, .text-\[10px\] a, .text-\[11px\] a {
+    min-height: auto;
+    min-width: auto;
+  }
+
+  /* Chart containers should never overflow */
+  .recharts-responsive-container {
+    max-width: 100%;
+  }
 }
