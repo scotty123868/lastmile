@@ -139,11 +139,14 @@ export default function FloatingAtlas() {
         }
       }
     } catch {
-      // Fallback to canned responses
+      // Fallback to canned responses — replace the empty placeholder, don't append
       const response = getCannedResponse(text);
-      // Simulate typing delay
       await new Promise(r => setTimeout(r, 600 + Math.random() * 800));
-      setMessages(prev => [...prev, { role: 'assistant', content: response }]);
+      setMessages(prev => {
+        const updated = [...prev];
+        updated[updated.length - 1] = { role: 'assistant', content: response };
+        return updated;
+      });
     } finally {
       setIsTyping(false);
     }
