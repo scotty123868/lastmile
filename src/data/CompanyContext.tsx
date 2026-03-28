@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
 
 export interface Company {
   id: string;
@@ -149,9 +149,42 @@ interface CompanyContextValue {
 
 const CompanyContext = createContext<CompanyContextValue | null>(null);
 
+function getInitialCompany(): string {
+  const params = new URLSearchParams(window.location.search);
+  const fromUrl = params.get('company');
+  if (fromUrl && companies.some((c) => c.id === fromUrl)) return fromUrl;
+  return 'meridian';
+}
+
 export function CompanyProvider({ children }: { children: ReactNode }) {
-  const [companyId, setCompanyId] = useState('meridian');
+  const [companyId, setCompanyIdState] = useState(getInitialCompany);
   const company = companies.find((c) => c.id === companyId) ?? companies[0];
+
+  const setCompanyId = useCallback((id: string) => {
+    setCompanyIdState(id);
+    const url = new URL(window.location.href);
+    if (id === 'meridian') {
+      url.searchParams.delete('company');
+    } else {
+      url.searchParams.set('company', id);
+    }
+    window.history.replaceState({}, '', url.toString());
+  }, []);
+
+  // Sync on popstate (browser back/forward)
+  useEffect(() => {
+    const onPopState = () => {
+      const params = new URLSearchParams(window.location.search);
+      const fromUrl = params.get('company');
+      if (fromUrl && companies.some((c) => c.id === fromUrl)) {
+        setCompanyIdState(fromUrl);
+      } else {
+        setCompanyIdState('meridian');
+      }
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
 
   return (
     <CompanyContext.Provider value={{ company, companies, setCompanyId }}>

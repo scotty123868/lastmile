@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Send, MessageSquare, Bot, User } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
@@ -494,12 +494,50 @@ export default function Assistant() {
   const { company } = useCompany();
   const chat = chatData[company.id] || chatData.meridian;
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [inputValue, setInputValue] = useState('');
+  const [extraMessages, setExtraMessages] = useState<Message[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
+
+  useEffect(() => {
+    setExtraMessages([]);
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [company.id]);
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [company.id]);
+  }, [extraMessages, isTyping]);
+
+  const handleSend = useCallback(() => {
+    if (!inputValue.trim() || isTyping) return;
+    const question = inputValue.trim();
+    setInputValue('');
+    setExtraMessages(prev => [...prev, { role: 'user', content: [{ text: question }] }]);
+    setIsTyping(true);
+    setTimeout(() => {
+      setExtraMessages(prev => [...prev, {
+        role: 'ai',
+        content: [{ text: `Great question about "${question}". Based on the data connected for **${company.shortName}**, I'd need to pull from the live data sources to give you a precise answer. In a production deployment, this query would be answered in ~1.2 seconds using the connected integrations. For now, try one of the suggested questions below to see the kind of analysis I can provide.` }],
+      }]);
+      setIsTyping(false);
+    }, 1500);
+  }, [inputValue, isTyping, company.shortName]);
+
+  const handleSuggestionClick = useCallback((suggestion: string) => {
+    if (isTyping) return;
+    setExtraMessages(prev => [...prev, { role: 'user', content: [{ text: suggestion }] }]);
+    setIsTyping(true);
+    setTimeout(() => {
+      setExtraMessages(prev => [...prev, {
+        role: 'ai',
+        content: [{ text: `Analyzing "${suggestion}" across ${company.shortName}'s connected data sources...\n\nThis is a preview of the Intelligence module. In production, Atlas would synthesize data from all connected integrations to provide a detailed, source-cited answer. The conversational interface above shows examples of the depth of analysis available.` }],
+      }]);
+      setIsTyping(false);
+    }, 1500);
+  }, [isTyping, company.shortName]);
 
   return (
     <div className="flex flex-col h-[calc(100vh-48px)] max-w-[960px] mx-auto">
@@ -529,15 +567,27 @@ export default function Assistant() {
         {chat.messages.map((msg, i) => (
           <MessageBubble key={`${company.id}-${i}`} message={msg} index={i} />
         ))}
+        {extraMessages.map((msg, i) => (
+          <MessageBubble key={`${company.id}-extra-${i}`} message={msg} index={chat.messages.length + i} />
+        ))}
 
         {/* Typing indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: chat.messages.length * 0.08 + 0.3 }}
-        >
-          <TypingIndicator />
-        </motion.div>
+        {isTyping ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <TypingIndicator />
+          </motion.div>
+        ) : extraMessages.length === 0 ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: chat.messages.length * 0.08 + 0.3 }}
+          >
+            <TypingIndicator />
+          </motion.div>
+        ) : null}
       </div>
 
       {/* Suggested questions */}
@@ -546,6 +596,7 @@ export default function Assistant() {
           {chat.suggestions.map((s, i) => (
             <motion.button
               key={s}
+              onClick={() => handleSuggestionClick(s)}
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 + i * 0.06 }}
@@ -567,9 +618,12 @@ export default function Assistant() {
             placeholder="Ask about your data..."
             className="flex-1 bg-transparent text-[13px] text-ink placeholder:text-ink-tertiary
                        outline-none border-none"
-            readOnly
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={(e) => { if (e.key === 'Enter') handleSend(); }}
           />
           <button
+            onClick={handleSend}
             className="w-8 h-8 rounded-lg bg-blue flex items-center justify-center flex-shrink-0
                        hover:bg-blue/90 transition-colors duration-150 cursor-pointer"
             aria-label="Send message"
