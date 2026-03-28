@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { Menu } from 'lucide-react';
+import { Menu, Volume2, VolumeX } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Sidebar from './components/Sidebar';
 import LiveWorkflows from './pages/LiveWorkflows';
@@ -24,6 +24,8 @@ import Agents from './pages/Agents';
 import { useCompany } from './data/CompanyContext';
 import { SimulationProvider } from './data/SimulationEngine';
 import EventToast from './components/EventToast';
+import AgentToast from './components/AgentToast';
+import { useSound } from './hooks/useSound';
 
 const routeTitles: Record<string, string> = {
   '/overview': 'Overview',
@@ -53,6 +55,7 @@ const routeTitles: Record<string, string> = {
 function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
   const location = useLocation();
   const { company } = useCompany();
+  const { isMuted, toggleMute } = useSound();
   const pageTitle = routeTitles[location.pathname] || 'Overview';
 
   return (
@@ -72,6 +75,13 @@ function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
           </div>
         </div>
         <div className="flex items-center gap-3">
+          <button
+            onClick={toggleMute}
+            className="flex h-7 w-7 items-center justify-center rounded-md text-ink-tertiary hover:text-ink hover:bg-surface-sunken transition-colors"
+            title={isMuted ? 'Unmute sounds' : 'Mute sounds'}
+          >
+            {isMuted ? <VolumeX className="h-3.5 w-3.5" /> : <Volume2 className="h-3.5 w-3.5" />}
+          </button>
           <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-green-muted">
             <span className="w-1.5 h-1.5 rounded-full bg-green animate-pulse-live" />
             <span className="text-[11px] font-medium text-green">Live</span>
@@ -186,6 +196,7 @@ export default function App() {
         </main>
 
         <EventToast />
+        <AgentToast />
       </div>
     </SimulationProvider>
   );
