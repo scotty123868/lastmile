@@ -23,8 +23,7 @@ import {
   Bot,
 } from 'lucide-react';
 import { useCompany } from '../data/CompanyContext';
-
-const COMMAND_CENTER_URL = 'https://command-center-herzog.vercel.app';
+import { COMMAND_CENTER_URL } from '../data/crosslinks';
 
 interface NavSection {
   title: string;
