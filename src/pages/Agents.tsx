@@ -122,7 +122,7 @@ const performanceData = [
   { month: 'Mar', prevented: 23, falseAlarms: 1 },
 ];
 
-const divisions = ['HCC', 'HTSI', 'HSI', 'HTI', 'HRSI', 'HES', 'HTS'];
+const divisions = ['HCC', 'HTSI', 'HSI', 'HTI', 'HRSI', 'HE', 'GG'];
 const crewNames = [
   'J. Rodriguez', 'M. Thompson', 'K. Nguyen', 'D. Kowalski', 'S. Williams',
   'L. Chen', 'R. Patel', 'A. Martinez', 'T. Jackson', 'B. O\'Connor',
