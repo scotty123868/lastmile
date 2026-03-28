@@ -206,7 +206,7 @@ const violationCases: ViolationCase[] = [
   {
     severity: 'amber',
     title: 'Monthly Hour Limit Warning',
-    date: 'March 22, 2026 at 14:30 PM',
+    date: 'March 22, 2026 at 2:30 PM',
     employee: 'Maria Thompson, Conductor, HTSI Crew 12',
     situation: 'M. Thompson at 271 of 276 monthly hours with 9 days remaining. Current schedule would put her at 283 hours by month end.',
     agentAction: 'Generated optimized schedule redistributing 3 shifts to available crew members. Sent proposed schedule to HTSI Crew Manager for approval.',
@@ -218,7 +218,7 @@ const violationCases: ViolationCase[] = [
   {
     severity: 'red',
     title: 'Consecutive Days Off Violation',
-    date: 'March 19, 2026 at 20:45 PM',
+    date: 'March 19, 2026 at 8:45 PM',
     employee: 'David Kowalski, Signal Maintainer, HTI Signal Crew 2',
     situation: 'D. Kowalski scheduled for 7th consecutive work day. FRA requires minimum 2 consecutive days off after 6 days. Overtime request filed by HTI field supervisor for PTC maintenance window.',
     agentAction: 'Denied overtime assignment. Found that PTC maintenance window could be rescheduled to Thursday (D. Kowalski\'s first day back after mandatory rest). Proposed revised maintenance schedule to HTI planning.',
