@@ -77,7 +77,7 @@ const chatData: Record<string, CompanyChat> = {
           {
             list: [
               "**$2.8M in license waste** \u2014 Duplicate SAP, Trimble, and Workday licenses across HCC, HRSI, HSI, HTI, HTSI, and corporate. At least 320 licenses are inactive or redundant across division boundaries.",
-              "**Crew and equipment sharing between HCC and HTSI** \u2014 Construction crews and signal/communication technicians often work adjacent corridors for the same Class I railroads but are dispatched independently. Cross-division crew optimization could save **$1.12M annually** and reduce mobilization time by 40%.",
+              "**Crew and equipment sharing between HCC and HTI** \u2014 Construction crews and signal/PTC technicians often work adjacent corridors for the same Class I railroads but are dispatched independently. Cross-division crew optimization could save **$1.12M annually** and reduce mobilization time by 40%.",
               "**Track inspection intelligence consolidation** \u2014 HSI's RailSentry data, HCC's field condition reports, and HTI's signal system diagnostics each capture different aspects of track health. Unifying these into a single track intelligence platform would give Class I customers a **360-degree corridor view** no competitor can match.",
             ],
           },
