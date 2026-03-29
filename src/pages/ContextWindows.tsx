@@ -108,13 +108,13 @@ interface DivisionRow {
 }
 
 const divisionData: DivisionRow[] = [
-  { name: 'HCC', fullName: 'Herzog Contracting', activeUsers: 432, avgFreshness: 2.1, completeness: 87, queriesPerDay: 1240, successRate: 99.4 },
-  { name: 'HTSI', fullName: 'Herzog Tech Services', activeUsers: 202, avgFreshness: 1.8, completeness: 91, queriesPerDay: 680, successRate: 99.6 },
-  { name: 'HTI', fullName: 'Herzog Transit', activeUsers: 161, avgFreshness: 3.2, completeness: 82, queriesPerDay: 420, successRate: 98.8 },
-  { name: 'HRSI', fullName: 'Herzog Railroad Services', activeUsers: 129, avgFreshness: 2.4, completeness: 85, queriesPerDay: 340, successRate: 99.1 },
-  { name: 'HSI', fullName: 'Herzog Services', activeUsers: 106, avgFreshness: 1.5, completeness: 94, queriesPerDay: 290, successRate: 99.7 },
-  { name: 'HE', fullName: 'Herzog Energy', activeUsers: 34, avgFreshness: 4.7, completeness: 72, queriesPerDay: 89, successRate: 97.2 },
-  { name: 'GG', fullName: 'Green Group', activeUsers: 20, avgFreshness: 5.1, completeness: 68, queriesPerDay: 45, successRate: 96.8 },
+  { name: 'HCC', fullName: 'IC Construction', activeUsers: 432, avgFreshness: 2.1, completeness: 87, queriesPerDay: 1240, successRate: 99.4 },
+  { name: 'HTSI', fullName: 'IC Tech Services', activeUsers: 202, avgFreshness: 1.8, completeness: 91, queriesPerDay: 680, successRate: 99.6 },
+  { name: 'HTI', fullName: 'IC Transit', activeUsers: 161, avgFreshness: 3.2, completeness: 82, queriesPerDay: 420, successRate: 98.8 },
+  { name: 'HRSI', fullName: 'IC Rail Services', activeUsers: 129, avgFreshness: 2.4, completeness: 85, queriesPerDay: 340, successRate: 99.1 },
+  { name: 'HSI', fullName: 'IC Services', activeUsers: 106, avgFreshness: 1.5, completeness: 94, queriesPerDay: 290, successRate: 99.7 },
+  { name: 'HE', fullName: 'IC Energy', activeUsers: 34, avgFreshness: 4.7, completeness: 72, queriesPerDay: 89, successRate: 97.2 },
+  { name: 'GG', fullName: 'IC Environmental', activeUsers: 20, avgFreshness: 5.1, completeness: 68, queriesPerDay: 45, successRate: 96.8 },
 ];
 
 /* ── Query type chart data ────────────────────────────────── */
@@ -223,7 +223,7 @@ const contextExamples: ContextExample[] = [
     id: 'safety-officer',
     user: 'Jennifer Walsh',
     role: 'Safety Director',
-    division: 'Herzog Companies',
+    division: 'IndustrialsCo',
     query: 'Are we FRA compliant across all divisions?',
     contextTree: `├── FRA Inspection Status (all divisions):
 │   ├── HCC: 47 inspections current, 2 overdue (MP 247, MP 312)
@@ -264,14 +264,14 @@ interface DataAlert {
 const dataAlerts: DataAlert[] = [
   {
     severity: 'yellow',
-    title: 'Herzog Energy \u2014 Low Completeness (72%)',
+    title: 'IC Energy \u2014 Low Completeness (72%)',
     detail: 'Missing: Equipment serial numbers for 28% of assets',
     impact: 'AI can\'t cross-reference maintenance history for those assets',
     action: 'Data entry campaign scheduled for April 7-11',
   },
   {
     severity: 'yellow',
-    title: 'Green Group \u2014 Stale GPS Data',
+    title: 'IC Environmental \u2014 Stale GPS Data',
     detail: '12 vehicles with GPS feeds >10 minutes old',
     impact: 'Fleet optimization queries may use outdated positions',
     action: 'GPS firmware update in progress',

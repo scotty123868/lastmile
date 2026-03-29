@@ -454,7 +454,7 @@ const reviewQueueDefault = [
     timestamp: 'Mar 25, 2026 — 10:33 AM',
     reviewer: 'Auto-approved',
     reasoning: [
-      'Green Group — wetland mitigation compliance quarterly report.',
+      'IC Environmental — wetland mitigation compliance quarterly report.',
       'All 14 parameters within EPA/state limits.',
       'No exceedances detected. Trend analysis: stable across all metrics.',
     ],

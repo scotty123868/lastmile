@@ -667,7 +667,7 @@ export default function Agents() {
   };
 
   const startAtlasStream = (question: string) => {
-    const response = atlasQA[question] || `Connecting to Herzog systems... This query requires live system access. In production, Atlas would answer this in ~1.2 seconds using 14 connected data sources.`;
+    const response = atlasQA[question] || `Connecting to IndustrialsCo systems... This query requires live system access. In production, Atlas would answer this in ~1.2 seconds using 14 connected data sources.`;
     setAtlasQuestion(question);
     setAtlasFullResponse(response);
     setAtlasResponse('');
@@ -718,7 +718,7 @@ export default function Agents() {
         </div>
         <p className="text-[13px] text-ink-tertiary mb-6">
           {isParent
-            ? 'Named agents deployed across all Herzog divisions. Monitoring, analyzing, and acting 24/7.'
+            ? 'Named agents deployed across all IndustrialsCo divisions. Monitoring, analyzing, and acting 24/7.'
             : `Named agents serving ${company.shortName}. Monitoring, analyzing, and acting 24/7.`}
         </p>
 
@@ -794,7 +794,7 @@ export default function Agents() {
               <span className="text-[12px] text-ink-tertiary ml-1">({agents.length} agent{agents.length !== 1 ? 's' : ''})</span>
             </div>
             <p className="text-[12px] text-ink-tertiary mb-4">
-              {divId === 'shared' ? 'Cross-division platform agents serving all of Herzog' : `Division-specific agents for ${meta.name}`}
+              {divId === 'shared' ? 'Cross-division platform agents serving all of IndustrialsCo' : `Division-specific agents for ${meta.name}`}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
@@ -861,7 +861,7 @@ export default function Agents() {
               <h2 className="text-[22px] font-bold text-ink tracking-tight">Deep Dive &mdash; &quot;Dispatch&quot; HOS Compliance Agent</h2>
             </div>
             <p className="text-[13px] text-ink-tertiary mb-6">
-              How Dispatch monitors FRA Hours-of-Service compliance across all 7 Herzog divisions in real time.
+              How Dispatch monitors FRA Hours-of-Service compliance across all 7 IndustrialsCo divisions in real time.
             </p>
           </motion.div>
 
@@ -1192,7 +1192,7 @@ export default function Agents() {
                   value={atlasInput}
                   onChange={(e) => setAtlasInput(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter' && atlasInput.trim() && !atlasStreaming) startAtlasStream(atlasInput.trim()); }}
-                  placeholder="Ask Atlas anything about Herzog operations..."
+                  placeholder="Ask Atlas anything about IndustrialsCo operations..."
                   className="flex-1 bg-transparent border-none outline-none text-[13px] font-mono text-white placeholder:text-slate-600"
                   disabled={atlasStreaming}
                 />

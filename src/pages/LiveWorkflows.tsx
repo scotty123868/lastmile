@@ -399,7 +399,7 @@ const pipelineData: Record<string, PipelineData> = {
       { id: 'd2', name: 'BusinessRegistry_NewEntities.api', type: 'api', origin: 'Centre of Registers (RIK)', size: '—', status: 'ready', fields: 42000, confidence: 99 },
       { id: 'd3', name: 'eResidency_Applications_March.csv', type: 'csv', origin: 'e-Residency Program Portal', size: '14 MB', status: 'ready', fields: 8400, confidence: 96 },
       { id: 'd4', name: 'EU_Structural_Funds_Report.pdf', type: 'pdf', origin: 'State Shared Service Centre', size: '24 MB', status: 'processing', fields: 1200, confidence: 93 },
-      { id: 'd5', name: 'Fleet_Management_Reports.pdf', type: 'pdf', origin: 'Herzog Fleet Management System', size: '8.4 MB', status: 'ready', fields: 420, confidence: 95 },
+      { id: 'd5', name: 'Fleet_Management_Reports.pdf', type: 'pdf', origin: 'IndustrialsCo Fleet Management System', size: '8.4 MB', status: 'ready', fields: 420, confidence: 95 },
       { id: 'd6', name: 'Division_Ops_Submissions.xlsx', type: 'spreadsheet', origin: 'Division Operations Portal', size: '4.8 MB', status: 'ready', fields: 2400, confidence: 97 },
     ],
   },

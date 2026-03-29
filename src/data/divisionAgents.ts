@@ -227,7 +227,7 @@ const sharedAgents: AgentDef[] = [
   },
 ];
 
-/* ── HCC — Herzog Contracting Corp (7) ──────────────────────────────────── */
+/* ── HCC — IC Construction Corp (7) ──────────────────────────────────── */
 
 const hccAgents: AgentDef[] = [
   {
@@ -239,7 +239,7 @@ const hccAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'blue',
     division: 'hcc',
-    divisionName: 'Herzog Contracting',
+    divisionName: 'IC Construction',
     metrics: [
       { label: 'Watching', value: '2,800 employees across 7 divisions' },
       { label: 'Violations prevented', value: '23 this month' },
@@ -247,7 +247,7 @@ const hccAgents: AgentDef[] = [
       { label: 'False alarm rate', value: '0.8%' },
     ],
     description:
-      'Monitors FRA Hours-of-Service compliance across all 7 Herzog divisions in real time. Catches violations before they happen, automatically reassigns crew, and files FRA reports. Zero violations since deployment in October 2025.',
+      'Monitors FRA Hours-of-Service compliance across all 7 IndustrialsCo divisions in real time. Catches violations before they happen, automatically reassigns crew, and files FRA reports. Zero violations since deployment in October 2025.',
     category: 'safety',
     deepDiveLink: '#dispatch-deep-dive',
     instances: 14,
@@ -264,7 +264,7 @@ const hccAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'blue',
     division: 'hcc',
-    divisionName: 'Herzog Contracting',
+    divisionName: 'IC Construction',
     metrics: [
       { label: 'Equipment tracked', value: '340 units' },
       { label: 'Idle time reduced', value: '42%' },
@@ -288,7 +288,7 @@ const hccAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'blue',
     division: 'hcc',
-    divisionName: 'Herzog Contracting',
+    divisionName: 'IC Construction',
     metrics: [
       { label: 'Active bid packages', value: '14' },
       { label: 'Accuracy', value: '94% within \u00B18% of winning bid' },
@@ -312,7 +312,7 @@ const hccAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'blue',
     division: 'hcc',
-    divisionName: 'Herzog Contracting',
+    divisionName: 'IC Construction',
     metrics: [
       { label: 'Vehicles tracked', value: '200' },
       { label: 'Utilization rate', value: '82%' },
@@ -336,7 +336,7 @@ const hccAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'blue',
     division: 'hcc',
-    divisionName: 'Herzog Contracting',
+    divisionName: 'IC Construction',
     metrics: [
       { label: 'Batches monitored today', value: '47' },
       { label: 'Quality pass rate', value: '99.2%' },
@@ -360,7 +360,7 @@ const hccAgents: AgentDef[] = [
     statusLabel: 'Running (daily sync)',
     accent: 'purple',
     division: 'hcc',
-    divisionName: 'Herzog Contracting',
+    divisionName: 'IC Construction',
     metrics: [
       { label: 'Heavy equipment tracked', value: '340' },
       { label: 'Maintenance compliance', value: '97.4%' },
@@ -384,7 +384,7 @@ const hccAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'amber',
     division: 'hcc',
-    divisionName: 'Herzog Contracting',
+    divisionName: 'IC Construction',
     metrics: [
       { label: 'Sites monitored', value: '18' },
       { label: 'Prediction accuracy', value: '89%' },
@@ -408,7 +408,7 @@ const hccAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'amber',
     division: 'hcc',
-    divisionName: 'Herzog Contracting',
+    divisionName: 'IC Construction',
     metrics: [
       { label: 'Camera feeds monitored', value: '42' },
       { label: 'PPE violations caught', value: '14 this week' },
@@ -432,7 +432,7 @@ const hccAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'blue',
     division: 'hcc',
-    divisionName: 'Herzog Contracting',
+    divisionName: 'IC Construction',
     metrics: [
       { label: 'Batch plants monitored', value: '6' },
       { label: 'Pours tracked today', value: '18' },
@@ -456,7 +456,7 @@ const hccAgents: AgentDef[] = [
     statusLabel: 'Running (weekly survey)',
     accent: 'green',
     division: 'hcc',
-    divisionName: 'Herzog Contracting',
+    divisionName: 'IC Construction',
     metrics: [
       { label: 'Projects tracked', value: '14' },
       { label: 'Drone surveys/week', value: '8' },
@@ -473,7 +473,7 @@ const hccAgents: AgentDef[] = [
   },
 ];
 
-/* ── HRSI — Herzog Railroad Services (7) ────────────────────────────────── */
+/* ── HRSI — IC Rail Services (7) ────────────────────────────────── */
 
 const hrsiAgents: AgentDef[] = [
   {
@@ -485,7 +485,7 @@ const hrsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'green',
     division: 'hrsi',
-    divisionName: 'Herzog Railroad Services',
+    divisionName: 'IC Rail Services',
     metrics: [
       { label: 'Monitoring', value: '4,200 track miles' },
       { label: 'Defects predicted this week', value: '8' },
@@ -509,7 +509,7 @@ const hrsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'green',
     division: 'hrsi',
-    divisionName: 'Herzog Railroad Services',
+    divisionName: 'IC Rail Services',
     metrics: [
       { label: 'Equipment monitored', value: '156' },
       { label: 'Failures predicted', value: '12 (next 30 days)' },
@@ -533,7 +533,7 @@ const hrsiAgents: AgentDef[] = [
     statusLabel: 'Running',
     accent: 'green',
     division: 'hrsi',
-    divisionName: 'Herzog Railroad Services',
+    divisionName: 'IC Rail Services',
     metrics: [
       { label: 'SKUs managed', value: '4,200' },
       { label: 'Stockout risk', value: '2 items' },
@@ -557,7 +557,7 @@ const hrsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'green',
     division: 'hrsi',
-    divisionName: 'Herzog Railroad Services',
+    divisionName: 'IC Rail Services',
     metrics: [
       { label: 'Deliveries optimized', value: '34/week' },
       { label: 'Route efficiency', value: '+22%' },
@@ -581,7 +581,7 @@ const hrsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'purple',
     division: 'hrsi',
-    divisionName: 'Herzog Railroad Services',
+    divisionName: 'IC Rail Services',
     metrics: [
       { label: 'Ties assessed', value: '48,000' },
       { label: 'Replacement priority', value: '1,240 this quarter' },
@@ -605,7 +605,7 @@ const hrsiAgents: AgentDef[] = [
     statusLabel: 'Running (analysis)',
     accent: 'green',
     division: 'hrsi',
-    divisionName: 'Herzog Railroad Services',
+    divisionName: 'IC Rail Services',
     metrics: [
       { label: 'Miles analyzed', value: '2,800/month' },
       { label: 'Exception reports', value: '34' },
@@ -629,7 +629,7 @@ const hrsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'amber',
     division: 'hrsi',
-    divisionName: 'Herzog Railroad Services',
+    divisionName: 'IC Rail Services',
     metrics: [
       { label: 'Tamping windows scheduled', value: '18/month' },
       { label: 'Track time utilization', value: '94%' },
@@ -653,7 +653,7 @@ const hrsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'green',
     division: 'hrsi',
-    divisionName: 'Herzog Railroad Services',
+    divisionName: 'IC Rail Services',
     metrics: [
       { label: 'Track miles analyzed', value: '3,400/month' },
       { label: 'Degradation trends', value: '12 active' },
@@ -677,7 +677,7 @@ const hrsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'purple',
     division: 'hrsi',
-    divisionName: 'Herzog Railroad Services',
+    divisionName: 'IC Rail Services',
     metrics: [
       { label: 'Ties assessed', value: '62,000' },
       { label: 'Replacement schedules', value: '8 active' },
@@ -701,7 +701,7 @@ const hrsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'amber',
     division: 'hrsi',
-    divisionName: 'Herzog Railroad Services',
+    divisionName: 'IC Rail Services',
     metrics: [
       { label: 'Welds in network', value: '18,400' },
       { label: 'UT results processed', value: '240/week' },
@@ -718,7 +718,7 @@ const hrsiAgents: AgentDef[] = [
   },
 ];
 
-/* ── HSI — Herzog Services / Rail Testing (6) ───────────────────────────── */
+/* ── HSI — IC Services / Rail Testing (6) ───────────────────────────── */
 
 const hsiAgents: AgentDef[] = [
   {
@@ -730,7 +730,7 @@ const hsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'amber',
     division: 'hsi',
-    divisionName: 'Herzog Services',
+    divisionName: 'IC Services',
     metrics: [
       { label: 'Geometry cars active', value: '4' },
       { label: 'Defects detected this week', value: '23' },
@@ -754,7 +754,7 @@ const hsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'amber',
     division: 'hsi',
-    divisionName: 'Herzog Services',
+    divisionName: 'IC Services',
     metrics: [
       { label: 'Tests scheduled', value: '180/month' },
       { label: 'Schedule efficiency', value: '+31%' },
@@ -778,7 +778,7 @@ const hsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'amber',
     division: 'hsi',
-    divisionName: 'Herzog Services',
+    divisionName: 'IC Services',
     metrics: [
       { label: 'Instruments tracked', value: '89' },
       { label: 'Due for calibration', value: '4' },
@@ -802,7 +802,7 @@ const hsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'green',
     division: 'hsi',
-    divisionName: 'Herzog Services',
+    divisionName: 'IC Services',
     metrics: [
       { label: 'Sources monitored', value: '34' },
       { label: 'CO2e this month', value: '142 tons' },
@@ -826,7 +826,7 @@ const hsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'purple',
     division: 'hsi',
-    divisionName: 'Herzog Services',
+    divisionName: 'IC Services',
     metrics: [
       { label: 'Waste streams tracked', value: '12' },
       { label: 'Diversion rate', value: '74%' },
@@ -850,7 +850,7 @@ const hsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'amber',
     division: 'hsi',
-    divisionName: 'Herzog Services',
+    divisionName: 'IC Services',
     metrics: [
       { label: 'Active permits', value: '47' },
       { label: 'Renewals due (60 days)', value: '5' },
@@ -874,7 +874,7 @@ const hsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'green',
     division: 'hsi',
-    divisionName: 'Herzog Services',
+    divisionName: 'IC Services',
     metrics: [
       { label: 'Discharge permits tracked', value: '18' },
       { label: 'Rain gauges monitored', value: '34' },
@@ -898,7 +898,7 @@ const hsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'amber',
     division: 'hsi',
-    divisionName: 'Herzog Services',
+    divisionName: 'IC Services',
     metrics: [
       { label: 'Active cleanup sites', value: '8' },
       { label: 'Regulatory deadlines', value: '14 tracked' },
@@ -915,7 +915,7 @@ const hsiAgents: AgentDef[] = [
   },
 ];
 
-/* ── HTI — Herzog Technologies (6) ──────────────────────────────────────── */
+/* ── HTI — IC Technologies (6) ──────────────────────────────────────── */
 
 const htiAgents: AgentDef[] = [
   {
@@ -927,7 +927,7 @@ const htiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'purple',
     division: 'hti',
-    divisionName: 'Herzog Technologies',
+    divisionName: 'IC Technologies',
     metrics: [
       { label: 'Signals monitored', value: '2,400' },
       { label: 'Anomalies detected', value: '3/week' },
@@ -951,7 +951,7 @@ const htiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'purple',
     division: 'hti',
-    divisionName: 'Herzog Technologies',
+    divisionName: 'IC Technologies',
     metrics: [
       { label: 'Active projects', value: '8' },
       { label: 'Completion rate', value: '73%' },
@@ -975,7 +975,7 @@ const htiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'purple',
     division: 'hti',
-    divisionName: 'Herzog Technologies',
+    divisionName: 'IC Technologies',
     metrics: [
       { label: 'Regulations tracked', value: '47' },
       { label: 'Compliance rate', value: '99.8%' },
@@ -999,7 +999,7 @@ const htiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'blue',
     division: 'hti',
-    divisionName: 'Herzog Technologies',
+    divisionName: 'IC Technologies',
     metrics: [
       { label: 'Patents tracked', value: '89' },
       { label: 'New filings monitored', value: '340/month' },
@@ -1023,7 +1023,7 @@ const htiAgents: AgentDef[] = [
     statusLabel: 'Running (weekly update)',
     accent: 'green',
     division: 'hti',
-    divisionName: 'Herzog Technologies',
+    divisionName: 'IC Technologies',
     metrics: [
       { label: 'Active R&D projects', value: '14' },
       { label: 'Stage gates passed', value: '8 this quarter' },
@@ -1047,7 +1047,7 @@ const htiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'amber',
     division: 'hti',
-    divisionName: 'Herzog Technologies',
+    divisionName: 'IC Technologies',
     metrics: [
       { label: 'Transfer opportunities', value: '7' },
       { label: 'Cross-division adoptions', value: '4 this year' },
@@ -1055,7 +1055,7 @@ const htiAgents: AgentDef[] = [
       { label: 'Partner evaluations', value: '12' },
     ],
     description:
-      'Identifies opportunities to transfer HTI-developed technologies to other Herzog divisions or external partners. Evaluates commercial potential, manages licensing agreements, and tracks technology adoption across the enterprise.',
+      'Identifies opportunities to transfer HTI-developed technologies to other IndustrialsCo divisions or external partners. Evaluates commercial potential, manages licensing agreements, and tracks technology adoption across the enterprise.',
     category: 'intelligence',
     instances: 2,
     tasksToday: 24,
@@ -1071,7 +1071,7 @@ const htiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'purple',
     division: 'hti',
-    divisionName: 'Herzog Technologies',
+    divisionName: 'IC Technologies',
     metrics: [
       { label: 'OT/IT boundaries monitored', value: '14' },
       { label: 'Anomalous traffic events', value: '3/week' },
@@ -1095,7 +1095,7 @@ const htiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'blue',
     division: 'hti',
-    divisionName: 'Herzog Technologies',
+    divisionName: 'IC Technologies',
     metrics: [
       { label: 'ETL jobs monitored', value: '89' },
       { label: 'Data quality score', value: '97.2%' },
@@ -1112,7 +1112,7 @@ const htiAgents: AgentDef[] = [
   },
 ];
 
-/* ── HTSI — Herzog Transit Services (7) ─────────────────────────────────── */
+/* ── HTSI — IC Transit Services (7) ─────────────────────────────────── */
 
 const htsiAgents: AgentDef[] = [
   {
@@ -1124,7 +1124,7 @@ const htsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'blue',
     division: 'htsi',
-    divisionName: 'Herzog Transit Services',
+    divisionName: 'IC Transit Services',
     metrics: [
       { label: 'Routes optimized', value: '24' },
       { label: 'On-time performance', value: '94.2%' },
@@ -1148,7 +1148,7 @@ const htsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'blue',
     division: 'htsi',
-    divisionName: 'Herzog Transit Services',
+    divisionName: 'IC Transit Services',
     metrics: [
       { label: 'Crew members', value: '480' },
       { label: 'Qualification gaps', value: '3' },
@@ -1172,7 +1172,7 @@ const htsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'blue',
     division: 'htsi',
-    divisionName: 'Herzog Transit Services',
+    divisionName: 'IC Transit Services',
     metrics: [
       { label: 'Daily predictions', value: '24 routes' },
       { label: 'Accuracy', value: '91%' },
@@ -1196,7 +1196,7 @@ const htsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'blue',
     division: 'htsi',
-    divisionName: 'Herzog Transit Services',
+    divisionName: 'IC Transit Services',
     metrics: [
       { label: 'Incidents monitored', value: '0 (current shift)' },
       { label: 'Response time', value: '<2 min' },
@@ -1220,7 +1220,7 @@ const htsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'green',
     division: 'htsi',
-    divisionName: 'Herzog Transit Services',
+    divisionName: 'IC Transit Services',
     metrics: [
       { label: 'Revenue tracked', value: '$2.4M/month' },
       { label: 'Fare evasion detected', value: '1.8%' },
@@ -1244,7 +1244,7 @@ const htsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'purple',
     division: 'htsi',
-    divisionName: 'Herzog Transit Services',
+    divisionName: 'IC Transit Services',
     metrics: [
       { label: 'Stations monitored', value: '42' },
       { label: 'ADA compliance rate', value: '98.6%' },
@@ -1268,7 +1268,7 @@ const htsiAgents: AgentDef[] = [
     statusLabel: 'Running (quarterly model)',
     accent: 'amber',
     division: 'htsi',
-    divisionName: 'Herzog Transit Services',
+    divisionName: 'IC Transit Services',
     metrics: [
       { label: 'Fleet electrified', value: '34%' },
       { label: 'Charging stations', value: '18 active' },
@@ -1292,7 +1292,7 @@ const htsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'blue',
     division: 'htsi',
-    divisionName: 'Herzog Transit Services',
+    divisionName: 'IC Transit Services',
     metrics: [
       { label: 'Stations analyzed', value: '42' },
       { label: 'Dwell time reduction', value: '-14%' },
@@ -1316,7 +1316,7 @@ const htsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'green',
     division: 'htsi',
-    divisionName: 'Herzog Transit Services',
+    divisionName: 'IC Transit Services',
     metrics: [
       { label: 'Transactions analyzed', value: '84K/day' },
       { label: 'Revenue leakage detected', value: '$12K/month' },
@@ -1340,7 +1340,7 @@ const htsiAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'purple',
     division: 'htsi',
-    divisionName: 'Herzog Transit Services',
+    divisionName: 'IC Transit Services',
     metrics: [
       { label: 'Alerts generated/day', value: '34' },
       { label: 'Passenger notifications', value: '12K/day' },
@@ -1357,7 +1357,7 @@ const htsiAgents: AgentDef[] = [
   },
 ];
 
-/* ── HE — Herzog Energy (5) ──────────────────────────────────────────────── */
+/* ── HE — IC Energy (5) ──────────────────────────────────────────────── */
 
 const heAgents: AgentDef[] = [
   {
@@ -1369,7 +1369,7 @@ const heAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'green',
     division: 'he',
-    divisionName: 'Herzog Energy',
+    divisionName: 'IC Energy',
     metrics: [
       { label: 'Assets monitored', value: '340' },
       { label: 'Alerts this week', value: '2' },
@@ -1393,7 +1393,7 @@ const heAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'green',
     division: 'he',
-    divisionName: 'Herzog Energy',
+    divisionName: 'IC Energy',
     metrics: [
       { label: 'Active permits', value: '23' },
       { label: 'Renewals due (90 days)', value: '3' },
@@ -1417,7 +1417,7 @@ const heAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'purple',
     division: 'he',
-    divisionName: 'Herzog Energy',
+    divisionName: 'IC Energy',
     metrics: [
       { label: 'Active evaluations', value: '3' },
       { label: 'Data rooms processed', value: '12,000 docs' },
@@ -1441,7 +1441,7 @@ const heAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'blue',
     division: 'he',
-    divisionName: 'Herzog Energy',
+    divisionName: 'IC Energy',
     metrics: [
       { label: 'Divisions tracked', value: '7' },
       { label: 'KPIs monitored', value: '142' },
@@ -1449,7 +1449,7 @@ const heAgents: AgentDef[] = [
       { label: 'ROIC trend', value: '+2.1% YoY' },
     ],
     description:
-      'Monitors financial and operational performance across all seven Herzog divisions, tracking ROIC, EBITDA margins, working capital efficiency, and growth metrics. Generates automated variance analysis when any KPI deviates beyond threshold.',
+      'Monitors financial and operational performance across all seven IndustrialsCo divisions, tracking ROIC, EBITDA margins, working capital efficiency, and growth metrics. Generates automated variance analysis when any KPI deviates beyond threshold.',
     category: 'intelligence',
     instances: 3,
     tasksToday: 84,
@@ -1465,7 +1465,7 @@ const heAgents: AgentDef[] = [
     statusLabel: 'Running (monthly cycle)',
     accent: 'green',
     division: 'he',
-    divisionName: 'Herzog Energy',
+    divisionName: 'IC Energy',
     metrics: [
       { label: 'Reports compiled', value: '4/quarter' },
       { label: 'Data sources', value: '89' },
@@ -1489,7 +1489,7 @@ const heAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'blue',
     division: 'he',
-    divisionName: 'Herzog Energy',
+    divisionName: 'IC Energy',
     metrics: [
       { label: 'Policies tracked', value: '47' },
       { label: 'Coverage gaps identified', value: '2' },
@@ -1513,7 +1513,7 @@ const heAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'green',
     division: 'he',
-    divisionName: 'Herzog Energy',
+    divisionName: 'IC Energy',
     metrics: [
       { label: 'Intercompany transactions', value: '1,200/month' },
       { label: 'R&D credits identified', value: '$340K' },
@@ -1530,7 +1530,7 @@ const heAgents: AgentDef[] = [
   },
 ];
 
-/* ── GG — Green Group (5) ────────────────────────────────────────────────── */
+/* ── GG — IC Environmental (5) ────────────────────────────────────────────────── */
 
 const ggAgents: AgentDef[] = [
   {
@@ -1542,7 +1542,7 @@ const ggAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'amber',
     division: 'gg',
-    divisionName: 'Green Group',
+    divisionName: 'IC Environmental',
     metrics: [
       { label: 'Active sites', value: '12' },
       { label: 'Progress', value: '78% avg' },
@@ -1566,7 +1566,7 @@ const ggAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'amber',
     division: 'gg',
-    divisionName: 'Green Group',
+    divisionName: 'IC Environmental',
     metrics: [
       { label: 'Sensors monitored', value: '89' },
       { label: 'Violations', value: '0 (30 days)' },
@@ -1574,7 +1574,7 @@ const ggAgents: AgentDef[] = [
       { label: 'Regulatory changes tracked', value: '12' },
     ],
     description:
-      'Monitors environmental sensors across Green Group sites, ensuring zero compliance violations and automatically filing required regulatory reports.',
+      'Monitors environmental sensors across IC Environmental sites, ensuring zero compliance violations and automatically filing required regulatory reports.',
     category: 'safety',
     instances: 4,
     tasksToday: 178,
@@ -1590,7 +1590,7 @@ const ggAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'purple',
     division: 'gg',
-    divisionName: 'Green Group',
+    divisionName: 'IC Environmental',
     metrics: [
       { label: 'Quarries monitored', value: '6' },
       { label: 'Yield efficiency', value: '87%' },
@@ -1614,7 +1614,7 @@ const ggAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'green',
     division: 'gg',
-    divisionName: 'Green Group',
+    divisionName: 'IC Environmental',
     metrics: [
       { label: 'Regulations scanned', value: '340' },
       { label: 'Compliance gaps', value: '0' },
@@ -1622,7 +1622,7 @@ const ggAgents: AgentDef[] = [
       { label: 'Auto-reports filed', value: '18/month' },
     ],
     description:
-      'Continuously scans federal, state, and local environmental regulations for changes that affect Green Group operations. Automatically assesses impact, generates compliance gap analyses, and drafts updated procedures before new rules take effect.',
+      'Continuously scans federal, state, and local environmental regulations for changes that affect IC Environmental operations. Automatically assesses impact, generates compliance gap analyses, and drafts updated procedures before new rules take effect.',
     category: 'safety',
     instances: 3,
     tasksToday: 102,
@@ -1638,7 +1638,7 @@ const ggAgents: AgentDef[] = [
     statusLabel: 'Running (analysis)',
     accent: 'blue',
     division: 'gg',
-    divisionName: 'Green Group',
+    divisionName: 'IC Environmental',
     metrics: [
       { label: 'Vehicles monitored', value: '78' },
       { label: 'Failures predicted', value: '4 (next 30 days)' },
@@ -1646,7 +1646,7 @@ const ggAgents: AgentDef[] = [
       { label: 'Parts pre-ordered', value: '12' },
     ],
     description:
-      'Predicts maintenance needs for Green Group\'s fleet of haul trucks, loaders, and environmental service vehicles using telematics data, vibration analysis, and oil sampling results. Pre-orders parts and schedules repairs during planned downtime.',
+      'Predicts maintenance needs for IC Environmental\'s fleet of haul trucks, loaders, and environmental service vehicles using telematics data, vibration analysis, and oil sampling results. Pre-orders parts and schedules repairs during planned downtime.',
     category: 'logistics',
     instances: 2,
     tasksToday: 48,
@@ -1662,7 +1662,7 @@ const ggAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'purple',
     division: 'gg',
-    divisionName: 'Green Group',
+    divisionName: 'IC Environmental',
     metrics: [
       { label: 'Blast events analyzed', value: '340' },
       { label: 'Overbreak reduction', value: '-22%' },
@@ -1686,7 +1686,7 @@ const ggAgents: AgentDef[] = [
     statusLabel: 'Active',
     accent: 'blue',
     division: 'gg',
-    divisionName: 'Green Group',
+    divisionName: 'IC Environmental',
     metrics: [
       { label: 'Trucks scheduled/day', value: '120' },
       { label: 'Avg wait time', value: '8 min' },
@@ -1720,13 +1720,13 @@ const allAgents: AgentDef[] = [
 
 export const divisionMeta: Record<string, { name: string; accent: 'blue' | 'green' | 'amber' | 'purple' }> = {
   shared: { name: 'Shared Platform', accent: 'blue' },
-  hcc: { name: 'Herzog Contracting', accent: 'blue' },
-  hrsi: { name: 'Herzog Railroad Services', accent: 'green' },
-  hsi: { name: 'Herzog Services', accent: 'amber' },
-  hti: { name: 'Herzog Technologies', accent: 'purple' },
-  htsi: { name: 'Herzog Transit Services', accent: 'blue' },
-  he: { name: 'Herzog Energy', accent: 'green' },
-  gg: { name: 'Green Group', accent: 'amber' },
+  hcc: { name: 'IC Construction', accent: 'blue' },
+  hrsi: { name: 'IC Rail Services', accent: 'green' },
+  hsi: { name: 'IC Services', accent: 'amber' },
+  hti: { name: 'IC Technologies', accent: 'purple' },
+  htsi: { name: 'IC Transit Services', accent: 'blue' },
+  he: { name: 'IC Energy', accent: 'green' },
+  gg: { name: 'IC Environmental', accent: 'amber' },
 };
 
 /* ── Export functions ───────────────────────────────────────────────────── */

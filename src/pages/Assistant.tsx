@@ -40,7 +40,7 @@ const chatData: Record<string, CompanyChat> = {
       {
         role: 'ai',
         content: [
-          { text: "Here are the **top 5 savings opportunities** identified across Herzog's seven divisions, ranked by projected annual impact:" },
+          { text: "Here are the **top 5 savings opportunities** identified across IndustrialsCo's seven divisions, ranked by projected annual impact:" },
           {
             table: {
               headers: ['Opportunity', 'Division', 'Annual Savings', 'Department', 'Automation Level'],
@@ -68,12 +68,12 @@ const chatData: Record<string, CompanyChat> = {
     messages: [
       {
         role: 'user',
-        content: [{ text: "What's the biggest opportunity across Herzog's divisions?" }],
+        content: [{ text: "What's the biggest opportunity across IndustrialsCo's divisions?" }],
       },
       {
         role: 'ai',
         content: [
-          { text: "The **single biggest opportunity** is cross-division visibility. Right now, each of Herzog's seven divisions operates its own data systems independently:" },
+          { text: "The **single biggest opportunity** is cross-division visibility. Right now, each of IndustrialsCo's seven divisions operates its own data systems independently:" },
           {
             list: [
               "**$2.8M in license waste** \u2014 Duplicate SAP, Trimble, and Workday licenses across HCC, HRSI, HSI, HTI, HTSI, HMS, and corporate. At least 320 licenses are inactive or redundant across division boundaries.",
@@ -106,7 +106,7 @@ const chatData: Record<string, CompanyChat> = {
             list: [
               "**REST API integration via P6 EPPM Web Services** \u2014 The connector authenticates through P6's standard SOAP/REST endpoints using a read-only service account. It pulls project schedules, resource assignments, activity progress, and earned value data on a configurable sync schedule (default: every 4 hours). No write access is granted \u2014 this is a **one-way data extraction** that cannot modify schedules or assignments.",
               "**Data extraction scope** \u2014 The connector pulls WBS structures, activity durations, resource loading, cost baselines, and progress updates across all active projects. For HCC alone, that's approximately **2,400 activities across 18 active construction projects**. The data feeds into the AI's context window for crew optimization, equipment utilization analysis, and project timeline predictions.",
-              "**Compliance and security** \u2014 All P6 data remains within Herzog's network perimeter. The connector runs on-premise and communicates with the AI platform via encrypted API calls. Audit logs track every data pull with timestamps, record counts, and the service account used. Your P6 admin retains full control over which projects and fields are exposed to the connector.",
+              "**Compliance and security** \u2014 All P6 data remains within IndustrialsCo's network perimeter. The connector runs on-premise and communicates with the AI platform via encrypted API calls. Audit logs track every data pull with timestamps, record counts, and the service account used. Your P6 admin retains full control over which projects and fields are exposed to the connector.",
             ],
           },
           { text: "The connector was designed for **zero disruption** to existing P6 workflows. Project managers continue using P6 exactly as they do today. The AI simply reads the data they're already entering and uses it to surface insights like crew conflicts, equipment idle time, and schedule risk predictions that would otherwise require hours of manual cross-referencing." },
@@ -163,7 +163,7 @@ const chatData: Record<string, CompanyChat> = {
       {
         role: 'ai',
         content: [
-          { text: "Here's the **AI readiness ranking** across Herzog's seven divisions:" },
+          { text: "Here's the **AI readiness ranking** across IndustrialsCo's seven divisions:" },
           {
             table: {
               headers: ['Division', 'Readiness Score', 'Key Strength', 'Primary Gap', 'Recommended First Use Case'],
@@ -199,7 +199,7 @@ const chatData: Record<string, CompanyChat> = {
       {
         role: 'ai',
         content: [
-          { text: "This is one of the most important questions for any AI deployment in safety-critical rail operations. Herzog's system is designed with a **reliability testing pyramid** that catches errors before they reach production decisions:" },
+          { text: "This is one of the most important questions for any AI deployment in safety-critical rail operations. IndustrialsCo's system is designed with a **reliability testing pyramid** that catches errors before they reach production decisions:" },
           {
             table: {
               headers: ['Layer', 'What It Catches', 'Response Time', 'Example'],

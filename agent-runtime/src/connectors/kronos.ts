@@ -15,7 +15,7 @@
  *     headers: { Authorization: `Bearer ${token}` }
  *   });
  *
- * For the demo, returns realistic sample data matching Herzog's workforce.
+ * For the demo, returns realistic sample data matching IndustrialsCo's workforce.
  */
 
 interface TimeEntry {
@@ -45,7 +45,7 @@ interface CrewAssignment {
 }
 
 // ── Demo Data Generator ────────────────────────────────────────
-// Generates realistic time entries for Herzog employees.
+// Generates realistic time entries for IndustrialsCo employees.
 // In production, this is replaced by actual Kronos API calls.
 
 const DIVISIONS_DATA: Record<string, { employees: Array<{ id: string; name: string; crew: string; role: string; union: TimeEntry['union'] }> }> = {

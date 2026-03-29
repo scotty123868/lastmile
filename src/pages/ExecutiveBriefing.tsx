@@ -32,7 +32,7 @@ export default function ExecutiveBriefing() {
           <p className="text-xs uppercase tracking-[0.2em] text-white/30 mb-5">Operations Intelligence Summary</p>
           <h1 className="text-4xl font-light leading-tight text-white">
             <span className="text-[#22C55E] font-normal">$3.6M</span> in verified annual impact
-            <br />across Herzog Companies operations.
+            <br />across IndustrialsCo operations.
           </h1>
           <p className="text-white/50 mt-4 text-lg max-w-2xl">
             62 workflows analyzed, 38% current adoption rate — here's what's already working
@@ -91,10 +91,10 @@ export default function ExecutiveBriefing() {
           </div>
           <div className="space-y-3">
             {[
-              { name: 'Herzog Contracting Corp', impact: '$1.2M', pct: 33 },
-              { name: 'Herzog Transit Services', impact: '$560K', pct: 16 },
-              { name: 'Herzog Technologies', impact: '$520K', pct: 14 },
-              { name: 'Herzog Railroad Services', impact: '$480K', pct: 13 },
+              { name: 'IC Construction Corp', impact: '$1.2M', pct: 33 },
+              { name: 'IC Transit Services', impact: '$560K', pct: 16 },
+              { name: 'IC Technologies', impact: '$520K', pct: 14 },
+              { name: 'IC Rail Services', impact: '$480K', pct: 13 },
               { name: 'Other divisions', impact: '$840K', pct: 24 },
             ].map((div) => (
               <div key={div.name} className="flex items-center gap-4">

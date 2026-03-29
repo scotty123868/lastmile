@@ -537,7 +537,7 @@ export default function Infrastructure() {
           <div className="border border-slate-600/50 rounded-lg p-5 min-w-[600px]">
             <div className="text-slate-400 text-[11px] font-bold tracking-[0.1em] mb-4 flex items-center gap-2">
               <Lock className="w-3 h-3" strokeWidth={2} />
-              HERZOG VPN / VPC
+              INDUSTRIALSCO VPN / VPC
             </div>
 
             {/* Top row: MCP Gateway + AI Cluster */}

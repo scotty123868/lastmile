@@ -21,13 +21,13 @@ import PreliminaryBanner from '../components/PreliminaryBanner';
 /* ── Data ─────────────────────────────────────────────────── */
 
 const divisions = [
-  { name: 'Herzog Technologies', abbr: 'HTI', industry: 'Technology & PTC Systems', adoption: 52, aiUsers: 161, totalUsers: 310, deployed: 7, scoped: 10, status: 'Leading' as const },
-  { name: 'Herzog Services - Rail Testing', abbr: 'HSI', industry: 'Rail Testing & Inspection', adoption: 48, aiUsers: 106, totalUsers: 220, deployed: 4, scoped: 6, status: 'Leading' as const },
-  { name: 'Herzog Transit Services', abbr: 'HTSI', industry: 'Transit Operations', adoption: 42, aiUsers: 202, totalUsers: 480, deployed: 5, scoped: 10, status: 'On Track' as const },
-  { name: 'Herzog Contracting Corp', abbr: 'HCC', industry: 'Railroad Construction', adoption: 36, aiUsers: 432, totalUsers: 1200, deployed: 8, scoped: 22, status: 'On Track' as const },
-  { name: 'Herzog Railroad Services', abbr: 'HRSI', industry: 'Railroad Maintenance', adoption: 34, aiUsers: 129, totalUsers: 380, deployed: 3, scoped: 8, status: 'On Track' as const },
-  { name: 'Herzog Energy', abbr: 'HE', industry: 'Energy Services', adoption: 28, aiUsers: 34, totalUsers: 120, deployed: 1, scoped: 4, status: 'Needs Attention' as const },
-  { name: 'Green Group LLC', abbr: 'GG', industry: 'Environmental Services', adoption: 22, aiUsers: 20, totalUsers: 90, deployed: 0, scoped: 2, status: 'Needs Attention' as const },
+  { name: 'IC Technologies', abbr: 'HTI', industry: 'Technology & PTC Systems', adoption: 52, aiUsers: 161, totalUsers: 310, deployed: 7, scoped: 10, status: 'Leading' as const },
+  { name: 'IC Testing Services', abbr: 'HSI', industry: 'Rail Testing & Inspection', adoption: 48, aiUsers: 106, totalUsers: 220, deployed: 4, scoped: 6, status: 'Leading' as const },
+  { name: 'IC Transit Services', abbr: 'HTSI', industry: 'Transit Operations', adoption: 42, aiUsers: 202, totalUsers: 480, deployed: 5, scoped: 10, status: 'On Track' as const },
+  { name: 'IC Construction Corp', abbr: 'HCC', industry: 'Railroad Construction', adoption: 36, aiUsers: 432, totalUsers: 1200, deployed: 8, scoped: 22, status: 'On Track' as const },
+  { name: 'IC Rail Services', abbr: 'HRSI', industry: 'Railroad Maintenance', adoption: 34, aiUsers: 129, totalUsers: 380, deployed: 3, scoped: 8, status: 'On Track' as const },
+  { name: 'IC Energy', abbr: 'HE', industry: 'Energy Services', adoption: 28, aiUsers: 34, totalUsers: 120, deployed: 1, scoped: 4, status: 'Needs Attention' as const },
+  { name: 'IC Environmental LLC', abbr: 'GG', industry: 'Environmental Services', adoption: 22, aiUsers: 20, totalUsers: 90, deployed: 0, scoped: 2, status: 'Needs Attention' as const },
 ];
 
 const timelineData = [
@@ -64,13 +64,13 @@ const blockers = [
   },
   {
     color: 'amber' as const,
-    title: 'Herzog Energy training',
+    title: 'IC Energy training',
     desc: 'Only 28% adoption, teams unfamiliar with tools',
     action: 'Training sessions scheduled for April 7-11',
   },
   {
     color: 'amber' as const,
-    title: 'Green Group data quality',
+    title: 'IC Environmental data quality',
     desc: 'Environmental data needs cleanup before AI can process',
     action: 'Data normalization in progress — 60% complete',
   },

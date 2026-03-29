@@ -25,7 +25,7 @@ interface Document {
 const documents: Document[] = [
   {
     title: 'TRACK GEOMETRY INSPECTION REPORT',
-    subtitle: 'FRA Class 4 Track \u2014 Herzog Mainline MP 247.1 - 249.3\nDate: March 22, 2026\nInspector: J. Martinez, Certified FRA Inspector',
+    subtitle: 'FRA Class 4 Track \u2014 IndustrialsCo Mainline MP 247.1 - 249.3\nDate: March 22, 2026\nInspector: J. Martinez, Certified FRA Inspector',
     lines: [
       { text: 'GEOMETRY MEASUREMENTS:' },
       { text: 'Gauge: 56.62" (spec: 56.5" \u00b10.5") \u2014 WITHIN TOLERANCE', highlight: 'ok' },
@@ -71,7 +71,7 @@ const documents: Document[] = [
   },
   {
     title: 'LOCOMOTIVE MAINTENANCE INSPECTION',
-    subtitle: 'Unit: Herzog HZG-7845 (GE ES44C4)\nMileage: 847,320 mi | Last Major: 12/2024\nInspector: R. Chen, Diesel Shop Foreman',
+    subtitle: 'Unit: IC-7845 (GE ES44C4)\nMileage: 847,320 mi | Last Major: 12/2024\nInspector: R. Chen, Diesel Shop Foreman',
     lines: [
       { text: 'ENGINE DIAGNOSTICS:' },
       { text: 'Fuel consumption: 1.12 gal/GTM (baseline: 1.08)', highlight: 'warn' },

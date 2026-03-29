@@ -42,7 +42,7 @@ const sharedEvents: AgentToastEvent[] = [
   { agentName: 'Capacity Planner', action: 'Forecast updated', detail: '90-day resource forecast refreshed — crew shortfall predicted for HRSI tie gang in May', accent: 'green' },
 ];
 
-/* ── HCC — Herzog Contracting ──────────────────────────────────────────── */
+/* ── HCC — IC Construction ──────────────────────────────────────────── */
 
 const hccEvents: AgentToastEvent[] = [
   { agentName: 'Dispatch', action: 'HOS violation prevented', detail: 'Driver Martinez at 14-min remaining — auto-swapped route with Driver Chen', accent: 'blue' },
@@ -80,7 +80,7 @@ const hccEvents: AgentToastEvent[] = [
   { agentName: 'ProgressTracker', action: 'Slippage detected', detail: 'MO-291 grading 3.2% behind plan — root cause: weather delays, revised timeline generated', accent: 'green' },
 ];
 
-/* ── HRSI — Herzog Railroad Services ───────────────────────────────────── */
+/* ── HRSI — IC Rail Services ───────────────────────────────────── */
 
 const hrsiEvents: AgentToastEvent[] = [
   { agentName: 'Scout', action: 'Defect predicted', detail: 'Track segment 47B showing gauge widening trend — maintenance order #4821 created', accent: 'green' },
@@ -117,7 +117,7 @@ const hrsiEvents: AgentToastEvent[] = [
   { agentName: 'WeldInspector', action: 'UT batch processed', detail: '240 ultrasonic test results processed — 7 welds added to watch list, 2 cleared', accent: 'amber' },
 ];
 
-/* ── HSI — Herzog Services / Rail Testing ──────────────────────────────── */
+/* ── HSI — IC Services / Rail Testing ──────────────────────────────── */
 
 const hsiEvents: AgentToastEvent[] = [
   { agentName: 'RailSentry', action: 'Flaw detected', detail: 'Internal rail flaw at MP 892.3 — defect classified as transverse detail fracture, severity: moderate', accent: 'amber' },
@@ -152,7 +152,7 @@ const hsiEvents: AgentToastEvent[] = [
   { agentName: 'RemediationTracker', action: 'Milestone complete', detail: 'Riverside site groundwater Phase III cleanup milestone reached — regulatory report submitted', accent: 'amber' },
 ];
 
-/* ── HTI — Herzog Technologies ─────────────────────────────────────────── */
+/* ── HTI — IC Technologies ─────────────────────────────────────────── */
 
 const htiEvents: AgentToastEvent[] = [
   { agentName: 'Sentinel', action: 'Anomaly detected', detail: 'Signal #1847 voltage fluctuation — maintenance crew dispatched, ETA 45 minutes', accent: 'purple' },
@@ -188,7 +188,7 @@ const htiEvents: AgentToastEvent[] = [
   { agentName: 'DataPipeline', action: 'Quality alert', detail: 'Data quality score for HCC fleet telemetry dropped to 91.2% — missing GPS fields from 8 units', accent: 'blue' },
 ];
 
-/* ── HTSI — Herzog Transit Services ────────────────────────────────────── */
+/* ── HTSI — IC Transit Services ────────────────────────────────────── */
 
 const htsiEvents: AgentToastEvent[] = [
   { agentName: 'Router', action: 'Delay predicted', detail: 'Line 4 express running 6 min late — crossover at Junction 12 activated to maintain schedule', accent: 'blue' },
@@ -225,7 +225,7 @@ const htsiEvents: AgentToastEvent[] = [
   { agentName: 'TransitComms', action: 'Dispatch coordinated', detail: 'Signal failure recovery — synchronized announcements across 4 stations, bus bridge activated', accent: 'purple' },
 ];
 
-/* ── HE — Herzog Energy ────────────────────────────────────────────────── */
+/* ── HE — IC Energy ────────────────────────────────────────────────── */
 
 const heEvents: AgentToastEvent[] = [
   { agentName: 'GridWatch', action: 'Asset alert', detail: 'Transformer #47 oil temperature elevated — maintenance crew notified, trending for 4.8 weeks', accent: 'green' },
@@ -260,7 +260,7 @@ const heEvents: AgentToastEvent[] = [
   { agentName: 'TaxOptimizer', action: 'Compliance check', detail: 'Q1 intercompany transactions reviewed — 1,200 transactions, 0 transfer pricing issues', accent: 'green' },
 ];
 
-/* ── GG — Green Group ──────────────────────────────────────────────────── */
+/* ── GG — IC Environmental ──────────────────────────────────────────────────── */
 
 const ggEvents: AgentToastEvent[] = [
   { agentName: 'Remediation', action: 'Progress update', detail: 'Site 7 cleanup at 84% — on track for Q2 completion, soil sampling results nominal', accent: 'amber' },

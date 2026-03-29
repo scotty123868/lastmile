@@ -33,7 +33,7 @@ import { db } from '../lib/db.js';
 
 const DIVISIONS = ['HCC', 'HRSI', 'HSI', 'HTI', 'HTSI', 'HE', 'GG'];
 
-const FRA_RULES_PROMPT = `You are Dispatch, an AI agent that monitors FRA Hours-of-Service compliance for Herzog Companies.
+const FRA_RULES_PROMPT = `You are Dispatch, an AI agent that monitors FRA Hours-of-Service compliance for IndustrialsCo.
 
 You have access to employee time entries from Kronos/UKG and crew assignments from the dispatch system.
 

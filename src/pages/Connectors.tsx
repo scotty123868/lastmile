@@ -131,7 +131,7 @@ const pendingSystems: PendingSystem[] = [
   { name: 'HYRAIL Inspection System', division: 'HSI', priority: 'High', estimatedSetup: '2 days' },
   { name: 'AMOS MRO', division: 'HRSI', priority: 'High', estimatedSetup: '3 days' },
   { name: 'Bentley ProjectWise', division: 'HCC', priority: 'Medium', estimatedSetup: '1 day' },
-  { name: 'GE SCADA', division: 'Herzog Energy', priority: 'Medium', estimatedSetup: '2 days' },
+  { name: 'GE SCADA', division: 'IC Energy', priority: 'Medium', estimatedSetup: '2 days' },
   { name: 'RailSight Analytics', division: 'HTSI', priority: 'Medium', estimatedSetup: '1 day' },
   { name: 'Wabtec Trip Optimizer', division: 'HTSI', priority: 'Medium', estimatedSetup: '2 days' },
   { name: 'Hexagon Geospatial', division: 'HCC', priority: 'Low', estimatedSetup: '3 days' },
@@ -363,7 +363,7 @@ export default function Connectors() {
         <PreliminaryBanner />
         <h1 className="text-[22px] font-bold text-ink tracking-tight mt-3">System Connectors</h1>
         <p className="text-[14px] text-ink-secondary mt-1">
-          MCP-powered integrations pulling live data from Herzog infrastructure
+          MCP-powered integrations pulling live data from IndustrialsCo infrastructure
         </p>
       </div>
 
