@@ -295,6 +295,334 @@ const ggEvents: AgentToastEvent[] = [
   { agentName: 'LoadoutScheduler', action: 'Tonnage milestone', detail: 'Daily tonnage record: 14,200 tons shipped — scale house utilization at 94%', accent: 'blue' },
 ];
 
+/* ── Oakwood — Insurance ──────────────────────────────────────────────── */
+
+const oakwoodEvents: AgentToastEvent[] = [
+  { agentName: 'ClaimsEngine', action: 'Claims batch processed', detail: '247 auto claims adjudicated — 89% straight-through, 27 routed to senior adjuster', accent: 'blue' },
+  { agentName: 'ClaimsEngine', action: 'Payout approved', detail: 'Homeowner claim #OW-8841 — water damage estimate validated, $14,200 payout released', accent: 'blue' },
+  { agentName: 'ClaimsEngine', action: 'Cycle time improved', detail: 'Average claim resolution down to 3.2 days — 18% faster than last quarter', accent: 'blue' },
+  { agentName: 'PolicyGuard', action: 'Policies renewed', detail: '1,420 commercial policies auto-renewed — premium adjustments applied based on loss history', accent: 'green' },
+  { agentName: 'PolicyGuard', action: 'Lapse prevented', detail: '34 policies approaching lapse — renewal reminders sent, 28 confirmed within 24 hours', accent: 'green' },
+  { agentName: 'PolicyGuard', action: 'Coverage gap found', detail: 'Client #OW-3312 missing umbrella coverage — agent notified with recommendation', accent: 'green' },
+  { agentName: 'FraudSentinel', action: 'Fraud flagged', detail: 'Claim #OW-9047 — staged collision indicators detected, SIU referral auto-generated', accent: 'amber' },
+  { agentName: 'FraudSentinel', action: 'Ring identified', detail: 'Network analysis linked 4 suspicious claims across 3 states — investigation escalated', accent: 'amber' },
+  { agentName: 'FraudSentinel', action: 'Savings reported', detail: '$342K in fraudulent claims prevented this month — detection rate up 12% vs baseline', accent: 'amber' },
+  { agentName: 'UnderwriteAI', action: 'Underwriting completed', detail: 'Commercial property application scored — $2.4M coverage, risk class: preferred, bound in 18 min', accent: 'purple' },
+  { agentName: 'UnderwriteAI', action: 'Risk assessed', detail: 'Fleet policy for 120 vehicles — telematics data integrated, 8% premium discount applied', accent: 'purple' },
+  { agentName: 'UnderwriteAI', action: 'Appetite matched', detail: 'New submission outside appetite — auto-declined with broker notification and alternative referral', accent: 'purple' },
+  { agentName: 'CustomerBot', action: 'Query resolved', detail: '89 policyholder queries handled — average resolution 42 seconds, 94% satisfaction score', accent: 'blue' },
+  { agentName: 'CustomerBot', action: 'FNOL filed', detail: 'First notice of loss captured via chat — claim #OW-9102 created, adjuster assigned in 3 min', accent: 'blue' },
+  { agentName: 'CustomerBot', action: 'Escalation routed', detail: 'Complex liability question escalated to specialist — context summary attached, warm handoff', accent: 'blue' },
+  { agentName: 'ActuaryLens', action: 'Loss ratio alert', detail: 'Commercial auto loss ratio trending to 72% — pricing adjustment recommended for Q3 renewal', accent: 'green' },
+  { agentName: 'ActuaryLens', action: 'Reserve updated', detail: 'IBNR reserves recalculated — $1.2M adjustment based on emerging severity trends', accent: 'green' },
+  { agentName: 'ComplianceWatch', action: 'Filing submitted', detail: 'Rate filing for 3 states auto-submitted — DOI acknowledgments expected within 30 days', accent: 'amber' },
+  { agentName: 'ComplianceWatch', action: 'Regulation tracked', detail: 'New state privacy regulation effective June 1 — policy language updates drafted', accent: 'amber' },
+  { agentName: 'ReinsuranceCalc', action: 'Treaty optimized', detail: 'Catastrophe reinsurance placement modeled — $24M layer, 3 reinsurer quotes compared', accent: 'purple' },
+  { agentName: 'ReinsuranceCalc', action: 'Exposure tracked', detail: 'PML analysis updated — hurricane season exposure at $180M, within treaty limits', accent: 'purple' },
+];
+
+/* ── Pinnacle — Healthcare ───────────────────────────────────────────── */
+
+const pinnacleEvents: AgentToastEvent[] = [
+  { agentName: 'IntakeFlow', action: 'Patients processed', detail: '142 patient intakes completed today — avg registration time 4.2 min, 22% faster than target', accent: 'blue' },
+  { agentName: 'IntakeFlow', action: 'Insurance verified', detail: 'Real-time eligibility check for 89 patients — 4 coverage issues flagged before appointment', accent: 'blue' },
+  { agentName: 'IntakeFlow', action: 'Waitlist managed', detail: '12 cancellations auto-filled from waitlist — $18K revenue recovered, zero empty slots', accent: 'blue' },
+  { agentName: 'ClinicalScribe', action: 'Docs generated', detail: '47 clinical notes auto-generated from encounter recordings — physician review time cut 60%', accent: 'green' },
+  { agentName: 'ClinicalScribe', action: 'Summary compiled', detail: 'Discharge summary for patient #P-4421 — medications, follow-ups, and care plan auto-populated', accent: 'green' },
+  { agentName: 'ClinicalScribe', action: 'Referral drafted', detail: 'Specialist referral letter generated with full clinical context — sent to cardiology in 90s', accent: 'green' },
+  { agentName: 'CodeVerify', action: 'Billing codes verified', detail: '320 claims reviewed — 14 coding errors caught, $42K in potential denials prevented', accent: 'amber' },
+  { agentName: 'CodeVerify', action: 'Upcoding flagged', detail: 'E/M level discrepancy on 3 encounters — documentation supports level 3, not level 4', accent: 'amber' },
+  { agentName: 'CodeVerify', action: 'Denial prevented', detail: 'Prior auth requirement detected for MRI order — authorization submitted before scheduling', accent: 'amber' },
+  { agentName: 'Scheduler', action: 'Appointments optimized', detail: '480 appointments scheduled this week — provider utilization at 92%, 0 double-bookings', accent: 'blue' },
+  { agentName: 'Scheduler', action: 'No-show predicted', detail: '8 high-risk no-shows identified — confirmation calls triggered, 5 rescheduled proactively', accent: 'blue' },
+  { agentName: 'Scheduler', action: 'Slot recovered', detail: 'Cancelled surgery slot filled within 2 hours — OR utilization maintained at 88%', accent: 'blue' },
+  { agentName: 'ComplianceRx', action: 'HIPAA check passed', detail: 'Weekly access audit: 12,400 record accesses reviewed — 0 unauthorized, 2 flagged for review', accent: 'purple' },
+  { agentName: 'ComplianceRx', action: 'Compliance verified', detail: 'CMS Conditions of Participation self-assessment — 98.4% compliant, 3 items in remediation', accent: 'purple' },
+  { agentName: 'ComplianceRx', action: 'Training tracked', detail: '14 staff overdue on annual compliance training — auto-reminders sent, 2-week deadline set', accent: 'purple' },
+  { agentName: 'ClinicalAlert', action: 'Drug interaction caught', detail: 'Contraindicated medication pair flagged for patient #P-5501 — prescriber notified immediately', accent: 'amber' },
+  { agentName: 'ClinicalAlert', action: 'Sepsis risk detected', detail: 'Early warning score elevated for bed 14-C — rapid response team alerted, vitals escalated', accent: 'amber' },
+  { agentName: 'RevCycle', action: 'Collections optimized', detail: 'A/R days reduced to 34 — $2.1M collected this week, denial rate down to 4.2%', accent: 'green' },
+  { agentName: 'RevCycle', action: 'Payer trend found', detail: 'BlueCross denial rate spiking on outpatient procedures — appeal templates prepared', accent: 'green' },
+  { agentName: 'QualityMetrics', action: 'HEDIS reported', detail: 'Quality measure reporting: 18 of 20 measures meeting target — 2 improvement plans generated', accent: 'green' },
+  { agentName: 'QualityMetrics', action: 'Readmission alert', detail: '30-day readmission rate trending up for CHF patients — care coordination review initiated', accent: 'green' },
+];
+
+/* ── Atlas — Manufacturing ───────────────────────────────────────────── */
+
+const atlasManufacturingEvents: AgentToastEvent[] = [
+  { agentName: 'BatchControl', action: 'Batch completed', detail: 'Production batch #B-4470 finished — 2,400 units, 99.1% yield, cycle time 4.2 hrs', accent: 'blue' },
+  { agentName: 'BatchControl', action: 'Line changeover', detail: 'Line 3 changeover completed in 22 min — 14% faster than standard, next batch starting', accent: 'blue' },
+  { agentName: 'BatchControl', action: 'OEE reported', detail: 'Daily OEE across 4 lines: 87.2% — availability 94%, performance 93%, quality 99.6%', accent: 'blue' },
+  { agentName: 'QualityInspect', action: 'Inspection passed', detail: 'Lot #L-8847 dimensional inspection — 240 samples within tolerance, CPK at 1.67', accent: 'green' },
+  { agentName: 'QualityInspect', action: 'SPC alert', detail: 'Control chart trend on Line 2 — 7 consecutive points above center, adjustment recommended', accent: 'green' },
+  { agentName: 'QualityInspect', action: 'Audit completed', detail: 'ISO 9001 internal audit for Assembly — 0 major findings, 2 observations, report filed', accent: 'green' },
+  { agentName: 'SupplyChain', action: 'Orders placed', detail: '14 purchase orders auto-generated — $420K in raw materials, lead times confirmed with 3 vendors', accent: 'amber' },
+  { agentName: 'SupplyChain', action: 'Disruption detected', detail: 'Key supplier shipping delay — alternate source activated, production impact avoided', accent: 'amber' },
+  { agentName: 'SupplyChain', action: 'Cost negotiated', detail: 'Volume discount secured on steel alloy — $18/ton savings, annual impact $142K', accent: 'amber' },
+  { agentName: 'PredictMaint', action: 'Maintenance predicted', detail: 'CNC Mill #7 spindle vibration trending — bearing replacement scheduled for weekend shutdown', accent: 'purple' },
+  { agentName: 'PredictMaint', action: 'Downtime avoided', detail: 'Hydraulic press #3 seal degradation caught early — repair completed in planned window, saved 8hrs', accent: 'purple' },
+  { agentName: 'PredictMaint', action: 'MTBF improved', detail: 'Mean time between failures up 24% this quarter — predictive model accuracy at 91%', accent: 'purple' },
+  { agentName: 'InventoryOpt', action: 'Inventory optimized', detail: 'Safety stock levels recalculated — $340K working capital freed, service level maintained at 98.4%', accent: 'blue' },
+  { agentName: 'InventoryOpt', action: 'Stockout prevented', detail: 'Fastener inventory dropping below threshold — emergency order placed, 48-hr delivery confirmed', accent: 'blue' },
+  { agentName: 'InventoryOpt', action: 'Dead stock flagged', detail: '47 SKUs with zero movement in 90 days — disposition recommendations generated', accent: 'blue' },
+  { agentName: 'EnergyMgr', action: 'Consumption reduced', detail: 'Off-peak production scheduling saved $8.4K in energy costs this month — 12% below budget', accent: 'green' },
+  { agentName: 'EnergyMgr', action: 'Peak shaved', detail: 'Demand response event triggered — non-critical loads shed, avoided $4.2K demand charge', accent: 'green' },
+  { agentName: 'SafetyWatch', action: 'Incident tracked', detail: 'Near-miss report filed at Station 12 — root cause: floor marking faded, maintenance ordered', accent: 'amber' },
+  { agentName: 'SafetyWatch', action: 'Lockout verified', detail: 'LOTO compliance check: all 34 energy isolation points verified before maintenance entry', accent: 'amber' },
+  { agentName: 'ProductionPlan', action: 'Schedule optimized', detail: 'Next week production plan finalized — 12 jobs sequenced, setup time minimized by 18%', accent: 'blue' },
+  { agentName: 'ProductionPlan', action: 'Capacity balanced', detail: 'Bottleneck shifted from machining to assembly — overtime authorized for assembly, saves 2 days', accent: 'blue' },
+];
+
+/* ── NorthBridge — Parent Conglomerate ───────────────────────────────── */
+
+const northbridgeEvents: AgentToastEvent[] = [
+  { agentName: 'SynergyFinder', action: 'Synergy identified', detail: 'Shared procurement opportunity across Aerospace and Energy — combined volume saves $2.1M annually', accent: 'purple' },
+  { agentName: 'SynergyFinder', action: 'Cross-sell flagged', detail: 'NB-Health client also needs financial compliance — warm referral to NB-Financial initiated', accent: 'purple' },
+  { agentName: 'SynergyFinder', action: 'Talent match', detail: 'ML engineer surplus in Financial, deficit in Health — internal transfer recommendation sent to HR', accent: 'purple' },
+  { agentName: 'DivisionReport', action: 'Cross-division report', detail: 'Monthly conglomerate performance: 4 divisions above plan, 2 on track, revenue up 7.2% YoY', accent: 'blue' },
+  { agentName: 'DivisionReport', action: 'Board deck compiled', detail: 'Q1 board report auto-generated — 64 pages, 142 KPIs, all 6 division summaries included', accent: 'blue' },
+  { agentName: 'DivisionReport', action: 'Variance flagged', detail: 'NB-Energy EBITDA margin 2.1% below forecast — root cause analysis: unplanned outage costs', accent: 'blue' },
+  { agentName: 'CapitalAlloc', action: 'Capital allocated', detail: '$14M growth capital approved — $8M to Aerospace expansion, $6M to Health R&D pipeline', accent: 'green' },
+  { agentName: 'CapitalAlloc', action: 'ROIC ranked', detail: 'Division ROIC rankings updated — Aerospace leads at 18.4%, Financial close at 17.8%', accent: 'green' },
+  { agentName: 'CapitalAlloc', action: 'Hurdle rate check', detail: '3 investment proposals evaluated — 2 exceed 12% hurdle rate, 1 sent back for revision', accent: 'green' },
+  { agentName: 'RiskRadar', action: 'Risk consolidated', detail: 'Enterprise risk register updated — 47 risks across divisions, 3 elevated to critical', accent: 'amber' },
+  { agentName: 'RiskRadar', action: 'Correlation found', detail: 'Supply chain risks correlated across Aerospace and Energy — shared mitigation plan drafted', accent: 'amber' },
+  { agentName: 'ComplianceHub', action: 'Regulatory scan', detail: '12 regulatory changes tracked this quarter — 4 impact multiple divisions, action plans assigned', accent: 'amber' },
+  { agentName: 'ComplianceHub', action: 'Audit coordinated', detail: 'External audit schedule aligned — 6 divisions, 3 auditors, zero conflicts in calendar', accent: 'amber' },
+  { agentName: 'TreasuryOps', action: 'Cash pooled', detail: 'Cross-division cash pooling optimized — $4.2M excess deployed to overnight instruments', accent: 'green' },
+  { agentName: 'TreasuryOps', action: 'FX hedged', detail: 'Aerospace EUR exposure hedged for Q2 — $12M forward contract at favorable rate locked', accent: 'green' },
+  { agentName: 'BrandMonitor', action: 'Reputation tracked', detail: 'NorthBridge group sentiment score: 78/100 — up 3 points, Aerospace coverage driving uplift', accent: 'blue' },
+  { agentName: 'BrandMonitor', action: 'Media alert', detail: 'NB-Health clinical trial results covered by Reuters — positive tone, PR team notified', accent: 'blue' },
+  { agentName: 'TalentPulse', action: 'Attrition alert', detail: 'Financial division attrition trending to 14% — retention bonus program recommended for key roles', accent: 'purple' },
+  { agentName: 'TalentPulse', action: 'Succession gap', detail: 'CEO succession pipeline: 3 ready-now candidates identified across divisions', accent: 'purple' },
+  { agentName: 'M&AScout', action: 'Target identified', detail: 'Acquisition target in specialty chemicals — synergy with Energy division, preliminary model built', accent: 'purple' },
+];
+
+/* ── NB-Aerospace ────────────────────────────────────────────────────── */
+
+const nbAerospaceEvents: AgentToastEvent[] = [
+  { agentName: 'CertAgent', action: 'Flight cert issued', detail: 'FAA airworthiness certificate for component #AC-7712 — documentation package auto-compiled', accent: 'blue' },
+  { agentName: 'CertAgent', action: 'Type cert tracked', detail: 'Supplemental type certificate application status: 78% complete, FAA review in Week 16', accent: 'blue' },
+  { agentName: 'CertAgent', action: 'AD compliance', detail: 'Airworthiness directive 2026-04-12 compliance verified across 340 components in fleet', accent: 'blue' },
+  { agentName: 'PartTrace', action: 'Parts traced', detail: 'Full traceability chain verified for turbine blade lot #TB-442 — birth-to-install documented', accent: 'green' },
+  { agentName: 'PartTrace', action: 'Counterfeit flagged', detail: 'Suspect unapproved part in incoming shipment — quarantined, vendor audit initiated', accent: 'green' },
+  { agentName: 'PartTrace', action: 'Recall traced', detail: 'Component recall CN-2026-18 — 47 affected parts located across 12 operators in 4 min', accent: 'green' },
+  { agentName: 'MROScheduler', action: 'MRO scheduled', detail: 'Heavy maintenance check for aircraft N447NB — 14-day slot at Tulsa facility confirmed', accent: 'amber' },
+  { agentName: 'MROScheduler', action: 'Turn time reduced', detail: 'A-check turnaround optimized to 18 hours — parts pre-staged, labor crew pre-assigned', accent: 'amber' },
+  { agentName: 'MROScheduler', action: 'Capacity planned', detail: 'Q2 MRO bay utilization at 89% — 3 unplanned slots reserved for AOG situations', accent: 'amber' },
+  { agentName: 'ExportControl', action: 'Export cleared', detail: 'ITAR export license EL-2026-0447 approved — 24 avionics units cleared for allied nation shipment', accent: 'purple' },
+  { agentName: 'ExportControl', action: 'Screening complete', detail: 'Denied parties screening for 140 transactions — 0 matches, 2 near-matches manually cleared', accent: 'purple' },
+  { agentName: 'ExportControl', action: 'Classification updated', detail: 'ECCN classification review for new radar module — Category 7A, license required for 12 countries', accent: 'purple' },
+  { agentName: 'AS9100', action: 'Audit passed', detail: 'AS9100 surveillance audit — zero nonconformities, 3 opportunities for improvement noted', accent: 'blue' },
+  { agentName: 'AS9100', action: 'CAPA closed', detail: 'Corrective action #CA-447 verified effective — root cause eliminated, no recurrence in 90 days', accent: 'blue' },
+  { agentName: 'FlightTest', action: 'Test data processed', detail: '4,200 flight test parameters analyzed — 3 anomalies flagged for engineering review', accent: 'green' },
+  { agentName: 'FlightTest', action: 'Envelope expanded', detail: 'High-altitude performance test complete — all parameters within predicted envelope', accent: 'green' },
+  { agentName: 'SupplyRisk', action: 'Supplier risk scored', detail: '89 critical suppliers assessed — 4 elevated to watch list, mitigation plans activated', accent: 'amber' },
+  { agentName: 'SupplyRisk', action: 'Lead time alert', detail: 'Titanium forging lead time extended 6 weeks — alternate source qualified, orders split', accent: 'amber' },
+  { agentName: 'EngChange', action: 'ECO processed', detail: 'Engineering change order #ECO-1247 — impact analysis complete, 3 work orders generated', accent: 'blue' },
+  { agentName: 'EngChange', action: 'Config managed', detail: 'Aircraft configuration baseline updated — 14 effectivities reconciled across fleet', accent: 'blue' },
+];
+
+/* ── NB-Energy ───────────────────────────────────────────────────────── */
+
+const nbEnergyEvents: AgentToastEvent[] = [
+  { agentName: 'GridBalance', action: 'Grid loads balanced', detail: 'Real-time load balancing across 4 regions — 2.1 GW managed, frequency deviation <0.02 Hz', accent: 'blue' },
+  { agentName: 'GridBalance', action: 'Renewable curtailed', detail: 'Wind output exceeding demand by 140 MW — curtailment signal sent, battery storage absorbing excess', accent: 'blue' },
+  { agentName: 'GridBalance', action: 'Demand response', detail: 'Peak demand event triggered — 340 MW shed from industrial customers, grid stable', accent: 'blue' },
+  { agentName: 'OutagePredict', action: 'Outage predicted', detail: 'Transformer T-447 failure probability at 78% within 14 days — preemptive replacement scheduled', accent: 'amber' },
+  { agentName: 'OutagePredict', action: 'Storm prep', detail: 'Category 2 storm approaching — 47 crews pre-positioned, 12K customers in projected outage zone', accent: 'amber' },
+  { agentName: 'OutagePredict', action: 'SAIDI improved', detail: 'System average interruption duration down 22% YTD — predictive maintenance driving improvement', accent: 'amber' },
+  { agentName: 'MeterRead', action: 'Meters read', detail: '1.2M smart meter readings processed — 99.7% collection rate, 340 anomalies flagged for review', accent: 'green' },
+  { agentName: 'MeterRead', action: 'Theft detected', detail: 'Consumption anomaly at 4 locations consistent with meter tampering — field investigation dispatched', accent: 'green' },
+  { agentName: 'MeterRead', action: 'Billing validated', detail: '48K bills generated — 12 high-usage alerts sent to customers, 0 estimation errors', accent: 'green' },
+  { agentName: 'EmissionsCalc', action: 'Emissions calculated', detail: 'Monthly carbon footprint: 14,200 tons CO2e — 8% below target, renewable mix at 42%', accent: 'purple' },
+  { agentName: 'EmissionsCalc', action: 'EPA report filed', detail: 'Quarterly GHG report auto-submitted — all facilities within permit limits, zero violations', accent: 'purple' },
+  { agentName: 'EmissionsCalc', action: 'Credit traded', detail: '2,400 carbon credits generated from solar expansion — listed on exchange at $18/ton', accent: 'purple' },
+  { agentName: 'RenewableForecast', action: 'Output forecast', detail: 'Tomorrow solar output: 847 MWh, wind: 1,240 MWh — dispatch plan optimized accordingly', accent: 'blue' },
+  { agentName: 'RenewableForecast', action: 'Ramp event', detail: 'Cloud front approaching solar farm — 340 MW ramp-down in 20 min, gas peakers alerted', accent: 'blue' },
+  { agentName: 'AssetHealth', action: 'Turbine monitored', detail: 'Wind turbine #WT-89 gearbox vibration elevated — scheduled inspection during low-wind window', accent: 'amber' },
+  { agentName: 'AssetHealth', action: 'Panel degradation', detail: 'Solar panel string 14 output declining 0.8%/month — cleaning scheduled, inverter checked', accent: 'amber' },
+  { agentName: 'RegCompliance', action: 'NERC audit ready', detail: 'NERC CIP compliance documentation compiled — 47 standards, 99.2% compliant, 2 in remediation', accent: 'green' },
+  { agentName: 'RegCompliance', action: 'Rate case filed', detail: 'Revenue requirement filing auto-prepared — $1.4B request, supporting testimony drafted', accent: 'green' },
+  { agentName: 'BatteryOps', action: 'Storage optimized', detail: '240 MWh battery system arbitrage — charged at $22/MWh, discharged at $68/MWh, $11K profit', accent: 'purple' },
+  { agentName: 'BatteryOps', action: 'SOH tracked', detail: 'Battery state of health across 4 sites: 94.2% avg — degradation within warranty curve', accent: 'purple' },
+];
+
+/* ── NB-Financial ────────────────────────────────────────────────────── */
+
+const nbFinancialEvents: AgentToastEvent[] = [
+  { agentName: 'KYCEngine', action: 'KYC checks completed', detail: '247 customer onboarding checks processed — 12 flagged for enhanced due diligence', accent: 'blue' },
+  { agentName: 'KYCEngine', action: 'PEP screening', detail: 'Politically exposed persons scan on 1,400 accounts — 3 matches requiring senior review', accent: 'blue' },
+  { agentName: 'KYCEngine', action: 'Refresh cycle', detail: 'Annual KYC refresh for 4,200 corporate clients — 89% auto-approved, 11% need document updates', accent: 'blue' },
+  { agentName: 'TradeScreen', action: 'Trades screened', detail: '14,200 transactions screened against sanctions lists — 0 true positives, 7 false positives cleared', accent: 'green' },
+  { agentName: 'TradeScreen', action: 'Sanctions updated', detail: 'OFAC SDN list update detected — screening rules refreshed, 47K accounts rescreened in 12 min', accent: 'green' },
+  { agentName: 'TradeScreen', action: 'Wire held', detail: 'Outbound wire to high-risk jurisdiction paused — compliance review completed in 18 min, released', accent: 'green' },
+  { agentName: 'FraudAlert', action: 'Fraud alert raised', detail: 'Unusual transaction pattern on 3 accounts — velocity and amount triggers, accounts frozen pending review', accent: 'amber' },
+  { agentName: 'FraudAlert', action: 'Card fraud blocked', detail: '47 suspicious card transactions blocked in real-time — $124K in potential losses prevented', accent: 'amber' },
+  { agentName: 'FraudAlert', action: 'Account takeover', detail: 'Credential stuffing attempt detected — 340 failed logins from same IP range, blocked and reported', accent: 'amber' },
+  { agentName: 'RegFiling', action: 'Regulatory filing', detail: 'SAR filing auto-generated for suspicious activity — Case #NB-F-4421 submitted to FinCEN', accent: 'purple' },
+  { agentName: 'RegFiling', action: 'CTR batch filed', detail: '89 currency transaction reports filed — all cash transactions >$10K documented and submitted', accent: 'purple' },
+  { agentName: 'RegFiling', action: 'Deadline tracked', detail: 'Federal Reserve stress test submission due in 14 days — data package 92% complete', accent: 'purple' },
+  { agentName: 'CreditRisk', action: 'Portfolio scored', detail: 'Loan portfolio risk re-scored — $2.4B book, average PD 1.2%, 14 downgrades, 8 upgrades', accent: 'blue' },
+  { agentName: 'CreditRisk', action: 'Limit breach', detail: 'Sector concentration limit approaching for commercial real estate — new originations paused', accent: 'blue' },
+  { agentName: 'AMLMonitor', action: 'Typology detected', detail: 'Layering pattern identified across 4 accounts — investigation case auto-created with evidence', accent: 'amber' },
+  { agentName: 'AMLMonitor', action: 'Model tuned', detail: 'AML detection model recalibrated — false positive rate reduced 18%, sensitivity maintained', accent: 'amber' },
+  { agentName: 'MarketRisk', action: 'VaR calculated', detail: 'Daily Value at Risk: $14.2M at 99% confidence — within $20M board-approved limit', accent: 'green' },
+  { agentName: 'MarketRisk', action: 'Stress tested', detail: 'Portfolio stress test: 2008-scenario loss estimate $47M — capital buffer sufficient at 2.4x', accent: 'green' },
+  { agentName: 'OpsResilience', action: 'Failover tested', detail: 'Core banking failover drill completed — RTO achieved in 4 min, well within 15 min target', accent: 'purple' },
+  { agentName: 'OpsResilience', action: 'Vendor monitored', detail: 'Critical vendor health check — payment processor latency spike detected, backup activated', accent: 'purple' },
+];
+
+/* ── NB-Health ───────────────────────────────────────────────────────── */
+
+const nbHealthEvents: AgentToastEvent[] = [
+  { agentName: 'TrialData', action: 'Trial data processed', detail: 'Phase III dataset for NB-H-447 — 2,400 patient records cleaned, 99.2% data quality score', accent: 'blue' },
+  { agentName: 'TrialData', action: 'Endpoint analyzed', detail: 'Primary endpoint analysis complete — p-value 0.003, exceeds statistical significance threshold', accent: 'blue' },
+  { agentName: 'TrialData', action: 'Site monitored', detail: '14 clinical trial sites remotely monitored — 2 protocol deviations flagged, corrective actions issued', accent: 'blue' },
+  { agentName: 'SafetyWatch', action: 'Adverse event flagged', detail: 'Serious adverse event reported at site 7 — auto-classified, CIOMS form generated in 4 min', accent: 'amber' },
+  { agentName: 'SafetyWatch', action: 'Signal detected', detail: 'Disproportionality analysis flagged hepatic signal — safety review board meeting requested', accent: 'amber' },
+  { agentName: 'SafetyWatch', action: 'SUSAR reported', detail: 'Suspected unexpected serious adverse reaction — regulatory notification filed within 24-hr window', accent: 'amber' },
+  { agentName: 'BatchQuality', action: 'Batch quality verified', detail: 'Manufacturing batch #MFG-2247 — all 47 quality parameters within specification, release approved', accent: 'green' },
+  { agentName: 'BatchQuality', action: 'Deviation investigated', detail: 'Minor temperature excursion during fill-finish — impact assessment: no product quality impact', accent: 'green' },
+  { agentName: 'BatchQuality', action: 'Stability tracked', detail: '12-month stability data on file — all accelerated and long-term conditions within limits', accent: 'green' },
+  { agentName: 'SubPrep', action: 'Submission prepared', detail: 'FDA NDA Module 2.5 clinical overview auto-drafted — 142 pages, cross-referenced with 4 studies', accent: 'purple' },
+  { agentName: 'SubPrep', action: 'eCTD compiled', detail: 'eCTD sequence 0014 validated — 2,400 documents, all hyperlinks verified, ready for gateway', accent: 'purple' },
+  { agentName: 'SubPrep', action: 'Agency response', detail: 'FDA information request received — AI-drafted response covering 14 questions, medical review pending', accent: 'purple' },
+  { agentName: 'GxPCompliance', action: 'GMP audit ready', detail: 'Pre-inspection readiness score: 94% — mock audit findings resolved, CAPA tracker current', accent: 'green' },
+  { agentName: 'GxPCompliance', action: 'Training verified', detail: 'GxP training compliance at 98.4% — 7 overdue completions, auto-reminders escalated to managers', accent: 'green' },
+  { agentName: 'SupplyChainRx', action: 'Cold chain tracked', detail: 'Temperature excursion detected in shipment #SH-447 — product held, stability assessment initiated', accent: 'amber' },
+  { agentName: 'SupplyChainRx', action: 'Serialization verified', detail: '48K units serialized and aggregated — DSCSA compliance verified, pedigree chain complete', accent: 'amber' },
+  { agentName: 'RealWorldData', action: 'RWE generated', detail: 'Post-market effectiveness study: 12K patient records analyzed — outcomes consistent with trial data', accent: 'blue' },
+  { agentName: 'RealWorldData', action: 'Registry linked', detail: 'Disease registry linkage complete — 4,200 matched patients, enriching long-term safety profile', accent: 'blue' },
+  { agentName: 'IPProtect', action: 'Patent filed', detail: 'Continuation patent for NB-H-447 formulation — filing deadline met, 12 claims submitted', accent: 'purple' },
+  { agentName: 'IPProtect', action: 'FTO cleared', detail: 'Freedom-to-operate analysis for new indication — no blocking patents identified in 3 jurisdictions', accent: 'purple' },
+];
+
+/* ── Estonia — Parent Sovereign ──────────────────────────────────────── */
+
+const estoniaEvents: AgentToastEvent[] = [
+  { agentName: 'CrossMinistry', action: 'Cross-ministry report', detail: 'Weekly government performance dashboard — 4 ministries on track, 1 flagged for budget variance', accent: 'blue' },
+  { agentName: 'CrossMinistry', action: 'Policy impact modeled', detail: 'Proposed tax reform simulated across ministries — projected 2.4% GDP impact, 3 trade-offs flagged', accent: 'blue' },
+  { agentName: 'CrossMinistry', action: 'Data shared', detail: 'X-Road data exchange: 142K cross-ministry queries today — 99.97% uptime, avg latency 0.4s', accent: 'blue' },
+  { agentName: 'CitizenBot', action: 'Citizen query resolved', detail: '847 citizen queries handled via e-Estonia portal — avg resolution 34 seconds, 96% satisfaction', accent: 'green' },
+  { agentName: 'CitizenBot', action: 'Service routed', detail: 'Complex residency question escalated to human agent — full context summary attached', accent: 'green' },
+  { agentName: 'CitizenBot', action: 'Multilingual support', detail: 'Queries processed in 14 languages today — Estonian 62%, Russian 24%, English 14%', accent: 'green' },
+  { agentName: 'GovAnalytics', action: 'KPI dashboard updated', detail: 'National digital services scorecard: 99.1% availability, 4.2M transactions this month', accent: 'purple' },
+  { agentName: 'GovAnalytics', action: 'Trend detected', detail: 'E-residency applications up 18% month-over-month — marketing attribution analysis generated', accent: 'purple' },
+  { agentName: 'GovAnalytics', action: 'Forecast generated', detail: 'Q2 government revenue forecast: within 1.2% of budget — VAT collections driving upside', accent: 'purple' },
+  { agentName: 'InteropCheck', action: 'X-Road health', detail: 'X-Road ecosystem monitoring: 1,247 services active, 3 degraded, auto-notifications sent', accent: 'blue' },
+  { agentName: 'InteropCheck', action: 'Integration verified', detail: 'New ministry service onboarded to X-Road — compliance checks passed, data catalog updated', accent: 'blue' },
+  { agentName: 'BudgetWatch', action: 'Spending tracked', detail: 'Government-wide spending at 94% of plan — 2 ministries over-allocated, rebalancing recommended', accent: 'amber' },
+  { agentName: 'BudgetWatch', action: 'Procurement monitored', detail: '47 active procurements tracked — 3 approaching deadline, bid evaluation support provided', accent: 'amber' },
+  { agentName: 'LegalDraft', action: 'Regulation drafted', detail: 'Digital services amendment auto-drafted — EU directive compliance mapped to 14 existing laws', accent: 'green' },
+  { agentName: 'LegalDraft', action: 'Impact assessed', detail: 'Regulatory impact assessment complete — 3 stakeholder groups affected, public comment period set', accent: 'green' },
+  { agentName: 'TransparencyBot', action: 'FOIA processed', detail: '34 freedom of information requests processed — avg response time 2.1 days, 100% within deadline', accent: 'blue' },
+  { agentName: 'TransparencyBot', action: 'Open data published', detail: '12 new datasets published to open data portal — transportation, education, and health categories', accent: 'blue' },
+  { agentName: 'EUCompliance', action: 'Directive mapped', detail: 'EU AI Act compliance assessment — 14 government AI systems cataloged, 2 high-risk classifications', accent: 'amber' },
+  { agentName: 'EUCompliance', action: 'Reporting filed', detail: 'Quarterly EU reporting package submitted — digital single market metrics, all on time', accent: 'amber' },
+  { agentName: 'DigitalID', action: 'ID events processed', detail: '24K digital ID authentications today — eID 64%, Mobile-ID 28%, Smart-ID 8%, zero incidents', accent: 'purple' },
+];
+
+/* ── EE-Finance — Estonian Ministry of Finance ───────────────────────── */
+
+const eeFinanceEvents: AgentToastEvent[] = [
+  { agentName: 'TaxProcessor', action: 'Tax returns processed', detail: '14,200 income tax returns auto-processed — 94% straight-through, avg refund issued in 3 days', accent: 'blue' },
+  { agentName: 'TaxProcessor', action: 'VAT reconciled', detail: 'Monthly VAT reconciliation: 47K filings matched — 340 discrepancies flagged for review', accent: 'blue' },
+  { agentName: 'TaxProcessor', action: 'Fraud pattern', detail: 'Carousel VAT fraud pattern detected across 4 entities — investigation referral auto-generated', accent: 'blue' },
+  { agentName: 'AuditEngine', action: 'Audit completed', detail: 'Risk-based audit of 89 corporate filers — 12 selected for detailed review, letters issued', accent: 'green' },
+  { agentName: 'AuditEngine', action: 'Risk scored', detail: 'Annual audit risk model refreshed — 4,200 entities scored, top 200 flagged for examination', accent: 'green' },
+  { agentName: 'AuditEngine', action: 'Recovery tracked', detail: 'Audit recoveries this quarter: EUR 2.4M — 18% above target, 94% voluntary compliance rate', accent: 'green' },
+  { agentName: 'RevenueForecast', action: 'Revenue forecasted', detail: 'Q2 revenue forecast: EUR 3.1B — VAT up 4.2%, income tax flat, excise duties down 1.8%', accent: 'purple' },
+  { agentName: 'RevenueForecast', action: 'Scenario modeled', detail: 'Tax rate change impact: 1% CIT increase generates EUR 47M annually — distributional analysis included', accent: 'purple' },
+  { agentName: 'RevenueForecast', action: 'Variance alert', detail: 'March collections 2.1% below forecast — driven by lower fuel excise, seasonal adjustment applied', accent: 'purple' },
+  { agentName: 'BudgetGuard', action: 'Allocation tracked', detail: 'Ministry budget execution at 23% of annual plan — on track, 2 programs underspending flagged', accent: 'amber' },
+  { agentName: 'BudgetGuard', action: 'Spending alert', detail: 'Defense procurement 8% over quarterly budget — supplementary appropriation request drafted', accent: 'amber' },
+  { agentName: 'DebtManager', action: 'Bond monitored', detail: 'Government bond spread at 42 bps — within target range, next issuance window optimized for Q2', accent: 'blue' },
+  { agentName: 'DebtManager', action: 'Cash managed', detail: 'Treasury cash position: EUR 847M — surplus deployed to ECB facility at 3.75% overnight rate', accent: 'blue' },
+  { agentName: 'EUFundsTracker', action: 'Drawdown filed', detail: 'EU structural fund drawdown request: EUR 14M — documentation validated, submission to EC complete', accent: 'green' },
+  { agentName: 'EUFundsTracker', action: 'Absorption tracked', detail: 'EU fund absorption rate: 67% — on track for annual target, 3 programs accelerated', accent: 'green' },
+  { agentName: 'PensionCalc', action: 'Pension projected', detail: '4,200 retirement projections generated this month — personalized estimates via e-Estonia portal', accent: 'blue' },
+  { agentName: 'PensionCalc', action: 'Fund performance', detail: 'Pillar II fund performance reviewed — weighted return 8.4% YTD, all managers within mandates', accent: 'blue' },
+  { agentName: 'ComplianceBot', action: 'FATF assessed', detail: 'FATF mutual evaluation prep — 40 recommendations self-assessed, 3 action items in progress', accent: 'amber' },
+  { agentName: 'ComplianceBot', action: 'Sanctions enforced', detail: 'EU sanctions list updated — 47 new entries screened against financial system, 0 matches found', accent: 'amber' },
+  { agentName: 'MacroMonitor', action: 'GDP nowcast', detail: 'Real-time GDP nowcast: 2.8% growth — flash estimate based on VAT, employment, and trade data', accent: 'purple' },
+];
+
+/* ── EE-Social — Estonian Ministry of Social Affairs ─────────────────── */
+
+const eeSocialEvents: AgentToastEvent[] = [
+  { agentName: 'BenefitsEngine', action: 'Benefits approved', detail: '342 benefit applications processed — parental leave 89, disability 47, unemployment 206', accent: 'blue' },
+  { agentName: 'BenefitsEngine', action: 'Eligibility verified', detail: 'Cross-database eligibility check for 1,400 applicants — income, residency, and employment verified', accent: 'blue' },
+  { agentName: 'BenefitsEngine', action: 'Overpayment caught', detail: '14 overpayment cases detected via employment data cross-check — recovery notices issued', accent: 'blue' },
+  { agentName: 'HealthSync', action: 'Health records synced', detail: '24K patient records synchronized across 47 providers — zero data conflicts, FHIR compliance 100%', accent: 'green' },
+  { agentName: 'HealthSync', action: 'E-prescription filled', detail: '8,400 e-prescriptions processed today — 99.8% first-fill success rate, 3 interaction alerts', accent: 'green' },
+  { agentName: 'HealthSync', action: 'Vaccination tracked', detail: 'National immunization registry updated — 4,200 new records, coverage rate dashboard refreshed', accent: 'green' },
+  { agentName: 'CaseManager', action: 'Cases resolved', detail: '89 social welfare cases closed this week — avg resolution 12 days, client satisfaction 91%', accent: 'amber' },
+  { agentName: 'CaseManager', action: 'Caseload balanced', detail: 'Social worker caseloads rebalanced — 14 workers, avg 42 cases each, 0 overloaded', accent: 'amber' },
+  { agentName: 'CaseManager', action: 'Risk flagged', detail: 'Child welfare risk scoring: 3 cases elevated to priority — home visits scheduled within 48 hrs', accent: 'amber' },
+  { agentName: 'LaborMarket', action: 'Jobs matched', detail: '240 unemployed citizens matched to open positions — skills gap analysis included for 47 others', accent: 'purple' },
+  { agentName: 'LaborMarket', action: 'Training recommended', detail: 'Reskilling programs recommended for 89 job seekers — IT and healthcare sectors prioritized', accent: 'purple' },
+  { agentName: 'LaborMarket', action: 'Market analyzed', detail: 'Monthly labor market report: unemployment 4.2%, 1,400 new vacancies, tech sector leading', accent: 'purple' },
+  { agentName: 'PensionAdmin', action: 'Pension disbursed', detail: 'Monthly pension payments: EUR 142M to 340K recipients — 100% on-time, 0 errors', accent: 'blue' },
+  { agentName: 'PensionAdmin', action: 'Disability assessed', detail: '47 disability assessments completed — AI-assisted evaluation, physician review in 24 hrs', accent: 'blue' },
+  { agentName: 'EpiWatch', action: 'Surveillance updated', detail: 'Disease surveillance dashboard refreshed — influenza trending down, no unusual clusters detected', accent: 'green' },
+  { agentName: 'EpiWatch', action: 'Outbreak alert', detail: 'Norovirus cluster detected in Tartu schools — public health response team notified', accent: 'green' },
+  { agentName: 'AccessMonitor', action: 'Wait times tracked', detail: 'Healthcare wait time dashboard: specialist avg 14 days, surgery avg 42 days — both improving', accent: 'amber' },
+  { agentName: 'AccessMonitor', action: 'Capacity alert', detail: 'ICU occupancy at 87% in Tallinn region — contingency plan activated, transfers coordinated', accent: 'amber' },
+  { agentName: 'WelfareAnalytics', action: 'Poverty mapped', detail: 'Regional poverty indicators updated — 3 municipalities showing improvement, 1 needs intervention', accent: 'purple' },
+  { agentName: 'WelfareAnalytics', action: 'Impact measured', detail: 'Social program ROI analysis: family support program returning EUR 3.40 per EUR 1 invested', accent: 'purple' },
+];
+
+/* ── EE-Economic — Estonian Ministry of Economic Affairs ─────────────── */
+
+const eeEconomicEvents: AgentToastEvent[] = [
+  { agentName: 'TradePermit', action: 'Trade permits issued', detail: '47 import/export permits auto-issued — dual-use screening passed, avg processing 4.2 min', accent: 'blue' },
+  { agentName: 'TradePermit', action: 'Tariff calculated', detail: '1,200 customs declarations processed — HS codes verified, EU preferential rates applied', accent: 'blue' },
+  { agentName: 'TradePermit', action: 'Embargo checked', detail: 'Sanctions screening for 340 trade transactions — 0 restricted parties, 2 near-matches cleared', accent: 'blue' },
+  { agentName: 'EResidency', action: 'Applications processed', detail: '142 e-residency applications reviewed — 89% approved, 4 flagged for enhanced background check', accent: 'green' },
+  { agentName: 'EResidency', action: 'Card issued', detail: '47 digital ID cards issued this week — applicants from 28 countries, pickup locations confirmed', accent: 'green' },
+  { agentName: 'EResidency', action: 'Renewal processed', detail: '340 e-residency renewals auto-processed — identity reverification via X-Road, 100% success', accent: 'green' },
+  { agentName: 'BizRegister', action: 'Businesses registered', detail: '89 new companies registered today — avg registration time 18 minutes via e-Business portal', accent: 'amber' },
+  { agentName: 'BizRegister', action: 'Annual reports filed', detail: '1,400 annual reports auto-validated — financial data cross-checked with tax authority', accent: 'amber' },
+  { agentName: 'BizRegister', action: 'Beneficial owners', detail: 'Beneficial ownership registry updated — 47 changes flagged for AML compliance review', accent: 'amber' },
+  { agentName: 'InvestAttract', action: 'FDI tracked', detail: 'Foreign direct investment Q1: EUR 420M — 18% above target, tech and green energy leading', accent: 'purple' },
+  { agentName: 'InvestAttract', action: 'Incentive matched', detail: '12 investment inquiries matched to incentive programs — tax benefits and grants identified', accent: 'purple' },
+  { agentName: 'InvestAttract', action: 'Competitor benchmarked', detail: 'Baltic investment climate comparison generated — Estonia leading in digital infrastructure metric', accent: 'purple' },
+  { agentName: 'EnergyRegulator', action: 'Market monitored', detail: 'Electricity market price spike to EUR 142/MWh — market manipulation screen: no anomalies', accent: 'blue' },
+  { agentName: 'EnergyRegulator', action: 'License issued', detail: 'Renewable energy production license auto-issued — wind farm capacity 47 MW, grid study complete', accent: 'blue' },
+  { agentName: 'InnovationFund', action: 'Grants awarded', detail: 'Startup Estonia grants: EUR 2.4M awarded to 14 companies — AI, cleantech, and biotech sectors', accent: 'green' },
+  { agentName: 'InnovationFund', action: 'Impact reported', detail: 'Innovation program impact: 340 jobs created, EUR 47M revenue generated by portfolio companies', accent: 'green' },
+  { agentName: 'TourismAnalytics', action: 'Visitor tracked', detail: 'Monthly tourism dashboard: 142K visitors — 12% YoY increase, spending per visitor up 8%', accent: 'amber' },
+  { agentName: 'TourismAnalytics', action: 'Seasonal forecast', detail: 'Summer season booking forecast: +22% vs last year — accommodation capacity analysis updated', accent: 'amber' },
+  { agentName: 'TradeAnalytics', action: 'Balance updated', detail: 'Monthly trade balance: EUR -89M — imports from Asia up 14%, export diversification improving', accent: 'purple' },
+  { agentName: 'TradeAnalytics', action: 'FTA impact', detail: 'EU-Japan FTA utilization rate for Estonian exporters: 67% — awareness campaign recommended', accent: 'purple' },
+];
+
+/* ── EE-RIA — Estonian Information System Authority ──────────────────── */
+
+const eeRiaEvents: AgentToastEvent[] = [
+  { agentName: 'CyberShield', action: 'Threats blocked', detail: '4,200 cyber threats blocked today — DDoS attempts 47, phishing 340, malware 89, zero breaches', accent: 'amber' },
+  { agentName: 'CyberShield', action: 'APT detected', detail: 'Advanced persistent threat indicators on government network segment — isolated and contained in 4 min', accent: 'amber' },
+  { agentName: 'CyberShield', action: 'Vulnerability patched', detail: 'Critical CVE-2026-4421 affecting 14 government systems — emergency patches deployed within 6 hrs', accent: 'amber' },
+  { agentName: 'XRoadHealth', action: 'Health check passed', detail: 'X-Road ecosystem status: 1,247 services, 99.97% uptime — 3 degraded services auto-escalated', accent: 'blue' },
+  { agentName: 'XRoadHealth', action: 'Throughput monitored', detail: '4.2M X-Road queries today — avg latency 0.3s, peak throughput 847 req/sec at 09:00', accent: 'blue' },
+  { agentName: 'XRoadHealth', action: 'Certificate renewed', detail: '47 X-Road member certificates renewed — automated rotation, zero service interruptions', accent: 'blue' },
+  { agentName: 'IncidentResp', action: 'Incident responded', detail: 'CERT-EE incident #IR-2026-447 — ransomware attempt on municipal network, contained in 12 min', accent: 'amber' },
+  { agentName: 'IncidentResp', action: 'Forensics complete', detail: 'Digital forensics on phishing campaign — 4 compromised accounts identified, credentials reset', accent: 'amber' },
+  { agentName: 'IncidentResp', action: 'Advisory issued', detail: 'Threat advisory published — new spear-phishing campaign targeting government email, indicators shared', accent: 'amber' },
+  { agentName: 'eIDMonitor', action: 'ID system healthy', detail: 'eID infrastructure: 99.99% uptime — 24K authentications today, Mobile-ID and Smart-ID nominal', accent: 'green' },
+  { agentName: 'eIDMonitor', action: 'Certificate alert', detail: '340 citizen certificates expiring this month — renewal reminders sent via e-Estonia portal', accent: 'green' },
+  { agentName: 'eIDMonitor', action: 'Usage analyzed', detail: 'Digital signing volume up 14% — 89K documents signed this week, cross-border signatures growing', accent: 'green' },
+  { agentName: 'CloudGov', action: 'Migration tracked', detail: 'Government cloud migration: 67% complete — 14 services migrated this quarter, 8 remaining', accent: 'purple' },
+  { agentName: 'CloudGov', action: 'Cost optimized', detail: 'Cloud infrastructure spend: EUR 2.4M/month — 12% savings from rightsizing recommendations', accent: 'purple' },
+  { agentName: 'ComplianceScanner', action: 'ISKE audit', detail: 'Information security standard (ISKE) compliance: 89% across government — 4 systems need remediation', accent: 'blue' },
+  { agentName: 'ComplianceScanner', action: 'GDPR verified', detail: 'Data protection impact assessments: 14 new systems reviewed — 2 require additional safeguards', accent: 'blue' },
+  { agentName: 'ThreatIntel', action: 'IOCs shared', detail: '47 indicators of compromise shared with NATO CCDCOE — cross-border threat intelligence exchange', accent: 'purple' },
+  { agentName: 'ThreatIntel', action: 'Campaign tracked', detail: 'State-sponsored threat group activity detected — targeting Baltic infrastructure, defenses updated', accent: 'purple' },
+  { agentName: 'BackupVerify', action: 'Backup verified', detail: 'Critical government data backup integrity: 100% — 47 systems tested, recovery drill passed', accent: 'green' },
+  { agentName: 'BackupVerify', action: 'DR tested', detail: 'Disaster recovery drill completed — full government service restoration in 14 min, target met', accent: 'green' },
+];
+
 /* ── Event pools by division ───────────────────────────────────────────── */
 
 export const agentEventsByDivision: Record<string, AgentToastEvent[]> = {
@@ -307,4 +635,17 @@ export const agentEventsByDivision: Record<string, AgentToastEvent[]> = {
   htsi: [...htsiEvents, ...sharedEvents.slice(0, 5)],
   he: [...heEvents, ...sharedEvents.slice(0, 5)],
   gg: [...ggEvents, ...sharedEvents.slice(0, 5)],
+  oakwood: [...oakwoodEvents, ...sharedEvents.slice(0, 5)],
+  pinnacle: [...pinnacleEvents, ...sharedEvents.slice(0, 5)],
+  atlas: [...atlasManufacturingEvents, ...sharedEvents.slice(0, 5)],
+  northbridge: [...northbridgeEvents, ...sharedEvents.slice(0, 5)],
+  'nb-aerospace': [...nbAerospaceEvents, ...sharedEvents.slice(0, 5)],
+  'nb-energy': [...nbEnergyEvents, ...sharedEvents.slice(0, 5)],
+  'nb-financial': [...nbFinancialEvents, ...sharedEvents.slice(0, 5)],
+  'nb-health': [...nbHealthEvents, ...sharedEvents.slice(0, 5)],
+  estonia: [...estoniaEvents, ...sharedEvents.slice(0, 5)],
+  'ee-finance': [...eeFinanceEvents, ...sharedEvents.slice(0, 5)],
+  'ee-social': [...eeSocialEvents, ...sharedEvents.slice(0, 5)],
+  'ee-economic': [...eeEconomicEvents, ...sharedEvents.slice(0, 5)],
+  'ee-ria': [...eeRiaEvents, ...sharedEvents.slice(0, 5)],
 };

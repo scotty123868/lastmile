@@ -9,51 +9,214 @@ interface ChatMessage {
   content: string;
 }
 
-const SUGGESTION_CHIPS: Record<string, string[]> = {
-  '/overview': ['Summarize today\'s metrics', 'What needs attention?', 'Compare divisions'],
-  '/agents': ['Which agent saved the most today?', 'Any agent issues?', 'Show fleet health'],
-  '/impact': ['Break down the $5.8M', 'What\'s the payback period?', 'Compare to industry'],
-  '/assessment': ['What\'s our biggest waste?', 'License optimization options', 'Migration risks'],
-  '/operations': ['Which workflows are bottlenecked?', 'Show automation rate', 'Any failures today?'],
-  '/intelligence': ['Summarize latest insights', 'What patterns do you see?', 'Data quality issues?'],
-  '/verification': ['Any pending verifications?', 'Show audit trail', 'Compliance status?'],
-  '/reliability': ['Current error rates?', 'SLA compliance?', 'Incident trends?'],
+/* ── Per-company suggestion chips ─────────────────────────── */
+
+const SUGGESTION_CHIPS: Record<string, Record<string, string[]>> = {
+  meridian: {
+    '/overview': ['Summarize today\'s metrics', 'What needs attention?', 'Compare divisions'],
+    '/agents': ['Which agent saved the most today?', 'Any agent issues?', 'Show fleet health'],
+    '/impact': ['Break down the $5.8M', 'What\'s the payback period?', 'Compare to industry'],
+    '/assessment': ['What\'s our biggest waste?', 'License optimization options', 'Migration risks'],
+    '/operations': ['Which workflows are bottlenecked?', 'Show automation rate', 'Any failures today?'],
+    '/intelligence': ['Summarize latest insights', 'What patterns do you see?', 'Data quality issues?'],
+    '/verification': ['Any pending verifications?', 'Show audit trail', 'Compliance status?'],
+    '/reliability': ['Current error rates?', 'SLA compliance?', 'Incident trends?'],
+  },
+  oakwood: {
+    '/overview': ['Summarize claims metrics', 'What needs attention?', 'Compare departments'],
+    '/agents': ['Which agent closed the most claims?', 'Any agent issues?', 'Show fleet health'],
+    '/impact': ['Break down claims savings', 'What\'s the fraud detection rate?', 'Compare to industry'],
+    '/assessment': ['What\'s our biggest leakage?', 'Guidewire optimization options', 'Duck Creek migration risks'],
+    '/operations': ['Which claims are bottlenecked?', 'Show auto-adjudication rate', 'Any failures today?'],
+    '/intelligence': ['Summarize fraud patterns', 'What loss trends do you see?', 'Data quality issues?'],
+    '/verification': ['Any pending claim reviews?', 'Show audit trail', 'Compliance status?'],
+    '/reliability': ['Current processing times?', 'SLA compliance?', 'Incident trends?'],
+  },
+  pinnacle: {
+    '/overview': ['Summarize clinical metrics', 'What needs attention?', 'Compare departments'],
+    '/agents': ['Which agent processed the most orders?', 'Any agent issues?', 'Show fleet health'],
+    '/impact': ['Break down cost savings', 'What\'s the denial reduction rate?', 'Compare to benchmarks'],
+    '/assessment': ['What\'s our biggest compliance gap?', 'Epic optimization options', 'FHIR migration status'],
+    '/operations': ['Which workflows are bottlenecked?', 'Show automation rate', 'Any failures today?'],
+    '/intelligence': ['Summarize clinical patterns', 'What coding trends do you see?', 'Data quality issues?'],
+    '/verification': ['Any pending clinical reviews?', 'Show audit trail', 'HIPAA compliance status?'],
+    '/reliability': ['Current response times?', 'SLA compliance?', 'Incident trends?'],
+  },
+  atlas: {
+    '/overview': ['Summarize production metrics', 'What needs attention?', 'Compare OpCos'],
+    '/agents': ['Which agent optimized the most?', 'Any agent issues?', 'Show fleet health'],
+    '/impact': ['Break down OEE improvements', 'What\'s the scrap reduction?', 'Compare to benchmarks'],
+    '/assessment': ['What\'s our biggest bottleneck?', 'SAP optimization options', 'MES integration risks'],
+    '/operations': ['Which lines are bottlenecked?', 'Show yield rate', 'Any quality alerts today?'],
+    '/intelligence': ['Summarize quality trends', 'What SPC patterns do you see?', 'Data quality issues?'],
+    '/verification': ['Any pending quality holds?', 'Show audit trail', 'ISO compliance status?'],
+    '/reliability': ['Current downtime rates?', 'SLA compliance?', 'Maintenance backlog?'],
+  },
+  northbridge: {
+    '/overview': ['Summarize enterprise metrics', 'What needs attention?', 'Compare OpCos'],
+    '/agents': ['Which OpCo has highest AI adoption?', 'Any agent issues?', 'Show fleet health'],
+    '/impact': ['Break down the $16.5M', 'What\'s the cross-OpCo synergy?', 'Compare to targets'],
+    '/assessment': ['What\'s our biggest risk?', 'GxP validation status', 'ITAR compliance gaps'],
+    '/operations': ['Which OpCo workflows are bottlenecked?', 'Show automation rate', 'Any failures today?'],
+    '/intelligence': ['Summarize cross-OpCo patterns', 'What trends do you see?', 'Data quality issues?'],
+    '/verification': ['Any pending regulatory reviews?', 'Show audit trail', 'Compliance status?'],
+    '/reliability': ['Current error rates?', 'SLA compliance?', 'Incident trends?'],
+  },
+  estonia: {
+    '/overview': ['Summarize gov-service metrics', 'What needs attention?', 'Compare ministries'],
+    '/agents': ['Which service has highest usage?', 'Any agent issues?', 'Show X-Road health'],
+    '/impact': ['Break down citizen impact', 'What\'s the cost savings?', 'Compare to EU benchmarks'],
+    '/assessment': ['What\'s our biggest gap?', 'X-Road optimization options', 'Cybersecurity posture'],
+    '/operations': ['Which services are bottlenecked?', 'Show automation rate', 'Any failures today?'],
+    '/intelligence': ['Summarize citizen patterns', 'What trends do you see?', 'Data quality issues?'],
+    '/verification': ['Any pending security patches?', 'Show audit trail', 'GDPR compliance status?'],
+    '/reliability': ['Current response times?', 'SLA compliance?', 'Incident trends?'],
+  },
 };
 
-const DEFAULT_CHIPS = ['Summarize today\'s metrics', 'What needs attention?', 'Show me key insights', 'Compare divisions'];
-
-const CANNED_RESPONSES: Record<string, string> = {
-  'summarize today\'s metrics': 'Today\'s key metrics are looking strong. Agent fleet utilization is at 94%, with 12 active workflows processing across 7 divisions. Total cost savings have reached $5.8M YTD, up 12% from last month. The verification pass rate is 98.2%, and average processing time has dropped to 2.3 seconds per document.',
-  'what needs attention?': 'A few items need your attention:\n\n1. **Division 3 (IC Rail)** — Agent response times spiked 15% in the last hour, likely due to a data pipeline backlog\n2. **License audit** — 3 SaaS licenses are up for renewal this week with potential savings of $42K\n3. **Verification queue** — 23 documents pending manual review, up from the usual 8-12 range',
-  'compare divisions': 'Here\'s the division comparison:\n\n- **IC Rail** — Highest throughput (340 tasks/day), 97% automation rate\n- **IC Construction** — Best ROI ($1.2M savings), fastest adoption\n- **IC Technologies** — Most agents deployed (8), highest complexity\n- **IC Transit** — Newest onboard, ramping up quickly at 78% automation\n\nOverall, Construction leads in value generation while Rail leads in volume.',
-  'which agent saved the most today?': 'The **Invoice Processing Agent** leads today with $12,400 in savings across 847 processed invoices. Close behind is the **Contract Analysis Agent** at $8,200 from 23 contracts reviewed. The fleet collectively has saved $34,600 today.',
-  'any agent issues?': 'All agents are healthy with one minor exception:\n\n- **Document Classifier v2.1** is showing slightly elevated latency (avg 340ms vs normal 180ms) since 2:15 PM. Root cause appears to be increased document queue depth. No errors or failures detected — just slower than usual. Should self-resolve as the queue drains.',
-  'show fleet health': 'Fleet health overview:\n\n- **12/12 agents** operational (100% uptime today)\n- **Avg response time**: 210ms (within SLA)\n- **Tasks completed**: 2,847 today\n- **Error rate**: 0.03% (well below 0.5% threshold)\n- **Queue depth**: Normal across all agents\n\nAll systems green. No intervention needed.',
-  'break down the $5.8m': 'The $5.8M ROI breaks down as follows:\n\n- **Labor automation**: $2.4M (41%) — Reduced manual processing across divisions\n- **License optimization**: $1.1M (19%) — Eliminated redundant SaaS subscriptions\n- **Error reduction**: $890K (15%) — Fewer costly mistakes in document processing\n- **Speed improvements**: $740K (13%) — Faster turnaround on time-sensitive tasks\n- **Compliance savings**: $670K (12%) — Avoided penalties and audit costs',
-  'what\'s the payback period?': 'The payback period analysis:\n\n- **Initial investment**: $2.8M (platform + integration + training)\n- **Monthly value generated**: ~$717K ($8.6M gross / 12)\n- **Payback achieved**: ~3.9 months\n- **Current ROI multiple**: 2.07x\n- **Projected Year 2**: $8.7M cumulative value\n\nYou\'re well past breakeven and accelerating.',
-  'compare to industry': 'Compared to industry benchmarks:\n\n- **Automation rate**: 94% vs industry avg 62% — **Top 5%**\n- **AI adoption speed**: 3 months to full deployment vs avg 9 months\n- **ROI multiple**: 2.07x vs industry avg 1.4x\n- **Error rate**: 0.03% vs industry avg 1.2%\n- **Agent uptime**: 99.97% vs industry avg 98.5%\n\nYou\'re significantly outperforming peers in construction/infrastructure.',
-  'what\'s our biggest waste?': 'The biggest areas of waste identified:\n\n1. **Duplicate SaaS licenses** — $340K/yr across divisions using overlapping tools\n2. **Manual data entry** — Estimated 2,100 hours/month still done manually\n3. **Report generation** — 45 hours/week spent on reports that could be automated\n4. **Context switching** — Teams averaging 12 tool switches per workflow\n\nThe SaaS consolidation alone could save $340K within 60 days.',
-  'license optimization options': 'License optimization opportunities:\n\n- **Consolidate 3 project management tools** → Save $180K/yr by standardizing on one\n- **Right-size Salesforce licenses** → 40% of seats are underutilized, save $95K/yr\n- **Eliminate redundant storage** → 3 overlapping cloud storage services, save $65K/yr\n- **Renegotiate enterprise agreements** → Volume discount potential of $120K/yr\n\nTotal addressable: **$460K/yr** in license savings.',
-  'migration risks': 'Key migration risks to consider:\n\n1. **Data integrity** (Medium) — Cross-system data mapping needs validation for 3 legacy systems\n2. **User adoption** (Low) — Training programs are showing 92% completion rate\n3. **Integration downtime** (Low) — Estimated 2-hour maintenance window per system\n4. **Compliance continuity** (Low) — All audit trails preserved during migration\n\nOverall risk profile is **low**. The phased approach mitigates most concerns.',
+const DEFAULT_CHIPS: Record<string, string[]> = {
+  meridian: ['Summarize today\'s metrics', 'What needs attention?', 'Show me key insights', 'Compare divisions'],
+  oakwood: ['Summarize claims metrics', 'What needs attention?', 'Show fraud indicators', 'Compare departments'],
+  pinnacle: ['Summarize patient metrics', 'What needs attention?', 'Show clinical insights', 'Compare departments'],
+  atlas: ['Summarize production metrics', 'What needs attention?', 'Show quality trends', 'Compare OpCos'],
+  northbridge: ['Summarize enterprise metrics', 'What needs attention?', 'Show cross-OpCo insights', 'Compare subsidiaries'],
+  estonia: ['Summarize gov-service metrics', 'What needs attention?', 'Show citizen impact', 'Compare ministries'],
 };
 
-function getCannedResponse(message: string): string {
+const GENERIC_DEFAULT_CHIPS = ['Summarize today\'s metrics', 'What needs attention?', 'Show me key insights', 'Compare divisions'];
+
+/* ── Per-company canned responses ─────────────────────────── */
+
+const CANNED_RESPONSES: Record<string, Record<string, string>> = {
+  meridian: {
+    'summarize today\'s metrics': 'Today\'s key metrics are looking strong. Agent fleet utilization is at 94%, with 12 active workflows processing across 7 divisions. Total cost savings have reached $5.8M YTD, up 12% from last month. The verification pass rate is 98.2%, and average processing time has dropped to 2.3 seconds per document.',
+    'what needs attention?': 'A few items need your attention:\n\n1. **Division 3 (IC Rail)** — Agent response times spiked 15% in the last hour, likely due to a data pipeline backlog\n2. **License audit** — 3 SaaS licenses are up for renewal this week with potential savings of $42K\n3. **Verification queue** — 23 documents pending manual review, up from the usual 8-12 range',
+    'compare divisions': 'Here\'s the division comparison:\n\n- **IC Rail** — Highest throughput (340 tasks/day), 97% automation rate\n- **IC Construction** — Best ROI ($1.2M savings), fastest adoption\n- **IC Technologies** — Most agents deployed (8), highest complexity\n- **IC Transit** — Newest onboard, ramping up quickly at 78% automation\n\nOverall, Construction leads in value generation while Rail leads in volume.',
+    'which agent saved the most today?': 'The **Invoice Processing Agent** leads today with $12,400 in savings across 847 processed invoices. Close behind is the **Contract Analysis Agent** at $8,200 from 23 contracts reviewed. The fleet collectively has saved $34,600 today.',
+    'any agent issues?': 'All agents are healthy with one minor exception:\n\n- **Document Classifier v2.1** is showing slightly elevated latency (avg 340ms vs normal 180ms) since 2:15 PM. Root cause appears to be increased document queue depth. No errors or failures detected — just slower than usual. Should self-resolve as the queue drains.',
+    'show fleet health': 'Fleet health overview:\n\n- **12/12 agents** operational (100% uptime today)\n- **Avg response time**: 210ms (within SLA)\n- **Tasks completed**: 2,847 today\n- **Error rate**: 0.03% (well below 0.5% threshold)\n- **Queue depth**: Normal across all agents\n\nAll systems green. No intervention needed.',
+    'break down the $5.8m': 'The $5.8M ROI breaks down as follows:\n\n- **Labor automation**: $2.4M (41%) — Reduced manual processing across divisions\n- **License optimization**: $1.1M (19%) — Eliminated redundant SaaS subscriptions\n- **Error reduction**: $890K (15%) — Fewer costly mistakes in document processing\n- **Speed improvements**: $740K (13%) — Faster turnaround on time-sensitive tasks\n- **Compliance savings**: $670K (12%) — Avoided penalties and audit costs',
+    'what\'s the payback period?': 'The payback period analysis:\n\n- **Initial investment**: $2.8M (platform + integration + training)\n- **Monthly value generated**: ~$717K ($8.6M gross / 12)\n- **Payback achieved**: ~3.9 months\n- **Current ROI multiple**: 2.07x\n- **Projected Year 2**: $8.7M cumulative value\n\nYou\'re well past breakeven and accelerating.',
+    'compare to industry': 'Compared to industry benchmarks:\n\n- **Automation rate**: 94% vs industry avg 62% — **Top 5%**\n- **AI adoption speed**: 3 months to full deployment vs avg 9 months\n- **ROI multiple**: 2.07x vs industry avg 1.4x\n- **Error rate**: 0.03% vs industry avg 1.2%\n- **Agent uptime**: 99.97% vs industry avg 98.5%\n\nYou\'re significantly outperforming peers in construction/infrastructure.',
+    'what\'s our biggest waste?': 'The biggest areas of waste identified:\n\n1. **Duplicate SaaS licenses** — $340K/yr across divisions using overlapping tools\n2. **Manual data entry** — Estimated 2,100 hours/month still done manually\n3. **Report generation** — 45 hours/week spent on reports that could be automated\n4. **Context switching** — Teams averaging 12 tool switches per workflow\n\nThe SaaS consolidation alone could save $340K within 60 days.',
+    'license optimization options': 'License optimization opportunities:\n\n- **Consolidate 3 project management tools** → Save $180K/yr by standardizing on one\n- **Right-size Salesforce licenses** → 40% of seats are underutilized, save $95K/yr\n- **Eliminate redundant storage** → 3 overlapping cloud storage services, save $65K/yr\n- **Renegotiate enterprise agreements** → Volume discount potential of $120K/yr\n\nTotal addressable: **$460K/yr** in license savings.',
+    'migration risks': 'Key migration risks to consider:\n\n1. **Data integrity** (Medium) — Cross-system data mapping needs validation for 3 legacy systems\n2. **User adoption** (Low) — Training programs are showing 92% completion rate\n3. **Integration downtime** (Low) — Estimated 2-hour maintenance window per system\n4. **Compliance continuity** (Low) — All audit trails preserved during migration\n\nOverall risk profile is **low**. The phased approach mitigates most concerns.',
+  },
+  oakwood: {
+    'summarize claims metrics': 'Claims operations are running well today. Auto-adjudication rate is at 68%, up from 61% last month. Average claim cycle time is 4.2 days (target: 5.0). Total claims in flight: 3,847 across all lines. Fraud detection flagged 23 suspicious claims this week — 4 confirmed, saving an estimated $184K in prevented payouts.',
+    'what needs attention?': 'A few items need your attention:\n\n1. **Claims backlog** — Workers Comp queue has 42 claims pending >48 hours, up from normal 15-20\n2. **Duck Creek sync** — Policy endorsement data is 8% incomplete, affecting coverage lookup accuracy\n3. **Fraud alert** — 3 claims from the same body shop in Hartford flagged for potential collision repair inflation',
+    'compare departments': 'Here\'s the department comparison:\n\n- **Claims** — Processing 980 queries/day, 99.3% success rate, 1.9 min freshness\n- **Underwriting** — 520 queries/day, strong loss ratio analysis, 86% data completeness\n- **Policy Admin** — Highest completeness at 92%, fastest context freshness at 1.6 min\n- **Customer Service** — Highest query volume (1,120/day), best success rate at 99.7%\n\nCustomer Service leads on throughput while Policy Admin leads on data quality.',
+    'show fraud indicators': 'Current fraud indicators:\n\n- **23 claims flagged** this week (up 15% from weekly avg)\n- **Top patterns**: Staged collisions (4), medical provider mills (3), inflated repair estimates (6)\n- **Geographic clusters**: Hartford CT (4 claims), Miami FL (3 claims)\n- **AI detection rate**: 94% (vs industry avg 72%)\n- **Estimated savings**: $184K in prevented fraudulent payouts this week\n\nThe Hartford body shop cluster warrants SIU referral.',
+    'guidewire optimization options': 'Guidewire optimization opportunities:\n\n- **Enable real-time event streaming** → Reduce claim data lag from 15 min to <30 sec\n- **Activate ClaimCenter ML scoring** → Auto-triage 30% more claims, save $220K/yr\n- **Consolidate duplicate integrations** → 4 redundant API connections identified, save $45K/yr\n- **Upgrade to cloud-native** → Eliminate 3 on-prem servers, save $180K/yr\n\nTotal addressable: **$445K/yr** in optimization savings.',
+    'duck creek migration risks': 'Key Duck Creek migration risks:\n\n1. **Policy data mapping** (Medium) — 8% endorsement gap needs resolution before migration\n2. **Rating engine parity** (Low) — All 142 rating algorithms validated in parallel run\n3. **Agent portal downtime** (Medium) — Estimated 4-hour cutover window required\n4. **Historical data** (Low) — 10-year loss history migration tested and verified\n\nOverall risk profile is **medium-low**. The endorsement gap is the key item to resolve first.',
+  },
+  pinnacle: {
+    'summarize clinical metrics': 'Clinical operations are performing well. Patient throughput is up 8% this month with 420 managed context windows serving clinical and admin staff. Average query response time is 1.8 seconds. HIPAA compliance is at 100% across all AI services. The billing denial rate has dropped to 3.2% (down from 5.8% pre-AI), saving an estimated $890K in recovered revenue.',
+    'what needs attention?': 'A few items need your attention:\n\n1. **Epic lab interface** — 22 lab results pending >30 minutes, affecting clinical decision support accuracy\n2. **Prior auth queue** — 18 imaging orders awaiting authorization, up from typical 6-8\n3. **Coding alert** — 4th TTE denial this month for missing prior auth — may indicate a workflow gap in cardiology scheduling',
+    'compare departments': 'Here\'s the department comparison:\n\n- **Clinical** — 860 queries/day, fastest freshness at 1.2 min, 99.6% success\n- **Admin** — Solid performance at 340 queries/day, room for improvement on completeness (84%)\n- **Billing** — 420 queries/day, strong coding accuracy, 88% completeness\n- **Pharmacy** — Best data quality (96% completeness), fastest freshness at 1.0 min, 99.8% success\n\nPharmacy leads on data quality while Clinical leads on volume and freshness.',
+    'show clinical insights': 'Key clinical insights:\n\n- **Readmission risk**: 12 patients flagged as high-risk in the last 24 hours\n- **Drug interactions**: AI caught 8 potential interactions before dispensing today\n- **Coding accuracy**: AI-assisted coding shows 97.2% first-pass acceptance rate\n- **Clinical documentation**: Average note completion time down 40% with AI assistance\n- **Prior auth**: Auto-approval rate for standard procedures up to 78%\n\nThe drug interaction catches alone represent significant patient safety value.',
+    'epic optimization options': 'Epic optimization opportunities:\n\n- **Enable real-time lab interface** → Reduce lab result lag from 30 min to <2 min\n- **Activate CDS triggers** → Catch 15% more drug interactions and dosing errors\n- **Integrate predictive analytics** → Identify at-risk patients 48 hours earlier\n- **Streamline order entry** → Reduce physician clicks by 35% with AI-suggested orders\n\nThe lab interface fix alone could improve clinical decision support for 148 active users.',
+    'fhir migration status': 'FHIR migration status:\n\n- **Resource coverage**: 94% (up from 78% pre-migration)\n- **Mapped resources**: Patient, Encounter, Observation, MedicationRequest, DiagnosticReport\n- **Pending**: AllergyIntolerance (in testing), Immunization (Q2)\n- **Performance**: 180ms avg response time (target: <500ms)\n- **Validation**: All CMS-required profiles passing\n\nThe migration is on track. The remaining 6% covers edge-case resources scheduled for Q2.',
+  },
+  atlas: {
+    'summarize production metrics': 'Production metrics are strong across all 4 OpCos. Overall OEE is 84.7% (target: 87%). Total throughput: 12,400 units today across 18 active production lines. Scrap rate is at 1.8% (down from 2.4% last quarter). SAP integration is processing 4.2M records with 99.1% success rate. The predictive maintenance system flagged 6 upcoming equipment issues before failure.',
+    'what needs attention?': 'A few items need your attention:\n\n1. **Line 4 (Precision Parts)** — OEE dropped to 82.3%, driven by a 42-minute tool change delay\n2. **Aluminum stock** — 3.2 days remaining vs 5-day minimum; inbound PO is 3 days late\n3. **SPC alert** — Composites batch CMP-0891 showing 7 consecutive declining data points on tensile strength',
+    'compare opcos': 'Here\'s the OpCo comparison:\n\n- **Precision Parts** — 780 queries/day, strong OEE tracking, 88% completeness\n- **Advanced Materials** — Best quality monitoring (SPC coverage 97%), 85% completeness\n- **Assembly Systems** — Highest throughput (940 queries/day), best freshness at 1.5 min\n- **Logistics & Supply** — Room for improvement at 82% completeness, but strong on supply chain visibility\n\nAssembly Systems leads in volume while Advanced Materials leads on quality data.',
+    'show quality trends': 'Quality trends across OpCos:\n\n- **Overall scrap rate**: 1.8% (target: <2.0%) — on track\n- **SPC violations this week**: 4 (down from 7 last week)\n- **Customer complaints**: 2 (YTD avg: 3.1/week)\n- **First-pass yield**: 98.2% (up 0.4% from last month)\n- **Predictive maintenance**: 6 issues caught before failure (est. savings: $340K)\n\nThe downward trend in SPC violations indicates process stability is improving.',
+    'sap optimization options': 'SAP optimization opportunities:\n\n- **Enable real-time PP integration** → Reduce production order lag from 20 min to <2 min\n- **Activate SAP IBP** → Improve demand forecast accuracy by 22%\n- **Consolidate PM workflows** → Merge 3 maintenance scheduling systems into SAP PM\n- **MES bi-directional sync** → Close the loop on shop-floor data, save 120 manual entries/day\n\nThe PP real-time integration alone would eliminate the 2nd-shift data lag issue.',
+    'mes integration risks': 'Key MES integration risks:\n\n1. **OPC-UA connectivity** (Medium) — 8 tags on Line 6 showing intermittent packet loss\n2. **Data volume** (Low) — PLC telemetry at 20K readings/batch is within capacity\n3. **Schema mapping** (Low) — 97% of tags mapped after recent calibration push\n4. **Downtime window** (Medium) — Line-by-line cutover requires 2-hour windows per line\n\nOverall risk profile is **medium-low**. The Line 6 network issue should be resolved before the April 2 switch replacement.',
+  },
+  northbridge: {
+    'summarize enterprise metrics': 'Enterprise AI performance is strong. Q1 value generated: $16.5M across 4 OpCos (target: $14M). Overall adoption rate: 79% (Aerospace 78%, Energy 84%, Financial 91%, Health Sciences 62%). Context windows serving 4,200 users across 184 connected systems. Cross-OpCo AI models deployed: 3 shared frameworks saving $2.1M in development costs.',
+    'what needs attention?': 'A few items need your attention:\n\n1. **Health Sciences** — AI adoption at 62% (target 70%), GxP validation is the bottleneck\n2. **Aerospace** — ITAR data restrictions limiting 14 fields from unified model mapping\n3. **FINRA exam** — NB Financial has a scheduled examination in 14 days, prep documentation needs completion\n4. **Cross-OpCo schema** — 14 Aerospace data fields still unmapped to enterprise model',
+    'compare opcos': 'Here\'s the OpCo comparison:\n\n- **NB Financial** — Highest adoption (91%), strongest compliance automation, $3.1M Q1 savings\n- **NB Energy** — Best operational efficiency (84% adoption), $6.8M Q1 savings (highest value)\n- **NB Aerospace** — Solid at 78% adoption, MRO optimization driving $4.2M savings\n- **NB Health Sciences** — Behind at 62%, but clinical trial data processing showing promise at $2.4M\n\nEnergy leads on total value while Financial leads on adoption rate.',
+    'show cross-opco insights': 'Cross-OpCo AI insights:\n\n- **Shared models**: 3 deployed (document classification, risk scoring, compliance monitoring)\n- **Data standardization**: 86% of cross-OpCo fields mapped to unified schema\n- **Best practice transfers**: Energy\'s predictive maintenance model being adapted for Aerospace MRO\n- **Compliance framework**: Financial\'s validation approach being templated for Health Sciences GxP\n- **Cost avoidance**: $2.1M saved by sharing AI infrastructure vs separate deployments\n\nThe cross-pollination between Financial and Health Sciences on validation is the highest-impact synergy opportunity.',
+    'gxp validation status': 'GxP validation status for Health Sciences:\n\n- **Validated services**: 8 of 11 AI services (73%)\n- **In validation**: 3 services (clinical trial data extraction, adverse event classification, batch record review)\n- **Timeline**: Validation protocols submitted, expected completion April 15\n- **Blockers**: IQ/OQ/PQ documentation requires 21 CFR Part 11 compliance review\n- **Impact**: Once validated, automation rate jumps from 80% to projected 95%\n\nRecommend allocating 2 additional QA resources from the shared services team to accelerate.',
+    'itar compliance gaps': 'ITAR compliance status for Aerospace:\n\n- **Data classification**: 96% of technical data properly tagged\n- **Access controls**: FedRAMP-approved deployment model in place since February\n- **Gap areas**: 14 data fields from design engineering not yet integrated into AI context\n- **Reason**: ITAR Category IV restrictions require separate data handling pipeline\n- **Remediation**: Dedicated ITAR-compliant processing partition being built, ETA April 20\n\nThe 14 unmapped fields don\'t affect current AI services but limit future engineering copilot capabilities.',
+  },
+  estonia: {
+    'summarize gov-service metrics': 'Digital government services are performing well. 35 AI services live across 4 entities (target: 35). Citizen service response time: 2.4 seconds (down from 12 seconds pre-AI). Citizen satisfaction: 87% (up from 74%). Q1 cost savings: \u20AC4.2M. X-Road AI-enabled exchanges: 1,240/day (up 340%). EU Digital Decade alignment: 92% (target: 90%).',
+    'what needs attention?': 'A few items need your attention:\n\n1. **CVE-2026-1847** — 53 X-Road security servers still pending OpenSSL patch (HIGH severity)\n2. **Population Registry** — 1,240 address updates pending from municipal registries\n3. **Social Affairs** — Benefits eligibility checker needs one more service to hit Q1 target\n4. **Phishing campaigns** — 2 active campaigns targeting government employees identified today',
+    'compare ministries': 'Here\'s the ministry comparison:\n\n- **Min. of Finance** — 14 AI services (ahead of 12 target), best automation in tax pre-filling\n- **Min. of Social Affairs** — 9 of 10 target, highest citizen query volume at 2,400/day\n- **Min. of Economic Affairs** — 7 of 8 target, e-Residency auto-approval rate at 66%\n- **RIA** — 5 of 5 target, 99.99% X-Road uptime, strongest data quality at 97%\n\nFinance leads on deployment while RIA leads on infrastructure reliability.',
+    'show citizen impact': 'Citizen impact metrics:\n\n- **Service response time**: 2.4 sec (was 12 sec) — **5x faster**\n- **Citizen satisfaction**: 87% (was 74%) — **+13 points**\n- **24/7 availability**: 98.5% of services now available outside business hours\n- **Paper reduction**: 89% of citizen interactions now fully digital\n- **Cross-ministry queries**: Citizens no longer need to visit multiple offices — 420 AI-resolved cross-ministry queries daily\n- **e-Residency processing**: Application review time down from 5 days to 4 hours\n\nEstonia continues to lead the EU in digital government service delivery.',
+    'show x-road health': 'X-Road infrastructure health:\n\n- **Security servers**: 1,247 active, 0 offline\n- **Transactions (24h)**: 2.4M at 180ms avg response (SLA: <500ms)\n- **Availability**: 99.99% (8 seconds downtime in 24h)\n- **Error rate**: 0.012%\n- **Cross-border connections**: 12 partner countries active\n- **Certificate status**: 3 renewals due in 14 days\n\nX-Road is operating optimally. Schedule the 3 certificate renewals for the Sunday maintenance window.',
+    'cybersecurity posture': 'National cybersecurity posture:\n\n- **Active threats**: 3 DDoS attempts mitigated (RU/BY origin), 2 phishing campaigns detected\n- **CVE-2026-1847**: HIGH severity, 89 of 142 affected servers patched (53 pending, ETA 18:00)\n- **CERT-EE alerts**: No elevated threat level for Baltics (per NATO CCDCOE)\n- **eID system**: Fully operational, 14,200 authentications/hour\n- **Incident response**: 0 active incidents, mean time to detect: 4.2 minutes\n\nPriority action: complete the remaining 53 OpenSSL patches before end of business today.',
+  },
+};
+
+/* ── Generic fallback responses ───────────────────────────── */
+const GENERIC_RESPONSES: Record<string, string> = {
+  'summarize today\'s metrics': 'Today\'s key metrics are looking strong. Agent fleet utilization is at 94%, with active workflows processing across your organization. Cost savings are tracking ahead of plan, and the verification pass rate is above 98%.',
+  'what needs attention?': 'I\'ve identified a few items that need your attention. Check the overview dashboard for the latest alerts and priority items across your organization.',
+  'show fleet health': 'Fleet health overview: All agents operational with normal queue depths and response times within SLA. No intervention needed.',
+};
+
+function getCannedResponse(message: string, companyId: string): string {
   const lower = message.toLowerCase().trim();
-  // Check for exact or close matches
-  for (const [key, response] of Object.entries(CANNED_RESPONSES)) {
+
+  // First check company-specific responses
+  const companyResponses = CANNED_RESPONSES[companyId];
+  if (companyResponses) {
+    for (const [key, response] of Object.entries(companyResponses)) {
+      if (lower.includes(key) || key.includes(lower)) {
+        return response;
+      }
+    }
+  }
+
+  // Then check generic responses
+  for (const [key, response] of Object.entries(GENERIC_RESPONSES)) {
     if (lower.includes(key) || key.includes(lower)) {
       return response;
     }
   }
-  // Keyword-based fallback
-  if (lower.includes('agent')) return CANNED_RESPONSES['show fleet health'];
-  if (lower.includes('save') || lower.includes('roi') || lower.includes('money')) return CANNED_RESPONSES['break down the $5.8m'];
-  if (lower.includes('risk') || lower.includes('issue') || lower.includes('problem')) return CANNED_RESPONSES['what needs attention?'];
-  if (lower.includes('compare') || lower.includes('benchmark')) return CANNED_RESPONSES['compare to industry'];
-  if (lower.includes('license') || lower.includes('saas')) return CANNED_RESPONSES['license optimization options'];
-  if (lower.includes('waste') || lower.includes('optimize')) return CANNED_RESPONSES['what\'s our biggest waste?'];
+
+  // Then check meridian as fallback (it has the most comprehensive responses)
+  if (companyId !== 'meridian') {
+    const meridianResponses = CANNED_RESPONSES['meridian'];
+    if (meridianResponses) {
+      for (const [key, response] of Object.entries(meridianResponses)) {
+        if (lower.includes(key) || key.includes(lower)) {
+          return response;
+        }
+      }
+    }
+  }
+
+  // Keyword-based fallback using company-specific responses where available
+  const responses = companyResponses || CANNED_RESPONSES['meridian'] || {};
+  if (lower.includes('agent')) return responses['show fleet health'] || GENERIC_RESPONSES['show fleet health'];
+  if (lower.includes('save') || lower.includes('roi') || lower.includes('money')) return responses['break down the $5.8m'] || responses['break down claims savings'] || responses['break down cost savings'] || responses['break down oee improvements'] || responses['break down the $16.5m'] || responses['break down citizen impact'] || 'I can help you analyze ROI and cost savings. Try asking about specific savings breakdowns for your organization.';
+  if (lower.includes('risk') || lower.includes('issue') || lower.includes('problem')) return responses['what needs attention?'] || GENERIC_RESPONSES['what needs attention?'];
+  if (lower.includes('compare') || lower.includes('benchmark')) return responses['compare to industry'] || responses['compare departments'] || responses['compare opcos'] || responses['compare ministries'] || 'I can help you compare performance across your organization. Try asking about specific divisions or departments.';
+  if (lower.includes('license') || lower.includes('saas')) return responses['license optimization options'] || 'I can help analyze license optimization opportunities. Ask about specific tools or platforms you\'re interested in optimizing.';
+  if (lower.includes('waste') || lower.includes('optimize')) return responses['what\'s our biggest waste?'] || responses['what\'s our biggest leakage?'] || responses['what\'s our biggest bottleneck?'] || responses['what\'s our biggest gap?'] || 'I can help identify optimization opportunities across your operations. Try asking about specific areas like licensing, workflows, or data quality.';
 
   return 'I can help you analyze your AI operations data. Try asking about agent performance, ROI breakdown, division comparisons, or specific metrics. I have deep context on your fleet health, cost savings, and optimization opportunities.';
+}
+
+/* ── Resolve company-specific chips ───────────────────────── */
+function getCompanyChips(companyId: string, pathname: string): string[] {
+  // Find chips for this company + page
+  const companyChipMap = SUGGESTION_CHIPS[companyId] || SUGGESTION_CHIPS['meridian'];
+  if (companyChipMap && companyChipMap[pathname]) {
+    return companyChipMap[pathname];
+  }
+  // Fall back to company default chips
+  return DEFAULT_CHIPS[companyId] || DEFAULT_CHIPS['meridian'] || GENERIC_DEFAULT_CHIPS;
+}
+
+/* ── Resolve parent company ID for sub-entities ───────────── */
+function resolveCompanyKey(companyId: string): string {
+  // Map sub-entity IDs to their parent for response lookup
+  const parentMap: Record<string, string> = {
+    hcc: 'meridian', hrsi: 'meridian', hsi: 'meridian', hti: 'meridian', htsi: 'meridian', he: 'meridian', gg: 'meridian',
+    'nb-aerospace': 'northbridge', 'nb-energy': 'northbridge', 'nb-financial': 'northbridge', 'nb-health': 'northbridge',
+    'ee-finance': 'estonia', 'ee-social': 'estonia', 'ee-economic': 'estonia', 'ee-ria': 'estonia',
+  };
+  // Use specific company responses if available, otherwise fall back to parent
+  if (CANNED_RESPONSES[companyId]) return companyId;
+  return parentMap[companyId] || companyId;
 }
 
 export default function FloatingAtlas() {
@@ -67,7 +230,8 @@ export default function FloatingAtlas() {
   const location = useLocation();
   const { company } = useCompany();
 
-  const chips = SUGGESTION_CHIPS[location.pathname] || DEFAULT_CHIPS;
+  const resolvedKey = resolveCompanyKey(company.id);
+  const chips = getCompanyChips(resolvedKey, location.pathname);
 
   useEffect(() => {
     if (!hasBounced) {
@@ -140,17 +304,17 @@ export default function FloatingAtlas() {
       }
     } catch {
       // Fallback to canned responses — replace the empty placeholder, don't append
-      const response = getCannedResponse(text);
+      const cannedResponse = getCannedResponse(text, resolvedKey);
       await new Promise(r => setTimeout(r, 600 + Math.random() * 800));
       setMessages(prev => {
         const updated = [...prev];
-        updated[updated.length - 1] = { role: 'assistant', content: response };
+        updated[updated.length - 1] = { role: 'assistant', content: cannedResponse };
         return updated;
       });
     } finally {
       setIsTyping(false);
     }
-  }, [messages, isTyping, company]);
+  }, [messages, isTyping, company, resolvedKey]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

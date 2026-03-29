@@ -223,75 +223,408 @@ const chatData: Record<string, CompanyChat> = {
     ],
   },
   'nb-aerospace': {
-    messages: [],
+    messages: [
+      {
+        role: 'user',
+        content: [{ text: 'How is CertAgent handling dual-use parts certification this quarter?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "**CertAgent** has processed **1,847 dual-use part certifications** this quarter, up 23% from Q3. Here's the breakdown by certification pathway:" },
+          {
+            table: {
+              headers: ['Certification Type', 'Parts Processed', 'Avg. Processing Time', 'Pass Rate', 'Status'],
+              rows: [
+                ['ITAR/EAR dual-use classification', '612', '2.4 days', '94.1%', 'On track'],
+                ['AS9100 conformance review', '489', '1.8 days', '97.3%', 'Ahead of target'],
+                ['FAA PMA equivalency mapping', '401', '3.1 days', '91.6%', 'Under review'],
+                ['EASA cross-certification', '345', '4.2 days', ' 88.4%', 'Needs attention'],
+              ],
+            },
+          },
+          { text: "The **EASA cross-certification** pathway is the bottleneck — processing times increased 18% due to new EU dual-use regulation updates effective January 2026. CertAgent's rule engine has been updated, but **34 parts are queued for manual review** where the AI confidence score fell below 85%. The MRO scheduling team flagged that 12 of these parts are needed for upcoming heavy maintenance checks at the Hamburg facility." },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'What about the MRO schedule optimization — are we reducing aircraft downtime?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "MRO schedule optimization has been a **strong win** this quarter. The AI scheduling engine reduced average aircraft-on-ground (AOG) time by **14.2 hours per heavy check**, translating to approximately **$3.8M in recovered revenue** across the fleet:" },
+          {
+            list: [
+              "**Predictive parts staging** — The system now pre-positions parts 72 hours before scheduled checks based on historical failure patterns. Parts availability at check start improved from 78% to **94%**, eliminating the biggest source of delays.",
+              "**Crew skill matching** — AI-optimized crew assignments ensure A&P mechanics with type-specific ratings are allocated to the right checks. This reduced task reassignment during checks by **41%** and cut overtime hours by 320 hours this quarter.",
+              "**Hangar slot optimization** — The scheduling algorithm now factors in paint booth availability, NDT equipment scheduling, and engine test cell bookings simultaneously. Hangar utilization improved from 71% to **83%**.",
+            ],
+          },
+          { text: "The next milestone is integrating real-time AOG alerts from the flight operations system so the MRO scheduler can dynamically reprioritize unscheduled maintenance events without displacing planned heavy checks." },
+        ],
+      },
+    ],
     suggestions: [
-      'Show RailSentry data integration gaps',
-      'Compare crew dispatch optimization options',
-      "What's our FRA compliance readiness?",
-      'Generate fleet utilization report for Q1',
+      'How does CertAgent handle dual-use parts?',
+      'Show MRO schedule optimization',
+      "What's our AS9100 compliance rate?",
+      'Generate parts traceability report',
     ],
   },
   'nb-energy': {
-    messages: [],
+    messages: [
+      {
+        role: 'user',
+        content: [{ text: 'Show me the grid load forecast for the next 48 hours.' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the **48-hour grid load forecast** across the three managed regions. The AI model incorporates weather data, historical demand curves, and real-time SCADA telemetry:" },
+          {
+            table: {
+              headers: ['Region', 'Current Load', 'Peak Forecast', 'Peak Time', 'Renewable Mix', 'Risk Level'],
+              rows: [
+                ['Northeast Grid', '14.2 GW', '18.6 GW', 'Tomorrow 5:00 PM', '34% wind/solar', 'Low'],
+                ['Southeast Grid', '11.8 GW', '16.1 GW', 'Tomorrow 3:00 PM', '22% solar', 'Medium'],
+                ['Western Grid', '9.4 GW', '13.9 GW', 'Today 7:00 PM', '41% wind/solar', 'Low'],
+              ],
+            },
+          },
+          { text: "The **Southeast Grid** is flagged medium risk because a cold front arriving tomorrow morning is expected to spike heating demand by **12-15%** above the seasonal baseline. OutagePredict has identified **3 substations** in the Raleigh-Durham corridor that historically experience transformer stress during rapid load increases — pre-positioning mobile transformer units is recommended." },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'How is the SCADA modernization progressing?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "The SCADA modernization program is **62% complete** across 847 substations. Here's the current status:" },
+          {
+            list: [
+              "**Phase 1 complete (412 substations)** — Legacy RTUs replaced with IEC 61850-compliant intelligent electronic devices. These substations now stream real-time telemetry at 4-second intervals, up from 30-second polling. AI anomaly detection is live on all Phase 1 sites with a **92.4% accuracy rate** for fault prediction.",
+              "**Phase 2 in progress (268 substations)** — Currently installing fiber-optic communication backbone and deploying edge computing nodes for local AI inference. 189 substations are online, 79 in commissioning. Target completion: Q3 2026.",
+              "**Phase 3 planned (167 substations)** — Remote/rural substations requiring satellite communication upgrades. RFP issued for Starlink-based SCADA backhaul. Pilot scheduled for 8 sites in Q4 2026.",
+            ],
+          },
+          { text: "The biggest measurable impact so far: Phase 1 substations have seen a **37% reduction in unplanned outage duration** because the AI detects incipient faults (partial discharge, dissolved gas anomalies) an average of **6.2 days before failure**. That's enough lead time to schedule planned maintenance instead of emergency response." },
+        ],
+      },
+    ],
     suggestions: [
-      'Show RailSentry data integration gaps',
-      'Compare crew dispatch optimization options',
-      "What's our FRA compliance readiness?",
-      'Generate fleet utilization report for Q1',
+      'Show grid load forecast',
+      'How does OutagePredict work?',
+      "What's our renewable mix?",
+      'SCADA modernization status',
     ],
   },
   'nb-financial': {
-    messages: [],
+    messages: [
+      {
+        role: 'user',
+        content: [{ text: 'What are the KYC processing times looking like this month?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "KYC processing has improved significantly since the AI-assisted screening went live. Here's the **March 2026 performance dashboard**:" },
+          {
+            table: {
+              headers: ['Metric', 'Current', 'Last Month', 'Change', 'Target'],
+              rows: [
+                ['Average KYC processing time', '4.2 hours', '6.8 hours', '-38%', '< 6 hours'],
+                ['Enhanced Due Diligence (EDD) cases', '18.4 hours', '24.1 hours', '-24%', '< 24 hours'],
+                ['SAR filings submitted', '142', '128', '+11%', 'N/A'],
+                ['False positive rate (sanctions screening)', '8.2%', '14.6%', '-44%', '< 10%'],
+                ['Auto-approved (low risk)', '67%', '51%', '+31%', '> 60%'],
+              ],
+            },
+          },
+          { text: "The **false positive reduction from 14.6% to 8.2%** is the headline number. Previously, compliance analysts spent roughly **340 hours per month** investigating sanctions screening hits that turned out to be name-matching false positives. The AI now cross-references entity resolution data from 6 commercial databases before escalating, which has freed up **4.2 FTEs** worth of analyst capacity to focus on genuine high-risk cases." },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'How are the SAR filings trending — anything unusual?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "The **142 SAR filings** this month are within normal range, but there's an emerging pattern worth flagging:" },
+          {
+            list: [
+              "**Crypto-related SARs up 34%** — 38 filings this month involve cryptocurrency-to-fiat conversion patterns. The AI transaction monitoring system flagged a cluster of 12 accounts using a similar layering pattern through DeFi bridges. Investigation team has grouped these into **Case Cluster #2026-0312** for coordinated review.",
+              "**Trade-based laundering signals** — 6 SARs relate to import/export invoice discrepancies where the AI detected pricing anomalies exceeding 40% of fair market value. These are concentrated in the precious metals trading desk and involve counterparties in three jurisdictions flagged by FATF.",
+              "**Reduced false escalations** — The AI's behavioral scoring model has reduced unnecessary SAR escalations by **28%** compared to the rules-based system. Analysts report that cases reaching their queue now have a **72% conversion rate** to actual filings, up from 44% under the old system.",
+            ],
+          },
+          { text: "The crypto cluster is the one I'd recommend briefing the BSA officer on this week. The pattern suggests a coordinated operation, and FinCEN issued an advisory last month on similar DeFi bridge laundering typologies." },
+        ],
+      },
+    ],
     suggestions: [
-      'Show RailSentry data integration gaps',
-      'Compare crew dispatch optimization options',
-      "What's our FRA compliance readiness?",
-      'Generate fleet utilization report for Q1',
+      'Show KYC processing times',
+      'How many SAR filings this month?',
+      "What's our false positive rate?",
+      'Trade compliance alert summary',
     ],
   },
   'nb-health': {
-    messages: [],
+    messages: [
+      {
+        role: 'user',
+        content: [{ text: 'What does the trial enrollment status look like across our active studies?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the **enrollment dashboard** for all active clinical trials as of this week:" },
+          {
+            table: {
+              headers: ['Study', 'Phase', 'Target N', 'Enrolled', '% Complete', 'Enrollment Rate'],
+              rows: [
+                ['NBH-4201 (Oncology)', 'Phase III', '1,200', '1,084', '90.3%', 'On track'],
+                ['NBH-3150 (Cardiology)', 'Phase II', '480', '312', '65.0%', 'Behind 8%'],
+                ['NBH-5022 (Rare Disease)', 'Phase II', '180', '97', '53.9%', 'At risk'],
+                ['NBH-1088 (Immunology)', 'Phase I', '60', '58', '96.7%', 'Near complete'],
+                ['NBH-6300 (Neurology)', 'Phase III', '2,400', '1,641', '68.4%', 'On track'],
+              ],
+            },
+          },
+          { text: "**NBH-5022 (Rare Disease)** is the one that needs attention. The AI enrollment predictor estimates we'll miss the Q3 enrollment close by **11 weeks** at the current rate. The model identified 3 underperforming sites and recommends activating 2 backup sites in Germany and South Korea where the patient registry overlap is highest. SafetyWatch has flagged no safety signals on this study, so the protocol isn't the barrier — it's site activation delays." },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'How does SafetyWatch flag adverse events in real time?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "**SafetyWatch** operates as a three-layer pharmacovigilance AI system that monitors adverse events across all active studies continuously:" },
+          {
+            list: [
+              "**Layer 1: Real-time eCRF ingestion** — As investigators enter adverse event data into the electronic case report forms, SafetyWatch parses the narrative text using medical NLP to code events to MedDRA preferred terms. It processes an average of **420 AE reports per day** across all studies and flags coding discrepancies within 15 minutes, compared to the previous 48-hour manual review cycle.",
+              "**Layer 2: Statistical signal detection** — The system runs Bayesian disproportionality analysis (PRR and EBGM scoring) every 6 hours across the pooled safety database. When a drug-event combination exceeds the signaling threshold, it generates an **automated Signal Assessment Report** and routes it to the safety physician on call. This quarter it detected **2 genuine signals** out of 14 alerts — a 14.3% precision rate that's in line with industry benchmarks for early-phase detection.",
+              "**Layer 3: Cross-study pattern matching** — SafetyWatch compares AE patterns across all Northbridge Health studies, including terminated ones, to detect class effects. Last month it identified a hepatic enzyme elevation pattern in NBH-4201 that matched a signal seen in a discontinued 2024 study with a related compound — this triggered a protocol amendment adding liver function monitoring at Week 8.",
+            ],
+          },
+          { text: "The GxP compliance rate for SafetyWatch is currently **99.2%**, validated under 21 CFR Part 11 with full audit trail. Every AI-generated safety assessment is reviewed by a qualified safety physician before any regulatory action is taken — the system recommends, the physician decides." },
+        ],
+      },
+    ],
     suggestions: [
-      'Show RailSentry data integration gaps',
-      'Compare crew dispatch optimization options',
-      "What's our FRA compliance readiness?",
-      'Generate fleet utilization report for Q1',
+      'Show trial enrollment status',
+      'How does SafetyWatch flag events?',
+      'GxP compliance rate?',
+      'Manufacturing QA batch release status',
     ],
   },
   'ee-finance': {
-    messages: [],
+    messages: [
+      {
+        role: 'user',
+        content: [{ text: 'What is the tax filing completion rate for this quarter?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the **Q1 2026 tax filing automation dashboard** for the Ministry of Finance:" },
+          {
+            table: {
+              headers: ['Filing Type', 'Total Due', 'Auto-Processed', 'Manual Review', 'Completion Rate', 'Avg. Time'],
+              rows: [
+                ['Personal income tax (TSD)', '148,200', '141,312', '6,888', '95.4%', '< 1 min'],
+                ['Corporate income tax (TSD)', '24,600', '21,648', '2,952', '88.0%', '3.2 min'],
+                ['VAT returns', '38,400', '35,712', '2,688', '93.0%', '1.8 min'],
+                ['Social tax declarations', '52,100', '50,538', '1,562', '97.0%', '< 1 min'],
+                ['Customs declarations', '8,900', '7,476', '1,424', '84.0%', '4.1 min'],
+              ],
+            },
+          },
+          { text: "Overall automated processing rate is **93.1%**, up from 87.4% last quarter. The **customs declarations** category has the lowest automation rate because the AI still struggles with tariff code classification for mixed-commodity shipments — particularly e-commerce parcels with multiple item categories. We're training a specialized model on HS code mapping that should push this above 90% by Q3." },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'How accurate are the revenue forecast models?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "The AI revenue forecasting models have been **remarkably accurate** this fiscal year. Here's the forecast-vs-actual comparison:" },
+          {
+            list: [
+              "**Overall tax revenue forecast accuracy: 97.8%** — The model predicted total Q4 2025 tax revenue of \u20AC3.42B against actual collections of \u20AC3.35B, a variance of just 2.1%. This outperforms the econometric model used previously, which had a 6.4% average variance.",
+              "**E-Residency revenue tracking** — The model correctly predicted a **14% increase** in e-Residency-linked corporate tax filings, driven by the new digital nomad visa program. Actual increase was 12.8%. This feeds into the Ministry's 3-year fiscal planning model.",
+              "**Anomaly detection for fraud** — The revenue forecasting pipeline also flags statistical outliers. This quarter, it identified **\u20AC4.2M in suspicious VAT refund claims** from 23 entities exhibiting carousel fraud indicators. EMTA investigators confirmed 18 of the 23 cases (78% precision), resulting in \u20AC3.1M in blocked fraudulent refunds.",
+            ],
+          },
+          { text: "The forecasting team is now integrating real-time X-Road data feeds from the Business Register and Employment Register to improve the corporate income tax model. Early testing shows this could reduce forecast variance below **1.5%** for corporate tax revenue." },
+        ],
+      },
+    ],
     suggestions: [
-      'Show RailSentry data integration gaps',
-      'Compare crew dispatch optimization options',
-      "What's our FRA compliance readiness?",
-      'Generate fleet utilization report for Q1',
+      'Show tax filing completion rate',
+      'Revenue forecast accuracy?',
+      'How many audits automated?',
+      'VAT fraud detection results',
     ],
   },
   'ee-social': {
-    messages: [],
+    messages: [
+      {
+        role: 'user',
+        content: [{ text: 'How are benefits processing times performing this month?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the **March 2026 benefits processing dashboard** for the Social Insurance Board:" },
+          {
+            table: {
+              headers: ['Benefit Type', 'Applications', 'Avg. Processing Time', 'Auto-Approved', 'Target SLA', 'Status'],
+              rows: [
+                ['Family benefits', '12,400', '1.2 days', '89%', '3 days', 'Exceeding'],
+                ['Disability assessment', '4,200', '8.4 days', '42%', '10 days', 'On track'],
+                ['Pension calculations', '6,800', '2.1 days', '78%', '5 days', 'Exceeding'],
+                ['Parental leave', '3,100', '0.8 days', '94%', '2 days', 'Exceeding'],
+                ['Unemployment insurance', '5,600', '3.6 days', '61%', '5 days', 'On track'],
+              ],
+            },
+          },
+          { text: "**Parental leave** has the highest auto-approval rate at 94% because the eligibility criteria are well-defined and the AI can verify employment history and contribution records directly through X-Road integration with the Employment Register. **Disability assessments** remain the most complex — the 42% auto-approval rate reflects the fact that most cases require medical documentation review by a qualified assessor. However, the AI pre-screening has reduced assessor workload by **31%** by auto-populating case summaries and flagging incomplete documentation before it reaches the review queue." },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'How does HealthSync integrate health records for eligibility checks?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "**HealthSync** is the X-Road-based health data integration layer that enables real-time eligibility verification. Here's how it works:" },
+          {
+            list: [
+              "**Automated medical record retrieval** — When a citizen applies for disability or sickness benefits, HealthSync queries the Health Information System (TIS) via X-Road to retrieve relevant diagnoses, treatment records, and physician assessments. The citizen consents once through eesti.ee, and the system pulls only the specific data fields needed for eligibility — no blanket access to full medical history. Average query response time is **1.4 seconds**.",
+              "**Cross-registry validation** — HealthSync simultaneously checks the Population Register (for residency), Employment Register (for contribution history), and Health Insurance Fund database (for coverage status). This eliminates the old process where citizens had to collect paper certificates from 3-4 different offices. The AI verifies data consistency across registries and flags discrepancies — this month it caught **127 cases** where employment records didn't match contribution payments.",
+              "**Privacy-preserving design** — All data flows are logged in the X-Road audit trail. Citizens can see exactly which government agencies accessed their data through the eesti.ee data tracker portal. HealthSync processes **zero persistent copies** of medical data — it queries in real time and discards after the eligibility decision is recorded. This architecture passed the EU GDPR compliance audit in January 2026 with zero findings.",
+            ],
+          },
+          { text: "The case resolution rate for benefits involving HealthSync queries is **94.2%** without requiring the citizen to submit any additional documentation. Before HealthSync, that rate was 58% — meaning 42% of applicants had to mail or upload supplementary documents, adding an average of 11 days to processing time." },
+        ],
+      },
+    ],
     suggestions: [
-      'Show RailSentry data integration gaps',
-      'Compare crew dispatch optimization options',
-      "What's our FRA compliance readiness?",
-      'Generate fleet utilization report for Q1',
+      'Show benefits processing times',
+      'How does HealthSync work?',
+      'Case resolution metrics?',
+      'Disability assessment backlog status',
     ],
   },
   'ee-economic': {
-    messages: [],
+    messages: [
+      {
+        role: 'user',
+        content: [{ text: "What's the current e-Residency application status?" }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the **e-Residency program dashboard** for March 2026:" },
+          {
+            table: {
+              headers: ['Metric', 'This Month', 'Last Month', 'YoY Change', 'Status'],
+              rows: [
+                ['New applications', '4,280', '3,910', '+18%', 'Above target'],
+                ['Avg. processing time', '3.2 days', '4.1 days', '-42%', 'Exceeding SLA'],
+                ['Approval rate', '92.4%', '91.8%', '+1.2%', 'Stable'],
+                ['Active e-Residents (total)', '112,400', '109,800', '+14%', 'Growing'],
+                ['Companies registered by e-Residents', '28,600', '27,400', '+22%', 'Strong growth'],
+              ],
+            },
+          },
+          { text: "The **18% application spike** is driven by two factors: the new digital nomad visa partnership with Portugal and Thailand (announced February 2026), and increasing interest from UK fintech founders post-Brexit seeking EU market access. The AI screening system now auto-processes **74% of applications** through automated background checks against Interpol, EU sanctions lists, and PEP databases, with average turnaround under 90 minutes. Only applications flagged for enhanced review (geo-risk, PEP matches, or incomplete documentation) require manual processing." },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'How are trade permit processing times trending?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Trade permit processing has seen **major improvements** since the AI-assisted classification system went live in January:" },
+          {
+            list: [
+              "**Standard trade permits** — Processing time reduced from 5.2 days to **1.8 days** (65% improvement). The AI auto-classifies goods against the EU Combined Nomenclature and checks for sanctions, dual-use restrictions, and preferential trade agreement eligibility. **82% of standard permits** are now issued without human intervention.",
+              "**Dual-use export licenses** — These remain complex at **6.4 days average**, but down from 12.1 days. The AI pre-screens against the EU Dual-Use Regulation (2021/821) and generates a risk assessment that reduces analyst review time by 40%. Estonia's dual-use licensing is critical for the growing defense tech sector — **142 licenses** processed this quarter, up 34% YoY.",
+              "**New business registrations** — The Business Register processed **2,840 new registrations** this month, with **91% completed same-day** through the automated e-Business Register portal. The AI validates articles of association, checks beneficial ownership declarations against the UBO register, and verifies compliance with EU Anti-Money Laundering directives. Average registration time for an e-Resident founding an O\u00DC (private limited company) is now **18 minutes** end-to-end.",
+            ],
+          },
+          { text: "The economic affairs team is targeting **sub-1-day processing** for all standard trade permits by Q4 2026, which would make Estonia the fastest in the EU for trade permit issuance." },
+        ],
+      },
+    ],
     suggestions: [
-      'Show RailSentry data integration gaps',
-      'Compare crew dispatch optimization options',
-      "What's our FRA compliance readiness?",
-      'Generate fleet utilization report for Q1',
+      'e-Residency application status?',
+      'Trade permit processing time?',
+      'New business registrations?',
+      'Dual-use export license trends',
     ],
   },
   'ee-ria': {
-    messages: [],
+    messages: [
+      {
+        role: 'user',
+        content: [{ text: 'Show me the current threat dashboard.' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Here's the **RIA Cybersecurity Threat Dashboard** as of today:" },
+          {
+            table: {
+              headers: ['Threat Category', 'Events (24h)', 'Blocked', 'Under Investigation', 'Severity'],
+              rows: [
+                ['DDoS attacks', '847', '841 (99.3%)', '6', 'Medium'],
+                ['Phishing campaigns', '2,140', '2,098 (98.0%)', '42', 'High'],
+                ['Malware detections', '312', '308 (98.7%)', '4', 'Medium'],
+                ['Unauthorized access attempts', '1,680', '1,672 (99.5%)', '8', 'Low'],
+                ['APT indicators', '23', '18 (78.3%)', '5', 'Critical'],
+              ],
+            },
+          },
+          { text: "The **APT indicators** row is the priority. We're tracking 5 active investigations linked to a state-sponsored campaign targeting Baltic government infrastructure. The threat actor is using a novel supply-chain vector through a compromised open-source library used in X-Road adapter servers. RIA's AI threat hunting system (CLAW) detected the anomalous behavior pattern **14 hours before** the CERT-EU advisory was published. All affected adapter servers have been patched, and we've issued a security bulletin to X-Road partners in Finland and Luxembourg." },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: "What's the X-Road uptime and health status this month?" }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "**X-Road infrastructure health** for March 2026:" },
+          {
+            list: [
+              "**Overall uptime: 99.97%** — Two brief incidents this month: a 12-minute outage on March 8 affecting the Tax Board adapter (caused by a certificate rotation error caught by automated monitoring) and a 4-minute degradation on March 21 during a planned security patch rollout. Both were resolved within SLA.",
+              "**Transaction volume: 184 million queries** this month, averaging 6.1 million per day. Peak day was March 15 (tax filing deadline) with **11.2 million queries** — the AI auto-scaling system provisioned additional capacity 2 hours before the surge based on historical pattern analysis, maintaining sub-200ms response times throughout.",
+              "**Incident response times** — Average time from alert to acknowledgment: **3.2 minutes**. Average time to resolution for P1 incidents: **28 minutes** (target: < 30 min). Average for P2: **2.4 hours** (target: < 4 hours). The AI triage system now auto-classifies 89% of incoming alerts correctly on first pass, routing them to the appropriate response team without manual dispatcher intervention.",
+            ],
+          },
+          { text: "The X-Road monitoring AI is also tracking a **gradual increase in cross-border queries** — transactions with Finland's Suomi.fi system are up **22% this quarter** as more bilateral services come online. RIA is load-testing for a projected **250 million monthly queries** by end of 2026 to ensure the infrastructure scales ahead of demand." },
+        ],
+      },
+    ],
     suggestions: [
-      'Show RailSentry data integration gaps',
-      'Compare crew dispatch optimization options',
-      "What's our FRA compliance readiness?",
-      'Generate fleet utilization report for Q1',
+      'Show threat dashboard',
+      'X-Road uptime this month?',
+      'Incident response times?',
+      'Cross-border data exchange stats',
     ],
   },
 };
