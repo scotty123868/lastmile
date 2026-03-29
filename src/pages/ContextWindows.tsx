@@ -108,7 +108,7 @@ interface DivisionRow {
 }
 
 const divisionData: DivisionRow[] = [
-  { name: 'HCC', fullName: 'IC Construction', activeUsers: 432, avgFreshness: 2.1, completeness: 87, queriesPerDay: 1240, successRate: 99.4 },
+  { name: 'HCC', fullName: 'IC Construction Corp', activeUsers: 432, avgFreshness: 2.1, completeness: 87, queriesPerDay: 1240, successRate: 99.4 },
   { name: 'HTSI', fullName: 'IC Transit Services', activeUsers: 202, avgFreshness: 1.8, completeness: 91, queriesPerDay: 680, successRate: 99.6 },
   { name: 'HTI', fullName: 'IC Technologies', activeUsers: 161, avgFreshness: 3.2, completeness: 82, queriesPerDay: 420, successRate: 98.8 },
   { name: 'HRSI', fullName: 'IC Rail Services', activeUsers: 129, avgFreshness: 2.4, completeness: 85, queriesPerDay: 340, successRate: 99.1 },

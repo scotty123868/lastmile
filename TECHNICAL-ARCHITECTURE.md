@@ -139,7 +139,7 @@ The platform has three layers:
 - Monthly compliance reports auto-generated for FRA submission
 - SOC 2 Type II readiness (logging, access control, encryption, monitoring)
 
-## What Herzog Provides
+## What IndustrialsCo Provides
 1. Read-only API credentials for: Kronos/UKG, SAP ERP, Azure AD
 2. IT contact for firewall/VPN configuration (if on-premise systems)
 3. Union agreement documents (UTU, IBEW, LIUNA) for compliance rules

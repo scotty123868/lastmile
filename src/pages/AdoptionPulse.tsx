@@ -161,7 +161,7 @@ const adoptionData: Record<string, CompanyAdoptionData> = {
     overallRate: 71,
     overallTrend: '+6% vs last month',
     overallTrendDir: 'up',
-    teamLabel: 'Operating Company / Division',
+    teamLabel: 'Division',
     teams: [
       { name: 'Aerospace Ops', active: 2800, total: 3200, adoption: 88, trend: '\u2191 8%', trendDir: 'up', status: 'strong' },
       { name: 'Energy Trading Floor', active: 1400, total: 1600, adoption: 88, trend: '\u2191 5%', trendDir: 'up', status: 'strong' },

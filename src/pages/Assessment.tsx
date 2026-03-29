@@ -799,7 +799,7 @@ export default function Assessment() {
       <div className="mb-8">
         <h1 className="text-[22px] font-semibold text-ink tracking-tight">Assessment</h1>
         <p className="text-[13px] text-ink-tertiary mt-1">
-          Tech stack diagnostic and license waste analysis — {company.employees.toLocaleString()} employees across {company.opCos} {company.category === 'sovereign' ? 'agencies' : company.opCos > 1 ? 'operating companies' : 'entity'}
+          Tech stack diagnostic and license waste analysis — {company.employees.toLocaleString()} employees across {company.opCos} {company.category === 'sovereign' ? 'agencies' : company.opCos > 1 ? 'divisions' : 'entity'}
         </p>
       </div>
 
