@@ -68,125 +68,200 @@ const chatData: Record<string, CompanyChat> = {
     messages: [
       {
         role: 'user',
-        content: [{ text: "What's the biggest opportunity across IndustrialsCo's divisions?" }],
+        content: [{ text: 'How can we optimize our claims processing pipeline with AI?' }],
       },
       {
         role: 'ai',
         content: [
-          { text: "The **single biggest opportunity** is cross-division visibility. Right now, each of IndustrialsCo's seven divisions operates its own data systems independently:" },
+          { text: "Oakwood's claims processing pipeline has **significant automation potential** across four key areas, with a combined Last Mile impact of **$3.2M annually**:" },
+          {
+            table: {
+              headers: ['Initiative', 'Department', 'Annual Impact', 'Current Status'],
+              rows: [
+                ['Claims adjudication automation', 'Claims Processing', '$1.12M', '81% adoption, cycle time down from 4.5 days to 1.2 days'],
+                ['Underwriting risk assessment AI', 'Underwriting', '$960K', '81% adoption, assessment time cut from 6 hrs to 1.4 hrs'],
+                ['FraudSentinel pattern detection', 'Claims / Fraud', '$840K', 'Fraud review cycle reduced from 3 days to 4 hrs'],
+                ['Duck Creek policy processing', 'Policy Administration', '$580K', 'Issuance time down from 2 days to 3 hrs'],
+              ],
+            },
+          },
+          { text: "The **claims automation** pipeline is the standout \u2014 Guidewire integration enables end-to-end adjudication for straightforward P&C claims without human intervention. The AI handles document intake, coverage verification, damage assessment, and payout calculation. For complex claims, the system pre-populates adjuster workflows with extracted data, cutting manual review time by **73%**. FraudSentinel cross-references each claim against historical patterns, third-party databases, and behavioral signals, catching **$840K in fraudulent claims** that would have previously required manual detection." },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'How accurate is the AI underwriting model? Are we seeing better loss ratios?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "The underwriting AI is performing well \u2014 Oakwood's verified accuracy rate is **96.1%** across all AI-assisted decisions. The model processes risk assessments in **1.4 hours** (down from 6 hours manually) and has improved pricing precision significantly:" },
           {
             list: [
-              "**$2.8M in license waste** \u2014 Duplicate SAP, Trimble, and Workday licenses across HCC, HRSI, HSI, HTI, HTSI, and corporate. At least 320 licenses are inactive or redundant across division boundaries.",
-              "**Crew and equipment sharing between HCC and HTI** \u2014 Construction crews and signal/PTC technicians often work adjacent corridors for the same Class I railroads but are dispatched independently. Cross-division crew optimization could save **$1.12M annually** and reduce mobilization time by 40%.",
-              "**Track inspection intelligence consolidation** \u2014 HSI's RailSentry data, HCC's field condition reports, and HTI's signal system diagnostics each capture different aspects of track health. Unifying these into a single track intelligence platform would give Class I customers a **360-degree corridor view** no competitor can match.",
+              "**Risk scoring accuracy** \u2014 The model evaluates 340+ risk factors per application compared to 45 factors in the manual process. Early data shows a **4.2% improvement in loss ratio** for AI-priced policies vs. manually priced ones in the same book.",
+              "**Actuarial validation** \u2014 The actuarial team (55% adoption, trending up) has verified that AI-recommended premiums fall within 2.1% of their independent calculations on 94% of policies reviewed.",
+              "**Exception handling** \u2014 Exception resolution time is down from 5.4 hours to 1.2 hours. The system escalates low-confidence assessments to senior underwriters with full context pre-loaded, so they're reviewing recommendations rather than starting from scratch.",
             ],
           },
-          { text: "The cross-division visibility play isn't just about cost savings \u2014 it's a **competitive differentiator**. No other rail services company can offer integrated track inspection, construction, and signaling data from a single provider. That's the pitch to Class I procurement teams." },
+          { text: "The **Year 1 ROI is tracking at 184%** with a payback period of just 3.8 months. The biggest remaining opportunity is the actuarial department \u2014 at 55% adoption, they're the lowest-adoption team. Getting their buy-in on AI-assisted reserving could unlock another layer of pricing accuracy." },
         ],
       },
     ],
     suggestions: [
-      'Show cross-division savings detail',
-      'Compare division AI readiness',
-      'Generate fleet utilization report',
-      'Analyze crew sharing opportunities',
+      'Show claims automation ROI',
+      'How does FraudSentinel work?',
+      'Compare underwriting accuracy rates',
+      "What's our policy renewal rate?",
     ],
   },
   pinnacle: {
     messages: [
       {
         role: 'user',
-        content: [{ text: 'How does the MCP connector work with our Primavera P6?' }],
+        content: [{ text: 'How is AI improving our clinical documentation efficiency?' }],
       },
       {
         role: 'ai',
         content: [
-          { text: "The MCP connector integrates with Primavera P6 through a **read-only API layer** that extracts project data without any risk to your production scheduling system:" },
+          { text: "Pinnacle's clinical documentation AI is delivering **$1.8M in annual Last Mile impact** across four major categories. Here's the breakdown:" },
+          {
+            table: {
+              headers: ['Initiative', 'Department', 'Annual Impact', 'Current Status'],
+              rows: [
+                ['ClinicalScribe documentation AI', 'Clinical Staff', '$640K', '70% adoption, doc time down from 45 min to 12 min per patient'],
+                ['Billing code optimization', 'Billing & Revenue Cycle', '$520K', '73% adoption, claims accuracy review cut from 3 days to 6 hrs'],
+                ['Patient scheduling optimization', 'Administrative', '$440K', '72% adoption, scheduling time reduced by 79%'],
+                ['HIPAA compliance automation', 'Compliance & Quality', '$360K', '76% adoption, audit prep cut from 2 weeks to 3 days'],
+              ],
+            },
+          },
+          { text: "**ClinicalScribe** is the flagship win \u2014 it integrates directly with Epic EHR to generate physician notes, discharge summaries, and care plans in real time during patient encounters. Accuracy is at **94.8%** on verified outputs, with physicians reviewing and approving AI-generated documentation rather than writing from scratch. The billing code optimization layer catches coding errors before submission, preventing denials and recovering **$520K** in revenue that would have been lost to inaccurate claims." },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'What about the prior authorization bottleneck? That was a huge pain point.' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Prior authorization is where the AI is making the most visible difference for clinical staff. The system now handles the **end-to-end prior auth workflow** integrated with Epic:" },
           {
             list: [
-              "**REST API integration via P6 EPPM Web Services** \u2014 The connector authenticates through P6's standard SOAP/REST endpoints using a read-only service account. It pulls project schedules, resource assignments, activity progress, and earned value data on a configurable sync schedule (default: every 4 hours). No write access is granted \u2014 this is a **one-way data extraction** that cannot modify schedules or assignments.",
-              "**Data extraction scope** \u2014 The connector pulls WBS structures, activity durations, resource loading, cost baselines, and progress updates across all active projects. For HCC alone, that's approximately **2,400 activities across 18 active construction projects**. The data feeds into the AI's context window for crew optimization, equipment utilization analysis, and project timeline predictions.",
-              "**Compliance and security** \u2014 All P6 data remains within IndustrialsCo's network perimeter. The connector runs on-premise and communicates with the AI platform via encrypted API calls. Audit logs track every data pull with timestamps, record counts, and the service account used. Your P6 admin retains full control over which projects and fields are exposed to the connector.",
+              "**Automated submission** \u2014 The AI pre-populates prior auth forms by pulling patient history, diagnosis codes, and treatment plans directly from Epic. It cross-references each payer's specific requirements and attaches supporting clinical documentation automatically. Processing time dropped from **3 days to 6 hours** for standard authorizations.",
+              "**Denial prediction** \u2014 Before submission, the system scores each authorization request against historical approval patterns for that payer. Requests scoring below 70% likelihood are flagged for clinical staff to add supplementary documentation, reducing denial rates by **34%** this quarter.",
+              "**Patient intake automation** \u2014 The front-end intake process now verifies insurance eligibility, checks prior auth requirements, and flags potential issues before the patient arrives. This has eliminated **62% of day-of-appointment authorization surprises** that were causing cancellations and rescheduling.",
             ],
           },
-          { text: "The connector was designed for **zero disruption** to existing P6 workflows. Project managers continue using P6 exactly as they do today. The AI simply reads the data they're already entering and uses it to surface insights like crew conflicts, equipment idle time, and schedule risk predictions that would otherwise require hours of manual cross-referencing." },
+          { text: "The **Year 1 ROI is tracking at 152%** with a 4.4-month payback period. The IT & Informatics team is the adoption laggard at 45% \u2014 they're cautious about the Epic integration architecture, but the compliance team (76% adoption) has been championing the HIPAA automation wins internally." },
         ],
       },
     ],
     suggestions: [
-      'Show P6 data extraction details',
-      'Explain read-only security model',
-      'Compare integration options',
-      'Generate P6 connector setup guide',
+      'Show clinical documentation metrics',
+      'Prior auth processing times?',
+      'Compare billing accuracy by department',
+      'Patient intake automation status?',
     ],
   },
   atlas: {
     messages: [
       {
         role: 'user',
-        content: [{ text: "What's the AI reliability score for track inspections?" }],
+        content: [{ text: 'How is AI improving our production optimization across plants?' }],
       },
       {
         role: 'ai',
         content: [
-          { text: "The current **AI reliability score for track inspection classification is 94.2%**, based on validation against HSI's manual review of RailSentry LIDAR data over the past 6 months. Here's how that breaks down:" },
+          { text: "Atlas Manufacturing is seeing **$4.5M in annual Last Mile impact** driven by AI across production, quality, supply chain, and maintenance. Here's the performance dashboard:" },
           {
             table: {
-              headers: ['Metric', 'Value', 'Industry Benchmark', 'Status'],
+              headers: ['Initiative', 'Division', 'Annual Impact', 'Key Metric'],
               rows: [
-                ['Overall trust score', '94.2%', '90%+ for production use', 'Above threshold'],
-                ['FRA geometry exception classification', '96.8%', '95%+ required', 'Passing'],
-                ['False positive rate (flagging good track as defective)', '3.1%', '<5% target', 'Within range'],
-                ['False negative rate (missing real defects)', '0.4%', '<1% critical threshold', 'Passing'],
-                ['PTC signal correlation accuracy', '91.8%', 'No benchmark yet', 'Under validation'],
+                ['Production scheduling AI', 'Production Operations', '$1.62M', 'OEE improved from 78% to 87%, changeover time down 73%'],
+                ['Automated quality inspection', 'Quality Control', '$1.28M', '76% adoption, inspection reports in 25 min vs. 2 hrs'],
+                ['Supply chain demand forecasting', 'Supply Chain & Logistics', '$1.05M', '67% adoption, disruption response cut from 3 days to 6 hrs'],
+                ['Predictive maintenance engine', 'Maintenance & Reliability', '$950K', '69% adoption, alerts 2 days early vs. 2 weeks before'],
               ],
             },
           },
-          { text: "The most significant validation event was the **PTC false positive catch** on the Northeast Corridor last month. The AI flagged a PTC signal anomaly that appeared to indicate a track circuit failure. Manual review by HSI engineers confirmed the signal was actually caused by a **rail impedance bond replacement** that hadn't been updated in the PTC database \u2014 not a genuine failure. Without the human-in-loop review, this would have triggered an unnecessary slow order affecting 14 trains." },
-          { text: "Every AI classification goes through a **three-tier validation pyramid**: Tier 1 (automated cross-check against FRA 49 CFR \u00A7213 thresholds), Tier 2 (statistical anomaly detection comparing against corridor baselines), and Tier 3 (human review for any classification the AI flags as below 90% confidence). Currently, **78% of classifications clear Tier 1 automatically**, 18% require Tier 2 validation, and only 4% escalate to human review \u2014 but that 4% is where the highest-value corrections happen." },
+          { text: "The **OEE improvement from 78% to 87%** is the headline number \u2014 the AI production scheduler optimizes line changeovers, batch sequencing, and resource allocation across all plants simultaneously. It integrates with **SAP S/4HANA** for real-time production order data and feeds optimized schedules back into the MES. Predictive maintenance alone is saving **$950K** by catching equipment degradation patterns an average of 2 days before failure, turning emergency repairs into planned maintenance windows." },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'What about supply chain visibility? We had major disruption issues last quarter.' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "Supply chain visibility has been a **major focus area** this quarter. The AI demand forecasting and supplier risk system is delivering $1.05M in impact:" },
+          {
+            list: [
+              "**Demand forecasting accuracy** \u2014 The model now predicts demand within 4.2% variance (down from 11.8% with the legacy system), incorporating real-time order data from SAP, market signals, and seasonal patterns. This has reduced safety stock requirements by **18%** while maintaining 99.1% fill rates.",
+              "**Supplier risk monitoring** \u2014 The AI continuously monitors 340+ suppliers across financial health, delivery performance, and geopolitical risk indicators. It flagged 3 critical suppliers in the Southeast Asia corridor **6 weeks before** they reported capacity constraints, giving procurement enough lead time to qualify alternates.",
+              "**Lead time optimization** \u2014 Average inbound lead times have been reduced by **22%** through AI-optimized routing, carrier selection, and consolidation. The system processes disruption response in 6 hours compared to the previous 3-day manual escalation cycle.",
+            ],
+          },
+          { text: "The **verified accuracy rate is 94.8%** across all AI-assisted decisions, and the **Year 1 ROI is tracking at 178%** with a 3.6-month payback. R&D / Engineering remains the lowest-adoption group at 40% \u2014 they're still evaluating how AI fits into the product development workflow." },
         ],
       },
     ],
     suggestions: [
-      'Show reliability testing pyramid detail',
-      'Explain human-in-loop workflow',
-      'Compare inspection accuracy by corridor',
-      'Generate FRA compliance evidence report',
+      'Show OEE trends by plant',
+      'Predictive maintenance savings?',
+      'Quality defect rate analysis',
+      'Supply chain lead time optimization?',
     ],
   },
   northbridge: {
     messages: [
       {
         role: 'user',
-        content: [{ text: 'Which division has the highest AI adoption?' }],
+        content: [{ text: 'How is AI adoption trending across our operating companies?' }],
       },
       {
         role: 'ai',
         content: [
-          { text: "Here's the **AI readiness ranking** across IndustrialsCo's seven divisions:" },
+          { text: "Here's the **cross-OpCo AI adoption dashboard** for Northbridge Capital Group. Overall adoption is at **58%** (+3% vs last month), with **$42M in total Last Mile impact**:" },
           {
             table: {
-              headers: ['Division', 'Readiness Score', 'Key Strength', 'Primary Gap', 'Recommended First Use Case'],
+              headers: ['Operating Company', 'Adoption Rate', 'Active Users', 'Total Users', 'Trend', 'Status'],
               rows: [
-                ['HSI (Inspections)', '42/100', 'Richest ultrasonic + LIDAR data', 'Manual analysis bottleneck', 'AI defect classification'],
-                ['HRSI (Rail Services)', '38/100', 'Large crew data history', 'Legacy dispatch system', 'Crew optimization'],
-                ['HTI (Signal & PTC)', '36/100', 'Signal system diagnostics', 'Fragmented data formats', 'Signal anomaly detection'],
-                ['HTSI (Transit)', '35/100', 'PTC compliance data', 'Paper-based field reports', 'Digital work orders'],
-                ['HCC (Construction)', '32/100', 'Primavera P6 project data', 'Field work complexity', 'Equipment utilization'],
-                ['Corporate', '44/100', 'Centralized finance/HR', 'Division data silos', 'License optimization'],
+                ['NB Financial Services', '68%', '4,200', '6,200', '\u2191 5%', 'Growing'],
+                ['NB Aerospace', '62%', '5,100', '8,200', '\u2191 4%', 'Growing'],
+                ['NB Energy', '55%', '6,300', '11,500', '\u2191 3%', 'At risk'],
+                ['NB Health Sciences', '52%', '8,400', '16,100', '\u2191 2%', 'At risk'],
               ],
             },
           },
-          { text: "**HSI leads at 42** primarily because ultrasonic inspection and RailSentry LIDAR data are inherently structured and high-volume \u2014 exactly what AI models need. Their data is machine-generated, timestamped, and geolocated, making it the most AI-ready dataset in the company. **HCC trails at 32** because construction operations are inherently field-based, with crew reports often captured on paper or in disconnected mobile apps. The gap isn't about willingness \u2014 HCC's teams are eager \u2014 it's about **data capture infrastructure** in the field." },
-          { text: "The biggest unlock is getting HSI and HCC data to talk to each other. HSI inspects the track, HCC builds and maintains it. Right now, when HSI flags a defect, it goes through **3 manual handoffs** before HCC receives a work order. AI-powered defect-to-work-order automation would cut this from **6.8 hours to under 25 minutes**." },
+          { text: "**NB Financial leads at 68%** thanks to strong adoption in KYC automation and transaction monitoring \u2014 compliance-driven use cases where the AI ROI is immediately measurable. **NB Health Sciences trails at 52%** despite having the largest workforce (16,100), primarily because clinical trial workflows require GxP validation before AI tools can be deployed, which adds 3-4 months to every rollout. Cross-division synergies are generating **$14.2M** through shared services optimization, procurement consolidation, and best-practice propagation across all four OpCos." },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'Which OpCo has the most untapped automation potential?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "**NB Energy** has the highest untapped potential, and here's why:" },
+          {
+            list: [
+              "**Largest workforce gap** \u2014 At 55% adoption across 11,500 employees, NB Energy has **5,200 users not yet on the platform**. Their field services team is at just 32% adoption because grid maintenance workflows are still paper-based in many regions. Digitizing field work orders alone could add **$2.8M in annual savings**.",
+              "**SCADA modernization tailwind** \u2014 NB Energy is 62% through a major SCADA infrastructure upgrade. As Phase 2 and 3 substations come online with real-time telemetry, the AI anomaly detection and predictive maintenance use cases will scale automatically. This is a **built-in adoption accelerator** that no other OpCo has.",
+              "**Compliance automation upside** \u2014 Multi-jurisdictional regulatory compliance across energy markets is driving **$11.8M** of Northbridge's total compliance automation savings. NB Energy accounts for the largest share of this, but the current 55% adoption means significant reporting cycles are still manual.",
+            ],
+          },
+          { text: "The strategic recommendation is to **prioritize NB Energy field services digitization** as the next major initiative. The cross-division compliance report cycle has already been cut from 3 weeks to 4 days (81% improvement) \u2014 getting NB Energy's field teams fully on platform would accelerate the strategic analytics briefing cycle and improve the overall conglomerate adoption rate toward the 65% target." },
         ],
       },
     ],
     suggestions: [
-      'Show division readiness details',
-      'Compare data maturity by division',
-      'Analyze adoption barriers',
-      'Generate division AI roadmap',
+      'Compare OpCo adoption rates',
+      'Show cross-division synergy opportunities',
+      'Which OpCo needs the most help?',
+      'Capital allocation AI recommendations?',
     ],
   },
   estonia: {
