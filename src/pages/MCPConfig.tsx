@@ -57,7 +57,7 @@ const connectorConfig = `{
   "auth": {
     "type": "oauth2",
     "grant": "client_credentials",
-    "token_url": "https://sap.herzog.com/oauth/token"
+    "token_url": "https://sap.industrialsco.com/oauth/token"
   },
   "endpoints": [
     "work_orders",
@@ -291,7 +291,7 @@ export default function MCPConfig() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
               { label: 'Version', value: 'MCP v1.2.4', icon: Cpu },
-              { label: 'Host', value: 'herzog-mcp.upskiller.internal', icon: Wifi },
+              { label: 'Host', value: 'industrialsco-mcp.upskiller.internal', icon: Wifi },
               { label: 'Uptime', value: formatUptime(uptimeSeconds), icon: Clock },
               { label: 'Last Health Check', value: '30 seconds ago \u2713', icon: Activity },
               { label: 'Connections', value: '12 active / 47 configured', icon: Database },
@@ -415,7 +415,7 @@ export default function MCPConfig() {
         <div className="rounded-xl bg-slate-900 p-6 font-mono text-[11px] leading-relaxed overflow-x-auto">
           <div className="border border-slate-600 rounded-lg p-4 min-w-[500px]">
             {/* VPN title */}
-            <div className="text-slate-400 text-[10px] font-bold tracking-wider mb-4">HERZOG NETWORK (VPN)</div>
+            <div className="text-slate-400 text-[10px] font-bold tracking-wider mb-4">INDUSTRIALSCO NETWORK (VPN)</div>
 
             <div className="flex gap-6 items-start">
               {/* Source systems */}

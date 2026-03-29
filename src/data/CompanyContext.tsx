@@ -101,7 +101,7 @@ export const companies: Company[] = [
     industry: 'Passenger Rail Operations',
     employees: 480,
     opCos: 1,
-    initials: 'TS',
+    initials: 'TR',
     currency: '$',
     pillar: 'adoption',
     pillarLabel: 'Adoption Ops',
