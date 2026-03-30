@@ -98,7 +98,7 @@ const dataIntelData: Record<string, CompanyDataIntel> = {
       {
         name: 'Cross-Division Dispatch System',
         severity: 'Critical',
-        sources: ['HRSI Custom Dispatch', 'HTI Signal Crew Scheduling', 'Manual Spreadsheets'],
+        sources: ['HRSI HCSS Field', 'HTI Signal Crew Scheduling', 'Manual Spreadsheets'],
         gapLine: 'Crew dispatch runs on disconnected legacy systems with no shared availability view across divisions',
         blockedCapabilities: [
           'Cross-division crew optimization for multi-skill work orders',
@@ -111,14 +111,14 @@ const dataIntelData: Record<string, CompanyDataIntel> = {
       {
         name: 'Centralized Equipment Registry',
         severity: 'High',
-        sources: ['SAP ECC (HCC)', 'Access DB (HRSI)', 'Spreadsheets (HSI/HTI)'],
+        sources: ['eCMS (HCC)', 'Access DB (HRSI)', 'Spreadsheets (HSI/HTI)'],
         gapLine: 'Each division tracks 320+ heavy equipment units in separate, incompatible systems',
         blockedCapabilities: [
           'Fleet-wide utilization tracking and redeployment optimization',
           'Predictive maintenance scheduling across GPS ballast trains, tampers, and regulators',
           'Automated Class I railroad equipment certification tracking',
         ],
-        recommendedSolution: 'Consolidate to a single SAP Plant Maintenance module with API-driven ingestion from all division sources. Establish unified equipment ID schema tied to Trimble GPS data.',
+        recommendedSolution: 'Consolidate to eCMS integrated maintenance module with API-driven ingestion from all division sources. Establish unified equipment ID schema tied to HCSS Telematics data.',
         annualImpact: 1200000,
       },
       {
@@ -136,7 +136,7 @@ const dataIntelData: Record<string, CompanyDataIntel> = {
       },
     ],
     architecture: {
-      sourceSystems: ['RailSentry', 'Wabtec PTC', 'SAP ECC', 'Trimble GPS', 'HRSI Dispatch', 'FRA Portal'],
+      sourceSystems: ['RailSentry', 'Wabtec PTC', 'eCMS', 'HCSS Telematics', 'HRSI HCSS Field', 'FRA Portal'],
       platformName: 'Databricks Lakehouse',
       capabilities: ['Cross-division visibility', 'AI/ML defect detection', 'FRA compliance automation'],
     },

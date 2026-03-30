@@ -37,9 +37,9 @@ function generateLiveLogEntry(): { ts: string; system: string; msg: string } {
   const now = new Date();
   const ts = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
   const templates = [
-    { system: 'SAP S/4HANA', msg: `Synced ${randomInt(200, 1200)} work orders (incremental)` },
+    { system: 'eCMS', msg: `Synced ${randomInt(200, 1200)} work orders (incremental)` },
     { system: 'Kronos', msg: `Synced ${randomInt(5, 40)} timesheet updates` },
-    { system: 'Trimble GPS', msg: `Real-time feed: ${randomInt(200, 400)} vehicle positions updated` },
+    { system: 'HCSS Telematics', msg: `Real-time feed: ${randomInt(200, 400)} vehicle positions updated` },
     { system: 'FRA RISPC', msg: `Synced ${randomInt(1, 8)} new inspection records` },
     { system: 'Primavera P6', msg: `Synced ${randomInt(5, 30)} project schedule updates` },
     { system: 'PTC Signal', msg: `Synced ${randomInt(20, 150)} signal state changes` },
@@ -52,12 +52,12 @@ function generateLiveLogEntry(): { ts: string; system: string; msg: string } {
 /* ── Data ────────────────────────────────────────────────── */
 
 const connectorConfig = `{
-  "connector": "sap-s4hana",
+  "connector": "ecms",
   "version": "2.1.0",
   "auth": {
     "type": "oauth2",
     "grant": "client_credentials",
-    "token_url": "https://sap.industrialsco.com/oauth/token"
+    "token_url": "https://ecms.industrialsco.com/oauth/token"
   },
   "endpoints": [
     "work_orders",
@@ -78,26 +78,26 @@ const schemaFields = [
 ];
 
 const initialCrawlLogEntries = [
-  { ts: '2026-03-26 17:42:18', system: 'SAP S/4HANA', msg: 'Synced 847 work orders (incremental)' },
+  { ts: '2026-03-26 17:42:18', system: 'eCMS', msg: 'Synced 847 work orders (incremental)' },
   { ts: '2026-03-26 17:42:15', system: 'Kronos', msg: 'Synced 12 timesheet updates' },
-  { ts: '2026-03-26 17:42:12', system: 'Trimble GPS', msg: 'Real-time feed: 342 vehicle positions updated' },
+  { ts: '2026-03-26 17:42:12', system: 'HCSS Telematics', msg: 'Real-time feed: 342 vehicle positions updated' },
   { ts: '2026-03-26 17:42:08', system: 'Azure AD', msg: '0 changes detected (no sync needed)' },
-  { ts: '2026-03-26 17:37:18', system: 'SAP S/4HANA', msg: 'Synced 923 work orders (incremental)' },
+  { ts: '2026-03-26 17:37:18', system: 'eCMS', msg: 'Synced 923 work orders (incremental)' },
   { ts: '2026-03-26 17:37:14', system: 'FRA RISPC', msg: 'Synced 3 new inspection records' },
   { ts: '2026-03-26 17:37:11', system: 'Primavera P6', msg: 'Synced 14 project schedule updates' },
   { ts: '2026-03-26 17:37:08', system: 'PTC Signal', msg: 'Synced 89 signal state changes' },
-  { ts: '2026-03-26 17:32:18', system: 'SAP S/4HANA', msg: 'Synced 756 work orders (incremental)' },
+  { ts: '2026-03-26 17:32:18', system: 'eCMS', msg: 'Synced 756 work orders (incremental)' },
   { ts: '2026-03-26 17:32:15', system: 'Kronos', msg: 'Synced 28 certification renewals' },
-  { ts: '2026-03-26 17:32:12', system: 'Samsara Fleet', msg: 'Synced 167 vehicle telemetry events' },
-  { ts: '2026-03-26 17:32:08', system: 'SAP ERP', msg: 'Synced 42 purchase requisitions' },
-  { ts: '2026-03-26 17:27:18', system: 'SAP S/4HANA', msg: 'Synced 891 work orders (incremental)' },
+  { ts: '2026-03-26 17:32:12', system: 'HCSS Equipment360', msg: 'Synced 167 vehicle telemetry events' },
+  { ts: '2026-03-26 17:32:08', system: 'eCMS', msg: 'Synced 42 purchase requisitions' },
+  { ts: '2026-03-26 17:27:18', system: 'eCMS', msg: 'Synced 891 work orders (incremental)' },
   { ts: '2026-03-26 17:27:14', system: 'OSHA', msg: 'Synced 1 new compliance update' },
   { ts: '2026-03-26 17:27:11', system: 'GE SCADA', msg: 'Synced 2,341 sensor readings' },
   { ts: '2026-03-26 17:27:08', system: 'Primavera P6', msg: 'Synced 8 milestone updates' },
-  { ts: '2026-03-26 17:22:18', system: 'SAP S/4HANA', msg: 'Synced 812 work orders (incremental)' },
+  { ts: '2026-03-26 17:22:18', system: 'eCMS', msg: 'Synced 812 work orders (incremental)' },
   { ts: '2026-03-26 17:22:15', system: 'Azure AD', msg: '2 role changes synced' },
   { ts: '2026-03-26 17:22:12', system: 'PTC Signal', msg: 'Synced 134 signal state changes' },
-  { ts: '2026-03-26 17:22:08', system: 'Trimble GPS', msg: 'Real-time feed: 298 vehicle positions updated' },
+  { ts: '2026-03-26 17:22:08', system: 'HCSS Telematics', msg: 'Real-time feed: 298 vehicle positions updated' },
 ];
 
 /* ── Uptime formatter ────────────────────────────────────── */
@@ -129,10 +129,10 @@ const connectorGroups: ConnectorGroup[] = [
   {
     label: 'Enterprise Systems',
     items: [
-      { name: 'SAP ERP', connected: true },
+      { name: 'eCMS', connected: true },
       { name: 'Primavera P6', connected: true },
       { name: 'Kronos/UKG', connected: true },
-      { name: 'Trimble GPS', connected: true },
+      { name: 'HCSS Telematics', connected: true },
     ],
   },
   {
@@ -156,8 +156,8 @@ const connectorGroups: ConnectorGroup[] = [
   {
     label: 'Fleet & Field',
     items: [
-      { name: 'Trimble', connected: true },
-      { name: 'Samsara', connected: true },
+      { name: 'HCSS Telematics', connected: true },
+      { name: 'HCSS Equipment360', connected: true },
       { name: 'Verizon Connect', connected: false },
       { name: 'Fleet Complete', connected: false },
     ],
@@ -420,7 +420,7 @@ export default function MCPConfig() {
             <div className="flex gap-6 items-start">
               {/* Source systems */}
               <div className="space-y-1.5 flex-shrink-0">
-                {['SAP', 'Primavera', 'Kronos', 'PTC', 'AD'].map((sys) => (
+                {['eCMS', 'Primavera', 'Kronos', 'PTC', 'AD'].map((sys) => (
                   <div key={sys} className="flex items-center gap-2">
                     <span className="text-slate-300 w-16 text-right">{sys}</span>
                     <span className="text-slate-500">&larr;</span>

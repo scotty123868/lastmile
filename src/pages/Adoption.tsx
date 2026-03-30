@@ -58,7 +58,7 @@ const aiTools = [
 const blockers = [
   {
     color: 'red' as const,
-    title: 'Custom Dispatch System',
+    title: 'Legacy Field Dispatch',
     desc: 'Not yet connected (blocks 8 workflows in HCC)',
     action: 'IT credentials requested — ETA 1 week',
   },

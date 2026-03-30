@@ -45,7 +45,7 @@ interface PendingSystem {
 
 const connections: Connection[] = [
   {
-    name: 'SAP ERP (S/4HANA)',
+    name: 'eCMS',
     status: 'connected',
     lastSync: '3 min ago',
     lastSyncMinutes: 3,
@@ -65,7 +65,7 @@ const connections: Connection[] = [
     dataFlowing: 'Project schedules, resource allocation, critical paths',
   },
   {
-    name: 'Trimble Fleet GPS',
+    name: 'HCSS Telematics',
     status: 'connected',
     lastSync: 'Real-time',
     records: '342 active vehicles',
@@ -105,7 +105,7 @@ const connections: Connection[] = [
     dataFlowing: 'Track geometry, defect reports, compliance status',
   },
   {
-    name: 'Custom Dispatch System',
+    name: 'Legacy Field Dispatch',
     status: 'connected',
     lastSync: '12 min ago',
     lastSyncMinutes: 12,
