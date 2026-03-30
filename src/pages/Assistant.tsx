@@ -35,33 +35,49 @@ const chatData: Record<string, CompanyChat> = {
     messages: [
       {
         role: 'user',
-        content: [{ text: 'Where are the biggest savings opportunities across our divisions?' }],
+        content: [{ text: 'Where should we start with AI given our current infrastructure?' }],
       },
       {
         role: 'ai',
         content: [
-          { text: "Here are the **top 5 savings opportunities** identified across IndustrialsCo's seven divisions, ranked by projected annual impact:" },
+          { text: "Based on the infrastructure assessment, your systems fall into three tiers for AI readiness:" },
           {
             table: {
-              headers: ['Opportunity', 'Division', 'Annual Savings', 'Department', 'Automation Level'],
+              headers: ['Tier', 'Systems', 'AI Readiness', 'Action'],
               rows: [
-                ['Track defect detection automation (RailSentry + LIDAR)', 'HSI / HCC', '$1.38M', 'Rail Testing', '91% automatable'],
-                ['Crew dispatch & scheduling optimization', 'HRSI', '$1.12M', 'Operations', '86% automatable'],
-                ['GPS ballast train fleet utilization', 'HCC', '$940K', 'Construction', '78% automatable'],
-                ['FRA safety compliance reporting', 'All divisions', '$780K', 'Compliance', '82% automatable'],
-                ['Equipment maintenance cycle prediction (TAM-4 / SpeedTrax)', 'HTI / HCC', '$620K', 'Maintenance', '74% automatable'],
+                ['Champion (AI-ready today)', 'Procore, HCSS Telematics, iCIMS', 'High', 'Layer AI agents now \u2014 rich APIs, structured data'],
+                ['High Value (moderate work)', 'P6, Heavy Job, Equipment360', 'Medium', 'Build data pipelines, normalize schemas, then deploy'],
+                ['Bottleneck (blocking AI)', 'eCMS, QMirror/AS400, MCP', 'Low', 'Flat-file exports, AS/400 batch lag \u2014 unblock first'],
               ],
             },
           },
-          { text: 'The **total addressable savings** across these five initiatives is **$4.84M annually**. Track defect detection at HSI is the highest-confidence opportunity \u2014 RailSentry already captures the raw data, but manual analysis creates a 6.8-hour bottleneck per corridor segment. AI classification would reduce this to under 25 minutes.' },
+          { text: 'Start with the **Champions**: Procore and HCSS Telematics have modern APIs and structured data \u2014 AI agents can connect today. Then **unblock the pipeline**: eCMS and QMirror are the critical bottleneck. The AS/400 batch lag means 12-24hr data delays across all divisions. Until that\'s resolved, real-time AI on core financial and job cost data is impossible. Once unblocked, layer AI onto P6 schedules and Heavy Job field data for predictive project controls.' },
+        ],
+      },
+      {
+        role: 'user',
+        content: [{ text: 'What about expanding RailSentry and the other AI models?' }],
+      },
+      {
+        role: 'ai',
+        content: [
+          { text: "RailSentry is your most mature AI \u2014 already at **~97% accuracy** for object detection and classification on railroad right-of-way. The expansion path focuses on two adjacent models:" },
+          {
+            list: [
+              "**Tie Inspection AI** (HRSI) \u2014 Wood/concrete/composite classification from trackside imagery. Currently in pilot with strong early results. Needs MLOps pipeline for model versioning and edge deployment to geometry cars.",
+              "**HSI Ultrasonic** \u2014 B-scan defect detection at ~80% confidence. Expanding to A-scan will require additional training data and on-prem compute. Recommend deploying GPU nodes in TX/AZ data centers for edge inference.",
+              "**MLOps infrastructure** \u2014 All 3 models need a shared model registry, versioning, and edge deployment pipeline. This is the force multiplier \u2014 build it once, deploy across RailSentry, Tie Inspection, and HSI Ultrasonic.",
+            ],
+          },
+          { text: "With **3 AI models in production** and the MLOps pipeline in place, you'll have the foundation for a scalable AI platform across all divisions." },
         ],
       },
     ],
     suggestions: [
-      'Show RailSentry data integration gaps',
-      'Compare crew dispatch optimization options',
-      "What's our FRA compliance readiness?",
-      'Generate fleet utilization report for Q1',
+      'Which systems are AI-ready today?',
+      "What's blocking real-time AI?",
+      'RailSentry edge deployment plan?',
+      'How do we connect eCMS to HCSS?',
     ],
   },
   oakwood: {

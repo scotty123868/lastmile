@@ -83,10 +83,10 @@ const impactData: Record<string, CompanyImpactData> = {
   meridian: {
     totalAnnualImpact: 3600000,
     categories: [
-      { label: 'Verification Catches', amount: 1080000, description: 'Track defect identification via RailSentry/LIDAR, FRA safety compliance catches, equipment failure prevention', icon: 'shield', type: 'saving' },
-      { label: 'Process Automation', amount: 1680000, description: 'Dispatch automation, crew scheduling optimization, fleet tracking and GPS ballast train routing automated', icon: 'zap', type: 'saving' },
-      { label: 'Adoption Uplift', amount: 1140000, description: 'Field crew productivity gains from mobile-first tools across 36-state rail operations', icon: 'users', type: 'saving' },
-      { label: 'Implementation Cost', amount: -300000, description: 'Platform license, PTC/signal system integration, and division-wide training rollout', icon: 'cost', type: 'cost' },
+      { label: 'AI Enhancement on Champion Systems', amount: 1080000, description: 'Procore, HCSS Telematics, and iCIMS AI-ready integrations — RailSentry object detection, HCSS Safety automation', icon: 'shield', type: 'saving' },
+      { label: 'Predictive Analytics (P6 + Heavy Job + Equipment360)', amount: 1680000, description: 'Schedule optimization via P6, field cost tracking via Heavy Job, fleet predictive maintenance via Equipment360', icon: 'zap', type: 'saving' },
+      { label: 'RailSentry/HSI AI Expansion', amount: 1140000, description: 'RailSentry at ~97% accuracy, Tie Inspection AI pilot, HSI Ultrasonic B-scan at ~80% — 3 AI models scaling', icon: 'users', type: 'saving' },
+      { label: 'Implementation Cost', amount: -300000, description: 'Platform license, eCMS/QMirror API bridge, MLOps pipeline, and division-wide training rollout', icon: 'cost', type: 'cost' },
     ],
     waterfall: [
       { label: 'Verification', value: 1080000, type: 'positive' },

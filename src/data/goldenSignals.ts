@@ -22,9 +22,10 @@ const goldenSignalsByDivision: Record<string, GoldenSignalsData> = {
   meridian: {
     throughput: {
       name: 'Throughput',
-      value: '15,847 tasks/day',
+      value: '15,847 events/day',
       sparkline: [12400, 13100, 13800, 14200, 14900, 15300, 15847],
       trend: { direction: 'up', value: '+6% WoW', positive: true },
+      badge: { text: 'eCMS + HCSS + P6', color: 'green' },
     },
     errorRate: {
       name: 'Error Rate',

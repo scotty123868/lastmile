@@ -306,7 +306,7 @@ const hccAgents: AgentDef[] = [
   {
     id: 'surveyor',
     name: 'Surveyor',
-    subtitle: 'GPS Fleet Utilization',
+    subtitle: 'HCSS Telematics Fleet Utilization',
     icon: 'MapPin',
     status: 'active',
     statusLabel: 'Active',
@@ -320,7 +320,7 @@ const hccAgents: AgentDef[] = [
       { label: 'Fuel savings', value: '$8.4K/week' },
     ],
     description:
-      'Tracks fleet GPS data in real time to maximize vehicle utilization, optimize routing, and reduce fuel consumption across HCC construction operations.',
+      'Tracks HCSS Telematics fleet data in real time to maximize vehicle utilization, optimize routing, and reduce fuel consumption across HCC construction operations.',
     category: 'logistics',
     instances: 4,
     tasksToday: 320,
@@ -589,7 +589,7 @@ const hrsiAgents: AgentDef[] = [
       { label: 'Life extension', value: '+2.4 years avg' },
     ],
     description:
-      'Analyzes tie condition data from track inspections, tonnage history, and environmental factors to prioritize tie replacements by urgency. Optimizes gang deployment to minimize track time and maximize ties replaced per production day.',
+      'Tie inspection AI performing wood/concrete/composite classification from trackside imagery. Analyzes tie condition data from track inspections, tonnage history, and environmental factors to prioritize tie replacements by urgency. Optimizes gang deployment to minimize track time and maximize ties replaced per production day.',
     category: 'operations',
     instances: 3,
     tasksToday: 96,
@@ -709,7 +709,7 @@ const hrsiAgents: AgentDef[] = [
       { label: 'Detection accuracy', value: '96.1%' },
     ],
     description:
-      'Monitors ultrasonic testing results for rail welds. Maintains a defect probability model for each weld in the network, prioritizing re-inspection based on age, tonnage, and environmental stress factors.',
+      'HSI Ultrasonic defect detection system — B-scan analysis at ~80% confidence, expanding to A-scan. Monitors ultrasonic testing results for rail welds, maintaining a defect probability model for each weld in the network and prioritizing re-inspection based on age, tonnage, and environmental stress factors.',
     category: 'safety',
     instances: 1,
     tasksToday: 48,
@@ -738,7 +738,7 @@ const hsiAgents: AgentDef[] = [
       { label: 'Images processed', value: '12K/day' },
     ],
     description:
-      'AI-powered rail flaw detection system that processes ultrasonic and visual inspection data from geometry cars in real time, detecting rail defects with 94.2% accuracy.',
+      'AI-powered object detection and classification system for railroad right-of-way inspection. Processes ultrasonic and visual data from geometry cars in real time, detecting rail defects at ~97% accuracy. 3 AI models in production across the HSI fleet.',
     category: 'safety',
     instances: 4,
     tasksToday: 648,

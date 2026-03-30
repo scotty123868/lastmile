@@ -17,7 +17,7 @@ const sharedEvents: AgentToastEvent[] = [
   { agentName: 'Atlas', action: 'Context retrieved', detail: 'Pulled weather + tonnage data for bridge inspection crew at Osage River crossing', accent: 'blue' },
   { agentName: 'Chief', action: 'Briefing generated', detail: 'CEO morning briefing ready — flagged 2 budget variances and 1 safety trend across divisions', accent: 'green' },
   { agentName: 'Chief', action: 'Alert escalated', detail: 'Equipment utilization dropped 12% at HCC — added to executive watchlist', accent: 'green' },
-  { agentName: 'Ledger', action: 'License reclaimed', detail: 'SAP license reconciliation complete — 12 inactive seats reclaimed, saving $4,800/mo', accent: 'blue' },
+  { agentName: 'Ledger', action: 'License reclaimed', detail: 'eCMS license reconciliation complete — 12 inactive seats reclaimed, saving $4,800/mo', accent: 'blue' },
   { agentName: 'Ledger', action: 'Duplicate found', detail: 'Detected overlapping Procore and Bluebeam subscriptions in HCC — consolidation recommended', accent: 'blue' },
   { agentName: 'Relay', action: 'Action items extracted', detail: 'Safety standup meeting — 4 action items assigned, 2 follow-ups from last week tracked', accent: 'green' },
   { agentName: 'Relay', action: 'Commitment flagged', detail: 'VP Operations committed to equipment audit by April 4 — deadline added to tracker', accent: 'green' },
@@ -54,7 +54,7 @@ const hccEvents: AgentToastEvent[] = [
   { agentName: 'Blueprint', action: 'Bid analyzed', detail: 'I-70 Bridge Rehab estimate reviewed — flagged 8% cost gap vs historical data, adjusted', accent: 'blue' },
   { agentName: 'Blueprint', action: 'Risk identified', detail: 'Material cost escalation risk on BNSF tie replacement bid — recommended 6% contingency', accent: 'blue' },
   { agentName: 'Blueprint', action: 'Estimate complete', detail: 'UP siding extension bid package analyzed — $2.4M estimate within 94% confidence band', accent: 'blue' },
-  { agentName: 'Surveyor', action: 'Route optimized', detail: 'Fleet GPS analysis: rerouted 12 trucks via Highway 71 — 18% shorter transit time', accent: 'blue' },
+  { agentName: 'Surveyor', action: 'Route optimized', detail: 'HCSS Telematics analysis: rerouted 12 trucks via Highway 71 — 18% shorter transit time', accent: 'blue' },
   { agentName: 'Surveyor', action: 'Utilization alert', detail: '3 dump trucks idle >4hrs at Topeka yard — reassignment recommendations sent to dispatch', accent: 'blue' },
   { agentName: 'Dispatch', action: 'Schedule conflict', detail: 'Detected overlapping crew assignments at Wichita — resolved before shift start', accent: 'blue' },
   { agentName: 'Foreman', action: 'Maintenance alert', detail: 'Komatsu PC490 due for 2,000hr service — scheduled for Saturday downtime window', accent: 'blue' },
@@ -185,7 +185,7 @@ const htiEvents: AgentToastEvent[] = [
   { agentName: 'CyberSentinel', action: 'Threat assessment', detail: 'Weekly OT/IT boundary scan: 14 segments clean, 3 anomalous events investigated and cleared', accent: 'purple' },
   { agentName: 'CyberSentinel', action: 'ICS alert', detail: 'Signal controller firmware mismatch at CP-312 — potential supply chain risk, vendor notified', accent: 'purple' },
   { agentName: 'DataPipeline', action: 'Job restarted', detail: 'HRSI track inspection ETL failed at transform stage — auto-restarted, data delivered with 4min delay', accent: 'blue' },
-  { agentName: 'DataPipeline', action: 'Quality alert', detail: 'Data quality score for HCC fleet telemetry dropped to 91.2% — missing GPS fields from 8 units', accent: 'blue' },
+  { agentName: 'DataPipeline', action: 'Quality alert', detail: 'Data quality score for HCC fleet telemetry dropped to 91.2% — missing HCSS Telematics fields from 8 units', accent: 'blue' },
 ];
 
 /* ── HTSI — IC Transit Services ────────────────────────────────────── */

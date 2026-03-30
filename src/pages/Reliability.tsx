@@ -109,7 +109,7 @@ const divisionSuccessExamples: Record<string, SuccessExample[]> = {
     },
     {
       title: 'Equipment Utilization — Cross-Project Optimization',
-      input: 'Fleet GPS data + project schedules, Q1 2026',
+      input: 'HCSS Telematics data + P6 project schedules, Q1 2026',
       analysis: '4 excavators idle 60%+ across 3 active projects. Redeployment to I-35 project would eliminate 2 rental units ($4,200/week each).',
       expert: 'Operations confirmed equipment was available. "We didn\'t have visibility across project sites to see the idle time."',
       expertName: 'Fleet Manager T. Brooks',
@@ -1386,19 +1386,19 @@ const successExamplesDefault = [
   },
   {
     title: 'License Optimization — Identified Shadow IT',
-    input: 'Azure AD login logs + SAP license records, Q1 2026',
+    input: 'Azure AD login logs + eCMS license records, Q1 2026',
     analysis:
-      '34 users in HCC have active SAP licenses but zero logins in 180 days. 12 users are using unauthorized Airtable as a project tracking substitute.',
+      '34 users in HCC have active eCMS licenses but zero logins in 180 days. 12 users are using unauthorized Airtable as a project tracking substitute.',
     expert:
       'IT Director confirmed. "We had no visibility into this. The Airtable usage explains why our Primavera adoption was lower than expected."',
     expertName: 'IT Director',
-    outcome: '34 SAP licenses reclaimed ($68,000/yr). Airtable migration plan created.',
+    outcome: '34 eCMS licenses reclaimed ($68,000/yr). Airtable migration plan created.',
     savings: '$68,000/yr in license recovery + improved data governance',
     confidence: 98.1,
   },
   {
     title: 'Crew Scheduling — Optimized Across Divisions',
-    input: 'Kronos schedules + project timelines, HTSI + HCC divisions',
+    input: 'MCP schedules + project timelines, HTSI + HCC divisions',
     analysis:
       'Cross-division crew sharing opportunity: 8 certified operators in HTSI idle 3 days/week while HCC has 12 unfilled shifts requiring same certifications.',
     expert:
@@ -1477,7 +1477,7 @@ const reviewQueueDefault = [
     reasoning: [
       'Employee [REDACTED] — Locomotive Engineer, certification expires Apr 9, 2026.',
       'Renewal program available: 2-day refresher (Apr 1-2).',
-      'No scheduling conflicts detected in Kronos.',
+      'No scheduling conflicts detected in MCP.',
       'Auto-scheduled renewal training.',
     ],
     outcome: 'approved' as const,

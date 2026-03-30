@@ -69,21 +69,21 @@ interface LogTemplate { op: OpType; msg: string }
 function getLogTemplates(companyId: string): LogTemplate[] {
   const base: Record<string, LogTemplate[]> = {
     meridian: [
-      { op: 'PROCESS', msg: `SAP work orders → normalized ${randomInt(400, 1200)} records (${randomInt(1, 8)} duplicates removed)` },
+      { op: 'PROCESS', msg: `eCMS work orders → normalized ${randomInt(400, 1200)} records (${randomInt(1, 8)} duplicates removed)` },
       { op: 'ENRICH', msg: `Added weather data to ${randomInt(8, 24)} track inspection contexts` },
-      { op: 'MERGE', msg: `Cross-referenced Kronos certifications with ${randomInt(8, 22)} crew assignments` },
+      { op: 'MERGE', msg: `Cross-referenced MCP certifications with ${randomInt(8, 22)} crew assignments` },
       { op: 'REFRESH', msg: `Updated ${randomInt(110, 145)} active context windows (avg freshness: ${(Math.random() * 2 + 1.5).toFixed(1)} min)` },
       { op: 'SCORE', msg: `Relevance scoring complete for ${randomInt(2800, 4200).toLocaleString()} data points` },
       { op: 'CLEAN', msg: `Removed ${randomInt(12, 35)} stale records (>24h without update)` },
-      { op: 'MAP', msg: `Schema mapped ${randomInt(8, 20)} new Primavera fields to unified model` },
+      { op: 'MAP', msg: `Schema mapped ${randomInt(8, 20)} new P6 schedule fields to unified model` },
       { op: 'TOKEN', msg: `Budget optimization: compressed ${randomInt(8, 18)} contexts (saved ${randomInt(5000, 12000).toLocaleString()} tokens)` },
       { op: 'PROCESS', msg: `FRA inspection data → normalized ${randomInt(30, 120)} records` },
-      { op: 'ENRICH', msg: `Attached GPS coordinates to ${randomInt(40, 200)} equipment records` },
-      { op: 'MERGE', msg: `Linked ${randomInt(5, 15)} P6 schedule updates to active work orders` },
+      { op: 'ENRICH', msg: `Attached HCSS Telematics coordinates to ${randomInt(40, 200)} equipment records` },
+      { op: 'MERGE', msg: `Linked ${randomInt(5, 15)} P6 schedule updates to active eCMS work orders` },
       { op: 'REFRESH', msg: `Refreshed ${randomInt(30, 80)} safety context windows (avg freshness: ${(Math.random() * 1.5 + 0.8).toFixed(1)} min)` },
       { op: 'SCORE', msg: `Priority re-ranked ${randomInt(50, 150)} defect records by severity` },
       { op: 'CLEAN', msg: `Archived ${randomInt(5, 20)} resolved defect records` },
-      { op: 'MAP', msg: `Mapped ${randomInt(3, 12)} new PTC signal fields to telemetry schema` },
+      { op: 'MAP', msg: `Mapped ${randomInt(3, 12)} new Equipment360 fields to telemetry schema` },
       { op: 'TOKEN', msg: `Context window trimming: ${randomInt(4, 10)} windows reduced to fit budget` },
     ],
     oakwood: [
@@ -520,7 +520,7 @@ interface PipelineStage {
 
 const companyPipelineStages: Record<string, PipelineStage[]> = {
   meridian: [
-    { title: 'SOURCE DATA', items: ['SAP Work Orders', 'P6 Schedules', 'GPS Feeds', 'Kronos', 'FRA Data', 'PTC Logs'], stat: '47 systems' },
+    { title: 'SOURCE DATA', items: ['eCMS', 'P6 Schedules', 'HCSS Telematics', 'Heavy Job', 'MCP', 'CMMS', 'Equipment360', 'Business Objects'], stat: '47 systems' },
     { title: 'DATA PROCESSING', items: ['Clean & normalize', 'Dedup & merge', 'Enrich w/ metadata', 'Schema map to unified model'], stat: '2.4M records' },
     { title: 'CONTEXT ENGINE', items: ['Role-based filtering', 'Relevance scoring', 'Token budget mgmt', 'Freshness guarantee'], stat: '1,084 windows' },
     { title: 'USER\'S AI TOOLS', items: ['Queries answered', 'Right context served', 'Accurate responses', 'Updated in real-time'], stat: 'LIVE_USERS' },
@@ -657,7 +657,7 @@ const companyContextExamples: Record<string, ContextExample[]> = {
       role: 'Senior PM',
       division: 'HCC Division',
       query: 'How are we tracking on the I-70 bridge project?',
-      contextTree: `\u251C\u2500\u2500 Project: I-70 Bridge Rehabilitation (WO-2025-08834)
+      contextTree: `\u251C\u2500\u2500 Project: I-70 Bridge Rehabilitation (eCMS WO-2025-08834)
 \u251C\u2500\u2500 Budget: $3.1M approved | $2.14M spent (69%)
 \u251C\u2500\u2500 Schedule: Day 127 of 180 (71% elapsed)
 \u2502   \u251C\u2500\u2500 Critical Path: Bearing installation (12 days remaining)
@@ -1325,10 +1325,10 @@ const companyDataAlerts: Record<string, DataAlert[]> = {
     },
     {
       severity: 'yellow',
-      title: 'IC Environmental \u2014 Stale GPS Data',
-      detail: '12 vehicles with GPS feeds >10 minutes old',
+      title: 'IC Environmental \u2014 Stale HCSS Telematics Data',
+      detail: '12 vehicles with telematics feeds >10 minutes old',
       impact: 'Fleet optimization queries may use outdated positions',
-      action: 'GPS firmware update in progress',
+      action: 'HCSS Telematics firmware update in progress',
     },
     {
       severity: 'green',
