@@ -115,7 +115,7 @@ const pipelineData: Record<string, PipelineData> = {
       { id: 'd3', name: 'EquipmentTracker_BallastUnits.api', type: 'api', origin: 'Equipment Tracking System', size: '\u2014', status: 'ready', fields: 4800, confidence: 99 },
       { id: 'd4', name: 'eCMS_PM_WorkOrders.api', type: 'api', origin: 'eCMS Plant Maintenance', size: '\u2014', status: 'ready', fields: 2400, confidence: 96 },
       { id: 'd5', name: 'TrackRenewal_Schedule_Q1.pdf', type: 'pdf', origin: 'Track Renewal Planning', size: '2.1 MB', status: 'ready', fields: 84, confidence: 95 },
-      { id: 'd6', name: 'Kronos_CrewHours_HRSI.csv', type: 'csv', origin: 'Kronos Time & Attendance', size: '8.4 MB', status: 'ready', fields: 4200, confidence: 98 },
+      { id: 'd6', name: 'MCP_CrewHours_HRSI.csv', type: 'csv', origin: 'MCP Time & Attendance', size: '8.4 MB', status: 'ready', fields: 4200, confidence: 98 },
     ],
   },
   hsi: {
@@ -165,7 +165,7 @@ const pipelineData: Record<string, PipelineData> = {
       { id: 'd2', name: 'VehicleTracking_Fleet.api', type: 'api', origin: 'Vehicle Tracking System', size: '\u2014', status: 'ready', fields: 14200, confidence: 99 },
       { id: 'd3', name: 'Ridership_Analytics_Daily.csv', type: 'csv', origin: 'Ridership Analytics Platform', size: '12 MB', status: 'ready', fields: 4800, confidence: 97 },
       { id: 'd4', name: 'FareCollection_Revenue.api', type: 'api', origin: 'Fare Collection System', size: '\u2014', status: 'ready', fields: 6400, confidence: 98 },
-      { id: 'd5', name: 'Kronos_CrewHours_HTSI.csv', type: 'csv', origin: 'Kronos Time & Attendance', size: '8.4 MB', status: 'ready', fields: 3200, confidence: 97 },
+      { id: 'd5', name: 'MCP_CrewHours_HTSI.csv', type: 'csv', origin: 'MCP Time & Attendance', size: '8.4 MB', status: 'ready', fields: 3200, confidence: 97 },
       { id: 'd6', name: 'MaintenanceDB_FleetHealth.api', type: 'api', origin: 'Fleet Maintenance Database', size: '\u2014', status: 'processing', fields: 2400, confidence: 94 },
     ],
   },

@@ -120,7 +120,7 @@ export const agentDecisions: AgentAction[] = [
     agentId: 'ledger',
     agentName: 'Ledger',
     timestamp: '2026-03-28T04:00:00Z',
-    action: 'Reclaimed 12 SAP seats across IC Technologies',
+    action: 'Reclaimed 12 eCMS seats across IC Technologies',
     outcome: '$4,200/month saved, IT admin notified',
     status: 'success',
     savingsLabel: '$4,200/month recurring',
@@ -129,9 +129,9 @@ export const agentDecisions: AgentAction[] = [
     division: 'hti',
     chain: {
       dataInputs: [
-        'SAP login audit: 12 accounts with zero logins in 90+ days',
+        'eCMS login audit: 12 accounts with zero logins in 90+ days',
         'HR system cross-reference: 4 accounts belong to terminated employees',
-        'Cost per SAP seat: $350/month ($4,200/month total for 12 seats)',
+        'Cost per eCMS seat: $350/month ($4,200/month total for 12 seats)',
         'IT admin contact: Sarah Chen (HTI IT Manager)',
       ],
       optionsEvaluated: [

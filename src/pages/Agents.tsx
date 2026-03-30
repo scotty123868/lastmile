@@ -876,7 +876,7 @@ export default function Agents() {
                     <div className="absolute -top-px left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-blue/60 to-transparent animate-pulse" />
                     <div className="text-[10px] font-bold text-blue uppercase tracking-widest mb-3">Data Inputs</div>
                     <div className="space-y-1.5 text-[11px] text-slate-400 font-mono">
-                      <div>Kronos/UKG time entries</div>
+                      <div>MCP time entries</div>
                       <div>Crew assignments from dispatch</div>
                       <div>Division schedules</div>
                       <div>Union agreements (UTU, IBEW, LIUNA)</div>
@@ -1072,7 +1072,7 @@ export default function Agents() {
                     <div className="text-[11px] font-bold text-ink-tertiary uppercase tracking-wider mb-2">Data Sources</div>
                     <div className="space-y-1.5 text-[12px]">
                       {[
-                        ['Kronos/UKG Time & Attendance', 'real-time sync'],
+                        ['MCP Time & Attendance', 'real-time sync'],
                         ['Crew Management System', '5-minute polling'],
                         ['Division Schedules', 'daily import'],
                         ['Union Agreements Database', 'manual update, last: Feb 2026'],

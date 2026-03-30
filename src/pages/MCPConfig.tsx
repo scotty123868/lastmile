@@ -38,7 +38,7 @@ function generateLiveLogEntry(): { ts: string; system: string; msg: string } {
   const ts = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
   const templates = [
     { system: 'eCMS', msg: `Synced ${randomInt(200, 1200)} work orders (incremental)` },
-    { system: 'Kronos', msg: `Synced ${randomInt(5, 40)} timesheet updates` },
+    { system: 'MCP', msg: `Synced ${randomInt(5, 40)} timesheet updates` },
     { system: 'HCSS Telematics', msg: `Real-time feed: ${randomInt(200, 400)} vehicle positions updated` },
     { system: 'FRA RISPC', msg: `Synced ${randomInt(1, 8)} new inspection records` },
     { system: 'Primavera P6', msg: `Synced ${randomInt(5, 30)} project schedule updates` },
@@ -79,7 +79,7 @@ const schemaFields = [
 
 const initialCrawlLogEntries = [
   { ts: '2026-03-26 17:42:18', system: 'eCMS', msg: 'Synced 847 work orders (incremental)' },
-  { ts: '2026-03-26 17:42:15', system: 'Kronos', msg: 'Synced 12 timesheet updates' },
+  { ts: '2026-03-26 17:42:15', system: 'MCP', msg: 'Synced 12 timesheet updates' },
   { ts: '2026-03-26 17:42:12', system: 'HCSS Telematics', msg: 'Real-time feed: 342 vehicle positions updated' },
   { ts: '2026-03-26 17:42:08', system: 'Azure AD', msg: '0 changes detected (no sync needed)' },
   { ts: '2026-03-26 17:37:18', system: 'eCMS', msg: 'Synced 923 work orders (incremental)' },
@@ -87,7 +87,7 @@ const initialCrawlLogEntries = [
   { ts: '2026-03-26 17:37:11', system: 'Primavera P6', msg: 'Synced 14 project schedule updates' },
   { ts: '2026-03-26 17:37:08', system: 'PTC Signal', msg: 'Synced 89 signal state changes' },
   { ts: '2026-03-26 17:32:18', system: 'eCMS', msg: 'Synced 756 work orders (incremental)' },
-  { ts: '2026-03-26 17:32:15', system: 'Kronos', msg: 'Synced 28 certification renewals' },
+  { ts: '2026-03-26 17:32:15', system: 'MCP', msg: 'Synced 28 certification renewals' },
   { ts: '2026-03-26 17:32:12', system: 'HCSS Equipment360', msg: 'Synced 167 vehicle telemetry events' },
   { ts: '2026-03-26 17:32:08', system: 'eCMS', msg: 'Synced 42 purchase requisitions' },
   { ts: '2026-03-26 17:27:18', system: 'eCMS', msg: 'Synced 891 work orders (incremental)' },
@@ -131,7 +131,7 @@ const connectorGroups: ConnectorGroup[] = [
     items: [
       { name: 'eCMS', connected: true },
       { name: 'Primavera P6', connected: true },
-      { name: 'Kronos/UKG', connected: true },
+      { name: 'MCP', connected: true },
       { name: 'HCSS Telematics', connected: true },
     ],
   },
@@ -147,7 +147,7 @@ const connectorGroups: ConnectorGroup[] = [
   {
     label: 'Workforce',
     items: [
-      { name: 'Kronos', connected: true },
+      { name: 'MCP', connected: true },
       { name: 'ADP', connected: false },
       { name: 'Ceridian', connected: false },
       { name: 'UKG', connected: false },
@@ -420,7 +420,7 @@ export default function MCPConfig() {
             <div className="flex gap-6 items-start">
               {/* Source systems */}
               <div className="space-y-1.5 flex-shrink-0">
-                {['eCMS', 'Primavera', 'Kronos', 'PTC', 'AD'].map((sys) => (
+                {['eCMS', 'Primavera', 'MCP', 'PTC', 'AD'].map((sys) => (
                   <div key={sys} className="flex items-center gap-2">
                     <span className="text-slate-300 w-16 text-right">{sys}</span>
                     <span className="text-slate-500">&larr;</span>

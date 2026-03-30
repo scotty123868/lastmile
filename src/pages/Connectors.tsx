@@ -74,7 +74,7 @@ const connections: Connection[] = [
     dataFlowing: 'Vehicle locations, fuel consumption, idle time',
   },
   {
-    name: 'Kronos Workforce',
+    name: 'MCP Workforce',
     status: 'connected',
     lastSync: '12 min ago',
     lastSyncMinutes: 12,
@@ -111,9 +111,9 @@ const connections: Connection[] = [
     lastSyncMinutes: 12,
     records: '8,400 dispatch records',
     schema: 92,
-    auth: 'OAuth 2.0 (via Kronos/UKG API)',
+    auth: 'Internal API (MCP)',
     dataFlowing: 'Crew schedules, shift assignments, HOS compliance data',
-    note: 'Integrated via Kronos/UKG API (shared data source with crew-management connector)',
+    note: 'Integrated via MCP API (shared data source with crew-management connector)',
   },
   {
     name: 'Active Directory / Azure AD',

@@ -60,13 +60,13 @@ interface DivisionInfra {
 }
 
 const divisionInfra: Record<string, DivisionInfra> = {
-  meridian: { connectedSystems: '12 / 47', systemsList: ['Kronos', 'SAP', 'Primavera P6', 'Samsara GPS', 'RailSentry LIDAR', 'PTC Signal System'], records: '2.4M records', activeWorkflows: '62 active', trustScore: '94.2% trust', adoption: '38% adopted' },
-  hcc: { connectedSystems: '8 / 24', systemsList: ['Primavera P6', 'Samsara GPS', 'SAP', 'HCSS HeavyJob', 'AutoCAD', 'B2W Estimate'], records: '890K records', activeWorkflows: '18 active', trustScore: '96.8% trust', adoption: '42% adopted' },
-  hrsi: { connectedSystems: '5 / 14', systemsList: ['Kronos', 'GPS Ballast Telemetry', 'SAP PM', 'Equipment Tracker', 'Dispatch System'], records: '340K records', activeWorkflows: '8 active', trustScore: '93.1% trust', adoption: '31% adopted' },
+  meridian: { connectedSystems: '12 / 47', systemsList: ['MCP', 'eCMS', 'Primavera P6', 'HCSS Telematics', 'RailSentry LIDAR', 'PTC Signal System'], records: '2.4M records', activeWorkflows: '62 active', trustScore: '94.2% trust', adoption: '38% adopted' },
+  hcc: { connectedSystems: '8 / 24', systemsList: ['Primavera P6', 'HCSS Telematics', 'eCMS', 'HCSS HeavyJob', 'AutoCAD', 'B2W Estimate'], records: '890K records', activeWorkflows: '18 active', trustScore: '96.8% trust', adoption: '42% adopted' },
+  hrsi: { connectedSystems: '5 / 14', systemsList: ['MCP', 'GPS Ballast Telemetry', 'CMMS', 'Equipment Tracker', 'Dispatch System'], records: '340K records', activeWorkflows: '8 active', trustScore: '93.1% trust', adoption: '31% adopted' },
   hsi: { connectedSystems: '6 / 16', systemsList: ['TAM-4 Ultrasonic', 'LIDAR', 'GPS Fleet', 'RailSentry', 'Video Track Chart', 'FRA Compliance DB'], records: '420K records', activeWorkflows: '6 active', trustScore: '94.2% trust', adoption: '35% adopted' },
   hti: { connectedSystems: '7 / 18', systemsList: ['PTC Signal System', 'Wayside Telemetry', 'CAD Signal Design', 'Fiber Optic OTDR', 'Radio System', 'SCADA'], records: '560K records', activeWorkflows: '10 active', trustScore: '97.4% trust', adoption: '44% adopted' },
-  htsi: { connectedSystems: '6 / 15', systemsList: ['Trapeze OPS', 'Kronos', 'Vehicle Tracking', 'Ridership Analytics', 'Fare Collection', 'Maintenance DB'], records: '310K records', activeWorkflows: '8 active', trustScore: '91.8% trust', adoption: '36% adopted' },
-  he: { connectedSystems: '4 / 10', systemsList: ['SCADA', 'Solar Monitoring', 'SAP PM', 'Weather API'], records: '120K records', activeWorkflows: '4 active', trustScore: '95.6% trust', adoption: '28% adopted' },
+  htsi: { connectedSystems: '6 / 15', systemsList: ['Trapeze OPS', 'MCP', 'Vehicle Tracking', 'Ridership Analytics', 'Fare Collection', 'Maintenance DB'], records: '310K records', activeWorkflows: '8 active', trustScore: '91.8% trust', adoption: '36% adopted' },
+  he: { connectedSystems: '4 / 10', systemsList: ['SCADA', 'Solar Monitoring', 'CMMS', 'Weather API'], records: '120K records', activeWorkflows: '4 active', trustScore: '95.6% trust', adoption: '28% adopted' },
   gg: { connectedSystems: '3 / 8', systemsList: ['EPA Compliance DB', 'Lab Information Mgmt', 'Wetland Monitoring'], records: '85K records', activeWorkflows: '3 active', trustScore: '98.1% trust', adoption: '52% adopted' },
 };
 
