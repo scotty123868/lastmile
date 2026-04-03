@@ -724,7 +724,7 @@ export default function Agents() {
 
         {/* Fleet Overview Stats */}
         <div className="mb-8 bg-gray-900 rounded-xl p-6 space-y-4">
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 text-center">
               <div className="text-3xl font-bold text-white tracking-tight">{visibleAgents.length}</div>
               <div className="text-[12px] font-semibold text-gray-300">Agent Types</div>
