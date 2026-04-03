@@ -29,7 +29,7 @@ export interface AgentActivity {
   detail: string;
 }
 
-/* ── Shared Platform Agents (5) ─────────────────────────────────────────── */
+/* ── Shared Platform Agents (8) ─────────────────────────────────────────── */
 
 const sharedAgents: AgentDef[] = [
   {
@@ -227,7 +227,7 @@ const sharedAgents: AgentDef[] = [
   },
 ];
 
-/* ── HCC — IC Construction Corp (7) ──────────────────────────────────── */
+/* ── HCC — IC Construction Corp (10) ─────────────────────────────────── */
 
 const hccAgents: AgentDef[] = [
   {
@@ -473,7 +473,7 @@ const hccAgents: AgentDef[] = [
   },
 ];
 
-/* ── HRSI — IC Rail Services (7) ────────────────────────────────── */
+/* ── HRSI — IC Rail Services (10) ───────────────────────────────── */
 
 const hrsiAgents: AgentDef[] = [
   {
@@ -718,7 +718,7 @@ const hrsiAgents: AgentDef[] = [
   },
 ];
 
-/* ── HSI — IC Services / Rail Testing (6) ───────────────────────────── */
+/* ── HSI — IC Services / Rail Testing (8) ───────────────────────────── */
 
 const hsiAgents: AgentDef[] = [
   {
@@ -915,7 +915,7 @@ const hsiAgents: AgentDef[] = [
   },
 ];
 
-/* ── HTI — IC Technologies (6) ──────────────────────────────────────── */
+/* ── HTI — IC Technologies (8) ──────────────────────────────────────── */
 
 const htiAgents: AgentDef[] = [
   {
@@ -1112,7 +1112,7 @@ const htiAgents: AgentDef[] = [
   },
 ];
 
-/* ── HTSI — IC Transit Services (7) ─────────────────────────────────── */
+/* ── HTSI — IC Transit Services (10) ────────────────────────────────── */
 
 const htsiAgents: AgentDef[] = [
   {
@@ -1357,7 +1357,7 @@ const htsiAgents: AgentDef[] = [
   },
 ];
 
-/* ── HE — IC Energy (5) ──────────────────────────────────────────────── */
+/* ── HE — IC Energy (7) ──────────────────────────────────────────────── */
 
 const heAgents: AgentDef[] = [
   {
@@ -1530,7 +1530,7 @@ const heAgents: AgentDef[] = [
   },
 ];
 
-/* ── GG — IC Environmental (5) ────────────────────────────────────────────────── */
+/* ── GG — IC Environmental (7) ────────────────────────────────────────────────── */
 
 const ggAgents: AgentDef[] = [
   {
@@ -3313,7 +3313,7 @@ export function getAgentsForDivision(divisionId: string): AgentDef[] {
   );
 }
 
-/** Returns all 48 agent types */
+/** Returns all 129 agent types */
 export function getAllAgents(): AgentDef[] {
   return allAgents;
 }

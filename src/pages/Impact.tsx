@@ -700,7 +700,7 @@ const adoptionData: Record<string, CompanyAdoptionData> = {
     ],
   },
   pinnacle: {
-    overallRate: 65, overallTrend: '+4% vs last month', overallTrendDir: 'up', teamLabel: 'Department',
+    overallRate: 69, overallTrend: '+4% vs last month', overallTrendDir: 'up', teamLabel: 'Department',
     teams: [
       { name: 'Clinical Staff', active: 105, total: 150, adoption: 70, trend: '\u2191 5%', trendDir: 'up', status: 'growing' },
       { name: 'Administrative', active: 72, total: 100, adoption: 72, trend: '\u2191 4%', trendDir: 'up', status: 'growing' },
@@ -762,7 +762,7 @@ const adoptionData: Record<string, CompanyAdoptionData> = {
     ],
   },
   'nb-energy': {
-    overallRate: 55, overallTrend: '+3% vs last month', overallTrendDir: 'up', teamLabel: 'Department',
+    overallRate: 58, overallTrend: '+3% vs last month', overallTrendDir: 'up', teamLabel: 'Department',
     teams: [
       { name: 'Grid Operations', active: 2800, total: 4200, adoption: 67, trend: '\u2191 4%', trendDir: 'up', status: 'growing' },
       { name: 'Outage Prevention & Response', active: 1900, total: 3000, adoption: 63, trend: '\u2191 5%', trendDir: 'up', status: 'growing' },
@@ -823,7 +823,7 @@ const adoptionData: Record<string, CompanyAdoptionData> = {
     ],
   },
   'ee-finance': {
-    overallRate: 75, overallTrend: '+5% vs last month', overallTrendDir: 'up', teamLabel: 'Division',
+    overallRate: 72, overallTrend: '+5% vs last month', overallTrendDir: 'up', teamLabel: 'Division',
     teams: [
       { name: 'Tax Processing', active: 1200, total: 1500, adoption: 80, trend: '\u2191 6%', trendDir: 'up', status: 'strong' },
       { name: 'Audit & Compliance', active: 860, total: 1100, adoption: 78, trend: '\u2191 5%', trendDir: 'up', status: 'strong' },

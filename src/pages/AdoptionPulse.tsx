@@ -54,7 +54,7 @@ interface CompanyAdoptionData {
 
 const adoptionData: Record<string, CompanyAdoptionData> = {
   meridian: {
-    overallRate: 38,
+    overallRate: 67,
     overallTrend: '+7% vs last month',
     overallTrendDir: 'up',
     teamLabel: 'Division / Team',
@@ -105,7 +105,7 @@ const adoptionData: Record<string, CompanyAdoptionData> = {
     ],
   },
   pinnacle: {
-    overallRate: 72,
+    overallRate: 77,
     overallTrend: '+5% vs last month',
     overallTrendDir: 'up',
     teamLabel: 'Provider / Team',
@@ -131,7 +131,7 @@ const adoptionData: Record<string, CompanyAdoptionData> = {
     ],
   },
   atlas: {
-    overallRate: 61,
+    overallRate: 64,
     overallTrend: '+7% vs last month',
     overallTrendDir: 'up',
     teamLabel: 'Facility / Team',
@@ -158,7 +158,7 @@ const adoptionData: Record<string, CompanyAdoptionData> = {
     ],
   },
   northbridge: {
-    overallRate: 71,
+    overallRate: 81,
     overallTrend: '+6% vs last month',
     overallTrendDir: 'up',
     teamLabel: 'Division',
@@ -184,7 +184,7 @@ const adoptionData: Record<string, CompanyAdoptionData> = {
     ],
   },
   estonia: {
-    overallRate: 84,
+    overallRate: 89,
     overallTrend: '+4% vs last month',
     overallTrendDir: 'up',
     teamLabel: 'Agency / Board',
