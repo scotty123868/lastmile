@@ -158,7 +158,7 @@ const enrichedEntries: Record<string, EnrichedData> = {
       'P. Morrison (VP Procurement) reviewed and confirmed consolidation recommendation',
     ],
     impact: [
-      '$340K annual overspend on titanium alloy alone across two operating companies',
+      '$340K annual overspend on titanium alloy alone across two divisions',
       'Procurement policy violation — company policy requires cross-division sourcing review for shared materials >$1M',
       'Supplier leverage erosion — Titanium Metals Corp knows Northbridge entities are not coordinating purchases',
       'Pattern likely repeats across other commodity categories — estimated $4.8M total cross-division procurement waste',
