@@ -46,10 +46,12 @@ const assessmentData: Record<string, CompanyAssessmentData> = {
       { name: 'MCP (Internal Payroll)', category: 'Workforce Mgmt', current: 3, target: 7 },
     ],
     licenses: [
-      { vendor: 'eCMS (Computer Guidance)', total: 420, active: 310, waste: 480000, action: 'Consolidate 4 division instances to single tenant' },
-      { vendor: 'HCSS Suite', total: 380, active: 260, waste: 320000, action: 'Remove inactive vehicle licenses post-fleet audit' },
-      { vendor: 'Primavera P6', total: 85, active: 62, waste: 92000, action: 'Downgrade 15 seats to viewer-only' },
-      { vendor: 'Microsoft 365 E5', total: 850, active: 680, waste: 280000, action: 'Downgrade 120 field accounts to F3 Frontline tier' },
+      { vendor: 'eCMS (Computer Guidance)', total: 420, active: 310, waste: 660000, action: 'Consolidate 4 division instances to single tenant' },
+      { vendor: 'HCSS Suite', total: 380, active: 260, waste: 520000, action: 'Remove inactive vehicle licenses post-fleet audit' },
+      { vendor: 'SAP Business Objects', total: 120, active: 68, waste: 480000, action: 'Migrate 52 shelfware seats to SAP Analytics Cloud' },
+      { vendor: 'Primavera P6', total: 280, active: 180, waste: 420000, action: 'Downgrade 100 inactive seats to viewer-only' },
+      { vendor: 'Microsoft 365 E5', total: 850, active: 680, waste: 380000, action: 'Downgrade 120 field accounts to F3 Frontline tier' },
+      { vendor: 'Kronos/UKG', total: 2800, active: 2200, waste: 340000, action: 'Remove 600 inactive seasonal worker accounts' },
     ],
   },
   hcc: {
