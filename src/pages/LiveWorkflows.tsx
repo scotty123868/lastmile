@@ -113,7 +113,7 @@ const pipelineData: Record<string, PipelineData> = {
       { id: 'd1', name: 'GPS_Ballast_Fleet_Telemetry.api', type: 'api', origin: 'GPS Ballast Train Telemetry', size: '\u2014', status: 'ready', fields: 8400, confidence: 98 },
       { id: 'd2', name: 'CrewDispatch_Midwest.xlsx', type: 'spreadsheet', origin: 'HRSI Dispatch System', size: '12.4 MB', status: 'ready', fields: 3200, confidence: 97 },
       { id: 'd3', name: 'EquipmentTracker_BallastUnits.api', type: 'api', origin: 'Equipment Tracking System', size: '\u2014', status: 'ready', fields: 4800, confidence: 99 },
-      { id: 'd4', name: 'eCMS_PM_WorkOrders.api', type: 'api', origin: 'eCMS Plant Maintenance', size: '\u2014', status: 'ready', fields: 2400, confidence: 96 },
+      { id: 'd4', name: 'eCMS_PM_WorkOrders.api', type: 'api', origin: 'CMMS', size: '\u2014', status: 'ready', fields: 2400, confidence: 96 },
       { id: 'd5', name: 'TrackRenewal_Schedule_Q1.pdf', type: 'pdf', origin: 'Track Renewal Planning', size: '2.1 MB', status: 'ready', fields: 84, confidence: 95 },
       { id: 'd6', name: 'MCP_CrewHours_HRSI.csv', type: 'csv', origin: 'MCP Time & Attendance', size: '8.4 MB', status: 'ready', fields: 4200, confidence: 98 },
     ],
@@ -180,7 +180,7 @@ const pipelineData: Record<string, PipelineData> = {
     documents: [
       { id: 'd1', name: 'SCADA_SolarArray_Daily.api', type: 'api', origin: 'SCADA Solar Monitoring', size: '\u2014', status: 'ready', fields: 4800, confidence: 99 },
       { id: 'd2', name: 'WeatherAPI_SiteForecasts.api', type: 'api', origin: 'Weather Forecast API', size: '\u2014', status: 'ready', fields: 2400, confidence: 98 },
-      { id: 'd3', name: 'eCMS_PM_Energy_Assets.api', type: 'api', origin: 'eCMS Plant Maintenance', size: '\u2014', status: 'ready', fields: 1200, confidence: 96 },
+      { id: 'd3', name: 'eCMS_PM_Energy_Assets.api', type: 'api', origin: 'CMMS', size: '\u2014', status: 'ready', fields: 1200, confidence: 96 },
       { id: 'd4', name: 'SolarPanel_Performance.csv', type: 'csv', origin: 'Solar Monitoring Platform', size: '4.2 MB', status: 'ready', fields: 2400, confidence: 97 },
     ],
   },
