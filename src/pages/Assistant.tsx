@@ -76,7 +76,7 @@ const chatData: Record<string, CompanyChat> = {
           { text: "The **single biggest opportunity** is cross-division visibility. Right now, each of Herzog's seven divisions operates its own data systems independently:" },
           {
             list: [
-              "**$2.8M in license waste** \u2014 Duplicate SAP, Trimble, and Workday licenses across HCC, HRSI, HSI, HTI, HTSI, HMS, and corporate. At least 320 licenses are inactive or redundant across division boundaries.",
+              "**$2.8M in license waste** \u2014 Duplicate eCMS, HCSS, SAP Business Objects, and Kronos/UKG licenses across HCC, HRSI, HSI, HTI, HTSI, HE, and corporate. At least 320 licenses are inactive or redundant across division boundaries.",
               "**Crew and equipment sharing between HCC and HTSI** \u2014 Construction crews and signal/communication technicians often work adjacent corridors for the same Class I railroads but are dispatched independently. Cross-division crew optimization could save **$1.12M annually** and reduce mobilization time by 40%.",
               "**Track inspection intelligence consolidation** \u2014 HSI's RailSentry data, HCC's field condition reports, and HTI's signal system diagnostics each capture different aspects of track health. Unifying these into a single track intelligence platform would give Class I customers a **360-degree corridor view** no competitor can match.",
             ],
@@ -172,7 +172,7 @@ const chatData: Record<string, CompanyChat> = {
                 ['HRSI (Rail Services)', '38/100', 'Large crew data history', 'Legacy dispatch system', 'Crew optimization'],
                 ['HTI (Track)', '36/100', 'Signal system diagnostics', 'Fragmented data formats', 'Signal anomaly detection'],
                 ['HTSI (Signal/Comm)', '35/100', 'PTC compliance data', 'Paper-based field reports', 'Digital work orders'],
-                ['HMS (Mechanical)', '34/100', 'Equipment maintenance logs', 'No IoT sensors', 'Predictive maintenance'],
+                ['HE (Energy)', '34/100', 'Grid interconnection data', 'Limited IoT sensors', 'Predictive maintenance'],
                 ['HCC (Construction)', '32/100', 'Primavera P6 project data', 'Field work complexity', 'Equipment utilization'],
                 ['Corporate', '44/100', 'Centralized finance/HR', 'Division data silos', 'License optimization'],
               ],

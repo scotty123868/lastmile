@@ -29,7 +29,7 @@ export interface AgentActivity {
   detail: string;
 }
 
-/* ── Shared Platform Agents (5) ─────────────────────────────────────────── */
+/* ── Shared Platform Agents (8) ─────────────────────────────────────────── */
 
 const sharedAgents: AgentDef[] = [
   {
@@ -227,7 +227,7 @@ const sharedAgents: AgentDef[] = [
   },
 ];
 
-/* ── HCC — Herzog Contracting Corp (7) ──────────────────────────────────── */
+/* ── HCC — Herzog Contracting Corp (10) ─────────────────────────────────── */
 
 const hccAgents: AgentDef[] = [
   {
@@ -473,7 +473,7 @@ const hccAgents: AgentDef[] = [
   },
 ];
 
-/* ── HRSI — Herzog Railroad Services (7) ────────────────────────────────── */
+/* ── HRSI — Herzog Railroad Services (10) ───────────────────────────────── */
 
 const hrsiAgents: AgentDef[] = [
   {
@@ -718,7 +718,7 @@ const hrsiAgents: AgentDef[] = [
   },
 ];
 
-/* ── HSI — Herzog Services / Rail Testing (6) ───────────────────────────── */
+/* ── HSI — Herzog Services / Rail Testing (8) ───────────────────────────── */
 
 const hsiAgents: AgentDef[] = [
   {
@@ -915,7 +915,7 @@ const hsiAgents: AgentDef[] = [
   },
 ];
 
-/* ── HTI — Herzog Technologies (6) ──────────────────────────────────────── */
+/* ── HTI — Herzog Technologies (8) ──────────────────────────────────────── */
 
 const htiAgents: AgentDef[] = [
   {
@@ -1112,7 +1112,7 @@ const htiAgents: AgentDef[] = [
   },
 ];
 
-/* ── HTSI — Herzog Transit Services (7) ─────────────────────────────────── */
+/* ── HTSI — Herzog Transit Services (10) ────────────────────────────────── */
 
 const htsiAgents: AgentDef[] = [
   {
@@ -1357,7 +1357,7 @@ const htsiAgents: AgentDef[] = [
   },
 ];
 
-/* ── HE — Herzog Energy (5) ──────────────────────────────────────────────── */
+/* ── HE — Herzog Energy (7) ──────────────────────────────────────────────── */
 
 const heAgents: AgentDef[] = [
   {
@@ -1530,7 +1530,7 @@ const heAgents: AgentDef[] = [
   },
 ];
 
-/* ── GG — Green Group (5) ────────────────────────────────────────────────── */
+/* ── GG — Green Group (7) ────────────────────────────────────────────────── */
 
 const ggAgents: AgentDef[] = [
   {
@@ -1741,7 +1741,7 @@ export function getAgentsForDivision(divisionId: string): AgentDef[] {
   );
 }
 
-/** Returns all 48 agent types */
+/** Returns all 68 agent types */
 export function getAllAgents(): AgentDef[] {
   return allAgents;
 }

@@ -44,10 +44,12 @@ const assessmentData: Record<string, CompanyAssessmentData> = {
       { name: 'Power BI', category: 'Analytics', current: 4, target: 8 },
     ],
     licenses: [
-      { vendor: 'SAP ECC', total: 420, active: 310, waste: 480000, action: 'Consolidate 4 division instances to single tenant' },
-      { vendor: 'Trimble Fleet Manager', total: 380, active: 260, waste: 320000, action: 'Remove inactive vehicle licenses post-fleet audit' },
-      { vendor: 'Microsoft 365 E5', total: 850, active: 680, waste: 280000, action: 'Downgrade 120 field accounts to F3 Frontline tier' },
-      { vendor: 'Power BI Pro', total: 240, active: 145, waste: 190000, action: 'Convert 60 to Viewer-only; migrate 35 to shared capacity' },
+      { vendor: 'eCMS', total: 320, active: 180, waste: 660000, action: 'Consolidate 4 division instances to single tenant' },
+      { vendor: 'HCSS Suite', total: 280, active: 160, waste: 520000, action: 'Remove inactive field licenses from completed projects' },
+      { vendor: 'SAP Business Objects', total: 240, active: 120, waste: 480000, action: 'Migrate reporting to Power BI; eliminate BO server licenses' },
+      { vendor: 'Primavera P6', total: 210, active: 130, waste: 420000, action: 'Downgrade 50 seats to viewer-only across divisions' },
+      { vendor: 'Microsoft 365 E5', total: 850, active: 680, waste: 380000, action: 'Downgrade 120 field accounts to F3 Frontline tier' },
+      { vendor: 'Kronos / UKG', total: 340, active: 220, waste: 340000, action: 'Consolidate 3 division instances; remove seasonal ghost accounts' },
     ],
   },
   hcc: {

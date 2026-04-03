@@ -81,19 +81,19 @@ interface CompanyAdoptionData {
 
 const impactData: Record<string, CompanyImpactData> = {
   meridian: {
-    totalAnnualImpact: 3600000,
+    totalAnnualImpact: 5800000,
     categories: [
-      { label: 'Verification Catches', amount: 1080000, description: 'Track defect identification via RailSentry/LIDAR, FRA safety compliance catches, equipment failure prevention', icon: 'shield', type: 'saving' },
-      { label: 'Process Automation', amount: 1680000, description: 'Dispatch automation, crew scheduling optimization, fleet tracking and GPS ballast train routing automated', icon: 'zap', type: 'saving' },
-      { label: 'Adoption Uplift', amount: 1140000, description: 'Field crew productivity gains from mobile-first tools across 36-state rail operations', icon: 'users', type: 'saving' },
+      { label: 'Verification Catches', amount: 1740000, description: 'Track defect identification via RailSentry/LIDAR, FRA safety compliance catches, equipment failure prevention', icon: 'shield', type: 'saving' },
+      { label: 'Process Automation', amount: 2710000, description: 'Dispatch automation, crew scheduling optimization, fleet tracking and GPS ballast train routing automated', icon: 'zap', type: 'saving' },
+      { label: 'Adoption Uplift', amount: 1650000, description: 'Field crew productivity gains from mobile-first tools across 36-state rail operations', icon: 'users', type: 'saving' },
       { label: 'Implementation Cost', amount: -300000, description: 'Platform license, PTC/signal system integration, and division-wide training rollout', icon: 'cost', type: 'cost' },
     ],
     waterfall: [
-      { label: 'Verification', value: 1080000, type: 'positive' },
-      { label: 'Automation', value: 1680000, type: 'positive' },
-      { label: 'Adoption', value: 1140000, type: 'positive' },
+      { label: 'Verification', value: 1740000, type: 'positive' },
+      { label: 'Automation', value: 2710000, type: 'positive' },
+      { label: 'Adoption', value: 1650000, type: 'positive' },
       { label: 'Costs', value: -300000, type: 'negative' },
-      { label: 'Net Impact', value: 3600000, type: 'total' },
+      { label: 'Net Impact', value: 5800000, type: 'total' },
     ],
     metrics: [
       { label: 'Payback Period', value: '4.2 mo' },

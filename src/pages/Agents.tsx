@@ -1158,7 +1158,7 @@ export default function Agents() {
             <h2 className="text-[18px] font-semibold text-ink tracking-tight">Deep Dive &mdash; &quot;Atlas&quot; Personal AI Assistant</h2>
           </div>
           <p className="text-[13px] text-ink-tertiary mb-6">
-            Every employee&apos;s personal AI assistant, connected to their role-specific data. 847 active instances serving 2,800 employees.
+            Every employee&apos;s personal AI assistant, connected to their role-specific data. 84 active instances serving 2,800 employees.
           </p>
         </motion.div>
 
@@ -1237,7 +1237,7 @@ export default function Agents() {
           <h3 className="text-[14px] font-semibold text-ink mb-4">Atlas Deployment Stats</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
-              { label: 'Active Instances', value: '847', sub: 'of 2,800 employees' },
+              { label: 'Active Instances', value: '84', sub: 'of 2,800 employees' },
               { label: 'Queries Today', value: queryCount.toLocaleString(), sub: 'avg 2.8 per user' },
               { label: 'Avg Response Time', value: '1.2s', sub: '14 data sources per query' },
               { label: 'Satisfaction', value: '4.6/5', sub: 'from 312 user surveys' },
