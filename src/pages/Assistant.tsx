@@ -1000,16 +1000,7 @@ ID: ${company.id}`;
           <MessageBubble key={`${company.id}-${i}`} message={msg} index={i} />
         ))}
 
-        {/* Typing indicator (only when no live messages and not streaming) */}
-        {liveMessages.length === 0 && !isStreaming ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: chat.messages.length * 0.08 + 0.3 }}
-          >
-            <TypingIndicator />
-          </motion.div>
-        ) : null}
+        {/* Typing indicator removed — was causing persistent "..." loading dots (Bug 3) */}
 
         {/* Live messages from real Claude API */}
         {liveMessages.map((msg, i) => {

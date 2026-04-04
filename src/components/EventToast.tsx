@@ -66,37 +66,37 @@ export default function EventToast() {
   }, [recentEvents.length]);
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col-reverse gap-2 pointer-events-none">
+    <div className="fixed bottom-0 left-0 lg:left-[232px] right-0 z-40 flex flex-col gap-2 p-4 pb-6 pointer-events-none">
       <AnimatePresence mode="popLayout">
         {visible.map((toast) => (
           <motion.div
             key={toast.event.id}
             layout
-            initial={{ opacity: 0, x: 80, scale: 0.95 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: 80, scale: 0.95 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
             transition={{ type: 'spring', damping: 25, stiffness: 350 }}
-            className="pointer-events-auto max-w-[280px] bg-surface-raised border border-border rounded-lg shadow-lg px-3 py-2.5 relative group"
+            className="pointer-events-auto w-full max-w-[960px] mx-auto bg-surface-raised border border-border rounded-xl shadow-lg px-5 py-3 relative group"
           >
             <button
               onClick={() => dismiss(toast.event.id)}
-              className="absolute top-1.5 right-1.5 opacity-0 group-hover:opacity-100 transition-opacity p-0.5 rounded hover:bg-surface-sunken"
+              className="absolute top-2 right-3 opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded-md hover:bg-surface-sunken"
             >
-              <X className="w-3 h-3 text-ink-faint" strokeWidth={2} />
+              <X className="w-3.5 h-3.5 text-ink-faint" strokeWidth={2} />
             </button>
 
-            <div className="flex items-start gap-2 pr-4">
+            <div className="flex items-center gap-3 pr-6">
               <span
-                className={`w-2 h-2 rounded-full flex-shrink-0 mt-1 ${dotColor[toast.event.type]}`}
+                className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${dotColor[toast.event.type]}`}
               />
-              <div className="min-w-0 flex-1">
-                <p className="text-[12px] font-medium text-ink leading-snug truncate">
+              <div className="min-w-0 flex-1 flex items-center gap-3">
+                <p className="text-[13px] font-medium text-ink leading-snug truncate">
                   {toast.event.title}
                 </p>
-                <p className="text-[11px] text-ink-tertiary leading-snug truncate mt-0.5">
+                <p className="text-[12px] text-ink-tertiary leading-snug truncate">
                   {toast.event.detail}
                 </p>
-                <p className="text-[10px] text-ink-faint mt-1">just now</p>
+                <p className="text-[10px] text-ink-faint flex-shrink-0 ml-auto">just now</p>
               </div>
             </div>
           </motion.div>

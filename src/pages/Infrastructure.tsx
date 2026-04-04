@@ -486,7 +486,7 @@ export default function Infrastructure() {
       </motion.section>
 
       {/* ── Section 3: Technology Stack ──────────────────── */}
-      <motion.section variants={fadeUp} custom={3} initial="hidden" animate="visible">
+      <motion.section initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.45 }}>
         <div className="flex items-center gap-2 mb-4">
           <Cpu className="w-4 h-4 text-ink-tertiary" strokeWidth={1.8} />
           <h2 className="text-[15px] font-semibold text-ink">Technology Stack</h2>
@@ -498,10 +498,9 @@ export default function Infrastructure() {
             return (
               <motion.div
                 key={cat.category}
-                custom={catIdx + 6}
-                variants={fadeUp}
-                initial="hidden"
-                animate="visible"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 + catIdx * 0.1, duration: 0.4 }}
                 className="rounded-lg border border-border bg-surface-raised p-5"
               >
                 <div className="flex items-center gap-2 mb-4">

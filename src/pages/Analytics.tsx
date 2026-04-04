@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 // MessageSquare removed — unused after Atlas button cleanup
 import { useCompany } from '../data/CompanyContext';
@@ -223,6 +224,7 @@ function formatSecondsAgo(seconds: number): string {
 /* ── Main Component ──────────────────────────────────────── */
 
 export default function Analytics() {
+  const navigate = useNavigate();
   const { company } = useCompany();
   const activeFeedTemplates = useMemo(() => divisionFeedTemplates[company.id] || feedTemplates, [company.id]);
   const activeDivisions = useMemo(() => divisionHealthData[company.id] || divisions, [company.id]);
@@ -385,7 +387,8 @@ export default function Analytics() {
             return (
               <div
                 key={div.id}
-                className={`bg-surface-raised border rounded-xl px-4 py-3 ${sc.border} border-border`}
+                onClick={() => navigate('/agents')}
+                className={`bg-surface-raised border rounded-xl px-4 py-3 ${sc.border} border-border cursor-pointer hover:shadow-md hover:-translate-y-0.5 transition-all duration-200`}
               >
                 <div className="text-[14px] font-semibold text-ink mb-1.5">{div.name}</div>
                 <div className="flex items-center gap-1.5 mb-2">

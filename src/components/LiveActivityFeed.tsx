@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Activity, Clock, AlertTriangle, Info, ChevronDown, ChevronUp } from 'lucide-react';
 import { useActivityFeed, type ActivityItem } from '../hooks/useFleetApi';
@@ -62,10 +62,20 @@ export default function LiveActivityFeed({
 }) {
   const { activities, loading } = useActivityFeed(division);
   const [expanded, setExpanded] = useState(false);
+  const [timedOut, setTimedOut] = useState(false);
+
+  // Timeout the loading state after 4 seconds to prevent infinite "Loading..."
+  useEffect(() => {
+    if (loading && activities.length === 0) {
+      const timer = setTimeout(() => setTimedOut(true), 4000);
+      return () => clearTimeout(timer);
+    }
+    setTimedOut(false);
+  }, [loading, activities.length]);
 
   const visibleActivities = expanded ? activities : activities.slice(0, maxVisible);
 
-  if (loading && activities.length === 0) {
+  if (loading && activities.length === 0 && !timedOut) {
     return (
       <div className="rounded-lg border border-border bg-surface-sunken/30 p-4">
         <div className="flex items-center gap-2 mb-3">
@@ -81,6 +91,24 @@ export default function LiveActivityFeed({
             <div key={i} className="h-10 bg-surface-sunken/50 rounded animate-pulse" />
           ))}
         </div>
+      </div>
+    );
+  }
+
+  if (activities.length === 0) {
+    return (
+      <div className="rounded-lg border border-border bg-surface-sunken/30 p-4">
+        <div className="flex items-center gap-2 mb-3">
+          <Activity className="h-4 w-4 text-ink-tertiary" />
+          <span className="text-[13px] font-medium text-ink">Live Activity</span>
+          <span className="ml-auto flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-ink-faint" />
+            <span className="text-[10px] text-ink-faint">Standby</span>
+          </span>
+        </div>
+        <p className="text-[12px] text-ink-tertiary text-center py-4">
+          No recent activity — agent events will appear here in real time.
+        </p>
       </div>
     );
   }

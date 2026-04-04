@@ -105,6 +105,17 @@ function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
   );
 }
 
+function ScrollToTop() {
+  const location = useLocation();
+  useEffect(() => {
+    // Scroll the main content area to top on route change
+    const main = document.querySelector('main .overflow-y-auto');
+    if (main) main.scrollTop = 0;
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+  return null;
+}
+
 function AnimatedRoutes() {
   const location = useLocation();
   return (
@@ -166,6 +177,7 @@ export default function App() {
 
   return (
     <SimulationProvider>
+      <ScrollToTop />
       <div className="flex h-screen overflow-hidden">
         {/* Desktop sidebar — hidden on full-bleed pages */}
         {!isFullBleed && (
